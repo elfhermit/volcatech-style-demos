@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+<title>Volcatech — Cloud &amp; Security on Google Cloud</title>
+<meta name="description" content="Volcatech helps European enterprises run on Google Cloud and stay secure — cloud services, EDR/SIEM security products, and 24/7 managed SOC.">
+<style>
+/* ===== Style 1: Zurich Grid — Swiss catalog, rational & precise =====
+   Production build self-hosts fonts via @fontsource (GDPR). Demo uses system fallbacks. */
+:root{
+  --bg:#F7F7F5; --surface:#FFFFFF; --ink:#1A1A1A; --muted:#55606E;
+  --line:#DCDCDC; --accent:#1D4ED8;
+  --font-display:'Space Grotesk','Noto Sans TC',ui-sans-serif,system-ui,'Helvetica Neue',Arial,sans-serif;
+  --font-body:'Inter','Noto Sans TC',ui-sans-serif,system-ui,'Helvetica Neue',Arial,sans-serif;
+  --max:1200px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.6}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--font-display);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.code{font-family:var(--font-display);font-weight:700;color:var(--accent);letter-spacing:.04em}
+.btn{display:inline-block;background:var(--accent);color:#fff;font-family:var(--font-display);font-weight:600;
+  font-size:15px;padding:14px 28px;border:1px solid var(--accent);border-radius:4px}
+.btn:hover{background:#1742AE}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+/* Header */
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:50}
+.nav{display:flex;align-items:center;gap:32px;height:68px}
+.logo{font-family:var(--font-display);font-weight:700;font-size:19px;letter-spacing:.12em}
+.menu{display:flex;gap:26px;margin-left:auto;align-items:center}
+.menu>li{list-style:none;position:relative}
+.menu a{font-size:15px;padding:8px 2px}
+.menu a[aria-current="page"]{border-bottom:2px solid var(--accent)}
+.menu a:hover{color:var(--accent)}
+.dd>a::after{content:" ▾";font-size:11px;color:var(--muted)}
+.dd ul{display:none;position:absolute;top:100%;left:0;background:var(--surface);border:1px solid var(--line);
+  min-width:230px;padding:10px 0;list-style:none}
+.dd:hover ul,.dd:focus-within ul{display:block}
+.dd ul a{display:block;padding:9px 18px;font-size:14px}
+.dd ul a:hover{background:var(--bg)}
+.dd .grp{padding:9px 18px 4px;font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.lang{font-size:13px;color:var(--muted);letter-spacing:.05em}
+.lang b{color:var(--ink)}
+.navbtn{display:none;margin-left:auto;background:none;border:1px solid var(--ink);border-radius:4px;
+  padding:8px 14px;font-family:var(--font-display);font-size:14px;cursor:pointer}
+/* Hero — signature: visible fine grid + catalog codes */
+.hero{border-bottom:1px solid var(--line);
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:72px 72px;background-position:center top}
+.hero .wrap{padding:96px 24px 72px}
+.hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,6vw,72px);line-height:1.05;
+  letter-spacing:-.01em;max-width:16ch}
+.hero p{margin-top:24px;max-width:58ch;font-size:19px;color:var(--muted)}
+.hero .cta{margin-top:40px;display:flex;gap:16px;flex-wrap:wrap}
+/* Product lines — 3-second rule */
+.lines{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
+.line{border-left:1px solid var(--line);padding:48px 32px 56px;background:var(--surface)}
+.line:first-child{border-left:none}
+.line .code{font-size:44px;display:block;line-height:1}
+.line h2{font-family:var(--font-display);font-size:24px;margin-top:20px}
+.line p{margin-top:10px;color:var(--muted);font-size:15px}
+.line a{display:inline-block;margin-top:22px;font-family:var(--font-display);font-weight:600;color:var(--accent)}
+.line a:hover{text-decoration:underline}
+/* Sections */
+section .wrap{padding:96px 24px}
+.sec-h{display:grid;grid-template-columns:1fr 2fr;gap:40px;margin-bottom:48px}
+.sec-h h2{font-family:var(--font-display);font-size:clamp(28px,3.4vw,40px);line-height:1.15}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
+.cols3>div{border-bottom:1px solid var(--line);border-left:1px solid var(--line);padding:32px 28px;background:var(--surface)}
+.cols3>div:first-child{border-left:none}
+.cols3 h3{font-family:var(--font-display);font-size:19px}
+.cols3 p{margin-top:10px;font-size:15px;color:var(--muted)}
+.todo{color:var(--muted);font-size:13px;border:1px dashed var(--line);padding:2px 8px;border-radius:3px}
+/* Trust + vendors */
+.trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface)}
+.trust .wrap{padding:36px 24px;display:flex;gap:14px 40px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.trust b{color:var(--ink);font-weight:600}
+.vendors .wrap{padding:56px 24px;display:flex;gap:20px 48px;flex-wrap:wrap;align-items:center}
+.vendors span{font-family:var(--font-display);font-weight:600;font-size:17px;color:var(--muted);letter-spacing:.03em}
+/* CTA band */
+.band{border-top:1px solid var(--line);background:var(--surface)}
+.band .wrap{padding:88px 24px;display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:center}
+.band h2{font-family:var(--font-display);font-size:clamp(26px,3vw,38px);line-height:1.2}
+.band div:last-child{text-align:right}
+/* Footer */
+footer{border-top:1px solid var(--line)}
+.fcols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;padding:64px 24px}
+.fcols h4{font-family:var(--font-display);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.fcols ul{list-style:none;margin-top:14px}
+.fcols li{margin-top:8px;font-size:14px}
+.fcols a:hover{color:var(--accent)}
+.legal{border-top:1px solid var(--line);padding:20px 24px;font-size:12.5px;color:var(--muted);
+  display:flex;gap:8px 24px;flex-wrap:wrap}
+@media (prefers-reduced-motion:no-preference){
+  .line,.btn{transition:transform .15s ease,background .15s ease}
+  .line:hover{transform:translateY(-2px)}
+}
+@media (max-width:900px){
+  .lines,.cols3,.fcols{grid-template-columns:1fr}
+  .line,.cols3>div{border-left:none}
+  .sec-h,.band .wrap{grid-template-columns:1fr}
+  .band div:last-child{text-align:left}
+  .navbtn{display:block}
+  .menu{display:none;position:absolute;top:68px;left:0;right:0;background:var(--surface);
+    border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;padding:16px 24px;gap:4px}
+  .menu.open{display:flex}
+  .dd ul{display:block;position:static;border:none;padding-left:14px;min-width:0}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">VOLCATECH</a>
+    <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'))">Menu</button>
+    <ul class="menu" id="menu">
+      <li><a href="index.html" aria-current="page">Home</a></li>
+      <li class="dd"><a href="#" aria-haspopup="true">Cloud Services</a>
+        <ul>
+          <li><a href="#" title="Demo scope: style pages only">Overview</a></li>
+          <li><a href="#" title="Demo scope">Compute Engine (VM)</a></li>
+          <li><a href="#" title="Demo scope">Cloud SQL (Database)</a></li>
+          <li><a href="#" title="Demo scope">Cloud Armor (WAF)</a></li>
+        </ul>
+      </li>
+      <li class="dd"><a href="#" aria-haspopup="true">Security Products</a>
+        <ul>
+          <li class="grp">EDR — Endpoint Detection &amp; Response</li>
+          <li><a href="sentinelone.html">SentinelOne</a></li>
+          <li><a href="#" title="Demo scope">ThreatSonar</a></li>
+          <li><a href="#" title="Demo scope">FortiEDR</a></li>
+          <li class="grp">SIEM — Security Info &amp; Event Mgmt</li>
+          <li><a href="#" title="Demo scope">CyberEyes</a></li>
+          <li><a href="#" title="Demo scope">Google SecOps</a></li>
+        </ul>
+      </li>
+      <li class="dd"><a href="#" aria-haspopup="true">Solutions</a>
+        <ul>
+          <li><a href="#" title="Demo scope">SOC — Managed Security</a></li>
+          <li><a href="#" title="Demo scope">Breach &amp; Attack Simulation</a></li>
+          <li><a href="#" title="Demo scope">Penetration Testing</a></li>
+        </ul>
+      </li>
+      <li><a href="#" title="Demo scope">About</a></li>
+      <li><a class="btn" style="padding:10px 20px" href="#" title="Demo scope">Contact Us</a></li>
+      <li class="lang" title="Language switcher — functional in production build"><b>EN</b> | 繁中</li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Volcatech — Cloud &amp; Security Integrator</p>
+      <h1 style="margin-top:20px">Cloud and security for your business, delivered as one.</h1>
+      <p>We help European enterprises run on Google Cloud and stay secure — from infrastructure and
+         data platforms to endpoint protection and a 24/7 security operations center.</p>
+      <div class="cta">
+        <a class="btn" href="#" title="Demo scope">Contact Us</a>
+        <a class="btn btn-ghost" href="#lines">Explore products</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3-second rule: three product lines, immediately -->
+  <div class="lines" id="lines">
+    <div class="line">
+      <span class="code">C</span>
+      <h2>Cloud on Google Cloud</h2>
+      <p>Compute Engine, Cloud SQL and Cloud Armor — designed, migrated and run for you. EU regions available.</p>
+      <a href="#" title="Demo scope">Explore cloud services →</a>
+    </div>
+    <div class="line">
+      <span class="code">E / S</span>
+      <h2>Security Products</h2>
+      <p>EDR and SIEM from SentinelOne, TeamT5, Fortinet, CyberEyes and Google — selected, deployed, tuned.</p>
+      <a href="sentinelone.html">Explore security products →</a>
+    </div>
+    <div class="line">
+      <span class="code">X</span>
+      <h2>Managed Security</h2>
+      <p>24/7 SOC monitoring, breach &amp; attack simulation, and penetration testing as a service.</p>
+      <a href="#" title="Demo scope">Explore solutions →</a>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-h">
+        <p class="eyebrow">Why Volcatech</p>
+        <h2>One partner across the whole stack — from cloud foundation to security operations.</h2>
+      </div>
+      <div class="cols3">
+        <div>
+          <h3>Full stack, one roof</h3>
+          <p>Cloud infrastructure and security are planned together, not bolted on — fewer vendors, fewer gaps.</p>
+        </div>
+        <div>
+          <h3>Google Cloud expertise</h3>
+          <p>Architecture, migration and cost control on GCP. <span class="todo">TODO: partner tier &amp; certifications</span></p>
+        </div>
+        <div>
+          <h3>24/7 SOC operations</h3>
+          <p>Detection, response and reporting run continuously — your EDR and SIEM are watched, not just installed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust">
+    <div class="wrap">
+      <span><b>GDPR-ready</b> by design</span>
+      <span><b>EU data residency</b> available on Google Cloud (europe-west regions)</span>
+      <span class="todo">TODO: ISO 27001 / other certifications</span>
+    </div>
+  </div>
+
+  <div class="vendors">
+    <div class="wrap">
+      <span class="eyebrow" style="width:100%">Vendors we work with</span>
+      <span>Google Cloud</span><span>SentinelOne</span><span>TeamT5</span><span>Fortinet</span><span>CyberEyes</span>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap">
+      <h2>Tell us about your environment — we'll map the path to cloud and coverage.</h2>
+      <div><a class="btn" href="#" title="Demo scope">Contact Us</a></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap fcols">
+    <div>
+      <a class="logo" href="index.html">VOLCATECH</a>
+      <p style="margin-top:14px;font-size:14px;color:var(--muted);max-width:34ch">Cloud and security for European enterprises, delivered as one.</p>
+    </div>
+    <div><h4>Cloud</h4><ul><li><a href="#">Compute Engine</a></li><li><a href="#">Cloud SQL</a></li><li><a href="#">Cloud Armor</a></li></ul></div>
+    <div><h4>Security</h4><ul><li><a href="sentinelone.html">SentinelOne</a></li><li><a href="#">ThreatSonar</a></li><li><a href="#">FortiEDR</a></li><li><a href="#">CyberEyes</a></li><li><a href="#">Google SecOps</a></li></ul></div>
+    <div><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">Contact</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+  </div>
+  <div class="legal wrap">
+    <span>© 2026 Volcatech Co., Ltd.</span>
+    <span>Company reg. [TODO]</span><span>VAT [TODO]</span>
+    <span><a href="#">Privacy Policy</a></span>
+    <span style="margin-left:auto"><a href="../index.html">← All style demos</a></span>
+  </div>
+</footer>
+</body>
+</html>

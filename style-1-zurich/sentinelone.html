@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+<title>SentinelOne Singularity (EDR) — Volcatech</title>
+<meta name="description" content="AI-powered endpoint detection and response, deployed and operated by Volcatech with 24/7 SOC integration.">
+<style>
+:root{
+  --bg:#F7F7F5; --surface:#FFFFFF; --ink:#1A1A1A; --muted:#55606E;
+  --line:#DCDCDC; --accent:#1D4ED8;
+  --font-display:'Space Grotesk','Noto Sans TC',ui-sans-serif,system-ui,'Helvetica Neue',Arial,sans-serif;
+  --font-body:'Inter','Noto Sans TC',ui-sans-serif,system-ui,'Helvetica Neue',Arial,sans-serif;
+  --max:1200px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.6}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--font-display);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.btn{display:inline-block;background:var(--accent);color:#fff;font-family:var(--font-display);font-weight:600;
+  font-size:15px;padding:14px 28px;border:1px solid var(--accent);border-radius:4px}
+.btn:hover{background:#1742AE}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:50}
+.nav{display:flex;align-items:center;gap:32px;height:68px}
+.logo{font-family:var(--font-display);font-weight:700;font-size:19px;letter-spacing:.12em}
+.menu{display:flex;gap:26px;margin-left:auto;align-items:center}
+.menu>li{list-style:none;position:relative}
+.menu a{font-size:15px;padding:8px 2px}
+.menu a[aria-current="page"]{border-bottom:2px solid var(--accent)}
+.menu a:hover{color:var(--accent)}
+.dd>a::after{content:" ▾";font-size:11px;color:var(--muted)}
+.dd ul{display:none;position:absolute;top:100%;left:0;background:var(--surface);border:1px solid var(--line);
+  min-width:230px;padding:10px 0;list-style:none}
+.dd:hover ul,.dd:focus-within ul{display:block}
+.dd ul a{display:block;padding:9px 18px;font-size:14px}
+.dd ul a:hover{background:var(--bg)}
+.dd .grp{padding:9px 18px 4px;font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.lang{font-size:13px;color:var(--muted);letter-spacing:.05em}
+.lang b{color:var(--ink)}
+.navbtn{display:none;margin-left:auto;background:none;border:1px solid var(--ink);border-radius:4px;
+  padding:8px 14px;font-family:var(--font-display);font-size:14px;cursor:pointer}
+/* Product hero — signature giant catalog code */
+.phero{border-bottom:1px solid var(--line);
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:72px 72px}
+.phero .wrap{padding:80px 24px;display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:start}
+.bigcode{font-family:var(--font-display);font-weight:700;font-size:clamp(72px,12vw,150px);line-height:.9;
+  color:var(--accent);letter-spacing:-.02em}
+.phero h1{font-family:var(--font-display);font-size:clamp(32px,4.6vw,56px);line-height:1.08}
+.phero .vendor{margin-top:12px;font-size:14px;color:var(--muted)}
+.phero .tag{margin-top:18px;font-size:19px;max-width:52ch;color:var(--muted)}
+.phero .cta{margin-top:32px;display:flex;gap:16px;flex-wrap:wrap}
+section .wrap{padding:88px 24px}
+.sec-h{display:grid;grid-template-columns:1fr 2fr;gap:40px;margin-bottom:44px}
+.sec-h h2{font-family:var(--font-display);font-size:clamp(26px,3.2vw,36px);line-height:1.15}
+.rows{border-top:1px solid var(--line)}
+.rows>div{border-bottom:1px solid var(--line);padding:26px 8px;display:grid;grid-template-columns:56px 1fr;gap:20px}
+.rows .n{font-family:var(--font-display);font-weight:700;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.grid2>div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface);padding:30px 28px}
+.grid2 h3{font-family:var(--font-display);font-size:18px}
+.grid2 p{margin-top:8px;font-size:15px;color:var(--muted)}
+.todo{color:var(--muted);font-size:13px;border:1px dashed var(--line);padding:2px 8px;border-radius:3px}
+.band{border-top:1px solid var(--line);background:var(--surface)}
+.band .wrap{padding:72px 24px;display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:center}
+.band h2{font-family:var(--font-display);font-size:clamp(24px,3vw,34px);line-height:1.2}
+.band div:last-child{text-align:right}
+.ext{border-top:1px solid var(--line)}
+.ext .wrap{padding:28px 24px;font-size:14px;color:var(--muted)}
+.ext a{color:var(--accent);font-weight:600}
+footer{border-top:1px solid var(--line)}
+.legal{padding:20px 24px;font-size:12.5px;color:var(--muted);display:flex;gap:8px 24px;flex-wrap:wrap}
+@media (max-width:900px){
+  .phero .wrap,.sec-h,.grid2,.band .wrap{grid-template-columns:1fr}
+  .band div:last-child{text-align:left}
+  .navbtn{display:block}
+  .menu{display:none;position:absolute;top:68px;left:0;right:0;background:var(--surface);
+    border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;padding:16px 24px;gap:4px}
+  .menu.open{display:flex}
+  .dd ul{display:block;position:static;border:none;padding-left:14px;min-width:0}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">VOLCATECH</a>
+    <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'))">Menu</button>
+    <ul class="menu" id="menu">
+      <li><a href="index.html">Home</a></li>
+      <li class="dd"><a href="#" aria-haspopup="true">Cloud Services</a>
+        <ul><li><a href="#" title="Demo scope">Overview</a></li><li><a href="#" title="Demo scope">Compute Engine (VM)</a></li>
+        <li><a href="#" title="Demo scope">Cloud SQL (Database)</a></li><li><a href="#" title="Demo scope">Cloud Armor (WAF)</a></li></ul>
+      </li>
+      <li class="dd"><a href="#" aria-current="page" aria-haspopup="true">Security Products</a>
+        <ul>
+          <li class="grp">EDR — Endpoint Detection &amp; Response</li>
+          <li><a href="sentinelone.html" aria-current="page">SentinelOne</a></li>
+          <li><a href="#" title="Demo scope">ThreatSonar</a></li>
+          <li><a href="#" title="Demo scope">FortiEDR</a></li>
+          <li class="grp">SIEM — Security Info &amp; Event Mgmt</li>
+          <li><a href="#" title="Demo scope">CyberEyes</a></li>
+          <li><a href="#" title="Demo scope">Google SecOps</a></li>
+        </ul>
+      </li>
+      <li class="dd"><a href="#" aria-haspopup="true">Solutions</a>
+        <ul><li><a href="#" title="Demo scope">SOC — Managed Security</a></li>
+        <li><a href="#" title="Demo scope">Breach &amp; Attack Simulation</a></li>
+        <li><a href="#" title="Demo scope">Penetration Testing</a></li></ul>
+      </li>
+      <li><a href="#" title="Demo scope">About</a></li>
+      <li><a class="btn" style="padding:10px 20px" href="#" title="Demo scope">Contact Us</a></li>
+      <li class="lang"><b>EN</b> | 繁中</li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="phero">
+    <div class="wrap">
+      <div class="bigcode">E-01</div>
+      <div>
+        <p class="eyebrow">Security Products / EDR</p>
+        <h1 style="margin-top:14px">SentinelOne Singularity</h1>
+        <p class="vendor">Vendor: SentinelOne · Category: Endpoint Detection &amp; Response</p>
+        <p class="tag">AI-powered endpoint protection that detects and stops attacks at machine speed —
+          and restores affected endpoints when ransomware strikes.</p>
+        <div class="cta">
+          <a class="btn" href="#" title="Demo scope">Request a demo</a>
+          <a class="btn btn-ghost" href="#" title="Demo scope">Talk to our team</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-h"><p class="eyebrow">Pain points</p>
+        <h2>The problems this solves for your security team.</h2></div>
+      <div class="rows">
+        <div><span class="n">01</span><p>Alert fatigue: analysts drown in noisy detections and triage takes hours, not minutes.</p></div>
+        <div><span class="n">02</span><p>Ransomware moves faster than any manual response process can react.</p></div>
+        <div><span class="n">03</span><p>Mixed fleets of Windows, macOS and Linux endpoints leave blind spots between tools.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-top:1px solid var(--line)">
+    <div class="wrap">
+      <div class="sec-h"><p class="eyebrow">Key capabilities</p>
+        <h2>What Singularity does on every endpoint.</h2></div>
+      <div class="grid2">
+        <div><h3>Behavioral AI detection</h3><p>Identifies malicious behavior on the device itself — no waiting for signature updates or cloud round-trips.</p></div>
+        <div><h3>Autonomous response</h3><p>Kills, quarantines and isolates in real time, before an analyst even opens the alert.</p></div>
+        <div><h3>Ransomware rollback</h3><p>Reverts endpoints and encrypted files to their pre-attack state on supported platforms.</p></div>
+        <div><h3>Full attack context</h3><p>Every process, file and connection is correlated into one storyline your team can read at a glance.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-top:1px solid var(--line)">
+    <div class="wrap">
+      <div class="sec-h"><p class="eyebrow">Business benefits</p>
+        <h2>What changes after deployment.</h2></div>
+      <div class="rows">
+        <div><span class="n">→</span><p><b>Minutes, not hours:</b> mean time to respond drops sharply when containment is autonomous.</p></div>
+        <div><span class="n">→</span><p><b>Leaner operations:</b> automated triage frees your analysts for real investigation work.</p></div>
+        <div><span class="n">→</span><p><b>Faster recovery:</b> rollback shortens downtime after ransomware attempts — without paying anyone.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-top:1px solid var(--line);background:var(--surface)">
+    <div class="wrap">
+      <div class="sec-h"><p class="eyebrow">Why deploy with Volcatech</p>
+        <h2>A product is only as good as its operation.</h2></div>
+      <p style="max-width:68ch;color:var(--muted)">We connect SentinelOne to our 24/7 SOC (X-01), tune detections for your
+        environment, and handle rollout across your fleet. <span class="todo">TODO: local references &amp; delivery details</span></p>
+    </div>
+  </section>
+
+  <div class="ext"><div class="wrap">Vendor resources: <a href="https://www.sentinelone.com" target="_blank" rel="noopener">sentinelone.com ↗</a></div></div>
+
+  <div class="band">
+    <div class="wrap">
+      <h2>See Singularity in your environment — book a guided demo.</h2>
+      <div><a class="btn" href="#" title="Demo scope">Request a demo</a></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="legal wrap">
+    <span>© 2026 Volcatech Co., Ltd.</span><span>Company reg. [TODO]</span><span>VAT [TODO]</span>
+    <span><a href="#">Privacy Policy</a></span>
+    <span style="margin-left:auto"><a href="index.html">← Style home</a> · <a href="../index.html">All styles</a></span>
+  </div>
+</footer>
+</body>
+</html>

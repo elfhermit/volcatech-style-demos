@@ -1,0 +1,9 @@
+.DS_Store
+Thumbs.db
+node_modules/
+dist/
+.env
+*.log
+
+# 內部規劃文件:不推上 public repo(本機檔案仍保留,不受影響)
+docs/
