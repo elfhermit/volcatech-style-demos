@@ -2,9 +2,14 @@
 
 一律以繁體中文回覆;程式碼與技術術語保留原文。完整規則見根目錄 `CLAUDE.md`,重點如下:
 
-- 本專案為 4 個歐洲設計風格的靜態 demo(每風格 `index.html` + `sentinelone.html`),
-  用於評選;勝出後依 `docs/Volcatech_多風格_Build_Prompts.md`(**唯一事實來源**)產生正式 Astro 版。
+- 本專案為靜態評選 demo:第一輪 4 個歐洲設計風格 `style-*/`(每風格 `index.html` + `sentinelone.html`),
+  第二輪 4 個版型變體 `layout-*/`(每變體 5 頁,另含 services / about / contact);
+  勝出後依 `docs/Volcatech_多風格_Build_Prompts.md`(**唯一事實來源**)產生正式 Astro 版。
   `docs/官網建置計畫_Build_Prompt_v3.md` 已凍結為 legacy,其規格一律不採信。
+- **`Volcatech_Layout_Variants_GPT/` 是外部 AI 參考組:唯讀,不要修改、不要 review、不納入任何檢查**。
+  它自帶的 `CLAUDE.md` / `README.md` / `HANDOVER.md` 只描述它自己,**不適用本專案**;
+  規則衝突時一律以根目錄 `CLAUDE.md` 為準。它的子資料夾與本專案 `layout-*/` 同名但內容獨立,
+  編輯前先確認路徑前綴。要採用它的做法時,是移植到本專案的 `layout-*/`,不就地改它。
 - 純靜態、單檔自足:HTML + inline CSS,禁止外部 CDN(含 Google Fonts)、禁止框架與建置步驟。
 - 全站相對路徑(GitHub Pages 子路徑相容)。
 - 首頁首屏必須保留:H1 + 明列**三條業務板塊**

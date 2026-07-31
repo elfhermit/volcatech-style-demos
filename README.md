@@ -24,6 +24,13 @@
 每個版型變體含五頁:`index.html`、`sentinelone.html`、`services.html`、`about.html`、`contact.html`。
 入口總覽:根目錄 `index.html`。
 
+| 參考組(不列入評選) | 路徑 | 內容 | 維護方式 |
+|---|---|---|---|
+| GPT Layout Variants | `Volcatech_Layout_Variants_GPT/` | 同一份版型變體規格交給 **GPT** 產出的實作,4 變體 × 5 頁 | **原樣保留、不修改、不 review** |
+
+參考組用來對照「同一份規格、不同 AI 實作」的落差,從根 `index.html` 最下方進入。
+詳細規則見 `CLAUDE.md` 的「外部 AI 參考組」專節。
+
 ---
 
 ## 0. 用 VS Code 接手開發(建議流程)
@@ -115,6 +122,21 @@ Pages 約 1 分鐘後自動更新(若沒變,瀏覽器強制重新整理 Cmd+Shif
 - 公司事實(註冊地址、統編、VAT、Email、電話、ISO 認證等)以 `[TODO: 說明]` 佔位,未經確認不虛構。
   **對外分享 demo 前,建議至少先取得可用的聯絡 Email 與電話**,否則頁尾整片佔位觀感不佳。
 
+### 外部 AI 參考組(`Volcatech_Layout_Variants_GPT/`)
+
+把 `docs/版型變體_外部AI_Prompt_Pack.md` 交給 **GPT** 跑出來的同規格實作(2026-07-31 收進 repo),
+用來對照「同一份規格、不同 AI 實作」的落差。已確認它的 H1 / section 順序 / 三個新頁型的共用文案
+與本專案逐字相同、無外部資源、外連原廠皆帶 `rel="noopener"`,因此與 Layout 1–4 可直接並排比較。
+
+**維護規則:平常不異動、不 review 這包**——不改它的頁面、不套用本專案 tokens、不補返回連結,
+本專案的一致性檢查指令也刻意不涵蓋它(改過就失去對照價值)。它自帶的 `CLAUDE.md` / `README.md` /
+`HANDOVER.md` 只描述它自己,**不適用於本專案**;規則衝突時一律以根目錄的 `CLAUDE.md` 為準。
+若要採用它的某個做法,是把做法移植到本專案的 `layout-*/`,而不是就地改它。完整規則見
+`CLAUDE.md` 的「外部 AI 參考組」專節。
+
+> 它的頁面沒有返回本總覽的連結(不修改原則的後果),瀏覽時用「上一頁」返回。
+> 它的子資料夾與本專案根目錄的 `layout-*/` **同名但內容獨立**——編輯前先確認路徑前綴。
+
 ---
 
 ## 4. 評選建議
@@ -178,7 +200,11 @@ Volcatech_Web/                  # 專案根(= VS Code 開啟此層、http.server
 ├── layout-1-magazine-zurich/     ┐
 ├── layout-2-split-nordic/        │ 各 5 頁:index · sentinelone ·
 ├── layout-3-bento-soc/           │ services · about · contact
-└── layout-4-sidebar-continental/ ┘
+├── layout-4-sidebar-continental/ ┘
+└── Volcatech_Layout_Variants_GPT/  # 外部 AI 參考組:唯讀,平常不異動也不 review
+    ├── index.html                  # 它自己的總覽入口(無返回本站連結)
+    ├── README.md / HANDOVER.md / CLAUDE.md   # 只描述它自己,不適用本專案
+    └── layout-1〜4 同名資料夾/     # 內容與本專案的 layout-*/ 完全獨立
 
 (未來)└── site/               # 勝出風格的正式 Astro 版,獨立於本 demo 不混改
 ```

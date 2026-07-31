@@ -15,6 +15,8 @@
 另有**第二輪「版型變體」評選** `layout-1`〜`layout-4`:色系與導覽語彙沿用同號 style、
 **只換版型框架**,每變體 5 頁(另含 `services.html` / `about.html` / `contact.html`);
 「style-N vs layout-N」是唯一變因為版型的對照組。正本:`docs/Volcatech_版型變體_Build_Prompts.md`。
+此外根目錄另有**外部 AI 參考組** `Volcatech_Layout_Variants_GPT/`:同一份版型變體規格交給 GPT 產出的實作,
+**唯讀參考、不屬本專案維護範圍**——規則見下方專節。
 
 - 目標受眾:歐洲企業的 IT / 資安決策者;語言英文為主(正式版另有繁中 /zh-tw/,架構須可擴充更多語系)
 - 新官網將**改版取代**現有 volcatech.com
@@ -76,6 +78,28 @@ layout-3(Bento)=style-3、layout-4(固定側欄)=style-4;版型模組定義見 `
   style-2 無頂層 `Home`;style-3 的 `Arsenal` 等維運術語。
 - 改任一風格的共用文案 → **四風格必須一起改**,並重跑 §驗證方式 的文案一致性檢查。
 
+## 外部 AI 參考組:`Volcatech_Layout_Variants_GPT/`(唯讀,平常不動它)
+
+**是什麼**:把 `docs/版型變體_外部AI_Prompt_Pack.md`(自足式規格)交給 GPT 跑出來的版型變體實作,
+2026-07-31 收進本 repo。結構與第二輪相同:4 個變體 × 5 頁,外加它自己的
+`index.html` / `README.md` / `HANDOVER.md` / `CLAUDE.md`。用途是對照「同一份規格、不同 AI 實作」的落差。
+
+**平常不需要異動它,也不需要 review 它**——除非使用者明確指名要改這包或要比對它:
+
+1. **不修改**:不改它的 HTML、不改它的文案、不套用本專案的 tokens、不幫它補返回連結、不做無障礙修補。
+   它是外部產出的原始樣本,改過就失去對照價值。發現問題只回報,不動手。
+2. **不 review**:本檔 §驗證方式 的一致性檢查與品質檢查**不涵蓋這包**——
+   那些指令的 glob(`style-*/` 與 `layout-*/`)本來就掃不到它,**不要為了「檢查完整」把它加進去**。
+3. **它自帶的文件不適用於本專案**:`Volcatech_Layout_Variants_GPT/CLAUDE.md` 會被 Claude Code
+   自動載入,但那是它自己的 scope 說明(只講 `layout-*/`),**本專案的規則一律以根目錄本檔為準**;
+   兩者衝突時以本檔為準,也不要去修它那份。它的 README / HANDOVER 同理。
+4. **不是評選對象**:第一輪比色系(style-*)、第二輪比版型(layout-*),這包是參考資料,
+   不進評選也不進「四風格一致性鐵則」的管轄範圍。根 `index.html` 已標明「參考,不列入評選」。
+5. **有交集時的正確做法**:若決定採用它的某個做法,是把做法**移植到本專案的 `layout-*/`**,
+   而不是就地改它;若要拿它跟本專案比對,產出的報告放 `docs/reports/`(帶日期),不要落在它資料夾內。
+6. **命名不會撞**:它的 `layout-1-magazine-zurich/` 等子資料夾與本專案根目錄的同名資料夾**內容完全獨立**,
+   改本專案的 `layout-*/` 不影響它,反之亦然。編輯前先確認路徑是否含 `Volcatech_Layout_Variants_GPT/` 前綴。
+
 ## 常見任務怎麼做
 
 - **微調某風格**:只改該資料夾兩個 html 的 `:root` tokens 與相關 CSS;兩頁需同步。
@@ -105,15 +129,27 @@ layout-3(Bento)=style-3、layout-4(固定側欄)=style-4;版型模組定義見 `
 | 一次性腳本、比對報告、體檢輸出 | 臨時 → scratchpad;要保留 → `docs/reports/`(檔名帶日期) |
 | 某風格/版型的頁面與資產 | 只在對應 `style-*/` 或 `layout-*/` 內 |
 | 勝出風格的正式 Astro 版 | 新資料夾 `site/`,**不改動本 demo** |
+| 制度檔(本檔、HANDOVER.md 等)修改前的備份 | `docs/backups/`,檔名加 `.bak-YYYYMMDD`(即全域維護協議所稱「專案備份目錄」的本專案對應) |
+| 外部 AI 產出的整包參考實作 | 根目錄獨立資料夾,原樣保留不拆解(現有:`Volcatech_Layout_Variants_GPT/`) |
 
 根目錄只允許:`index.html`、`README.md`、`CLAUDE.md`、`HANDOVER.md`、`.gitignore`、`.nojekyll` 與上表資料夾
 (`.vscode/`、`.github/` 除外)。**不要在根目錄新增散檔**;`.DS_Store` 等系統檔已由 `.gitignore` 排除。
+外部 AI 參考組是根目錄唯一容許的例外型資料夾(規則見上方專節),新增同類參考包時比照辦理:
+整包放根目錄、名稱標明來源、在本檔與 README 的結構圖登記、根 `index.html` 標「參考,不列入評選」。
+
+根目錄文件分工:`README.md` = 對外接手指南(本機預覽與 GitHub Pages 部署步驟的正本、專案結構圖);
+`HANDOVER.md` = 進度與交接速查(規格正本仍在 `docs/`);
+`.github/copilot-instructions.md` = 本檔硬性規則的濃縮副本(供 GitHub Copilot 使用者)。
 
 **版控範圍**:demo 推到 public repo 供評選瀏覽,`docs/` 已列入 `.gitignore`
 (內部建置計畫不對外),因此**頁面內不得連結 `docs/` 內的檔案**,否則線上會是死連結。
 `.nojekyll` 用於關閉 GitHub Pages 的 Jekyll 處理,勿刪。
 
 ## 驗證方式(改完必做)
+
+> **檢查範圍**:只含根 `index.html`、`style-*/`、`layout-*/`。
+> `Volcatech_Layout_Variants_GPT/` 是外部參考組,**不在檢查範圍內**——下列指令的 glob 刻意不涵蓋它,
+> 不要為了湊「全站掃過」而把它加進去(理由見上方外部 AI 參考組專節)。
 
 ```bash
 python3 -m http.server 8000   # 開 http://localhost:8000 逐頁檢查(含 390px 寬)

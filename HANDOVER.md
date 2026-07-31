@@ -1,8 +1,10 @@
 # Volcatech 官網風格 Demo 接手指引 (Handover)
 
-> **最後更新**：2026-07-30
+> **最後更新**：2026-07-31
 > **本檔定位**：進度速查與接手指令集。
 > **規格正本是 `docs/Volcatech_多風格_Build_Prompts.md`**——本檔與它衝突時，一律以它為準。
+> **例外資料夾**：`Volcatech_Layout_Variants_GPT/` 是外部 AI 參考組，**唯讀、平常不異動也不 review**
+> （規則見 `CLAUDE.md` 的「外部 AI 參考組」專節）；本檔所有任務與檢查指令皆不涵蓋它。
 
 ---
 
@@ -84,6 +86,14 @@
       對比、鍵盤走查）仍需人工確認**。規格正本 `docs/Volcatech_版型變體_Build_Prompts.md`；
       挑選背景 `docs/版型框架挑選指南.md`；給外部 AI（ChatGPT/Gemini）跑的自足式 prompt 在
       `docs/版型變體_外部AI_Prompt_Pack.md`。
+- [x] **任務 1c：外部 AI 參考組收錄——已完成（2026-07-31）**：
+      上述 prompt pack 交給 **GPT** 產出的同規格實作（4 變體 × 5 頁 + 它自己的 index/README/
+      HANDOVER/CLAUDE）以 `Volcatech_Layout_Variants_GPT/` 原樣收進 repo，已在根 `index.html`
+      最下方建立入口並標明「參考，不列入評選」。機械核對通過：H1 逐字相同 ×4、section 順序
+      八段一致、三個新頁型共用文案各 ×4、CTA 用語正確、無外部資源、`繁中` 皆帶 `lang`、
+      inline `<script>` 只出現在它的 layout-4（與本專案同規格）。
+      **此包唯讀：平常不異動、不 review、不納入一致性檢查**——採用它的做法時是移植到本專案的
+      `layout-*/`，不就地改它。規則正本在 `CLAUDE.md`「外部 AI 參考組」專節。
 - [ ] **任務 4：建置正式版 Astro 專案**於 `site/`。用下方 Prompt C。
 - [ ] （未來）繁體中文版與更多語系：i18n 架構已要求語系清單集中於單一陣列，新增語系不需改元件。
 
@@ -102,6 +112,7 @@ index.html 與 sentinelone.html 做檢查：
 ② 跑完 CLAUDE.md「四風格一致性檢查」一節的所有指令
 ③ 390 / 768 / 1024 / 1440px 無水平捲軸
 ④ 確認頁面無任何外部資源請求
+檢查範圍不含 Volcatech_Layout_Variants_GPT/（外部參考組，唯讀不 review）。
 回報每項 PASS/FAIL 與證據，不要順手改檔案。
 ```
 
@@ -144,4 +155,6 @@ python3 -m http.server 8000
 # Style 2 (Nordic)：      http://localhost:8000/style-2-nordic/
 # Style 3 (SOC)：         http://localhost:8000/style-3-soc/
 # Style 4 (Continental)： http://localhost:8000/style-4-continental/
+# Layout 1–4：            http://localhost:8000/layout-1-magazine-zurich/ …（依此類推）
+# 外部 AI 參考組：        http://localhost:8000/Volcatech_Layout_Variants_GPT/
 ```
