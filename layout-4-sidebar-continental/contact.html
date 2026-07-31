@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+<title>Contact — Volcatech</title>
+<meta name="description" content="Tell us about your environment and what you want to change — one team for cloud, security and 24/7 operations.">
+<style>
+/* ===== Layout 4: Fixed Sidebar × Continental Spec =====
+   Sidebar = permanent table of contents (§1–§3, all 19 leaves); content = DIN document.
+   :root tokens copied verbatim from style-4-continental — colour system is the control
+   variable of this A/B pair, do not edit. Production self-hosts fonts via @fontsource. */
+:root{
+  --bg:#FFFFFF; --surface:#F3F4F6; --ink:#14181D; --muted:#57606A;
+  --line:#D5D9DE; --accent:#0F3D8A; --rule:#C8102E;
+  --disp:'Barlow','Noto Sans TC','Arial Narrow',ui-sans-serif,system-ui,Arial,sans-serif;
+  --body:'Inter','Noto Sans TC',ui-sans-serif,system-ui,'Helvetica Neue',Arial,sans-serif;
+  --max:1160px;
+  --px:36px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.65;
+  border-top:3px solid var(--rule)}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--accent);outline-offset:3px}
+[id]{scroll-margin-top:20px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--px)}
+.secno{font-family:var(--disp);font-weight:600;font-size:13px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.secno b{color:var(--rule);font-weight:700;margin-right:10px}
+.doc{font-family:var(--disp);font-weight:600;font-size:12.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.btn{display:inline-block;background:var(--accent);color:#fff;font-family:var(--disp);font-weight:600;
+  font-size:15px;letter-spacing:.02em;padding:14px 28px;border:1px solid var(--accent);border-radius:2px;cursor:pointer}
+.btn:hover{background:#0B2F6C}
+.btn-ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.btn-ghost:hover{background:var(--surface)}
+.todo{color:var(--muted);font-size:13px;border:1px dashed var(--line);padding:2px 8px;border-radius:2px}
+/* Shell: fixed sidebar (the document's TOC) + scrolling content column */
+.shell{display:grid;grid-template-columns:260px minmax(0,1fr)}
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;background:#fff;
+  border-right:1px solid var(--line);padding:26px 20px 22px;display:flex;flex-direction:column}
+.logo{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:.06em;text-transform:uppercase}
+.side-co{margin-top:2px;font-size:11.5px;color:var(--muted);letter-spacing:.03em}
+.side-label{margin-top:24px;padding-top:10px;border-top:2px solid var(--rule);
+  font-family:var(--disp);font-weight:600;font-size:10.5px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.toc{list-style:none;margin-top:4px}
+.toc ul{list-style:none}
+.toc a{display:block;padding:5px 8px 5px 10px;border-left:2px solid transparent;
+  font-size:13px;color:var(--muted);line-height:1.5}
+.toc a:hover{color:var(--accent)}
+.toc a[aria-current]{border-left-color:var(--rule);background:var(--surface);color:var(--ink);font-weight:600}
+.toc .chap>a{font-family:var(--disp);font-weight:600;font-size:14px;color:var(--ink);margin-top:12px}
+.toc .chap>a:hover{color:var(--accent)}
+.toc .grp{padding:9px 8px 2px 10px;font-family:var(--disp);font-weight:600;font-size:10px;
+  letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.toc .chaplbl{display:block;margin-top:12px;padding:5px 8px 0 10px;
+  font-family:var(--disp);font-weight:600;font-size:14px;color:var(--ink)}
+.side-cta{margin-top:24px;text-align:center;padding:12px 16px}
+.side-legal{margin-top:20px;border-top:1px solid var(--line);padding-top:14px;font-size:12px;color:var(--muted)}
+.side-legal .row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.side-legal .row a{color:var(--muted)}
+.side-legal .row a:hover{color:var(--accent)}
+/* Language switcher — real links, not decorative text */
+.lang{display:flex;align-items:center;font-size:12px;margin-top:8px}
+.lang a{padding:2px 9px;color:var(--muted)}
+.lang a:first-child{padding-left:0}
+.lang a+a{border-left:1px solid var(--line)}
+.lang a[aria-current="true"]{color:var(--ink);font-weight:600}
+.lang a:hover{color:var(--accent)}
+/* Mobile top bar — the sidebar collapses into a drawer below 768px */
+.mobilebar{display:none}
+.navbtn{background:none;border:1px solid var(--line);border-radius:2px;padding:8px 14px;
+  font-family:var(--disp);font-size:14px;cursor:pointer}
+/* Document head (per page) */
+.dochead .wrap{padding:64px var(--px) 56px}
+.rulebar{height:2px;background:var(--rule);width:72px;margin:20px 0 24px}
+h1{font-family:var(--disp);font-weight:700;font-size:clamp(34px,4.6vw,58px);line-height:1.05;
+  letter-spacing:-.005em;max-width:20ch}
+.sub{margin-top:20px;max-width:60ch;font-size:18px;color:var(--muted)}
+/* Sections — numbered chapters */
+section{border-top:1px solid var(--line)}
+section .wrap{padding:72px var(--px)}
+h2.sec{font-family:var(--disp);font-weight:700;font-size:clamp(24px,3.2vw,36px);line-height:1.12;margin-top:14px;max-width:30ch}
+h2.sec .no{color:var(--rule);margin-right:10px}
+/* Contact-details table */
+.tscroll{overflow-x:auto;margin-top:36px}
+.facts{border:1px solid var(--line);border-radius:2px;max-width:760px;width:100%;border-collapse:collapse}
+.facts td{padding:10px 18px;font-size:14px;border:1px solid var(--line)}
+.facts td:first-child{width:32%;background:var(--surface);color:var(--muted);font-family:var(--disp);
+  font-weight:600;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase}
+/* Demo enquiry form (static — not connected) */
+.form{margin-top:34px;max-width:760px}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.wide{grid-column:1/-1}
+.field label{font-family:var(--disp);font-weight:600;font-size:11.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted)}
+.field input,.field select,.field textarea{font-family:var(--body);font-size:15px;color:var(--ink);
+  background:#fff;border:1px solid var(--line);border-radius:2px;padding:10px 12px;width:100%}
+.field textarea{min-height:140px;resize:vertical}
+.fsubmit{margin-top:22px}
+.form .btn[disabled]{background:var(--surface);color:var(--muted);border-color:var(--line);cursor:not-allowed}
+.formnotes{margin-top:18px;font-size:13.5px;color:var(--muted);max-width:70ch}
+.formnotes p{margin-top:6px}
+/* Footer — most formal legal block of the four layouts */
+footer{border-top:2px solid var(--rule)}
+.fcols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:28px;padding:56px var(--px)}
+.fcols h4{font-family:var(--disp);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.fcols ul{list-style:none;margin-top:14px}
+.fcols li{margin-top:8px;font-size:14px}
+.fcols .sub{margin-top:14px;font-family:var(--disp);font-weight:700;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fcols a:hover{color:var(--accent)}
+.fbrand p{margin-top:14px;font-size:14px;color:var(--muted);max-width:34ch}
+.legal{border-top:2px solid var(--rule);padding:26px var(--px);font-size:12.5px;color:var(--muted);line-height:1.8;max-width:78ch}
+.legal table{border-collapse:collapse;margin-top:10px}
+.legal td{padding:5px 0;vertical-align:top}
+.legal td:first-child{font-family:var(--disp);font-weight:600;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;padding-right:22px;white-space:nowrap}
+.legal td:last-child{color:var(--ink)}
+.legal .links{margin-top:14px}
+.legal .links a{color:var(--accent);margin-right:18px}
+.legal .notice{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.backlink{padding:0 var(--px) 26px;font-size:12.5px}
+.backlink a{color:var(--accent)}
+/* Motion — opt-in only */
+@media (prefers-reduced-motion: no-preference){
+  a,.btn{transition:color .15s ease,background-color .15s ease,border-color .15s ease}
+  .sidebar{transition:max-height .25s ease,visibility .25s}
+}
+/* RWD */
+@media (max-width:1280px){
+  .fcols{grid-template-columns:1fr 1fr}
+}
+@media (max-width:1024px){
+  :root{--px:28px}
+  .shell{grid-template-columns:220px minmax(0,1fr)}
+  .sidebar{padding:22px 16px 18px}
+}
+@media (max-width:900px){
+  .fgrid{grid-template-columns:1fr}
+}
+@media (max-width:768px){
+  :root{--px:20px}
+  .shell{display:block}
+  .mobilebar{display:flex;position:sticky;top:0;z-index:50;background:#fff;
+    border-bottom:1px solid var(--line);height:58px;align-items:center;justify-content:space-between;padding:0 var(--px)}
+  .sidebar{position:static;height:auto;max-height:0;overflow:hidden;visibility:hidden;
+    border-right:none;padding:0 var(--px)}
+  .sidebar.open{max-height:calc(100vh - 58px);overflow-y:auto;visibility:visible;
+    padding:16px var(--px) 20px;border-bottom:2px solid var(--rule)}
+  .sidebar>.logo,.side-co{display:none}
+  .side-label{margin-top:0}
+  [id]{scroll-margin-top:74px}
+  .dochead .wrap{padding-top:44px}
+}
+@media (max-width:560px){
+  .fcols{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<!-- Mobile top bar: only visible ≤768px; the sidebar below becomes its drawer -->
+<div class="mobilebar">
+  <a class="logo" href="index.html">Volcatech</a>
+  <button class="navbtn" id="navbtn" aria-expanded="false" aria-controls="sidebar">Menu</button>
+</div>
+
+<div class="shell">
+<!-- Fixed sidebar: logo → §1–§3 TOC (always expanded on desktop) → Company → CTA → legal/language -->
+<aside class="sidebar" id="sidebar">
+  <a class="logo" href="index.html">Volcatech</a>
+  <p class="side-co">Volcatech Co., Ltd.</p>
+  <p class="side-label">Contents</p>
+  <nav aria-label="Main">
+    <ul class="toc">
+      <li class="chap"><a href="index.html">Home</a></li>
+      <li class="chap"><a href="services.html#cloud">§1 Cloud Infrastructure</a>
+        <ul>
+          <li><a href="services.html#compute-engine">§1.1 Compute Engine (VM)</a></li>
+          <li><a href="services.html#cloud-sql">§1.2 Cloud SQL (Database)</a></li>
+          <li><a href="services.html#cloud-armor">§1.3 Cloud Armor (WAF / DDoS)</a></li>
+          <li><a href="services.html#cloud-migration">§1.4 Cloud Migration &amp; Kubernetes</a></li>
+          <li><a href="services.html#hybrid-cloud-backup">§1.5 Hybrid Cloud &amp; Backup</a></li>
+          <li><a href="services.html#data-ai-engineering">§1.6 Data &amp; AI Engineering</a></li>
+        </ul>
+      </li>
+      <li class="chap"><a href="services.html#cybersecurity">§2 Cybersecurity</a>
+        <ul>
+          <li class="grp">§2.1 Endpoint Detection &amp; Response (EDR)</li>
+          <li><a href="sentinelone.html">SentinelOne</a></li>
+          <li><a href="services.html#threatsonar">ThreatSonar</a></li>
+          <li><a href="services.html#fortiedr">FortiEDR</a></li>
+          <li class="grp">§2.2 Security Information &amp; Event Management (SIEM)</li>
+          <li><a href="services.html#cybereyes">CyberEyes</a></li>
+          <li><a href="services.html#google-secops">Google SecOps</a></li>
+          <li class="grp">§2.3 Volcatech AI Security (in-house)</li>
+          <li><a href="services.html#ce-bas">CE-BAS</a></li>
+          <li><a href="services.html#ai-ptaas">AI-PTaaS</a></li>
+          <li><a href="services.html#secpurple">SecPurple</a></li>
+        </ul>
+      </li>
+      <li class="chap"><a href="services.html#managed">§3 Managed Services</a>
+        <ul>
+          <li><a href="services.html#soc">§3.1 24/7 SOC &amp; Incident Response</a></li>
+          <li><a href="services.html#isms-pims">§3.2 ISMS / PIMS Consulting</a></li>
+          <li><a href="services.html#pentest">§3.3 Penetration Testing (human-led)</a></li>
+          <li><a href="services.html#finops-enablement">§3.4 Cloud FinOps &amp; Enablement</a></li>
+          <li><a href="services.html#digital-transformation">§3.5 Digital Transformation</a></li>
+        </ul>
+      </li>
+      <li class="chap"><span class="chaplbl">Company</span>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html" aria-current="page">Contact</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  <a class="btn side-cta" href="contact.html">Request a proposal</a>
+  <div class="side-legal">
+    <div class="row">
+      <a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a>
+      <a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a>
+    </div>
+    <nav class="lang" aria-label="Language">
+      <a href="contact.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+    </nav>
+  </div>
+</aside>
+
+<div class="content">
+<main>
+  <div class="dochead">
+    <div class="wrap">
+      <p class="doc">Enquiry · Rev 2026-07</p>
+      <div class="rulebar" aria-hidden="true"></div>
+      <h1>Tell us about your environment.</h1>
+      <p class="sub">Describe your current setup and what you want to change — we will come back with a concrete next step. <span class="todo">[TODO: response-time commitment]</span></p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <h2 class="sec"><span class="no">1.</span> Contact details</h2>
+      <div class="tscroll">
+        <table class="facts">
+          <tr><td>Email</td><td>[TODO: contact email]</td></tr>
+          <tr><td>Phone</td><td>+886 [TODO]</td></tr>
+          <tr><td>Registered office</td><td>[TODO: registered address]</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2 class="sec"><span class="no">2.</span> Enquiry form</h2>
+      <!-- Demo form: no action, submit disabled — it is not connected and stores nothing -->
+      <form class="form">
+        <div class="fgrid">
+          <div class="field"><label for="f-name">Name</label><input type="text" id="f-name" name="name"></div>
+          <div class="field"><label for="f-email">Work email</label><input type="text" id="f-email" name="email"></div>
+          <div class="field"><label for="f-company">Company</label><input type="text" id="f-company" name="company"></div>
+          <div class="field"><label for="f-country">Country</label><input type="text" id="f-country" name="country"></div>
+          <div class="field wide"><label for="f-need">What do you need?</label>
+            <select id="f-need" name="need">
+              <option>Cloud infrastructure</option>
+              <option>Cybersecurity</option>
+              <option>Managed services</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="field wide"><label for="f-msg">Message</label><textarea id="f-msg" name="message"></textarea></div>
+        </div>
+        <p class="fsubmit"><button class="btn" type="submit" disabled>Send (demo — not connected)</button></p>
+        <div class="formnotes">
+          <p>This demo form is not connected and stores nothing.</p>
+          <p>The production site will state here how your enquiry data is handled. <span class="todo">[TODO: privacy notice copy]</span></p>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap fcols">
+    <div class="fbrand">
+      <a class="logo" href="index.html">Volcatech</a>
+      <p>Cloud, security and managed operations for European organisations.</p>
+    </div>
+    <div>
+      <h4>§1 Cloud Infrastructure</h4>
+      <ul>
+        <li><a href="services.html#compute-engine">Compute Engine (VM)</a></li>
+        <li><a href="services.html#cloud-sql">Cloud SQL (Database)</a></li>
+        <li><a href="services.html#cloud-armor">Cloud Armor (WAF / DDoS)</a></li>
+        <li><a href="services.html#cloud-migration">Cloud Migration &amp; Kubernetes</a></li>
+        <li><a href="services.html#hybrid-cloud-backup">Hybrid Cloud &amp; Backup</a></li>
+        <li><a href="services.html#data-ai-engineering">Data &amp; AI Engineering</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>§2 Cybersecurity</h4>
+      <p class="sub">§2.1 EDR</p>
+      <ul>
+        <li><a href="sentinelone.html">SentinelOne</a></li>
+        <li><a href="services.html#threatsonar">ThreatSonar</a></li>
+        <li><a href="services.html#fortiedr">FortiEDR</a></li>
+      </ul>
+      <p class="sub">§2.2 SIEM</p>
+      <ul>
+        <li><a href="services.html#cybereyes">CyberEyes</a></li>
+        <li><a href="services.html#google-secops">Google SecOps</a></li>
+      </ul>
+      <p class="sub">§2.3 In-house</p>
+      <ul>
+        <li><a href="services.html#ce-bas">CE-BAS</a></li>
+        <li><a href="services.html#ai-ptaas">AI-PTaaS</a></li>
+        <li><a href="services.html#secpurple">SecPurple</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>§3 Managed Services</h4>
+      <ul>
+        <li><a href="services.html#soc">24/7 SOC &amp; Incident Response</a></li>
+        <li><a href="services.html#isms-pims">ISMS / PIMS Consulting</a></li>
+        <li><a href="services.html#pentest">Penetration Testing (human-led)</a></li>
+        <li><a href="services.html#finops-enablement">Cloud FinOps &amp; Enablement</a></li>
+        <li><a href="services.html#digital-transformation">Digital Transformation</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
+        <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap legal" id="legal">
+    <p>Volcatech Co., Ltd. <span lang="zh-Hant-TW">(沃凱科技股份有限公司)</span></p>
+    <table>
+      <tr><td>Registered office</td><td>[TODO: registered address]</td></tr>
+      <tr><td>Company registration no.</td><td>[TODO]</td></tr>
+      <tr><td>VAT / tax ID</td><td>[TODO]</td></tr>
+      <tr><td>Email</td><td>[TODO: contact email]</td></tr>
+      <tr><td>Phone</td><td>+886 [TODO]</td></tr>
+    </table>
+    <p class="links"><a href="#legal">Privacy Policy</a><a href="#legal">Imprint</a></p>
+    <p>© 2026 Volcatech Co., Ltd.</p>
+    <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
+  </div>
+  <div class="wrap backlink"><a href="index.html">← Layout home</a> · <a href="../index.html">All style demos</a></div>
+</footer>
+</div>
+</div>
+
+<script>
+const nb=document.getElementById('navbtn'),sb=document.getElementById('sidebar');
+nb.addEventListener('click',()=>nb.setAttribute('aria-expanded',String(sb.classList.toggle('open'))));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&sb.classList.contains('open')){sb.classList.remove('open');nb.setAttribute('aria-expanded','false')}});
+</script>
+</body>
+</html>

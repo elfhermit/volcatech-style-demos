@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-<title>Volcatech — Cloud &amp; Security on Google Cloud</title>
-<meta name="description" content="Volcatech helps European enterprises run on Google Cloud and stay secure — cloud services, EDR/SIEM security products, and 24/7 managed SOC.">
+<title>Volcatech — Cloud, cybersecurity and managed services</title>
+<meta name="description" content="Volcatech designs and runs Google Cloud environments for European organisations, deploys and tunes EDR and SIEM, and keeps both under 24/7 monitoring — cloud infrastructure, cybersecurity and managed services from one turn-key partner.">
 <style>
 /* ===== Style 1: Zurich Grid — Swiss catalog, rational & precise =====
    Production build self-hosts fonts via @fontsource (GDPR). Demo uses system fallbacks. */
@@ -30,22 +30,26 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
 /* Header */
 header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:50}
-.nav{display:flex;align-items:center;gap:32px;height:68px}
+.nav{display:flex;align-items:center;gap:28px;height:68px}
 .logo{font-family:var(--font-display);font-weight:700;font-size:19px;letter-spacing:.12em}
-.menu{display:flex;gap:26px;margin-left:auto;align-items:center}
+.menu{display:flex;gap:22px;margin-left:auto;align-items:center}
 .menu>li{list-style:none;position:relative}
 .menu a{font-size:15px;padding:8px 2px}
 .menu a[aria-current="page"]{border-bottom:2px solid var(--accent)}
 .menu a:hover{color:var(--accent)}
 .dd>a::after{content:" ▾";font-size:11px;color:var(--muted)}
 .dd ul{display:none;position:absolute;top:100%;left:0;background:var(--surface);border:1px solid var(--line);
-  min-width:230px;padding:10px 0;list-style:none}
+  min-width:280px;padding:10px 0;list-style:none}
 .dd:hover ul,.dd:focus-within ul{display:block}
 .dd ul a{display:block;padding:9px 18px;font-size:14px}
 .dd ul a:hover{background:var(--bg)}
-.dd .grp{padding:9px 18px 4px;font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
-.lang{font-size:13px;color:var(--muted);letter-spacing:.05em}
-.lang b{color:var(--ink)}
+.dd .grp{padding:12px 18px 4px;font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+/* Language switcher — real links, not decorative text */
+.lang{display:flex;align-items:center;gap:0;font-size:13px;letter-spacing:.05em}
+.lang a{padding:4px 10px;color:var(--muted)}
+.lang a+a{border-left:1px solid var(--line)}
+.lang a[aria-current="true"]{color:var(--ink);font-weight:600}
+.lang a:hover{color:var(--accent)}
 .navbtn{display:none;margin-left:auto;background:none;border:1px solid var(--ink);border-radius:4px;
   padding:8px 14px;font-family:var(--font-display);font-size:14px;cursor:pointer}
 /* Hero — signature: visible fine grid + catalog codes */
@@ -53,8 +57,8 @@ header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--
   background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
   background-size:72px 72px;background-position:center top}
 .hero .wrap{padding:96px 24px 72px}
-.hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,6vw,72px);line-height:1.05;
-  letter-spacing:-.01em;max-width:16ch}
+.hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5.4vw,64px);line-height:1.05;
+  letter-spacing:-.01em;max-width:20ch}
 .hero p{margin-top:24px;max-width:58ch;font-size:19px;color:var(--muted)}
 .hero .cta{margin-top:40px;display:flex;gap:16px;flex-wrap:wrap}
 /* Product lines — 3-second rule */
@@ -63,53 +67,80 @@ header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--
 .line:first-child{border-left:none}
 .line .code{font-size:44px;display:block;line-height:1}
 .line h2{font-family:var(--font-display);font-size:24px;margin-top:20px}
-.line p{margin-top:10px;color:var(--muted);font-size:15px}
+.line p{margin-top:10px;color:var(--muted);font-size:15px;max-width:44ch}
 .line a{display:inline-block;margin-top:22px;font-family:var(--font-display);font-weight:600;color:var(--accent)}
 .line a:hover{text-decoration:underline}
 /* Sections */
 section .wrap{padding:96px 24px}
 .sec-h{display:grid;grid-template-columns:1fr 2fr;gap:40px;margin-bottom:48px}
 .sec-h h2{font-family:var(--font-display);font-size:clamp(28px,3.4vw,40px);line-height:1.15}
+.sec-h p{color:var(--muted);font-size:16px;margin-top:12px;max-width:56ch}
 .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
 .cols3>div{border-bottom:1px solid var(--line);border-left:1px solid var(--line);padding:32px 28px;background:var(--surface)}
 .cols3>div:first-child{border-left:none}
 .cols3 h3{font-family:var(--font-display);font-size:19px}
-.cols3 p{margin-top:10px;font-size:15px;color:var(--muted)}
+.cols3 p{margin-top:10px;font-size:15px;color:var(--muted);max-width:44ch}
 .todo{color:var(--muted);font-size:13px;border:1px dashed var(--line);padding:2px 8px;border-radius:3px}
+/* Built by Volcatech — in-house services */
+.built{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.built .cols3>div{background:var(--bg)}
+.built .cols3 .code{font-size:34px;display:block;line-height:1;margin-bottom:14px}
+.built .full{display:block;font-size:13px;color:var(--muted);margin-top:6px;max-width:40ch}
+.built .note{margin-top:28px;font-size:14px;color:var(--muted)}
 /* Trust + vendors */
 .trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface)}
 .trust .wrap{padding:36px 24px;display:flex;gap:14px 40px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
 .trust b{color:var(--ink);font-weight:600}
+.trust span{max-width:64ch}
 .vendors .wrap{padding:56px 24px;display:flex;gap:20px 48px;flex-wrap:wrap;align-items:center}
 .vendors span{font-family:var(--font-display);font-weight:600;font-size:17px;color:var(--muted);letter-spacing:.03em}
 /* CTA band */
 .band{border-top:1px solid var(--line);background:var(--surface)}
 .band .wrap{padding:88px 24px;display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:center}
-.band h2{font-family:var(--font-display);font-size:clamp(26px,3vw,38px);line-height:1.2}
+.band h2{font-family:var(--font-display);font-size:clamp(26px,3vw,38px);line-height:1.2;max-width:24ch}
 .band div:last-child{text-align:right}
 /* Footer */
 footer{border-top:1px solid var(--line)}
-.fcols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;padding:64px 24px}
+.fcols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:32px;padding:64px 24px}
 .fcols h4{font-family:var(--font-display);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .fcols ul{list-style:none;margin-top:14px}
 .fcols li{margin-top:8px;font-size:14px}
+.fcols .sub{margin-top:14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .fcols a:hover{color:var(--accent)}
-.legal{border-top:1px solid var(--line);padding:20px 24px;font-size:12.5px;color:var(--muted);
-  display:flex;gap:8px 24px;flex-wrap:wrap}
+.fbrand p{margin-top:14px;font-size:14px;color:var(--muted);max-width:34ch}
+.fbrand dl{margin-top:18px;font-size:14px;color:var(--muted)}
+.fbrand dt{font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-top:10px}
+.fbrand dd{color:var(--ink)}
+.legal{border-top:1px solid var(--line);padding:24px;font-size:12.5px;color:var(--muted);max-width:78ch}
+.legal p{margin-top:6px}
+.legal .row{display:flex;gap:6px 20px;flex-wrap:wrap;margin-top:6px}
+.legal .notice{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.legal a:hover{color:var(--accent)}
+.backlink{padding:0 24px 24px;font-size:12.5px}
 @media (prefers-reduced-motion:no-preference){
   .line,.btn{transition:transform .15s ease,background .15s ease}
   .line:hover{transform:translateY(-2px)}
 }
+@media (max-width:1024px){
+  .fcols{grid-template-columns:1fr 1fr}
+}
 @media (max-width:900px){
-  .lines,.cols3,.fcols{grid-template-columns:1fr}
+  .lines,.cols3{grid-template-columns:1fr}
   .line,.cols3>div{border-left:none}
   .sec-h,.band .wrap{grid-template-columns:1fr}
   .band div:last-child{text-align:left}
   .navbtn{display:block}
   .menu{display:none;position:absolute;top:68px;left:0;right:0;background:var(--surface);
-    border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;padding:16px 24px;gap:4px}
+    border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;padding:16px 24px;gap:4px;
+    max-height:calc(100vh - 68px);overflow-y:auto}
   .menu.open{display:flex}
   .dd ul{display:block;position:static;border:none;padding-left:14px;min-width:0}
+  .lang{margin-top:10px}
+  .lang a{padding-left:0}
+  .lang a+a{padding-left:10px}
+}
+@media (max-width:560px){
+  .fcols{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -120,137 +151,237 @@ footer{border-top:1px solid var(--line)}
     <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'))">Menu</button>
     <ul class="menu" id="menu">
       <li><a href="index.html" aria-current="page">Home</a></li>
-      <li class="dd"><a href="#" aria-haspopup="true">Cloud Services</a>
+      <li class="dd"><a href="#offer" aria-haspopup="true"><span class="code" style="font-size:13px">C</span> Cloud Infrastructure</a>
         <ul>
-          <li><a href="#" title="Demo scope: style pages only">Overview</a></li>
-          <li><a href="#" title="Demo scope">Compute Engine (VM)</a></li>
-          <li><a href="#" title="Demo scope">Cloud SQL (Database)</a></li>
-          <li><a href="#" title="Demo scope">Cloud Armor (WAF)</a></li>
+          <li class="grp">C — Cloud Infrastructure</li>
+          <li><a href="#offer" title="Demo: opens the matching section on this page"><span class="code" style="font-size:12px">C-01</span> Compute Engine (VM)</a></li>
+          <li><a href="#offer" title="Demo: opens the matching section on this page"><span class="code" style="font-size:12px">C-02</span> Cloud SQL (Database)</a></li>
+          <li><a href="#offer" title="Demo: opens the matching section on this page"><span class="code" style="font-size:12px">C-03</span> Cloud Armor (WAF)</a></li>
+          <li><a href="#offer" title="Demo: opens the matching section on this page"><span class="code" style="font-size:12px">C-04</span> Cloud Migration &amp; Kubernetes</a></li>
+          <li><a href="#offer" title="Demo: opens the matching section on this page"><span class="code" style="font-size:12px">C-05</span> Hybrid Cloud &amp; Backup</a></li>
+          <li><a href="#offer" title="Demo: opens the matching section on this page"><span class="code" style="font-size:12px">C-06</span> Data &amp; AI Engineering</a></li>
         </ul>
       </li>
-      <li class="dd"><a href="#" aria-haspopup="true">Security Products</a>
+      <li class="dd"><a href="#offer" aria-haspopup="true"><span class="code" style="font-size:13px">E·S·A</span> Cybersecurity</a>
         <ul>
-          <li class="grp">EDR — Endpoint Detection &amp; Response</li>
-          <li><a href="sentinelone.html">SentinelOne</a></li>
-          <li><a href="#" title="Demo scope">ThreatSonar</a></li>
-          <li><a href="#" title="Demo scope">FortiEDR</a></li>
-          <li class="grp">SIEM — Security Info &amp; Event Mgmt</li>
-          <li><a href="#" title="Demo scope">CyberEyes</a></li>
-          <li><a href="#" title="Demo scope">Google SecOps</a></li>
+          <li class="grp">E — Endpoint (EDR)</li>
+          <li><a href="sentinelone.html"><span class="code" style="font-size:12px">E-01</span> SentinelOne</a></li>
+          <li><a href="#offer" title="Demo: opens the matching section on this page"><span class="code" style="font-size:12px">E-02</span> ThreatSonar</a></li>
+          <li><a href="#offer" title="Demo: opens the matching section on this page"><span class="code" style="font-size:12px">E-03</span> FortiEDR</a></li>
+          <li class="grp">S — Detection (SIEM)</li>
+          <li><a href="#offer" title="Demo: opens the matching section on this page"><span class="code" style="font-size:12px">S-01</span> CyberEyes</a></li>
+          <li><a href="#offer" title="Demo: opens the matching section on this page"><span class="code" style="font-size:12px">S-02</span> Google SecOps</a></li>
+          <li class="grp">A — Volcatech AI Security</li>
+          <li><a href="#built" title="Demo: opens the Built by Volcatech section"><span class="code" style="font-size:12px">A-01</span> CE-BAS</a></li>
+          <li><a href="#built" title="Demo: opens the Built by Volcatech section"><span class="code" style="font-size:12px">A-02</span> AI-PTaaS</a></li>
+          <li><a href="#built" title="Demo: opens the Built by Volcatech section"><span class="code" style="font-size:12px">A-03</span> SecPurple</a></li>
         </ul>
       </li>
-      <li class="dd"><a href="#" aria-haspopup="true">Solutions</a>
+      <li class="dd"><a href="#offer" aria-haspopup="true"><span class="code" style="font-size:13px">X</span> Managed Services</a>
         <ul>
-          <li><a href="#" title="Demo scope">SOC — Managed Security</a></li>
-          <li><a href="#" title="Demo scope">Breach &amp; Attack Simulation</a></li>
-          <li><a href="#" title="Demo scope">Penetration Testing</a></li>
+          <li class="grp">X — Managed Services</li>
+          <li><a href="#offer" title="Demo: opens the matching section on this page"><span class="code" style="font-size:12px">X-01</span> 24/7 SOC &amp; Incident Response</a></li>
+          <li><a href="#offer" title="Demo: opens the matching section on this page"><span class="code" style="font-size:12px">X-02</span> ISMS / PIMS Consulting</a></li>
+          <li><a href="#offer" title="Demo: opens the matching section on this page"><span class="code" style="font-size:12px">X-03</span> Penetration Testing (human-led)</a></li>
+          <li><a href="#offer" title="Demo: opens the matching section on this page"><span class="code" style="font-size:12px">X-04</span> Cloud FinOps &amp; Enablement</a></li>
+          <li><a href="#offer" title="Demo: opens the matching section on this page"><span class="code" style="font-size:12px">X-05</span> Digital Transformation</a></li>
         </ul>
       </li>
-      <li><a href="#" title="Demo scope">About</a></li>
-      <li><a class="btn" style="padding:10px 20px" href="#" title="Demo scope">Contact Us</a></li>
-      <li class="lang" title="Language switcher — functional in production build"><b>EN</b> | 繁中</li>
+      <li><a href="#why" title="Demo: opens the matching section on this page">About</a></li>
+      <li><a class="btn" style="padding:10px 20px" href="#contact">Contact us</a></li>
+      <li>
+        <nav class="lang" aria-label="Language">
+          <a href="index.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+        </nav>
+      </li>
     </ul>
   </div>
 </header>
 
 <main>
-  <div class="hero">
+  <div class="hero" id="top">
     <div class="wrap">
-      <p class="eyebrow">Volcatech — Cloud &amp; Security Integrator</p>
-      <h1 style="margin-top:20px">Cloud and security for your business, delivered as one.</h1>
-      <p>We help European enterprises run on Google Cloud and stay secure — from infrastructure and
-         data platforms to endpoint protection and a 24/7 security operations center.</p>
+      <p class="eyebrow">Cloud · Cybersecurity · Managed Services</p>
+      <h1 style="margin-top:20px">Cloud infrastructure, cybersecurity and managed services — from one turn-key partner.</h1>
+      <p>We design and run Google Cloud environments for European organisations, deploy and tune EDR and SIEM, and keep both under 24/7 monitoring. One team, one contract, one point of accountability.</p>
       <div class="cta">
-        <a class="btn" href="#" title="Demo scope">Contact Us</a>
-        <a class="btn btn-ghost" href="#lines">Explore products</a>
+        <a class="btn" href="#contact">Contact us</a>
+        <a class="btn btn-ghost" href="#offer">Explore our services</a>
       </div>
     </div>
   </div>
 
-  <!-- 3-second rule: three product lines, immediately -->
-  <div class="lines" id="lines">
+  <!-- 3-second rule: three business lines, immediately -->
+  <div class="lines" id="offer">
     <div class="line">
       <span class="code">C</span>
-      <h2>Cloud on Google Cloud</h2>
-      <p>Compute Engine, Cloud SQL and Cloud Armor — designed, migrated and run for you. EU regions available.</p>
-      <a href="#" title="Demo scope">Explore cloud services →</a>
+      <h2>Cloud Infrastructure</h2>
+      <p>Google Cloud design, migration and day-2 operations — Compute Engine, Cloud SQL, Cloud Armor, Kubernetes, hybrid setups and data/AI pipelines. EU regions available.</p>
+      <a href="#cloud-list" title="Demo: jumps to the full list in the footer">Explore Cloud Infrastructure →</a>
     </div>
     <div class="line">
-      <span class="code">E / S</span>
-      <h2>Security Products</h2>
-      <p>EDR and SIEM from SentinelOne, TeamT5, Fortinet, CyberEyes and Google — selected, deployed, tuned.</p>
-      <a href="sentinelone.html">Explore security products →</a>
+      <span class="code">E · S · A</span>
+      <h2>Cybersecurity</h2>
+      <p>EDR and SIEM from SentinelOne, TeamT5, Fortinet, CyberEyes and Google — selected, deployed and tuned — plus three AI-driven testing services we build ourselves.</p>
+      <a href="#security-list" title="Demo: jumps to the full list in the footer">Explore Cybersecurity →</a>
     </div>
     <div class="line">
       <span class="code">X</span>
-      <h2>Managed Security</h2>
-      <p>24/7 SOC monitoring, breach &amp; attack simulation, and penetration testing as a service.</p>
-      <a href="#" title="Demo scope">Explore solutions →</a>
+      <h2>Managed Services</h2>
+      <p>24/7 SOC and incident response, ISMS / PIMS consulting, human-led penetration testing, cloud cost governance and digital transformation.</p>
+      <a href="#managed-list" title="Demo: jumps to the full list in the footer">Explore Managed Services →</a>
     </div>
   </div>
 
-  <section>
+  <section class="built" id="built">
     <div class="wrap">
       <div class="sec-h">
-        <p class="eyebrow">Why Volcatech</p>
-        <h2>One partner across the whole stack — from cloud foundation to security operations.</h2>
+        <p class="eyebrow">A — Volcatech AI Security</p>
+        <div>
+          <h2>Built by Volcatech</h2>
+          <p>Three security services we develop and operate ourselves — not resold.</p>
+        </div>
       </div>
       <div class="cols3">
         <div>
-          <h3>Full stack, one roof</h3>
-          <p>Cloud infrastructure and security are planned together, not bolted on — fewer vendors, fewer gaps.</p>
+          <span class="code">A-01</span>
+          <h3>CE-BAS<span class="full">Continuous External Breach and Attack Simulation</span></h3>
+          <p>Continuously probes your internet-facing assets the way an external attacker would, and reports which exposures are actually exploitable.</p>
         </div>
         <div>
-          <h3>Google Cloud expertise</h3>
-          <p>Architecture, migration and cost control on GCP. <span class="todo">TODO: partner tier &amp; certifications</span></p>
+          <span class="code">A-02</span>
+          <h3>AI-PTaaS<span class="full">Smart Automated Penetration Testing as a Service</span></h3>
+          <p>Automated, repeatable penetration testing delivered as a subscription, so findings arrive between annual audits instead of once a year.</p>
         </div>
         <div>
-          <h3>24/7 SOC operations</h3>
-          <p>Detection, response and reporting run continuously — your EDR and SIEM are watched, not just installed.</p>
+          <span class="code">A-03</span>
+          <h3>SecPurple<span class="full">Professional Purple Team Support</span></h3>
+          <p>Runs attack-and-defence exercises with your team, then turns each finding into a detection rule your SOC keeps.</p>
+        </div>
+      </div>
+      <p class="note">Reference deployments and delivery model: <span class="todo">[TODO: to be confirmed]</span></p>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap">
+      <div class="sec-h">
+        <p class="eyebrow">Why Volcatech</p>
+        <h2>One partner accountable for the whole stack.</h2>
+      </div>
+      <div class="cols3">
+        <div>
+          <h3>One partner for the whole stack</h3>
+          <p>Cloud, security products and 24/7 operations under one contract — fewer suppliers, and fewer gaps between them.</p>
+        </div>
+        <div>
+          <h3>Google Cloud engineering</h3>
+          <p>Architecture, migration, cost governance and training, delivered by the same team that operates the platform afterwards. <span class="todo">[TODO: partner tier and certifications]</span></p>
+        </div>
+        <div>
+          <h3>Security we operate, not just resell</h3>
+          <p>Our SOC watches the tools we deploy, and our own CE-BAS / AI-PTaaS / SecPurple services test them.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="trust">
+  <div class="trust" id="trust">
     <div class="wrap">
       <span><b>GDPR-ready</b> by design</span>
       <span><b>EU data residency</b> available on Google Cloud (europe-west regions)</span>
-      <span class="todo">TODO: ISO 27001 / other certifications</span>
+      <span class="todo">[TODO: ISO 27001 / other certifications — not yet confirmed]</span>
+      <span>This demo loads no third-party resources and sets no cookies.</span>
     </div>
   </div>
 
-  <div class="vendors">
+  <div class="vendors" id="vendors">
     <div class="wrap">
-      <span class="eyebrow" style="width:100%">Vendors we work with</span>
-      <span>Google Cloud</span><span>SentinelOne</span><span>TeamT5</span><span>Fortinet</span><span>CyberEyes</span>
+      <span class="eyebrow" style="width:100%">Technology partners</span>
+      <span>Google Cloud</span><span>SentinelOne</span><span>TeamT5</span><span>Fortinet</span><span>CyberEyes</span><span>Volcatech AI</span>
     </div>
   </div>
 
-  <div class="band">
+  <div class="band" id="contact">
     <div class="wrap">
-      <h2>Tell us about your environment — we'll map the path to cloud and coverage.</h2>
-      <div><a class="btn" href="#" title="Demo scope">Contact Us</a></div>
+      <h2>Tell us about your environment — we will map the path to cloud, security and operations.</h2>
+      <div><a class="btn" href="#contact">Contact us</a></div>
     </div>
   </div>
 </main>
 
 <footer>
   <div class="wrap fcols">
-    <div>
+    <div class="fbrand">
       <a class="logo" href="index.html">VOLCATECH</a>
-      <p style="margin-top:14px;font-size:14px;color:var(--muted);max-width:34ch">Cloud and security for European enterprises, delivered as one.</p>
+      <p>Cloud, security and managed operations for European organisations.</p>
+      <dl>
+        <dt>Email</dt><dd>[TODO: contact email]</dd>
+        <dt>Phone</dt><dd>+886 [TODO]</dd>
+        <dt>Registered office</dt><dd>[TODO: registered address]</dd>
+      </dl>
     </div>
-    <div><h4>Cloud</h4><ul><li><a href="#">Compute Engine</a></li><li><a href="#">Cloud SQL</a></li><li><a href="#">Cloud Armor</a></li></ul></div>
-    <div><h4>Security</h4><ul><li><a href="sentinelone.html">SentinelOne</a></li><li><a href="#">ThreatSonar</a></li><li><a href="#">FortiEDR</a></li><li><a href="#">CyberEyes</a></li><li><a href="#">Google SecOps</a></li></ul></div>
-    <div><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">Contact</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+    <div id="cloud-list">
+      <h4>Cloud Infrastructure</h4>
+      <ul>
+        <li><a href="#offer">Compute Engine (VM)</a></li>
+        <li><a href="#offer">Cloud SQL (Database)</a></li>
+        <li><a href="#offer">Cloud Armor (WAF)</a></li>
+        <li><a href="#offer">Cloud Migration &amp; Kubernetes</a></li>
+        <li><a href="#offer">Hybrid Cloud &amp; Backup</a></li>
+        <li><a href="#offer">Data &amp; AI Engineering</a></li>
+      </ul>
+    </div>
+    <div id="security-list">
+      <h4>Cybersecurity</h4>
+      <p class="sub">Endpoint (EDR)</p>
+      <ul>
+        <li><a href="sentinelone.html">SentinelOne</a></li>
+        <li><a href="#offer">ThreatSonar</a></li>
+        <li><a href="#offer">FortiEDR</a></li>
+      </ul>
+      <p class="sub">Detection (SIEM)</p>
+      <ul>
+        <li><a href="#offer">CyberEyes</a></li>
+        <li><a href="#offer">Google SecOps</a></li>
+      </ul>
+      <p class="sub">Built by Volcatech</p>
+      <ul>
+        <li><a href="#built">CE-BAS</a></li>
+        <li><a href="#built">AI-PTaaS</a></li>
+        <li><a href="#built">SecPurple</a></li>
+      </ul>
+    </div>
+    <div id="managed-list">
+      <h4>Managed Services</h4>
+      <ul>
+        <li><a href="#offer">24/7 SOC &amp; Incident Response</a></li>
+        <li><a href="#offer">ISMS / PIMS Consulting</a></li>
+        <li><a href="#offer">Penetration Testing (human-led)</a></li>
+        <li><a href="#offer">Cloud FinOps &amp; Enablement</a></li>
+        <li><a href="#offer">Digital Transformation</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#why">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
+        <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
+      </ul>
+    </div>
   </div>
-  <div class="legal wrap">
-    <span>© 2026 Volcatech Co., Ltd.</span>
-    <span>Company reg. [TODO]</span><span>VAT [TODO]</span>
-    <span><a href="#">Privacy Policy</a></span>
-    <span style="margin-left:auto"><a href="../index.html">← All style demos</a></span>
+  <div class="wrap legal" id="legal">
+    <p>Volcatech Co., Ltd. <span lang="zh-Hant-TW">(沃凱科技股份有限公司)</span></p>
+    <p>Registered office: [TODO: registered address]</p>
+    <div class="row"><span>Company registration no.: [TODO]</span><span>VAT / tax ID: [TODO]</span></div>
+    <div class="row"><span>Email: [TODO: contact email]</span><span>Phone: +886 [TODO]</span></div>
+    <div class="row"><a href="#legal">Privacy Policy</a><a href="#legal">Imprint</a></div>
+    <p>© 2026 Volcatech Co., Ltd.</p>
+    <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
   </div>
+  <div class="wrap backlink"><a href="../index.html">← All style demos</a></div>
 </footer>
 </body>
 </html>

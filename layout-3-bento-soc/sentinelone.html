@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+<title>SentinelOne Singularity (EDR) — Volcatech</title>
+<meta name="description" content="AI-powered endpoint detection and response, deployed and operated by Volcatech with 24/7 SOC integration.">
+<style>
+/* ===== Layout 3: Bento Grid × SOC Console — product detail as a card wall =====
+   Colour system and nav vocabulary inherited verbatim from style-3-soc (control pair). */
+:root{
+  --bg:#0E141F; --surface:#16202E; --ink:#E9EEF5; --muted:#9AA8BA;
+  --line:#27344A; --accent:#FFB224; --status:#3ECF8E;
+  --sans:'IBM Plex Sans','Noto Sans TC',ui-sans-serif,system-ui,'Helvetica Neue',Arial,sans-serif;
+  --mono:'IBM Plex Mono','Noto Sans TC',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --max:1200px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.65}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+[id]{scroll-margin-top:96px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.status{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+.status .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--status);margin-right:9px;vertical-align:1px}
+.btn{display:inline-block;background:var(--accent);color:#0E141F;font-weight:600;font-size:15px;
+  padding:13px 26px;border-radius:6px;border:1px solid var(--accent)}
+.btn:hover{background:#E69E14}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--muted)}
+.btn-nav{padding:9px 18px}
+header{position:sticky;top:0;background:rgba(14,20,31,.95);border-bottom:1px solid var(--line);z-index:50}
+.nav{display:flex;align-items:center;gap:30px;height:66px;position:relative}
+.logo{font-family:var(--mono);font-weight:600;font-size:16px;letter-spacing:.08em}
+.logo .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--status);margin-right:10px;vertical-align:1px}
+.menu{display:flex;gap:24px;margin-left:auto;align-items:center;list-style:none}
+.menu>li{position:relative}
+.menu>li>a{font-size:14.5px;color:var(--muted);padding:8px 0}
+.menu a:hover,.menu a[aria-current="page"]{color:var(--ink)}
+.menu a[aria-current="page"]{border-bottom:2px solid var(--accent)}
+.menu>li>a.btn{color:#0E141F}
+.menu>li>a.btn:hover{color:#0E141F}
+.dd>a::after{content:" ▾";font-size:10px}
+.dd ul{display:none;position:absolute;top:100%;left:-12px;background:var(--surface);border:1px solid var(--line);
+  border-radius:6px;min-width:290px;padding:10px 0;list-style:none}
+.dd:hover ul,.dd:focus-within ul{display:block}
+.dd ul a{display:block;padding:9px 18px;font-size:14px;color:var(--muted)}
+.dd ul a:hover{background:#1B2736;color:var(--ink)}
+.dd .grp{padding:9px 18px 3px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.dd .head{padding:6px 18px 8px;margin-bottom:4px;border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.dd .head .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--status);margin-right:8px;vertical-align:1px}
+.lang{display:flex;align-items:center;font-family:var(--mono);font-size:12px}
+.lang a{padding:4px 10px;color:var(--muted)}
+.lang a+a{border-left:1px solid var(--line)}
+.lang a[aria-current="true"]{color:var(--ink);font-weight:600}
+/* Cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:26px 24px;position:relative}
+.chead{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.cdot{width:9px;height:9px;border-radius:50%;background:var(--status);flex:none}
+.cdot-amber{background:var(--accent)}
+.lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.arr{color:var(--accent)}
+.more{display:inline-block;margin-top:18px;color:var(--ink);font-weight:600;font-size:15px}
+.more:hover{text-decoration:underline}
+.todo{font-family:var(--mono);color:var(--muted);font-size:12px;border:1px dashed var(--line);padding:2px 8px;border-radius:4px}
+/* Product hero as a bento row: big spec card + narrow status card */
+.pwall>.wrap{padding:44px 24px 64px}
+.pbento{display:grid;gap:16px;grid-template-columns:3fr 1fr}
+.p-hero{padding:40px 36px}
+.p-hero .code{font-family:var(--mono);font-size:14px;color:var(--accent);letter-spacing:.1em}
+.p-hero h1{font-weight:600;font-size:clamp(32px,4.4vw,50px);line-height:1.1;margin-top:16px}
+.p-hero .vendor{margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.p-hero .tag{margin-top:20px;font-size:18px;color:var(--muted);max-width:56ch}
+.p-hero .cta{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap}
+.p-side{display:flex;flex-direction:column}
+.p-side .more{margin-top:auto;padding-top:18px}
+.socfeed{list-style:none;margin-top:16px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.socfeed li{margin-top:10px}
+.socfeed .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--status);margin-right:9px;vertical-align:1px}
+/* Sections: card walls */
+section{border-top:1px solid var(--line)}
+section>.wrap{padding:72px 24px}
+h2.sec{font-weight:600;font-size:clamp(24px,3.2vw,34px);line-height:1.15;margin-top:16px;max-width:28ch}
+.cards2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.cards2 h3{font-size:17.5px;margin-top:12px}
+.cards2 p{margin-top:8px;font-size:14.5px;color:var(--muted)}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.cards3 h3{font-size:17.5px;margin-top:12px}
+.cards3 p{margin-top:8px;font-size:14.5px;color:var(--muted)}
+.why p{margin-top:24px;color:var(--muted);max-width:66ch}
+.ext{border-top:1px solid var(--line)}
+.ext .wrap{padding:26px 24px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.ext a{color:var(--accent);font-weight:600}
+/* CTA band — one wide card */
+.band{border-top:1px solid var(--line)}
+.band>.wrap{padding:72px 24px}
+.bandcard{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:48px 40px;
+  display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:center}
+.bandcard h2{font-weight:600;font-size:clamp(22px,2.8vw,32px);line-height:1.2}
+.bandcard div:last-child{text-align:right}
+/* Footer */
+footer{border-top:1px solid var(--line)}
+.fcols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:28px;padding:60px 24px}
+.fcols h4{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.fcols ul{list-style:none;margin-top:14px}
+.fcols li{margin-top:8px;font-size:14px}
+.fcols .sub{margin-top:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fcols a{color:var(--muted)} .fcols a:hover{color:var(--ink)}
+.fbrand p{margin-top:14px;font-size:14px;color:var(--muted);max-width:34ch}
+.fbrand dl{margin-top:18px;font-size:14px;color:var(--muted)}
+.fbrand dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;margin-top:10px}
+.fbrand dd{color:var(--ink)}
+.legal{border-top:1px solid var(--line);padding:22px 24px;font-family:var(--mono);font-size:11.5px;color:var(--muted);
+  max-width:78ch;line-height:1.8}
+.legal p{margin-top:6px}
+.legal .row{display:flex;gap:6px 20px;flex-wrap:wrap;margin-top:6px}
+.legal .notice{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px}
+.legal a:hover{color:var(--ink)}
+.backlink{padding:0 24px 22px;font-family:var(--mono);font-size:11.5px}
+@media (prefers-reduced-motion: no-preference){
+  .card{transition:border-color .15s ease}
+  .btn{transition:background-color .15s ease,border-color .15s ease}
+  .menu a,.fcols a,.legal a{transition:color .15s ease}
+}
+@media (max-width:1024px){
+  .fcols{grid-template-columns:1fr 1fr}
+}
+@media (max-width:900px){
+  .nav{flex-wrap:wrap;height:auto;padding:12px 0;gap:8px 20px}
+  .menu{margin-left:0;width:100%;flex-wrap:wrap;gap:2px 18px;row-gap:6px}
+  .dd{position:static}
+  .dd ul{left:0;right:0;top:100%;min-width:0;max-height:min(70vh,480px);overflow-y:auto}
+  .lang{margin-left:auto}
+  .pbento{grid-template-columns:1fr}
+  .p-hero{padding:32px 26px}
+  .cards2,.cards3{grid-template-columns:1fr}
+  .bandcard{grid-template-columns:1fr;padding:36px 28px}
+  .bandcard div:last-child{text-align:left}
+}
+@media (max-width:560px){
+  .fcols{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
+    <ul class="menu">
+      <li><a href="index.html">Home</a></li>
+      <li class="dd"><a href="services.html#cloud" aria-haspopup="true">Platform</a>
+        <ul>
+          <li class="head"><span class="dot" aria-hidden="true"></span>Platform — Cloud Infrastructure</li>
+          <li><a href="services.html#compute-engine">Compute Engine (VM)</a></li>
+          <li><a href="services.html#cloud-sql">Cloud SQL (Database)</a></li>
+          <li><a href="services.html#cloud-armor">Cloud Armor (WAF)</a></li>
+          <li><a href="services.html#cloud-migration">Cloud Migration &amp; Kubernetes</a></li>
+          <li><a href="services.html#hybrid-cloud-backup">Hybrid Cloud &amp; Backup</a></li>
+          <li><a href="services.html#data-ai-engineering">Data &amp; AI Engineering</a></li>
+        </ul>
+      </li>
+      <li class="dd"><a href="services.html#cybersecurity" aria-haspopup="true">Arsenal</a>
+        <ul>
+          <li class="head"><span class="dot" aria-hidden="true"></span>Arsenal — Cybersecurity</li>
+          <li class="grp">Endpoint — EDR</li>
+          <li><a href="sentinelone.html" aria-current="page">SentinelOne</a></li>
+          <li><a href="services.html#threatsonar">ThreatSonar</a></li>
+          <li><a href="services.html#fortiedr">FortiEDR</a></li>
+          <li class="grp">Detection — SIEM</li>
+          <li><a href="services.html#cybereyes">CyberEyes</a></li>
+          <li><a href="services.html#google-secops">Google SecOps</a></li>
+          <li class="grp">Built in-house — Volcatech AI Security</li>
+          <li><a href="services.html#ce-bas">CE-BAS</a></li>
+          <li><a href="services.html#ai-ptaas">AI-PTaaS</a></li>
+          <li><a href="services.html#secpurple">SecPurple</a></li>
+        </ul>
+      </li>
+      <li class="dd"><a href="services.html#managed" aria-haspopup="true">Operations</a>
+        <ul>
+          <li class="head"><span class="dot" aria-hidden="true"></span>Operations — Managed Services</li>
+          <li><a href="services.html#soc">24/7 SOC &amp; Incident Response</a></li>
+          <li><a href="services.html#isms-pims">ISMS / PIMS Consulting</a></li>
+          <li><a href="services.html#pentest">Penetration Testing (human-led)</a></li>
+          <li><a href="services.html#finops-enablement">Cloud FinOps &amp; Enablement</a></li>
+          <li><a href="services.html#digital-transformation">Digital Transformation</a></li>
+        </ul>
+      </li>
+      <li><a href="about.html">About</a></li>
+      <li><a class="btn btn-nav" href="contact.html">Contact us</a></li>
+      <li>
+        <nav class="lang" aria-label="Language">
+          <a href="sentinelone.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+        </nav>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <!-- Hero row: spec card + live status side card -->
+  <div class="pwall">
+    <div class="wrap">
+      <div class="pbento">
+        <div class="card p-hero">
+          <p class="code">E-01 · CYBERSECURITY · EDR</p>
+          <h1>SentinelOne Singularity</h1>
+          <p class="vendor">Vendor: SentinelOne · Endpoint Detection &amp; Response</p>
+          <p class="tag">AI-powered endpoint protection that detects and stops attacks at machine speed —
+            and restores affected endpoints when ransomware strikes.</p>
+          <div class="cta">
+            <a class="btn" href="contact.html">Request a demo</a>
+            <a class="btn btn-ghost" href="contact.html">Talk to our team</a>
+          </div>
+        </div>
+        <div class="card p-side">
+          <p class="status"><span class="dot" aria-hidden="true"></span>E-01 / EDR — Active vendor</p>
+          <ul class="socfeed">
+            <li><span class="dot" aria-hidden="true"></span>Windows · macOS · Linux</li>
+            <li><span class="dot" aria-hidden="true"></span>24/7 SOC — connected</li>
+          </ul>
+          <a class="more" href="services.html#soc">24/7 SOC &amp; Incident Response <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Pain points — before deployment</p>
+      <h2 class="sec">The problems this takes off your board.</h2>
+      <div class="cards3">
+        <div class="card">
+          <div class="chead"><span class="lbl">Pain 01</span><span class="cdot cdot-amber" aria-hidden="true"></span></div>
+          <h3>Alert fatigue</h3><p>Analysts drown in noisy detections; triage takes hours, not minutes.</p>
+        </div>
+        <div class="card">
+          <div class="chead"><span class="lbl">Pain 02</span><span class="cdot cdot-amber" aria-hidden="true"></span></div>
+          <h3>Ransomware speed</h3><p>Attacks move faster than any manual response process can react.</p>
+        </div>
+        <div class="card">
+          <div class="chead"><span class="lbl">Pain 03</span><span class="cdot cdot-amber" aria-hidden="true"></span></div>
+          <h3>Endpoint blind spots</h3><p>Mixed Windows, macOS and Linux fleets leave gaps between tools.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Key capabilities</p>
+      <h2 class="sec">What Singularity does on every endpoint.</h2>
+      <div class="cards2">
+        <div class="card"><h3>Behavioral AI detection</h3><p>Malicious behavior is identified on the device itself — no waiting for signature updates.</p></div>
+        <div class="card"><h3>Autonomous response</h3><p>Kill, quarantine and isolate happen in real time, before an analyst opens the alert.</p></div>
+        <div class="card"><h3>Ransomware rollback</h3><p>Endpoints and encrypted files revert to their pre-attack state on supported platforms.</p></div>
+        <div class="card"><h3>Full attack context</h3><p>Processes, files and connections correlated into one storyline your team reads at a glance.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Business benefits — after deployment</p>
+      <h2 class="sec">What changes on day one.</h2>
+      <div class="cards3">
+        <div class="card">
+          <div class="chead"><span class="lbl">Gain 01</span><span class="cdot" aria-hidden="true"></span></div>
+          <h3>Minutes, not hours</h3><p>Mean time to respond drops sharply when containment is autonomous.</p>
+        </div>
+        <div class="card">
+          <div class="chead"><span class="lbl">Gain 02</span><span class="cdot" aria-hidden="true"></span></div>
+          <h3>Leaner operations</h3><p>Automated triage frees analysts for real investigation work.</p>
+        </div>
+        <div class="card">
+          <div class="chead"><span class="lbl">Gain 03</span><span class="cdot" aria-hidden="true"></span></div>
+          <h3>Faster recovery</h3><p>Rollback shortens downtime after ransomware attempts — without paying anyone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Why deploy with Volcatech</p>
+      <h2 class="sec">A product is only as good as its operation.</h2>
+      <p>We connect SentinelOne to our 24/7 SOC (X-01),
+        tune detections for your environment, and handle rollout across your fleet.
+        <span class="todo">[TODO: local references &amp; delivery details]</span></p>
+    </div>
+  </section>
+
+  <div class="ext"><div class="wrap">Vendor resources → <a href="https://www.sentinelone.com" target="_blank" rel="noopener">sentinelone.com ↗</a></div></div>
+
+  <div class="band">
+    <div class="wrap">
+      <div class="bandcard">
+        <h2>See Singularity in your environment — book a guided demo.</h2>
+        <div><a class="btn" href="contact.html">Request a demo</a></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap fcols">
+    <div class="fbrand">
+      <a class="logo" href="index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
+      <p>Cloud, security and managed operations for European organisations.</p>
+      <dl>
+        <dt>Email</dt><dd>[TODO: contact email]</dd>
+        <dt>Phone</dt><dd>+886 [TODO]</dd>
+        <dt>Registered office</dt><dd>[TODO: registered address]</dd>
+      </dl>
+    </div>
+    <div>
+      <h4>Cloud Infrastructure</h4>
+      <ul>
+        <li><a href="services.html#compute-engine">Compute Engine (VM)</a></li>
+        <li><a href="services.html#cloud-sql">Cloud SQL (Database)</a></li>
+        <li><a href="services.html#cloud-armor">Cloud Armor (WAF)</a></li>
+        <li><a href="services.html#cloud-migration">Cloud Migration &amp; Kubernetes</a></li>
+        <li><a href="services.html#hybrid-cloud-backup">Hybrid Cloud &amp; Backup</a></li>
+        <li><a href="services.html#data-ai-engineering">Data &amp; AI Engineering</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Cybersecurity</h4>
+      <p class="sub">Endpoint — EDR</p>
+      <ul>
+        <li><a href="sentinelone.html">SentinelOne</a></li>
+        <li><a href="services.html#threatsonar">ThreatSonar</a></li>
+        <li><a href="services.html#fortiedr">FortiEDR</a></li>
+      </ul>
+      <p class="sub">Detection — SIEM</p>
+      <ul>
+        <li><a href="services.html#cybereyes">CyberEyes</a></li>
+        <li><a href="services.html#google-secops">Google SecOps</a></li>
+      </ul>
+      <p class="sub">Built in-house</p>
+      <ul>
+        <li><a href="services.html#ce-bas">CE-BAS</a></li>
+        <li><a href="services.html#ai-ptaas">AI-PTaaS</a></li>
+        <li><a href="services.html#secpurple">SecPurple</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Managed Services</h4>
+      <ul>
+        <li><a href="services.html#soc">24/7 SOC &amp; Incident Response</a></li>
+        <li><a href="services.html#isms-pims">ISMS / PIMS Consulting</a></li>
+        <li><a href="services.html#pentest">Penetration Testing (human-led)</a></li>
+        <li><a href="services.html#finops-enablement">Cloud FinOps &amp; Enablement</a></li>
+        <li><a href="services.html#digital-transformation">Digital Transformation</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
+        <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap legal" id="legal">
+    <p>Volcatech Co., Ltd. <span lang="zh-Hant-TW">(沃凱科技股份有限公司)</span></p>
+    <p>Registered office: [TODO: registered address]</p>
+    <div class="row"><span>Company registration no.: [TODO]</span><span>VAT / tax ID: [TODO]</span></div>
+    <div class="row"><span>Email: [TODO: contact email]</span><span>Phone: +886 [TODO]</span></div>
+    <div class="row"><a href="#legal">Privacy Policy</a><a href="#legal">Imprint</a></div>
+    <p>© 2026 Volcatech Co., Ltd.</p>
+    <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
+  </div>
+  <div class="wrap backlink"><a href="index.html">← Layout home</a> · <a href="../index.html">All style demos</a></div>
+</footer>
+</body>
+</html>

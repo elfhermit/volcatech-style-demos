@@ -7,6 +7,9 @@
 <title>SentinelOne Singularity (EDR) — Volcatech</title>
 <meta name="description" content="AI-powered endpoint detection and response, deployed and operated by Volcatech with 24/7 SOC integration.">
 <style>
+/* ===== Layout 1: Magazine Editorial × Zurich tokens =====
+   Pair for A/B review: same colors and nav vocabulary as style-1-zurich, editorial magazine layout.
+   Production build self-hosts fonts via @fontsource (GDPR). Demo uses system fallbacks. */
 :root{
   --bg:#F7F7F5; --surface:#FFFFFF; --ink:#1A1A1A; --muted:#55606E;
   --line:#DCDCDC; --accent:#1D4ED8;
@@ -26,6 +29,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .btn:hover{background:#1742AE}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.todo{color:var(--muted);font-size:13px;border:1px dashed var(--line);padding:2px 8px;border-radius:3px}
+/* Masthead — nav mechanics identical to style-1 (catalog-index dropdowns) */
 header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:50}
 .nav{display:flex;align-items:center;gap:28px;height:68px}
 .logo{font-family:var(--font-display);font-weight:700;font-size:19px;letter-spacing:.12em}
@@ -48,36 +53,47 @@ header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--
 .lang a:hover{color:var(--accent)}
 .navbtn{display:none;margin-left:auto;background:none;border:1px solid var(--ink);border-radius:4px;
   padding:8px 14px;font-family:var(--font-display);font-size:14px;cursor:pointer}
-/* Product hero — signature giant catalog code */
-.phero{border-bottom:1px solid var(--line);
-  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
-  background-size:72px 72px}
-.phero .wrap{padding:80px 24px;display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:start}
-.bigcode{font-family:var(--font-display);font-weight:700;font-size:clamp(72px,12vw,150px);line-height:.9;
+/* Feature-story hero: kicker → oversized product title + giant catalog code → byline rule → standfirst deck */
+.fhero{border-bottom:1px solid var(--line)}
+.kicker{border-bottom:1px solid var(--line)}
+.kicker .wrap{padding:13px 24px}
+.fhero .top{display:grid;grid-template-columns:1fr auto;gap:24px 48px;align-items:end;padding-top:52px;padding-bottom:36px}
+.fhero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,5.6vw,76px);line-height:1.02;letter-spacing:-.02em}
+.bigcode{font-family:var(--font-display);font-weight:700;font-size:clamp(64px,10vw,140px);line-height:.85;
   color:var(--accent);letter-spacing:-.02em}
-.phero h1{font-family:var(--font-display);font-size:clamp(32px,4.6vw,56px);line-height:1.08}
-.phero .vendor{margin-top:12px;font-size:14px;color:var(--muted)}
-.phero .tag{margin-top:18px;font-size:19px;max-width:52ch;color:var(--muted)}
-.phero .cta{margin-top:32px;display:flex;gap:16px;flex-wrap:wrap}
-section .wrap{padding:88px 24px}
-.sec-h{display:grid;grid-template-columns:1fr 2fr;gap:40px;margin-bottom:44px}
-.sec-h h2{font-family:var(--font-display);font-size:clamp(26px,3.2vw,36px);line-height:1.15}
+.byline{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.byline .wrap{padding:12px 24px;font-size:14px;color:var(--muted)}
+.fdeck{display:grid;grid-template-columns:1.6fr 1fr;gap:24px 48px;align-items:start;padding-top:28px;padding-bottom:56px}
+.fdeck .tag{font-size:19px;color:var(--muted);max-width:52ch}
+.fdeck .cta{display:flex;gap:14px;flex-wrap:wrap}
+/* Chapters: numeral + hairline + two-column body */
+.chap{border-top:1px solid var(--line)}
+.chap:first-of-type{border-top:none}
+.chap>.wrap{padding-top:76px;padding-bottom:84px}
+.chap-head{display:grid;grid-template-columns:150px 1fr;gap:24px 40px;margin-bottom:40px}
+.chap-num{font-family:var(--font-display);font-weight:700;font-size:clamp(44px,5vw,64px);line-height:.9;color:var(--accent)}
+.chap-head .eyebrow{margin-bottom:10px}
+.chap-head h2{font-family:var(--font-display);font-size:clamp(26px,3.2vw,36px);line-height:1.15;max-width:26ch}
 .rows{border-top:1px solid var(--line)}
-.rows>div{border-bottom:1px solid var(--line);padding:26px 8px;display:grid;grid-template-columns:56px 1fr;gap:20px}
+.rows>div{border-bottom:1px solid var(--line);padding:24px 0;display:grid;grid-template-columns:72px 1fr;gap:20px}
 .rows .n{font-family:var(--font-display);font-weight:700;color:var(--muted)}
 .rows p{max-width:68ch}
-.grid2{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);border-left:1px solid var(--line)}
-.grid2>div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface);padding:30px 28px}
-.grid2 h3{font-family:var(--font-display);font-size:18px}
-.grid2 p{margin-top:8px;font-size:15px;color:var(--muted);max-width:52ch}
-.todo{color:var(--muted);font-size:13px;border:1px dashed var(--line);padding:2px 8px;border-radius:3px}
-.band{border-top:1px solid var(--line);background:var(--surface)}
-.band .wrap{padding:72px 24px;display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:center}
-.band h2{font-family:var(--font-display);font-size:clamp(24px,3vw,34px);line-height:1.2;max-width:24ch}
-.band div:last-child{text-align:right}
+.duo{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
+.duo>div{border-bottom:1px solid var(--line);padding:26px 0 30px 28px}
+.duo>div:nth-child(odd){padding-left:0;border-right:1px solid var(--line);padding-right:28px}
+.duo h3{font-family:var(--font-display);font-size:18px}
+.duo p{margin-top:8px;font-size:15px;color:var(--muted);max-width:52ch}
+.bodycopy{max-width:68ch;color:var(--muted)}
 .ext{border-top:1px solid var(--line)}
-.ext .wrap{padding:28px 24px;font-size:14px;color:var(--muted)}
+.ext .wrap{padding-top:26px;padding-bottom:26px;font-size:14px;color:var(--muted)}
 .ext a{color:var(--accent);font-weight:600}
+.ext a:hover{text-decoration:underline}
+/* Back-cover CTA band */
+.band{border-top:1px solid var(--line);background:var(--surface)}
+.band .wrap{padding-top:80px;padding-bottom:80px;display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:center}
+.band h2{font-family:var(--font-display);font-size:clamp(26px,3.2vw,40px);line-height:1.15;max-width:24ch}
+.band div:last-child{text-align:right}
+/* Footer */
 footer{border-top:1px solid var(--line)}
 .fcols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:32px;padding:64px 24px}
 .fcols h4{font-family:var(--font-display);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
@@ -95,12 +111,14 @@ footer{border-top:1px solid var(--line)}
 .legal .notice{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
 .legal a:hover{color:var(--accent)}
 .backlink{padding:0 24px 24px;font-size:12.5px}
+@media (prefers-reduced-motion:no-preference){
+  .btn,.menu a,.ext a{transition:background .15s ease,color .15s ease,border-color .15s ease}
+}
 @media (max-width:1024px){
+  .chap-head{grid-template-columns:100px 1fr}
   .fcols{grid-template-columns:1fr 1fr}
 }
 @media (max-width:900px){
-  .phero .wrap,.sec-h,.grid2,.band .wrap{grid-template-columns:1fr}
-  .band div:last-child{text-align:left}
   .navbtn{display:block}
   .menu{display:none;position:absolute;top:68px;left:0;right:0;background:var(--surface);
     border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;padding:16px 24px;gap:4px;
@@ -110,6 +128,17 @@ footer{border-top:1px solid var(--line)}
   .lang{margin-top:10px}
   .lang a{padding-left:0}
   .lang a+a{padding-left:10px}
+  .band .wrap{grid-template-columns:1fr}
+  .band div:last-child{text-align:left}
+}
+@media (max-width:768px){
+  .fhero .top{grid-template-columns:1fr;align-items:start}
+  .fdeck{grid-template-columns:1fr}
+  .chap-head{grid-template-columns:1fr;gap:14px}
+  .rows>div{grid-template-columns:56px 1fr}
+  .duo{grid-template-columns:1fr}
+  .duo>div{padding-left:0}
+  .duo>div:nth-child(odd){border-right:none;padding-right:0}
 }
 @media (max-width:560px){
   .fcols{grid-template-columns:1fr}
@@ -123,44 +152,44 @@ footer{border-top:1px solid var(--line)}
     <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'))">Menu</button>
     <ul class="menu" id="menu">
       <li><a href="index.html">Home</a></li>
-      <li class="dd"><a href="index.html#offer" aria-haspopup="true"><span class="code" style="font-size:13px">C</span> Cloud Infrastructure</a>
+      <li class="dd"><a href="services.html#cloud" aria-haspopup="true"><span class="code" style="font-size:13px">C</span> Cloud Infrastructure</a>
         <ul>
           <li class="grp">C — Cloud Infrastructure</li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page"><span class="code" style="font-size:12px">C-01</span> Compute Engine (VM)</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page"><span class="code" style="font-size:12px">C-02</span> Cloud SQL (Database)</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page"><span class="code" style="font-size:12px">C-03</span> Cloud Armor (WAF)</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page"><span class="code" style="font-size:12px">C-04</span> Cloud Migration &amp; Kubernetes</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page"><span class="code" style="font-size:12px">C-05</span> Hybrid Cloud &amp; Backup</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page"><span class="code" style="font-size:12px">C-06</span> Data &amp; AI Engineering</a></li>
+          <li><a href="services.html#compute-engine"><span class="code" style="font-size:12px">C-01</span> Compute Engine (VM)</a></li>
+          <li><a href="services.html#cloud-sql"><span class="code" style="font-size:12px">C-02</span> Cloud SQL (Database)</a></li>
+          <li><a href="services.html#cloud-armor"><span class="code" style="font-size:12px">C-03</span> Cloud Armor (WAF)</a></li>
+          <li><a href="services.html#cloud-migration"><span class="code" style="font-size:12px">C-04</span> Cloud Migration &amp; Kubernetes</a></li>
+          <li><a href="services.html#hybrid-cloud-backup"><span class="code" style="font-size:12px">C-05</span> Hybrid Cloud &amp; Backup</a></li>
+          <li><a href="services.html#data-ai-engineering"><span class="code" style="font-size:12px">C-06</span> Data &amp; AI Engineering</a></li>
         </ul>
       </li>
-      <li class="dd"><a href="index.html#offer" aria-haspopup="true"><span class="code" style="font-size:13px">E·S·A</span> Cybersecurity</a>
+      <li class="dd"><a href="services.html#cybersecurity" aria-haspopup="true"><span class="code" style="font-size:13px">E·S·A</span> Cybersecurity</a>
         <ul>
           <li class="grp">E — Endpoint (EDR)</li>
           <li><a href="sentinelone.html" aria-current="page"><span class="code" style="font-size:12px">E-01</span> SentinelOne</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page"><span class="code" style="font-size:12px">E-02</span> ThreatSonar</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page"><span class="code" style="font-size:12px">E-03</span> FortiEDR</a></li>
+          <li><a href="services.html#threatsonar"><span class="code" style="font-size:12px">E-02</span> ThreatSonar</a></li>
+          <li><a href="services.html#fortiedr"><span class="code" style="font-size:12px">E-03</span> FortiEDR</a></li>
           <li class="grp">S — Detection (SIEM)</li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page"><span class="code" style="font-size:12px">S-01</span> CyberEyes</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page"><span class="code" style="font-size:12px">S-02</span> Google SecOps</a></li>
+          <li><a href="services.html#cybereyes"><span class="code" style="font-size:12px">S-01</span> CyberEyes</a></li>
+          <li><a href="services.html#google-secops"><span class="code" style="font-size:12px">S-02</span> Google SecOps</a></li>
           <li class="grp">A — Volcatech AI Security</li>
-          <li><a href="index.html#built" title="Demo: opens the Built by Volcatech section"><span class="code" style="font-size:12px">A-01</span> CE-BAS</a></li>
-          <li><a href="index.html#built" title="Demo: opens the Built by Volcatech section"><span class="code" style="font-size:12px">A-02</span> AI-PTaaS</a></li>
-          <li><a href="index.html#built" title="Demo: opens the Built by Volcatech section"><span class="code" style="font-size:12px">A-03</span> SecPurple</a></li>
+          <li><a href="services.html#ce-bas"><span class="code" style="font-size:12px">A-01</span> CE-BAS</a></li>
+          <li><a href="services.html#ai-ptaas"><span class="code" style="font-size:12px">A-02</span> AI-PTaaS</a></li>
+          <li><a href="services.html#secpurple"><span class="code" style="font-size:12px">A-03</span> SecPurple</a></li>
         </ul>
       </li>
-      <li class="dd"><a href="index.html#offer" aria-haspopup="true"><span class="code" style="font-size:13px">X</span> Managed Services</a>
+      <li class="dd"><a href="services.html#managed" aria-haspopup="true"><span class="code" style="font-size:13px">X</span> Managed Services</a>
         <ul>
           <li class="grp">X — Managed Services</li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page"><span class="code" style="font-size:12px">X-01</span> 24/7 SOC &amp; Incident Response</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page"><span class="code" style="font-size:12px">X-02</span> ISMS / PIMS Consulting</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page"><span class="code" style="font-size:12px">X-03</span> Penetration Testing (human-led)</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page"><span class="code" style="font-size:12px">X-04</span> Cloud FinOps &amp; Enablement</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page"><span class="code" style="font-size:12px">X-05</span> Digital Transformation</a></li>
+          <li><a href="services.html#soc"><span class="code" style="font-size:12px">X-01</span> 24/7 SOC &amp; Incident Response</a></li>
+          <li><a href="services.html#isms-pims"><span class="code" style="font-size:12px">X-02</span> ISMS / PIMS Consulting</a></li>
+          <li><a href="services.html#pentest"><span class="code" style="font-size:12px">X-03</span> Penetration Testing (human-led)</a></li>
+          <li><a href="services.html#finops-enablement"><span class="code" style="font-size:12px">X-04</span> Cloud FinOps &amp; Enablement</a></li>
+          <li><a href="services.html#digital-transformation"><span class="code" style="font-size:12px">X-05</span> Digital Transformation</a></li>
         </ul>
       </li>
-      <li><a href="index.html#why">About</a></li>
-      <li><a class="btn" style="padding:10px 20px" href="index.html#contact">Contact us</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a class="btn" style="padding:10px 20px" href="contact.html">Contact us</a></li>
       <li>
         <nav class="lang" aria-label="Language">
           <a href="sentinelone.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
@@ -171,27 +200,32 @@ footer{border-top:1px solid var(--line)}
 </header>
 
 <main>
-  <div class="phero">
-    <div class="wrap">
-      <div class="bigcode">E-01</div>
-      <div>
-        <p class="eyebrow">Cybersecurity / Endpoint (EDR)</p>
-        <h1 style="margin-top:14px">SentinelOne Singularity</h1>
-        <p class="vendor">Vendor: SentinelOne · Category: Endpoint Detection &amp; Response</p>
-        <p class="tag">AI-powered endpoint protection that detects and stops attacks at machine speed —
-          and restores affected endpoints when ransomware strikes.</p>
-        <div class="cta">
-          <a class="btn" href="index.html#contact">Request a demo</a>
-          <a class="btn btn-ghost" href="index.html#contact">Talk to our team</a>
-        </div>
+  <div class="fhero">
+    <div class="kicker"><div class="wrap"><p class="eyebrow">Cybersecurity / Endpoint (EDR)</p></div></div>
+    <div class="wrap top">
+      <h1>SentinelOne Singularity</h1>
+      <div class="bigcode" aria-hidden="true">E-01</div>
+    </div>
+    <div class="byline"><div class="wrap">Vendor: SentinelOne · Category: Endpoint Detection &amp; Response</div></div>
+    <div class="wrap fdeck">
+      <p class="tag">AI-powered endpoint protection that detects and stops attacks at machine speed —
+        and restores affected endpoints when ransomware strikes.</p>
+      <div class="cta">
+        <a class="btn" href="contact.html">Request a demo</a>
+        <a class="btn btn-ghost" href="contact.html">Talk to our team</a>
       </div>
     </div>
   </div>
 
-  <section>
+  <section class="chap">
     <div class="wrap">
-      <div class="sec-h"><p class="eyebrow">Pain points</p>
-        <h2>The problems this solves for your security team.</h2></div>
+      <div class="chap-head">
+        <div class="chap-num" aria-hidden="true">01</div>
+        <div>
+          <p class="eyebrow">Pain points</p>
+          <h2>The problems this solves for your security team.</h2>
+        </div>
+      </div>
       <div class="rows">
         <div><span class="n">01</span><p>Alert fatigue: analysts drown in noisy detections and triage takes hours, not minutes.</p></div>
         <div><span class="n">02</span><p>Ransomware moves faster than any manual response process can react.</p></div>
@@ -200,11 +234,16 @@ footer{border-top:1px solid var(--line)}
     </div>
   </section>
 
-  <section style="border-top:1px solid var(--line)">
+  <section class="chap">
     <div class="wrap">
-      <div class="sec-h"><p class="eyebrow">Key capabilities</p>
-        <h2>What Singularity does on every endpoint.</h2></div>
-      <div class="grid2">
+      <div class="chap-head">
+        <div class="chap-num" aria-hidden="true">02</div>
+        <div>
+          <p class="eyebrow">Key capabilities</p>
+          <h2>What Singularity does on every endpoint.</h2>
+        </div>
+      </div>
+      <div class="duo">
         <div><h3>Behavioral AI detection</h3><p>Identifies malicious behavior on the device itself — no waiting for signature updates or cloud round-trips.</p></div>
         <div><h3>Autonomous response</h3><p>Kills, quarantines and isolates in real time, before an analyst even opens the alert.</p></div>
         <div><h3>Ransomware rollback</h3><p>Reverts endpoints and encrypted files to their pre-attack state on supported platforms.</p></div>
@@ -213,10 +252,15 @@ footer{border-top:1px solid var(--line)}
     </div>
   </section>
 
-  <section style="border-top:1px solid var(--line)">
+  <section class="chap">
     <div class="wrap">
-      <div class="sec-h"><p class="eyebrow">Business benefits</p>
-        <h2>What changes after deployment.</h2></div>
+      <div class="chap-head">
+        <div class="chap-num" aria-hidden="true">03</div>
+        <div>
+          <p class="eyebrow">Business benefits</p>
+          <h2>What changes after deployment.</h2>
+        </div>
+      </div>
       <div class="rows">
         <div><span class="n">→</span><p><b>Minutes, not hours:</b> mean time to respond drops sharply when containment is autonomous.</p></div>
         <div><span class="n">→</span><p><b>Leaner operations:</b> automated triage frees your analysts for real investigation work.</p></div>
@@ -225,11 +269,16 @@ footer{border-top:1px solid var(--line)}
     </div>
   </section>
 
-  <section style="border-top:1px solid var(--line);background:var(--surface)">
+  <section class="chap" style="background:var(--surface)">
     <div class="wrap">
-      <div class="sec-h"><p class="eyebrow">Why deploy with Volcatech</p>
-        <h2>A product is only as good as its operation.</h2></div>
-      <p style="max-width:68ch;color:var(--muted)">We connect SentinelOne to our 24/7 SOC (X-01), tune detections for your
+      <div class="chap-head">
+        <div class="chap-num" aria-hidden="true">04</div>
+        <div>
+          <p class="eyebrow">Why deploy with Volcatech</p>
+          <h2>A product is only as good as its operation.</h2>
+        </div>
+      </div>
+      <p class="bodycopy">We connect SentinelOne to our 24/7 SOC (X-01), tune detections for your
         environment, and handle rollout across your fleet. <span class="todo">[TODO: local references &amp; delivery details]</span></p>
     </div>
   </section>
@@ -239,7 +288,7 @@ footer{border-top:1px solid var(--line)}
   <div class="band">
     <div class="wrap">
       <h2>See Singularity in your environment — book a guided demo.</h2>
-      <div><a class="btn" href="index.html#contact">Request a demo</a></div>
+      <div><a class="btn" href="contact.html">Request a demo</a></div>
     </div>
   </div>
 </main>
@@ -258,12 +307,12 @@ footer{border-top:1px solid var(--line)}
     <div>
       <h4>Cloud Infrastructure</h4>
       <ul>
-        <li><a href="index.html#offer">Compute Engine (VM)</a></li>
-        <li><a href="index.html#offer">Cloud SQL (Database)</a></li>
-        <li><a href="index.html#offer">Cloud Armor (WAF)</a></li>
-        <li><a href="index.html#offer">Cloud Migration &amp; Kubernetes</a></li>
-        <li><a href="index.html#offer">Hybrid Cloud &amp; Backup</a></li>
-        <li><a href="index.html#offer">Data &amp; AI Engineering</a></li>
+        <li><a href="services.html#compute-engine">Compute Engine (VM)</a></li>
+        <li><a href="services.html#cloud-sql">Cloud SQL (Database)</a></li>
+        <li><a href="services.html#cloud-armor">Cloud Armor (WAF)</a></li>
+        <li><a href="services.html#cloud-migration">Cloud Migration &amp; Kubernetes</a></li>
+        <li><a href="services.html#hybrid-cloud-backup">Hybrid Cloud &amp; Backup</a></li>
+        <li><a href="services.html#data-ai-engineering">Data &amp; AI Engineering</a></li>
       </ul>
     </div>
     <div>
@@ -271,36 +320,36 @@ footer{border-top:1px solid var(--line)}
       <p class="sub">Endpoint (EDR)</p>
       <ul>
         <li><a href="sentinelone.html">SentinelOne</a></li>
-        <li><a href="index.html#offer">ThreatSonar</a></li>
-        <li><a href="index.html#offer">FortiEDR</a></li>
+        <li><a href="services.html#threatsonar">ThreatSonar</a></li>
+        <li><a href="services.html#fortiedr">FortiEDR</a></li>
       </ul>
       <p class="sub">Detection (SIEM)</p>
       <ul>
-        <li><a href="index.html#offer">CyberEyes</a></li>
-        <li><a href="index.html#offer">Google SecOps</a></li>
+        <li><a href="services.html#cybereyes">CyberEyes</a></li>
+        <li><a href="services.html#google-secops">Google SecOps</a></li>
       </ul>
       <p class="sub">Built by Volcatech</p>
       <ul>
-        <li><a href="index.html#built">CE-BAS</a></li>
-        <li><a href="index.html#built">AI-PTaaS</a></li>
-        <li><a href="index.html#built">SecPurple</a></li>
+        <li><a href="services.html#ce-bas">CE-BAS</a></li>
+        <li><a href="services.html#ai-ptaas">AI-PTaaS</a></li>
+        <li><a href="services.html#secpurple">SecPurple</a></li>
       </ul>
     </div>
     <div>
       <h4>Managed Services</h4>
       <ul>
-        <li><a href="index.html#offer">24/7 SOC &amp; Incident Response</a></li>
-        <li><a href="index.html#offer">ISMS / PIMS Consulting</a></li>
-        <li><a href="index.html#offer">Penetration Testing (human-led)</a></li>
-        <li><a href="index.html#offer">Cloud FinOps &amp; Enablement</a></li>
-        <li><a href="index.html#offer">Digital Transformation</a></li>
+        <li><a href="services.html#soc">24/7 SOC &amp; Incident Response</a></li>
+        <li><a href="services.html#isms-pims">ISMS / PIMS Consulting</a></li>
+        <li><a href="services.html#pentest">Penetration Testing (human-led)</a></li>
+        <li><a href="services.html#finops-enablement">Cloud FinOps &amp; Enablement</a></li>
+        <li><a href="services.html#digital-transformation">Digital Transformation</a></li>
       </ul>
     </div>
     <div>
       <h4>Company</h4>
       <ul>
-        <li><a href="index.html#why">About</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
         <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
         <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
       </ul>
@@ -315,7 +364,7 @@ footer{border-top:1px solid var(--line)}
     <p>© 2026 Volcatech Co., Ltd.</p>
     <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
   </div>
-  <div class="wrap backlink"><a href="index.html">← Style home</a> · <a href="../index.html">All style demos</a></div>
+  <div class="wrap backlink"><a href="index.html">← Layout home</a> · <a href="../index.html">All style demos</a></div>
 </footer>
 </body>
 </html>

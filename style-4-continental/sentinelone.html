@@ -27,21 +27,40 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .btn:hover{background:#0B2F6C}
 .btn-ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
 .btn-ghost:hover{background:var(--surface)}
-header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:50}
+/* Dual-layer header (Continental signature) */
+header{position:sticky;top:0;z-index:50}
+.topbar{background:var(--surface);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;height:34px}
+.topbar-co{font-family:var(--disp);font-weight:600;letter-spacing:.04em}
+.topbar-links{display:flex;gap:20px;align-items:center}
+.topbar-links a{color:var(--muted);font-size:12px}
+.topbar-links a:hover{color:var(--accent)}
+.topbar .lang{font-size:12px}
+.mainnav{background:#fff;border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;gap:30px;height:66px}
 .logo{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:.06em;text-transform:uppercase}
 .menu{display:flex;gap:24px;margin-left:auto;align-items:center;list-style:none}
 .menu>li{position:relative}
-.menu a{font-family:var(--disp);font-weight:500;font-size:15px;padding:8px 0}
+.menu a{font-family:var(--disp);font-weight:500;font-size:15px;color:var(--ink);padding:8px 0}
 .menu a:hover{color:var(--accent)}
+.menu a[aria-current="page"]{border-bottom:2px solid var(--rule)}
 .dd>a::after{content:" ▾";font-size:10px;color:var(--muted)}
 .dd ul{display:none;position:absolute;top:100%;left:-12px;background:#fff;border:1px solid var(--line);
-  min-width:250px;padding:8px 0;list-style:none;border-radius:2px}
+  min-width:290px;padding:8px 0;list-style:none;border-radius:2px}
 .dd:hover ul,.dd:focus-within ul{display:block}
 .dd ul a{display:block;padding:9px 18px;font-size:14px;font-family:var(--body);font-weight:400}
 .dd ul a:hover{background:var(--surface)}
-.dd .grp{padding:9px 18px 3px;font-family:var(--disp);font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
-.lang{font-size:13px;color:var(--muted)} .lang b{color:var(--ink)}
+.dd .grp{padding:12px 18px 3px;font-family:var(--disp);font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+/* Language switcher — real links, not decorative text */
+.lang{display:flex;align-items:center;font-size:12px}
+.lang a{padding:2px 9px;color:var(--muted)}
+.lang a+a{border-left:1px solid var(--line)}
+.lang a[aria-current="true"]{color:var(--ink);font-weight:600}
+.lang a:hover{color:var(--accent)}
+/* Topbar content mirrored into the mobile menu — legal links must never disappear */
+.mobile-legal{display:none;border-top:1px solid var(--line);margin-top:12px;padding-top:12px;width:100%}
+.mobile-legal .row{display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-size:13px}
+.mobile-legal .row a{font-family:var(--body);font-size:13px;color:var(--muted)}
 .navbtn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:2px;
   padding:8px 14px;font-family:var(--disp);font-size:14px;cursor:pointer}
 /* Datasheet hero */
@@ -75,50 +94,120 @@ ol.spec small{display:block;color:var(--muted);margin-top:3px;font-size:14.5px}
 .band h2{font-family:var(--disp);font-weight:700;font-size:clamp(22px,2.8vw,32px);line-height:1.15}
 .band div:last-child{text-align:right}
 footer{border-top:2px solid var(--rule)}
-.legal{padding:22px 24px;font-size:12.5px;color:var(--muted);line-height:1.9}
+.fcols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:28px;padding:60px 24px}
+.fcols h4{font-family:var(--disp);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.fcols ul{list-style:none;margin-top:14px}
+.fcols li{margin-top:8px;font-size:14px}
+.fcols .sub{margin-top:14px;font-family:var(--disp);font-weight:700;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fcols a:hover{color:var(--accent)}
+.fbrand p{margin-top:14px;font-size:14px;color:var(--muted);max-width:34ch}
+.legal{border-top:2px solid var(--rule);padding:26px 24px;font-size:12.5px;color:var(--muted);line-height:1.8;max-width:78ch}
+.legal table{border-collapse:collapse;margin-top:10px}
+.legal td{padding:5px 0;vertical-align:top}
+.legal td:first-child{font-family:var(--disp);font-weight:600;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;padding-right:22px;white-space:nowrap}
+.legal td:last-child{color:var(--ink)}
+.legal .links{margin-top:14px}
+.legal .links a{color:var(--accent);margin-right:18px}
+.legal .notice{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.backlink{padding:0 24px 26px;font-size:12.5px}
+.backlink a{color:var(--accent)}
+@media (max-width:1024px){
+  .fcols{grid-template-columns:1fr 1fr}
+}
 @media (max-width:900px){
+  .topbar{display:none}
+  .mobile-legal{display:block}
   .band .wrap{grid-template-columns:1fr}
   .band div:last-child{text-align:left}
   ol.spec>li{grid-template-columns:44px 1fr}
   .navbtn{display:block}
   .menu{display:none;position:absolute;top:66px;left:0;right:0;background:#fff;
-    border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;padding:16px 24px;gap:4px}
+    border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;padding:16px 24px;gap:4px;
+    max-height:calc(100vh - 66px);overflow-y:auto}
   .menu.open{display:flex}
   .dd ul{display:block;position:static;border:none;padding-left:14px;min-width:0}
+  .lang a{padding-left:0}
+  .lang a+a{padding-left:9px}
+}
+@media (max-width:560px){
+  .fcols{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 <header>
-  <div class="wrap nav">
-    <a class="logo" href="index.html">Volcatech</a>
-    <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'))">Menu</button>
-    <ul class="menu" id="menu">
-      <li><a href="index.html">Home</a></li>
-      <li class="dd"><a href="#" aria-haspopup="true">Cloud Services</a>
-        <ul><li><a href="#" title="Demo scope">Overview</a></li><li><a href="#" title="Demo scope">Compute Engine (VM)</a></li>
-        <li><a href="#" title="Demo scope">Cloud SQL (Database)</a></li><li><a href="#" title="Demo scope">Cloud Armor (WAF)</a></li></ul>
-      </li>
-      <li class="dd"><a href="#" aria-current="page" aria-haspopup="true">Security Products</a>
-        <ul>
-          <li class="grp">EDR — Endpoint Detection &amp; Response</li>
-          <li><a href="sentinelone.html" aria-current="page">SentinelOne</a></li>
-          <li><a href="#" title="Demo scope">ThreatSonar</a></li>
-          <li><a href="#" title="Demo scope">FortiEDR</a></li>
-          <li class="grp">SIEM — Security Info &amp; Event Mgmt</li>
-          <li><a href="#" title="Demo scope">CyberEyes</a></li>
-          <li><a href="#" title="Demo scope">Google SecOps</a></li>
-        </ul>
-      </li>
-      <li class="dd"><a href="#" aria-haspopup="true">Solutions</a>
-        <ul><li><a href="#" title="Demo scope">SOC — Managed Security</a></li>
-        <li><a href="#" title="Demo scope">Breach &amp; Attack Simulation</a></li>
-        <li><a href="#" title="Demo scope">Penetration Testing</a></li></ul>
-      </li>
-      <li><a href="#" title="Demo scope">About</a></li>
-      <li><a class="btn" style="padding:10px 20px" href="#" title="Demo scope">Contact Us</a></li>
-      <li class="lang"><b>EN</b> | 繁中</li>
-    </ul>
+  <div class="topbar">
+    <div class="wrap topbar-inner">
+      <span class="topbar-co">Volcatech Co., Ltd.</span>
+      <span class="topbar-links">
+        <a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a>
+        <a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a>
+        <nav class="lang" aria-label="Language">
+          <a href="sentinelone.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+        </nav>
+      </span>
+    </div>
+  </div>
+  <div class="mainnav">
+    <div class="wrap nav">
+      <a class="logo" href="index.html">Volcatech</a>
+      <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'))">Menu</button>
+      <ul class="menu" id="menu">
+        <li><a href="index.html">Home</a></li>
+        <li class="dd"><a href="index.html#offer" aria-haspopup="true">§1 Cloud Infrastructure</a>
+          <ul>
+            <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">§1.1 Compute Engine (VM)</a></li>
+            <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">§1.2 Cloud SQL (Database)</a></li>
+            <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">§1.3 Cloud Armor (WAF / DDoS)</a></li>
+            <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">§1.4 Cloud Migration &amp; Kubernetes</a></li>
+            <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">§1.5 Hybrid Cloud &amp; Backup</a></li>
+            <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">§1.6 Data &amp; AI Engineering</a></li>
+          </ul>
+        </li>
+        <li class="dd"><a href="index.html#offer" aria-haspopup="true">§2 Cybersecurity</a>
+          <ul>
+            <li class="grp">§2.1 Endpoint Detection &amp; Response (EDR)</li>
+            <li><a href="sentinelone.html" aria-current="page">SentinelOne</a></li>
+            <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">ThreatSonar</a></li>
+            <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">FortiEDR</a></li>
+            <li class="grp">§2.2 Security Information &amp; Event Management (SIEM)</li>
+            <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">CyberEyes</a></li>
+            <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">Google SecOps</a></li>
+            <li class="grp">§2.3 Volcatech AI Security (in-house)</li>
+            <li><a href="index.html#built" title="Demo: opens the Built by Volcatech section">CE-BAS</a></li>
+            <li><a href="index.html#built" title="Demo: opens the Built by Volcatech section">AI-PTaaS</a></li>
+            <li><a href="index.html#built" title="Demo: opens the Built by Volcatech section">SecPurple</a></li>
+          </ul>
+        </li>
+        <li class="dd"><a href="index.html#offer" aria-haspopup="true">§3 Managed Services</a>
+          <ul>
+            <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">§3.1 24/7 SOC &amp; Incident Response</a></li>
+            <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">§3.2 ISMS / PIMS Consulting</a></li>
+            <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">§3.3 Penetration Testing (human-led)</a></li>
+            <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">§3.4 Cloud FinOps &amp; Enablement</a></li>
+            <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">§3.5 Digital Transformation</a></li>
+          </ul>
+        </li>
+        <li class="dd"><a href="index.html#why" aria-haspopup="true">Company</a>
+          <ul>
+            <li><a href="index.html#why">About</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </li>
+        <li><a class="btn" style="padding:10px 20px" href="index.html#contact">Request a proposal</a></li>
+        <li class="mobile-legal">
+          <span class="doc">Volcatech Co., Ltd.</span>
+          <div class="row">
+            <a href="#legal">Imprint</a>
+            <a href="#legal">Privacy Policy</a>
+            <nav class="lang" aria-label="Language">
+              <a href="sentinelone.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+            </nav>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </header>
 
@@ -131,17 +220,18 @@ footer{border-top:2px solid var(--rule)}
       <p class="tag">AI-powered endpoint protection that detects and stops attacks at machine speed —
         and restores affected endpoints when ransomware strikes.</p>
       <div class="cta">
-        <a class="btn" href="#" title="Demo scope">Request a demo</a>
-        <a class="btn btn-ghost" href="#" title="Demo scope">Talk to our team</a>
+        <a class="btn" href="index.html#contact">Request a demo</a>
+        <a class="btn btn-ghost" href="index.html#contact">Talk to our team</a>
       </div>
 
       <table class="dstable">
         <caption>Specification summary</caption>
-        <tr><td>Index</td><td>E-01</td></tr>
-        <tr><td>Category</td><td>Security Products · EDR (Endpoint Detection &amp; Response)</td></tr>
+        <tr><td>Index</td><td>E-01 · §2.1</td></tr>
+        <tr><td>Category</td><td>Cybersecurity · EDR (Endpoint Detection &amp; Response)</td></tr>
         <tr><td>Vendor</td><td>SentinelOne</td></tr>
         <tr><td>Coverage</td><td>Windows · macOS · Linux endpoints and servers</td></tr>
         <tr><td>Delivery by Volcatech</td><td>Deployment · Detection tuning · 24/7 SOC integration (X-01)</td></tr>
+        <tr><td>Pricing</td><td>On request</td></tr>
       </table>
     </div>
   </div>
@@ -189,7 +279,7 @@ footer{border-top:2px solid var(--rule)}
       <h2 class="sec">A product is only as good as its operation.</h2>
       <p style="margin-top:22px;color:var(--muted);max-width:66ch">We connect SentinelOne to our 24/7 SOC (X-01),
         tune detections for your environment, and manage rollout across your fleet — documented and auditable.
-        <span class="todo">TODO: local references &amp; delivery details</span></p>
+        <span class="todo">[TODO: local references &amp; delivery details]</span></p>
     </div>
   </section>
 
@@ -198,18 +288,82 @@ footer{border-top:2px solid var(--rule)}
   <div class="band">
     <div class="wrap">
       <h2>Request a scoped proposal for endpoint coverage.</h2>
-      <div><a class="btn" href="#" title="Demo scope">Request a demo</a></div>
+      <div><a class="btn" href="index.html#contact">Request a demo</a></div>
     </div>
   </div>
 </main>
 
 <footer>
-  <div class="legal wrap">
-    Volcatech Co., Ltd. (沃凱科技股份有限公司) · Registered office: [TODO: address] · Company registration no.: [TODO] ·
-    VAT ID: [TODO] · <a href="#" style="color:var(--accent)">Privacy Policy</a> · <a href="#" style="color:var(--accent)">Imprint</a><br>
-    © 2026 Volcatech Co., Ltd. All rights reserved. ·
-    <a href="index.html" style="color:var(--accent)">← Style home</a> · <a href="../index.html" style="color:var(--accent)">All styles</a>
+  <div class="wrap fcols">
+    <div class="fbrand">
+      <a class="logo" href="index.html">Volcatech</a>
+      <p>Cloud, security and managed operations for European organisations.</p>
+    </div>
+    <div>
+      <h4>§1 Cloud Infrastructure</h4>
+      <ul>
+        <li><a href="index.html#offer">Compute Engine (VM)</a></li>
+        <li><a href="index.html#offer">Cloud SQL (Database)</a></li>
+        <li><a href="index.html#offer">Cloud Armor (WAF / DDoS)</a></li>
+        <li><a href="index.html#offer">Cloud Migration &amp; Kubernetes</a></li>
+        <li><a href="index.html#offer">Hybrid Cloud &amp; Backup</a></li>
+        <li><a href="index.html#offer">Data &amp; AI Engineering</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>§2 Cybersecurity</h4>
+      <p class="sub">§2.1 EDR</p>
+      <ul>
+        <li><a href="sentinelone.html">SentinelOne</a></li>
+        <li><a href="index.html#offer">ThreatSonar</a></li>
+        <li><a href="index.html#offer">FortiEDR</a></li>
+      </ul>
+      <p class="sub">§2.2 SIEM</p>
+      <ul>
+        <li><a href="index.html#offer">CyberEyes</a></li>
+        <li><a href="index.html#offer">Google SecOps</a></li>
+      </ul>
+      <p class="sub">§2.3 In-house</p>
+      <ul>
+        <li><a href="index.html#built">CE-BAS</a></li>
+        <li><a href="index.html#built">AI-PTaaS</a></li>
+        <li><a href="index.html#built">SecPurple</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>§3 Managed Services</h4>
+      <ul>
+        <li><a href="index.html#offer">24/7 SOC &amp; Incident Response</a></li>
+        <li><a href="index.html#offer">ISMS / PIMS Consulting</a></li>
+        <li><a href="index.html#offer">Penetration Testing (human-led)</a></li>
+        <li><a href="index.html#offer">Cloud FinOps &amp; Enablement</a></li>
+        <li><a href="index.html#offer">Digital Transformation</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="index.html#why">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
+        <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
+      </ul>
+    </div>
   </div>
+  <div class="wrap legal" id="legal">
+    <p>Volcatech Co., Ltd. <span lang="zh-Hant-TW">(沃凱科技股份有限公司)</span></p>
+    <table>
+      <tr><td>Registered office</td><td>[TODO: registered address]</td></tr>
+      <tr><td>Company registration no.</td><td>[TODO]</td></tr>
+      <tr><td>VAT / tax ID</td><td>[TODO]</td></tr>
+      <tr><td>Email</td><td>[TODO: contact email]</td></tr>
+      <tr><td>Phone</td><td>+886 [TODO]</td></tr>
+    </table>
+    <p class="links"><a href="#legal">Privacy Policy</a><a href="#legal">Imprint</a></p>
+    <p>© 2026 Volcatech Co., Ltd.</p>
+    <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
+  </div>
+  <div class="wrap backlink"><a href="index.html">← Style home</a> · <a href="../index.html">All style demos</a></div>
 </footer>
 </body>
 </html>

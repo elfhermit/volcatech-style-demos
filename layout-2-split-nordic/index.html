@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+<title>Volcatech — Cloud, cybersecurity and managed services</title>
+<meta name="description" content="Volcatech designs and runs Google Cloud environments for European organisations, deploys and tunes EDR and SIEM, and keeps both under 24/7 monitoring — cloud infrastructure, cybersecurity and managed services from one turn-key partner.">
+<style>
+/* ===== Layout 2: Split hero + Zig-zag × Nordic Calm =====
+   Colour system, nav vocabulary and copy are shared with style-2-nordic (control pair).
+   Only the layout framework differs: split hero, three cards, alternating text/visual bands.
+   Production build self-hosts fonts via @fontsource (GDPR). Demo uses system fallbacks. */
+:root{
+  --bg:#FBFAF7; --surface:#FFFFFF; --ink:#1C2321; --muted:#5C6662;
+  --line:#E4E2DC; --accent:#2E5A4E;
+  --serif:'Source Serif 4','Noto Sans TC',Georgia,'Times New Roman',serif;
+  --sans:'Inter','Noto Sans TC',ui-sans-serif,system-ui,'Helvetica Neue',Arial,sans-serif;
+  --max:1080px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.75}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+[id]{scroll-margin-top:96px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+.eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.btn{display:inline-block;background:var(--accent);color:#FBFAF7;font-weight:600;font-size:15px;
+  padding:14px 30px;border-radius:8px;border:1px solid var(--accent)}
+.btn:hover{background:#254A40}
+.btn-ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.btn-ghost:hover{background:#F0EEE7}
+.todo{color:var(--muted);font-size:13px;border:1px dashed var(--line);padding:2px 8px;border-radius:6px}
+header{position:sticky;top:0;background:rgba(251,250,247,.94);backdrop-filter:blur(4px);z-index:50;border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;height:76px;gap:36px}
+.logo{font-weight:700;font-size:18px;letter-spacing:.1em}
+.menu{display:flex;gap:30px;margin-left:auto;align-items:center;list-style:none}
+.menu>li{position:relative}
+.menu a{font-size:15px;color:var(--muted);padding:8px 0}
+.menu a:hover,.menu a[aria-current="page"]{color:var(--ink)}
+.menu a[aria-current="page"]{border-bottom:1px solid var(--accent)}
+.menu a.btn{color:#FBFAF7;border-bottom:none}
+.menu a.btn:hover{color:#FBFAF7;background:#254A40}
+.dd>a::after{content:" ▾";font-size:10px}
+/* Mega-menu (Nordic nav vocabulary: one calm, full-width map of everything we offer) */
+.mega{position:static}
+.megamenu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);border-bottom:1px solid var(--line);
+  padding:48px 28px 40px;max-width:var(--max);margin:0 auto}
+.mega:hover .megamenu,.mega:focus-within .megamenu{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;
+  left:50%;transform:translateX(-50%);width:100%;max-width:var(--max)}
+.megacol .grp{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--ink);margin-bottom:18px;padding:0}
+.megacol .subgrp{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:16px 0 6px;padding:0}
+.megacol a{display:block;padding:7px 0;font-size:14.5px;color:var(--muted)}
+.megacol a:hover{color:var(--ink)}
+.megafoot{grid-column:1 / -1;border-top:1px solid var(--line);margin-top:14px;padding-top:18px;font-size:14.5px}
+.megafoot a{color:var(--accent);font-weight:600;display:inline;padding:0}
+/* Language switcher — real links, not decorative text */
+.lang{display:flex;align-items:center;font-size:13px}
+.lang a{padding:4px 10px;color:var(--muted)}
+.lang a+a{border-left:1px solid var(--line)}
+.lang a[aria-current="true"]{color:var(--ink);font-weight:600}
+.navbtn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:8px;
+  padding:8px 14px;font-size:14px;cursor:pointer;color:var(--ink)}
+/* Split machinery (layout signature). DOM order is always text → visual;
+   the reversed variant swaps columns with explicit grid placement, never with `order`. */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.split>:first-child{grid-row:1;grid-column:1;min-width:0}
+.split>:last-child{grid-row:1;grid-column:2;min-width:0}
+.split.rev>:first-child{grid-column:2}
+.split.rev>:last-child{grid-column:1}
+.vis svg{display:block;width:100%;height:auto}
+/* Split hero */
+.hero .wrap{padding:88px 28px 80px}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,4.6vw,52px);line-height:1.14}
+.hero .sub{margin-top:26px;color:var(--muted);max-width:56ch;font-size:18px}
+.hero .cta{margin-top:36px;display:flex;gap:16px;flex-wrap:wrap}
+/* Three cards (the three lines, in one calm row) */
+.offer{border-top:1px solid var(--line)}
+.offer .wrap{padding:88px 28px 96px}
+.threes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.tcard{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);
+  border-radius:8px;padding:34px 30px}
+.tcard:hover{border-color:var(--accent)}
+.tcard .n{font-size:13px;color:var(--muted);letter-spacing:.1em}
+.tcard h2{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.25;margin-top:14px}
+.tcard p{margin-top:12px;color:var(--muted);font-size:15px}
+.tcard .explore{margin-top:auto;padding-top:24px;color:var(--accent);font-weight:600;font-size:15px}
+.tcard .explore .arr{display:inline-block}
+/* Zig-zag sections */
+section .wrap{padding:112px 28px}
+h2.sec{font-family:var(--serif);font-weight:600;font-size:clamp(28px,3.6vw,40px);line-height:1.2}
+.built{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.built .lead{margin-top:18px;color:var(--muted);font-size:17px;max-width:56ch}
+.builtlist{margin-top:48px;display:grid;gap:34px}
+.builtlist h3{font-family:var(--serif);font-weight:600;font-size:22px}
+.builtlist .full{display:block;font-size:13px;letter-spacing:.02em;color:var(--muted);font-family:var(--sans);font-weight:400;margin-top:4px}
+.builtlist p{margin-top:12px;color:var(--muted);font-size:16px;max-width:64ch}
+.built .note{margin-top:44px;font-size:14px;color:var(--muted)}
+.why{margin-top:48px;display:grid;gap:38px}
+.why h3{font-size:18px;font-weight:600}
+.why h3::before{content:"";display:inline-block;width:9px;height:9px;background:var(--accent);margin-right:14px}
+.why p{margin-top:8px;color:var(--muted);font-size:16px;max-width:62ch}
+/* Trust + vendors */
+.trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.trust .wrap{padding:56px 28px}
+.trust p{color:var(--muted);font-size:15px;max-width:70ch;margin-top:8px}
+.trust b{color:var(--ink)}
+.vendors .wrap{padding:72px 28px}
+.vendors span{display:inline-block;margin:6px 28px 6px 0;color:var(--muted);font-weight:600;font-size:16px}
+.band{text-align:center}
+.band .wrap{padding:112px 28px}
+.band h2{font-family:var(--serif);font-weight:600;font-size:clamp(26px,3.4vw,38px);max-width:24ch;margin:0 auto;line-height:1.25}
+.band .btn{margin-top:36px}
+/* Footer */
+footer{border-top:1px solid var(--line)}
+footer .wrap{max-width:1200px}
+.fcols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:28px;padding:72px 28px}
+.fcols h4{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.fcols h4 a{color:inherit}
+.fcols h4 a:hover{color:var(--ink)}
+.fcols ul{list-style:none;margin-top:16px}
+.fcols li{margin-top:9px;font-size:14px}
+.fcols .sub{margin-top:16px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.fcols a{color:var(--muted)} .fcols a:hover{color:var(--ink)}
+.fbrand p{margin-top:16px;font-size:14px;color:var(--muted);max-width:32ch}
+.fbrand dl{margin-top:20px;font-size:14px;color:var(--muted)}
+.fbrand dt{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;margin-top:12px}
+.fbrand dd{color:var(--ink)}
+.legal{border-top:1px solid var(--line);padding:26px 28px;font-size:12.5px;color:var(--muted);max-width:70ch;line-height:1.7}
+.legal p{margin-top:6px}
+.legal .row{display:flex;gap:6px 20px;flex-wrap:wrap;margin-top:6px}
+.legal .notice{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.legal a{color:var(--accent)}
+.backlink{padding:0 28px 26px;font-size:12.5px}
+/* Motion — everything animated lives inside this block only */
+@media (prefers-reduced-motion:no-preference){
+  html{scroll-behavior:smooth}
+  .tcard{transition:border-color .18s ease,transform .18s ease}
+  .tcard:hover{transform:translateY(-2px)}
+  .tcard .explore .arr{transition:transform .18s ease}
+  .tcard:hover .explore .arr{transform:translateX(6px)}
+}
+@media (max-width:1024px){
+  .fcols{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  .navbtn{display:block}
+  .menu{display:none;position:absolute;top:76px;left:0;right:0;background:var(--surface);
+    border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;padding:18px 28px;gap:4px;
+    max-height:calc(100vh - 76px);overflow-y:auto}
+  .menu.open{display:flex}
+  .mega:hover .megamenu,.mega:focus-within .megamenu{display:block;position:static;transform:none;grid-template-columns:1fr;padding:0 0 0 14px}
+  .megacol{margin-top:12px}
+  .megacol .grp{font-size:15px;margin-bottom:10px}
+  .megafoot{margin-top:18px;padding-top:14px}
+  .lang{margin-top:10px}
+  .lang a{padding-left:0}
+  .lang a+a{padding-left:10px}
+  .threes{grid-template-columns:1fr}
+}
+@media (max-width:768px){
+  .split{grid-template-columns:1fr;gap:40px}
+  .split>:first-child,.split.rev>:first-child{grid-column:1;grid-row:1}
+  .split>:last-child,.split.rev>:last-child{grid-column:1;grid-row:2}
+  .hero .wrap{padding:64px 28px 64px}
+  section .wrap{padding:88px 28px}
+}
+@media (max-width:560px){
+  .fcols{grid-template-columns:1fr}
+}
+@media (max-width:480px){
+  .vis{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html" aria-current="page">Volcatech</a>
+    <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'))">Menu</button>
+    <ul class="menu" id="menu">
+      <li class="dd mega"><a href="services.html" aria-haspopup="true">What We Offer</a>
+        <div class="megamenu">
+          <div class="megacol">
+            <p class="grp">01 — Cloud Infrastructure</p>
+            <a href="services.html#compute-engine">Compute Engine (VM)</a>
+            <a href="services.html#cloud-sql">Cloud SQL (Database)</a>
+            <a href="services.html#cloud-armor">Cloud Armor (WAF)</a>
+            <a href="services.html#cloud-migration">Cloud Migration &amp; Kubernetes</a>
+            <a href="services.html#hybrid-cloud-backup">Hybrid Cloud &amp; Backup</a>
+            <a href="services.html#data-ai-engineering">Data &amp; AI Engineering</a>
+          </div>
+          <div class="megacol">
+            <p class="grp">02 — Cybersecurity</p>
+            <p class="subgrp">Endpoint (EDR)</p>
+            <a href="sentinelone.html">SentinelOne</a>
+            <a href="services.html#threatsonar">ThreatSonar</a>
+            <a href="services.html#fortiedr">FortiEDR</a>
+            <p class="subgrp">SIEM</p>
+            <a href="services.html#cybereyes">CyberEyes</a>
+            <a href="services.html#google-secops">Google SecOps</a>
+            <p class="subgrp">Built by Volcatech</p>
+            <a href="services.html#ce-bas">CE-BAS</a>
+            <a href="services.html#ai-ptaas">AI-PTaaS</a>
+            <a href="services.html#secpurple">SecPurple</a>
+          </div>
+          <div class="megacol">
+            <p class="grp">03 — Managed Services</p>
+            <a href="services.html#soc">24/7 SOC &amp; Incident Response</a>
+            <a href="services.html#isms-pims">ISMS / PIMS Consulting</a>
+            <a href="services.html#pentest">Penetration Testing (human-led)</a>
+            <a href="services.html#finops-enablement">Cloud FinOps &amp; Enablement</a>
+            <a href="services.html#digital-transformation">Digital Transformation</a>
+          </div>
+          <p class="megafoot">Not sure where to start? <a href="contact.html">Talk to us →</a></p>
+        </div>
+      </li>
+      <li><a href="about.html">About</a></li>
+      <li><a class="btn" style="padding:10px 22px" href="contact.html">Contact us</a></li>
+      <li>
+        <nav class="lang" aria-label="Language">
+          <a href="index.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+        </nav>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <!-- Split hero (layout signature): copy half + abstract visual half -->
+  <div class="hero" id="top">
+    <div class="wrap split">
+      <div class="txt">
+        <p class="eyebrow">Cloud · Cybersecurity · Managed Services</p>
+        <h1 style="margin-top:24px">Cloud infrastructure, cybersecurity and managed services — from one turn-key partner.</h1>
+        <p class="sub">We design and run Google Cloud environments for European organisations, deploy and tune EDR and SIEM, and keep both under 24/7 monitoring. One team, one contract, one point of accountability.</p>
+        <div class="cta">
+          <a class="btn" href="contact.html">Contact us</a>
+          <a class="btn btn-ghost" href="#offer">Explore our services</a>
+        </div>
+      </div>
+      <div class="vis" aria-hidden="true">
+        <svg viewBox="0 0 560 500" focusable="false">
+          <defs>
+            <pattern id="dg1" width="26" height="26" patternUnits="userSpaceOnUse">
+              <circle cx="1.6" cy="1.6" r="1.6" fill="#E4E2DC"/>
+            </pattern>
+          </defs>
+          <rect x="1" y="1" width="558" height="498" rx="10" fill="#FFFFFF" stroke="#E4E2DC"/>
+          <rect x="36" y="36" width="488" height="428" fill="url(#dg1)"/>
+          <line x1="118" y1="92" x2="118" y2="408" stroke="#2E5A4E" stroke-width="1.5"/>
+          <circle cx="118" cy="112" r="5.5" fill="#2E5A4E"/>
+          <line x1="124" y1="112" x2="158" y2="112" stroke="#2E5A4E" stroke-width="1.5"/>
+          <rect x="158" y="68" width="330" height="88" rx="8" fill="#FBFAF7" stroke="#E4E2DC"/>
+          <rect x="186" y="98" width="112" height="9" rx="4.5" fill="#5C6662" opacity=".55"/>
+          <rect x="186" y="120" width="216" height="7" rx="3.5" fill="#E4E2DC"/>
+          <circle cx="118" cy="250" r="5.5" fill="#2E5A4E"/>
+          <line x1="124" y1="250" x2="158" y2="250" stroke="#2E5A4E" stroke-width="1.5"/>
+          <rect x="158" y="206" width="330" height="88" rx="8" fill="#FBFAF7" stroke="#E4E2DC"/>
+          <rect x="186" y="236" width="140" height="9" rx="4.5" fill="#5C6662" opacity=".55"/>
+          <rect x="186" y="258" width="188" height="7" rx="3.5" fill="#E4E2DC"/>
+          <circle cx="118" cy="388" r="5.5" fill="#2E5A4E"/>
+          <line x1="124" y1="388" x2="158" y2="388" stroke="#2E5A4E" stroke-width="1.5"/>
+          <rect x="158" y="344" width="330" height="88" rx="8" fill="#FBFAF7" stroke="#E4E2DC"/>
+          <rect x="186" y="374" width="96" height="9" rx="4.5" fill="#5C6662" opacity=".55"/>
+          <rect x="186" y="396" width="232" height="7" rx="3.5" fill="#E4E2DC"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- The three lines, as one calm row of cards -->
+  <nav class="offer" id="offer" aria-label="What we offer">
+    <div class="wrap threes">
+      <a class="tcard" href="services.html#cloud">
+        <span class="n">01</span>
+        <h2>Cloud Infrastructure</h2>
+        <p>Google Cloud design, migration and day-2 operations — Compute Engine, Cloud SQL, Cloud Armor, Kubernetes, hybrid setups and data/AI pipelines. EU regions available.</p>
+        <span class="explore">Explore Cloud Infrastructure <span class="arr" aria-hidden="true">→</span></span>
+      </a>
+      <a class="tcard" href="services.html#cybersecurity">
+        <span class="n">02</span>
+        <h2>Cybersecurity</h2>
+        <p>EDR and SIEM from SentinelOne, TeamT5, Fortinet, CyberEyes and Google — selected, deployed and tuned — plus three AI-driven testing services we build ourselves.</p>
+        <span class="explore">Explore Cybersecurity <span class="arr" aria-hidden="true">→</span></span>
+      </a>
+      <a class="tcard" href="services.html#managed">
+        <span class="n">03</span>
+        <h2>Managed Services</h2>
+        <p>24/7 SOC and incident response, ISMS / PIMS consulting, human-led penetration testing, cloud cost governance and digital transformation.</p>
+        <span class="explore">Explore Managed Services <span class="arr" aria-hidden="true">→</span></span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Zig-zag band 1: text left, visual right -->
+  <section class="built" id="built">
+    <div class="wrap split">
+      <div class="txt">
+        <p class="eyebrow">Volcatech AI Security</p>
+        <h2 class="sec" style="margin-top:20px">Built by Volcatech</h2>
+        <p class="lead">Three security services we develop and operate ourselves — not resold.</p>
+        <div class="builtlist">
+          <div>
+            <h3>CE-BAS<span class="full">Continuous External Breach and Attack Simulation</span></h3>
+            <p>Continuously probes your internet-facing assets the way an external attacker would, and reports which exposures are actually exploitable.</p>
+          </div>
+          <div>
+            <h3>AI-PTaaS<span class="full">Smart Automated Penetration Testing as a Service</span></h3>
+            <p>Automated, repeatable penetration testing delivered as a subscription, so findings arrive between annual audits instead of once a year.</p>
+          </div>
+          <div>
+            <h3>SecPurple<span class="full">Professional Purple Team Support</span></h3>
+            <p>Runs attack-and-defence exercises with your team, then turns each finding into a detection rule your SOC keeps.</p>
+          </div>
+        </div>
+        <p class="note">Reference deployments and delivery model: <span class="todo">[TODO: to be confirmed]</span></p>
+      </div>
+      <div class="vis" aria-hidden="true">
+        <svg viewBox="0 0 480 440" focusable="false">
+          <rect x="1" y="1" width="478" height="438" rx="10" fill="#FFFFFF" stroke="#E4E2DC"/>
+          <circle cx="240" cy="220" r="150" fill="none" stroke="#E4E2DC"/>
+          <circle cx="240" cy="220" r="104" fill="none" stroke="#E4E2DC"/>
+          <circle cx="240" cy="220" r="58" fill="none" stroke="#E4E2DC"/>
+          <line x1="240" y1="220" x2="352" y2="128" stroke="#2E5A4E" stroke-width="1.5"/>
+          <line x1="240" y1="220" x2="150" y2="310" stroke="#2E5A4E" stroke-width="1.5" opacity=".45"/>
+          <line x1="240" y1="220" x2="130" y2="180" stroke="#2E5A4E" stroke-width="1.5" opacity=".45"/>
+          <circle cx="240" cy="220" r="6" fill="#2E5A4E"/>
+          <circle cx="352" cy="128" r="5" fill="#2E5A4E"/>
+          <circle cx="150" cy="310" r="4" fill="#2E5A4E" opacity=".55"/>
+          <circle cx="130" cy="180" r="4" fill="#2E5A4E" opacity=".55"/>
+          <circle cx="326" cy="292" r="3" fill="#5C6662" opacity=".5"/>
+          <circle cx="196" cy="112" r="3" fill="#5C6662" opacity=".5"/>
+          <circle cx="94" cy="238" r="3" fill="#5C6662" opacity=".5"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zig-zag band 2: reversed — visual left, text right -->
+  <section id="why">
+    <div class="wrap split rev">
+      <div class="txt">
+        <p class="eyebrow">Why Volcatech</p>
+        <h2 class="sec" style="margin-top:20px">One partner accountable for the whole stack.</h2>
+        <div class="why">
+          <div><h3>One partner for the whole stack</h3>
+            <p>Cloud, security products and 24/7 operations under one contract — fewer suppliers, and fewer gaps between them.</p></div>
+          <div><h3>Google Cloud engineering</h3>
+            <p>Architecture, migration, cost governance and training, delivered by the same team that operates the platform afterwards. <span class="todo">[TODO: partner tier and certifications]</span></p></div>
+          <div><h3>Security we operate, not just resell</h3>
+            <p>Our SOC watches the tools we deploy, and our own CE-BAS / AI-PTaaS / SecPurple services test them.</p></div>
+        </div>
+      </div>
+      <div class="vis" aria-hidden="true">
+        <svg viewBox="0 0 480 440" focusable="false">
+          <rect x="1" y="1" width="478" height="438" rx="10" fill="#FFFFFF" stroke="#E4E2DC"/>
+          <rect x="76" y="72" width="96" height="64" rx="8" fill="#FBFAF7" stroke="#E4E2DC"/>
+          <rect x="192" y="72" width="96" height="64" rx="8" fill="#FBFAF7" stroke="#E4E2DC"/>
+          <rect x="308" y="72" width="96" height="64" rx="8" fill="#FBFAF7" stroke="#E4E2DC"/>
+          <rect x="100" y="94" width="48" height="7" rx="3.5" fill="#E4E2DC"/>
+          <rect x="216" y="94" width="48" height="7" rx="3.5" fill="#E4E2DC"/>
+          <rect x="332" y="94" width="48" height="7" rx="3.5" fill="#E4E2DC"/>
+          <line x1="124" y1="136" x2="124" y2="196" stroke="#5C6662" stroke-width="1" opacity=".5"/>
+          <line x1="240" y1="136" x2="240" y2="196" stroke="#5C6662" stroke-width="1" opacity=".5"/>
+          <line x1="356" y1="136" x2="356" y2="196" stroke="#5C6662" stroke-width="1" opacity=".5"/>
+          <line x1="124" y1="196" x2="356" y2="196" stroke="#5C6662" stroke-width="1" opacity=".5"/>
+          <line x1="240" y1="196" x2="240" y2="240" stroke="#2E5A4E" stroke-width="1.5"/>
+          <rect x="118" y="240" width="244" height="76" rx="8" fill="none" stroke="#2E5A4E" stroke-width="1.5"/>
+          <circle cx="240" cy="240" r="4" fill="#2E5A4E"/>
+          <rect x="148" y="266" width="120" height="8" rx="4" fill="#5C6662" opacity=".55"/>
+          <rect x="148" y="286" width="184" height="6" rx="3" fill="#E4E2DC"/>
+          <line x1="240" y1="316" x2="240" y2="360" stroke="#2E5A4E" stroke-width="1.5" opacity=".5"/>
+          <circle cx="240" cy="366" r="5" fill="#2E5A4E" opacity=".7"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust" id="trust">
+    <div class="wrap">
+      <p class="eyebrow">Trust &amp; compliance</p>
+      <p><b>GDPR-ready</b> by design &nbsp;·&nbsp; <b>EU data residency</b> available on Google Cloud (europe-west regions)</p>
+      <p><span class="todo">[TODO: ISO 27001 / other certifications — not yet confirmed]</span></p>
+      <p>This demo loads no third-party resources and sets no cookies.</p>
+    </div>
+  </div>
+
+  <div class="vendors" id="vendors">
+    <div class="wrap">
+      <p class="eyebrow">Technology partners</p>
+      <div style="margin-top:22px">
+        <span>Google Cloud</span><span>SentinelOne</span><span>TeamT5</span><span>Fortinet</span><span>CyberEyes</span><span>Volcatech AI</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="band" id="contact">
+    <div class="wrap">
+      <h2>Tell us about your environment — we will map the path to cloud, security and operations.</h2>
+      <a class="btn" href="contact.html">Contact us</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap fcols">
+    <div class="fbrand">
+      <a class="logo" href="index.html">Volcatech</a>
+      <p>Cloud, security and managed operations for European organisations.</p>
+      <dl>
+        <dt>Email</dt><dd>[TODO: contact email]</dd>
+        <dt>Phone</dt><dd>+886 [TODO]</dd>
+        <dt>Registered office</dt><dd>[TODO: registered address]</dd>
+      </dl>
+    </div>
+    <div>
+      <h4><a href="services.html#cloud">Cloud Infrastructure</a></h4>
+      <ul>
+        <li><a href="services.html#compute-engine">Compute Engine (VM)</a></li>
+        <li><a href="services.html#cloud-sql">Cloud SQL (Database)</a></li>
+        <li><a href="services.html#cloud-armor">Cloud Armor (WAF)</a></li>
+        <li><a href="services.html#cloud-migration">Cloud Migration &amp; Kubernetes</a></li>
+        <li><a href="services.html#hybrid-cloud-backup">Hybrid Cloud &amp; Backup</a></li>
+        <li><a href="services.html#data-ai-engineering">Data &amp; AI Engineering</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4><a href="services.html#cybersecurity">Cybersecurity</a></h4>
+      <p class="sub">Endpoint (EDR)</p>
+      <ul>
+        <li><a href="sentinelone.html">SentinelOne</a></li>
+        <li><a href="services.html#threatsonar">ThreatSonar</a></li>
+        <li><a href="services.html#fortiedr">FortiEDR</a></li>
+      </ul>
+      <p class="sub">Detection (SIEM)</p>
+      <ul>
+        <li><a href="services.html#cybereyes">CyberEyes</a></li>
+        <li><a href="services.html#google-secops">Google SecOps</a></li>
+      </ul>
+      <p class="sub">Built by Volcatech</p>
+      <ul>
+        <li><a href="services.html#ce-bas">CE-BAS</a></li>
+        <li><a href="services.html#ai-ptaas">AI-PTaaS</a></li>
+        <li><a href="services.html#secpurple">SecPurple</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4><a href="services.html#managed">Managed Services</a></h4>
+      <ul>
+        <li><a href="services.html#soc">24/7 SOC &amp; Incident Response</a></li>
+        <li><a href="services.html#isms-pims">ISMS / PIMS Consulting</a></li>
+        <li><a href="services.html#pentest">Penetration Testing (human-led)</a></li>
+        <li><a href="services.html#finops-enablement">Cloud FinOps &amp; Enablement</a></li>
+        <li><a href="services.html#digital-transformation">Digital Transformation</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
+        <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap legal" id="legal">
+    <p>Volcatech Co., Ltd. <span lang="zh-Hant-TW">(沃凱科技股份有限公司)</span></p>
+    <p>Registered office: [TODO: registered address]</p>
+    <div class="row"><span>Company registration no.: [TODO]</span><span>VAT / tax ID: [TODO]</span></div>
+    <div class="row"><span>Email: [TODO: contact email]</span><span>Phone: +886 [TODO]</span></div>
+    <div class="row"><a href="#legal">Privacy Policy</a><a href="#legal">Imprint</a></div>
+    <p>© 2026 Volcatech Co., Ltd.</p>
+    <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
+  </div>
+  <div class="wrap backlink"><a href="../index.html">← All demos</a></div>
+</footer>
+</body>
+</html>

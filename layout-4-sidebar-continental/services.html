@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+<title>Services — Volcatech</title>
+<meta name="description" content="All 19 services across cloud infrastructure, cybersecurity and managed services — delivered and operated by one Volcatech team.">
+<style>
+/* ===== Layout 4: Fixed Sidebar × Continental Spec =====
+   Sidebar = permanent table of contents (§1–§3, all 19 leaves); content = DIN document.
+   :root tokens copied verbatim from style-4-continental — colour system is the control
+   variable of this A/B pair, do not edit. Production self-hosts fonts via @fontsource. */
+:root{
+  --bg:#FFFFFF; --surface:#F3F4F6; --ink:#14181D; --muted:#57606A;
+  --line:#D5D9DE; --accent:#0F3D8A; --rule:#C8102E;
+  --disp:'Barlow','Noto Sans TC','Arial Narrow',ui-sans-serif,system-ui,Arial,sans-serif;
+  --body:'Inter','Noto Sans TC',ui-sans-serif,system-ui,'Helvetica Neue',Arial,sans-serif;
+  --max:1160px;
+  --px:36px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.65;
+  border-top:3px solid var(--rule)}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--accent);outline-offset:3px}
+[id]{scroll-margin-top:20px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--px)}
+.secno{font-family:var(--disp);font-weight:600;font-size:13px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.secno b{color:var(--rule);font-weight:700;margin-right:10px}
+.doc{font-family:var(--disp);font-weight:600;font-size:12.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.btn{display:inline-block;background:var(--accent);color:#fff;font-family:var(--disp);font-weight:600;
+  font-size:15px;letter-spacing:.02em;padding:14px 28px;border:1px solid var(--accent);border-radius:2px;cursor:pointer}
+.btn:hover{background:#0B2F6C}
+.btn-ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.btn-ghost:hover{background:var(--surface)}
+.todo{color:var(--muted);font-size:13px;border:1px dashed var(--line);padding:2px 8px;border-radius:2px}
+/* Shell: fixed sidebar (the document's TOC) + scrolling content column */
+.shell{display:grid;grid-template-columns:260px minmax(0,1fr)}
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;background:#fff;
+  border-right:1px solid var(--line);padding:26px 20px 22px;display:flex;flex-direction:column}
+.logo{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:.06em;text-transform:uppercase}
+.side-co{margin-top:2px;font-size:11.5px;color:var(--muted);letter-spacing:.03em}
+.side-label{margin-top:24px;padding-top:10px;border-top:2px solid var(--rule);
+  font-family:var(--disp);font-weight:600;font-size:10.5px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.toc{list-style:none;margin-top:4px}
+.toc ul{list-style:none}
+.toc a{display:block;padding:5px 8px 5px 10px;border-left:2px solid transparent;
+  font-size:13px;color:var(--muted);line-height:1.5}
+.toc a:hover{color:var(--accent)}
+.toc a[aria-current]{border-left-color:var(--rule);background:var(--surface);color:var(--ink);font-weight:600}
+.toc .chap>a{font-family:var(--disp);font-weight:600;font-size:14px;color:var(--ink);margin-top:12px}
+.toc .chap>a:hover{color:var(--accent)}
+.toc .grp{padding:9px 8px 2px 10px;font-family:var(--disp);font-weight:600;font-size:10px;
+  letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.toc .chaplbl{display:block;margin-top:12px;padding:5px 8px 0 10px;
+  font-family:var(--disp);font-weight:600;font-size:14px;color:var(--ink)}
+.side-cta{margin-top:24px;text-align:center;padding:12px 16px}
+.side-legal{margin-top:20px;border-top:1px solid var(--line);padding-top:14px;font-size:12px;color:var(--muted)}
+.side-legal .row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.side-legal .row a{color:var(--muted)}
+.side-legal .row a:hover{color:var(--accent)}
+/* Language switcher — real links, not decorative text */
+.lang{display:flex;align-items:center;font-size:12px;margin-top:8px}
+.lang a{padding:2px 9px;color:var(--muted)}
+.lang a:first-child{padding-left:0}
+.lang a+a{border-left:1px solid var(--line)}
+.lang a[aria-current="true"]{color:var(--ink);font-weight:600}
+.lang a:hover{color:var(--accent)}
+/* Mobile top bar — the sidebar collapses into a drawer below 768px */
+.mobilebar{display:none}
+.navbtn{background:none;border:1px solid var(--line);border-radius:2px;padding:8px 14px;
+  font-family:var(--disp);font-size:14px;cursor:pointer}
+/* Document head (per page) */
+.dochead .wrap{padding:64px var(--px) 56px}
+.rulebar{height:2px;background:var(--rule);width:72px;margin:20px 0 24px}
+h1{font-family:var(--disp);font-weight:700;font-size:clamp(34px,4.6vw,58px);line-height:1.05;
+  letter-spacing:-.005em;max-width:20ch}
+.sub{margin-top:20px;max-width:60ch;font-size:18px;color:var(--muted)}
+/* Sections */
+section{border-top:1px solid var(--line)}
+section .wrap{padding:72px var(--px)}
+h2.sec{font-family:var(--disp);font-weight:700;font-size:clamp(24px,3.2vw,36px);line-height:1.12;margin-top:14px;max-width:30ch}
+.lead{margin-top:16px;color:var(--muted);font-size:17px;max-width:58ch}
+/* Service catalogue rows (spec-document body) */
+.grp-row{margin-top:44px;font-family:var(--disp);font-weight:600;font-size:12px;letter-spacing:.12em;
+  color:var(--muted);text-transform:uppercase}
+.svclist{margin-top:32px;border-bottom:1px solid var(--line)}
+.grp-row+.svclist{margin-top:14px}
+.svc{display:grid;grid-template-columns:88px minmax(0,1fr) 250px;gap:20px;padding:22px 0;border-top:1px solid var(--line)}
+.svc .code{font-family:var(--disp);font-weight:700;color:var(--rule);font-size:15px;letter-spacing:.04em}
+.svc h3{font-family:var(--disp);font-weight:700;font-size:18px;line-height:1.3}
+.svc h3 a{color:var(--accent)}
+.svc h3 a:hover{text-decoration:underline}
+.svc .full{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+.svc>div>p{margin-top:8px;font-size:14.5px;color:var(--muted);max-width:58ch}
+.svc .meta{font-size:13px}
+.svc .meta>div{display:flex;gap:12px;padding:3px 0}
+.svc .meta dt{font-family:var(--disp);font-weight:600;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);flex:0 0 84px;padding-top:3px}
+.svc .meta dd{color:var(--ink)}
+.svc .meta a{color:var(--accent);font-weight:600}
+.svc .meta a:hover{text-decoration:underline}
+.band{border-top:1px solid var(--line);background:var(--surface)}
+.band .wrap{padding:68px var(--px);display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:center}
+.band h2{font-family:var(--disp);font-weight:700;font-size:clamp(24px,3vw,34px);line-height:1.15;max-width:24ch}
+.band div:last-child{text-align:right}
+/* Footer — most formal legal block of the four layouts */
+footer{border-top:2px solid var(--rule)}
+.fcols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:28px;padding:56px var(--px)}
+.fcols h4{font-family:var(--disp);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.fcols ul{list-style:none;margin-top:14px}
+.fcols li{margin-top:8px;font-size:14px}
+.fcols .sub{margin-top:14px;font-family:var(--disp);font-weight:700;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fcols a:hover{color:var(--accent)}
+.fbrand p{margin-top:14px;font-size:14px;color:var(--muted);max-width:34ch}
+.legal{border-top:2px solid var(--rule);padding:26px var(--px);font-size:12.5px;color:var(--muted);line-height:1.8;max-width:78ch}
+.legal table{border-collapse:collapse;margin-top:10px}
+.legal td{padding:5px 0;vertical-align:top}
+.legal td:first-child{font-family:var(--disp);font-weight:600;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;padding-right:22px;white-space:nowrap}
+.legal td:last-child{color:var(--ink)}
+.legal .links{margin-top:14px}
+.legal .links a{color:var(--accent);margin-right:18px}
+.legal .notice{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.backlink{padding:0 var(--px) 26px;font-size:12.5px}
+.backlink a{color:var(--accent)}
+/* Motion — opt-in only */
+@media (prefers-reduced-motion: no-preference){
+  a,.btn{transition:color .15s ease,background-color .15s ease,border-color .15s ease}
+  .sidebar{transition:max-height .25s ease,visibility .25s}
+}
+/* RWD */
+@media (max-width:1280px){
+  .fcols{grid-template-columns:1fr 1fr}
+  .svc{grid-template-columns:88px minmax(0,1fr)}
+  .svc .meta{grid-column:2}
+}
+@media (max-width:1024px){
+  :root{--px:28px}
+  .shell{grid-template-columns:220px minmax(0,1fr)}
+  .sidebar{padding:22px 16px 18px}
+}
+@media (max-width:900px){
+  .band .wrap{grid-template-columns:1fr}
+  .band div:last-child{text-align:left}
+  .svc{grid-template-columns:1fr;gap:8px}
+  .svc .meta{grid-column:auto}
+}
+@media (max-width:768px){
+  :root{--px:20px}
+  .shell{display:block}
+  .mobilebar{display:flex;position:sticky;top:0;z-index:50;background:#fff;
+    border-bottom:1px solid var(--line);height:58px;align-items:center;justify-content:space-between;padding:0 var(--px)}
+  .sidebar{position:static;height:auto;max-height:0;overflow:hidden;visibility:hidden;
+    border-right:none;padding:0 var(--px)}
+  .sidebar.open{max-height:calc(100vh - 58px);overflow-y:auto;visibility:visible;
+    padding:16px var(--px) 20px;border-bottom:2px solid var(--rule)}
+  .sidebar>.logo,.side-co{display:none}
+  .side-label{margin-top:0}
+  [id]{scroll-margin-top:74px}
+  .dochead .wrap{padding-top:44px}
+}
+@media (max-width:560px){
+  .fcols{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<!-- Mobile top bar: only visible ≤768px; the sidebar below becomes its drawer -->
+<div class="mobilebar">
+  <a class="logo" href="index.html">Volcatech</a>
+  <button class="navbtn" id="navbtn" aria-expanded="false" aria-controls="sidebar">Menu</button>
+</div>
+
+<div class="shell">
+<!-- Fixed sidebar: logo → §1–§3 TOC (always expanded on desktop) → Company → CTA → legal/language.
+     All three chapters live on this page, so each chapter link carries aria-current. -->
+<aside class="sidebar" id="sidebar">
+  <a class="logo" href="index.html">Volcatech</a>
+  <p class="side-co">Volcatech Co., Ltd.</p>
+  <p class="side-label">Contents</p>
+  <nav aria-label="Main">
+    <ul class="toc">
+      <li class="chap"><a href="index.html">Home</a></li>
+      <li class="chap"><a href="#cloud" aria-current="true">§1 Cloud Infrastructure</a>
+        <ul>
+          <li><a href="#compute-engine">§1.1 Compute Engine (VM)</a></li>
+          <li><a href="#cloud-sql">§1.2 Cloud SQL (Database)</a></li>
+          <li><a href="#cloud-armor">§1.3 Cloud Armor (WAF / DDoS)</a></li>
+          <li><a href="#cloud-migration">§1.4 Cloud Migration &amp; Kubernetes</a></li>
+          <li><a href="#hybrid-cloud-backup">§1.5 Hybrid Cloud &amp; Backup</a></li>
+          <li><a href="#data-ai-engineering">§1.6 Data &amp; AI Engineering</a></li>
+        </ul>
+      </li>
+      <li class="chap"><a href="#cybersecurity" aria-current="true">§2 Cybersecurity</a>
+        <ul>
+          <li class="grp">§2.1 Endpoint Detection &amp; Response (EDR)</li>
+          <li><a href="sentinelone.html">SentinelOne</a></li>
+          <li><a href="#threatsonar">ThreatSonar</a></li>
+          <li><a href="#fortiedr">FortiEDR</a></li>
+          <li class="grp">§2.2 Security Information &amp; Event Management (SIEM)</li>
+          <li><a href="#cybereyes">CyberEyes</a></li>
+          <li><a href="#google-secops">Google SecOps</a></li>
+          <li class="grp">§2.3 Volcatech AI Security (in-house)</li>
+          <li><a href="#ce-bas">CE-BAS</a></li>
+          <li><a href="#ai-ptaas">AI-PTaaS</a></li>
+          <li><a href="#secpurple">SecPurple</a></li>
+        </ul>
+      </li>
+      <li class="chap"><a href="#managed" aria-current="true">§3 Managed Services</a>
+        <ul>
+          <li><a href="#soc">§3.1 24/7 SOC &amp; Incident Response</a></li>
+          <li><a href="#isms-pims">§3.2 ISMS / PIMS Consulting</a></li>
+          <li><a href="#pentest">§3.3 Penetration Testing (human-led)</a></li>
+          <li><a href="#finops-enablement">§3.4 Cloud FinOps &amp; Enablement</a></li>
+          <li><a href="#digital-transformation">§3.5 Digital Transformation</a></li>
+        </ul>
+      </li>
+      <li class="chap"><span class="chaplbl">Company</span>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  <a class="btn side-cta" href="contact.html">Request a proposal</a>
+  <div class="side-legal">
+    <div class="row">
+      <a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a>
+      <a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a>
+    </div>
+    <nav class="lang" aria-label="Language">
+      <a href="services.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+    </nav>
+  </div>
+</aside>
+
+<div class="content">
+<main>
+  <div class="dochead">
+    <div class="wrap">
+      <p class="doc">Service Catalogue · §1–§3 · Rev 2026-07</p>
+      <div class="rulebar" aria-hidden="true"></div>
+      <h1>Everything we run, secure and manage.</h1>
+      <p class="sub">Nineteen services across three lines — cloud infrastructure, cybersecurity and managed services. Every engagement is designed, delivered and operated by the same Volcatech team, under one contract.</p>
+    </div>
+  </div>
+
+  <!-- §1 — Cloud Infrastructure (C-Series) -->
+  <section id="cloud">
+    <div class="wrap">
+      <p class="secno"><b>§1</b> C-Series</p>
+      <h2 class="sec">Cloud Infrastructure</h2>
+      <p class="lead">Google Cloud design, migration and day-2 operations — Compute Engine, Cloud SQL, Cloud Armor, Kubernetes, hybrid setups and data/AI pipelines. EU regions available.</p>
+      <div class="svclist">
+        <article class="svc" id="compute-engine">
+          <p class="code">C-01</p>
+          <div>
+            <h3>Compute Engine (VM)</h3>
+            <p>Right-sized virtual machines on Google Cloud — sizing, images, autoscaling and patching handled for you.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>Google Cloud</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+            <div><dt>Reference</dt><dd><a href="https://cloud.google.com/products/compute" target="_blank" rel="noopener">cloud.google.com ↗</a></dd></div>
+          </dl>
+        </article>
+        <article class="svc" id="cloud-sql">
+          <p class="code">C-02</p>
+          <div>
+            <h3>Cloud SQL (Database)</h3>
+            <p>Managed MySQL, PostgreSQL and SQL Server — provisioning, high availability, backups and upgrades.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>Google Cloud</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+            <div><dt>Reference</dt><dd><a href="https://cloud.google.com/sql" target="_blank" rel="noopener">cloud.google.com ↗</a></dd></div>
+          </dl>
+        </article>
+        <article class="svc" id="cloud-armor">
+          <p class="code">C-03</p>
+          <div>
+            <h3>Cloud Armor (WAF / DDoS)</h3>
+            <p>Web application firewall and DDoS protection at Google's edge, tuned to your actual traffic.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>Google Cloud</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+            <div><dt>Reference</dt><dd><a href="https://cloud.google.com/security/products/armor" target="_blank" rel="noopener">cloud.google.com ↗</a></dd></div>
+          </dl>
+        </article>
+        <article class="svc" id="cloud-migration">
+          <p class="code">C-04</p>
+          <div>
+            <h3>Cloud Migration &amp; Kubernetes</h3>
+            <p>Lift-and-shift, cross-cloud moves and Kubernetes adoption — planned, executed and handed over.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>Volcatech</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+          </dl>
+        </article>
+        <article class="svc" id="hybrid-cloud-backup">
+          <p class="code">C-05</p>
+          <div>
+            <h3>Hybrid Cloud &amp; Backup</h3>
+            <p>Hybrid architectures connecting your on-premise estate to the cloud, with tested backup and recovery.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>Volcatech</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+          </dl>
+        </article>
+        <article class="svc" id="data-ai-engineering">
+          <p class="code">C-06</p>
+          <div>
+            <h3>Data &amp; AI Engineering</h3>
+            <p>ETL pipelines, big-data dashboards and custom machine-learning or generative-AI applications built on your data.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>Volcatech</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- §2 — Cybersecurity (E·S·A-Series) -->
+  <section id="cybersecurity">
+    <div class="wrap">
+      <p class="secno"><b>§2</b> E·S·A-Series</p>
+      <h2 class="sec">Cybersecurity</h2>
+      <p class="lead">EDR and SIEM from SentinelOne, TeamT5, Fortinet, CyberEyes and Google — selected, deployed and tuned — plus three AI-driven testing services we build ourselves.</p>
+
+      <p class="grp-row">§2.1 Endpoint Detection &amp; Response (EDR)</p>
+      <div class="svclist">
+        <article class="svc" id="sentinelone">
+          <p class="code">E-01</p>
+          <div>
+            <h3><a href="sentinelone.html">SentinelOne Singularity</a></h3>
+            <p>AI-powered endpoint detection and response that stops attacks autonomously across endpoints and servers.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>SentinelOne</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+            <div><dt>Reference</dt><dd><a href="https://www.sentinelone.com" target="_blank" rel="noopener">sentinelone.com ↗</a></dd></div>
+          </dl>
+        </article>
+        <article class="svc" id="threatsonar">
+          <p class="code">E-02</p>
+          <div>
+            <h3>ThreatSonar</h3>
+            <p>Threat-hunting EDR with East-Asian threat intelligence, built for APT discovery and incident response.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>TeamT5</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+            <div><dt>Reference</dt><dd><a href="https://www.teamt5.org" target="_blank" rel="noopener">teamt5.org ↗</a></dd></div>
+          </dl>
+        </article>
+        <article class="svc" id="fortiedr">
+          <p class="code">E-03</p>
+          <div>
+            <h3>FortiEDR</h3>
+            <p>Endpoint protection integrated with the Fortinet Security Fabric, from pre-infection blocking to post-infection response.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>Fortinet</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+            <div><dt>Reference</dt><dd><a href="https://www.fortinet.com/products/endpoint-security/fortiedr" target="_blank" rel="noopener">fortinet.com ↗</a></dd></div>
+          </dl>
+        </article>
+      </div>
+
+      <p class="grp-row">§2.2 Security Information &amp; Event Management (SIEM)</p>
+      <div class="svclist">
+        <article class="svc" id="cybereyes">
+          <p class="code">S-01</p>
+          <div>
+            <h3>CyberEyes</h3>
+            <p>SIEM platform for centralised log collection, correlation and compliance reporting.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>CyberEyes</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+            <div><dt>Reference</dt><dd><a href="https://cybereyes.ai" target="_blank" rel="noopener">cybereyes.ai ↗</a></dd></div>
+          </dl>
+        </article>
+        <article class="svc" id="google-secops">
+          <p class="code">S-02</p>
+          <div>
+            <h3>Google Security Operations</h3>
+            <p>Cloud-native SIEM with Google-scale search speed and Mandiant threat intelligence.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>Google Cloud</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+            <div><dt>Reference</dt><dd><a href="https://cloud.google.com/security/products/security-operations" target="_blank" rel="noopener">cloud.google.com ↗</a></dd></div>
+          </dl>
+        </article>
+      </div>
+
+      <p class="grp-row">§2.3 Volcatech AI Security (in-house)</p>
+      <div class="svclist">
+        <article class="svc" id="ce-bas">
+          <p class="code">A-01</p>
+          <div>
+            <h3>CE-BAS</h3>
+            <span class="full">Continuous External Breach and Attack Simulation</span>
+            <p>Continuously probes your internet-facing assets the way an external attacker would, and reports which exposures are actually exploitable.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>Volcatech</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+            <div><dt>Reference</dt><dd><a href="https://www.volcatech.com" target="_blank" rel="noopener">volcatech.com ↗</a></dd></div>
+          </dl>
+        </article>
+        <article class="svc" id="ai-ptaas">
+          <p class="code">A-02</p>
+          <div>
+            <h3>AI-PTaaS</h3>
+            <span class="full">Smart Automated Penetration Testing as a Service</span>
+            <p>Automated, repeatable penetration testing delivered as a subscription, so findings arrive between annual audits instead of once a year.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>Volcatech</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+            <div><dt>Reference</dt><dd><a href="https://www.volcatech.com" target="_blank" rel="noopener">volcatech.com ↗</a></dd></div>
+          </dl>
+        </article>
+        <article class="svc" id="secpurple">
+          <p class="code">A-03</p>
+          <div>
+            <h3>SecPurple</h3>
+            <span class="full">Professional Purple Team Support</span>
+            <p>Runs attack-and-defence exercises with your team, then turns each finding into a detection rule your SOC keeps.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>Volcatech</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+            <div><dt>Reference</dt><dd><a href="https://www.volcatech.com" target="_blank" rel="noopener">volcatech.com ↗</a></dd></div>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- §3 — Managed Services (X-Series) -->
+  <section id="managed">
+    <div class="wrap">
+      <p class="secno"><b>§3</b> X-Series</p>
+      <h2 class="sec">Managed Services</h2>
+      <p class="lead">24/7 SOC and incident response, ISMS / PIMS consulting, human-led penetration testing, cloud cost governance and digital transformation.</p>
+      <div class="svclist">
+        <article class="svc" id="soc">
+          <p class="code">X-01</p>
+          <div>
+            <h3>24/7 SOC &amp; Incident Response</h3>
+            <p>Around-the-clock monitoring of your EDR and SIEM, with defined response times when something happens.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>Volcatech</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+          </dl>
+        </article>
+        <article class="svc" id="isms-pims">
+          <p class="code">X-02</p>
+          <div>
+            <h3>ISMS / PIMS Consulting</h3>
+            <p>Gap analysis, implementation and audit preparation for information-security and privacy management systems.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>Volcatech</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+          </dl>
+        </article>
+        <article class="svc" id="pentest">
+          <p class="code">X-03</p>
+          <div>
+            <h3>Penetration Testing (human-led)</h3>
+            <p>Human-led penetration tests as scoped engagements — report, debrief and retest included.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>Volcatech</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+          </dl>
+        </article>
+        <article class="svc" id="finops-enablement">
+          <p class="code">X-04</p>
+          <div>
+            <h3>Cloud FinOps &amp; Enablement</h3>
+            <p>Cloud cost visibility and governance, plus billing support and hands-on training for your team.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>Volcatech</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+          </dl>
+        </article>
+        <article class="svc" id="digital-transformation">
+          <p class="code">X-05</p>
+          <div>
+            <h3>Digital Transformation</h3>
+            <p>Road-maps and delivery for organisations modernising IT — from legacy workflows to cloud-native operations.</p>
+          </div>
+          <dl class="meta">
+            <div><dt>Vendor</dt><dd>Volcatech</dd></div>
+            <div><dt>Pricing</dt><dd>on request</dd></div>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="band">
+    <div class="wrap">
+      <h2>Tell us about your environment — we will map the path to cloud, security and operations.</h2>
+      <div><a class="btn" href="contact.html">Contact us</a></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap fcols">
+    <div class="fbrand">
+      <a class="logo" href="index.html">Volcatech</a>
+      <p>Cloud, security and managed operations for European organisations.</p>
+    </div>
+    <div>
+      <h4>§1 Cloud Infrastructure</h4>
+      <ul>
+        <li><a href="#compute-engine">Compute Engine (VM)</a></li>
+        <li><a href="#cloud-sql">Cloud SQL (Database)</a></li>
+        <li><a href="#cloud-armor">Cloud Armor (WAF / DDoS)</a></li>
+        <li><a href="#cloud-migration">Cloud Migration &amp; Kubernetes</a></li>
+        <li><a href="#hybrid-cloud-backup">Hybrid Cloud &amp; Backup</a></li>
+        <li><a href="#data-ai-engineering">Data &amp; AI Engineering</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>§2 Cybersecurity</h4>
+      <p class="sub">§2.1 EDR</p>
+      <ul>
+        <li><a href="sentinelone.html">SentinelOne</a></li>
+        <li><a href="#threatsonar">ThreatSonar</a></li>
+        <li><a href="#fortiedr">FortiEDR</a></li>
+      </ul>
+      <p class="sub">§2.2 SIEM</p>
+      <ul>
+        <li><a href="#cybereyes">CyberEyes</a></li>
+        <li><a href="#google-secops">Google SecOps</a></li>
+      </ul>
+      <p class="sub">§2.3 In-house</p>
+      <ul>
+        <li><a href="#ce-bas">CE-BAS</a></li>
+        <li><a href="#ai-ptaas">AI-PTaaS</a></li>
+        <li><a href="#secpurple">SecPurple</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>§3 Managed Services</h4>
+      <ul>
+        <li><a href="#soc">24/7 SOC &amp; Incident Response</a></li>
+        <li><a href="#isms-pims">ISMS / PIMS Consulting</a></li>
+        <li><a href="#pentest">Penetration Testing (human-led)</a></li>
+        <li><a href="#finops-enablement">Cloud FinOps &amp; Enablement</a></li>
+        <li><a href="#digital-transformation">Digital Transformation</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
+        <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap legal" id="legal">
+    <p>Volcatech Co., Ltd. <span lang="zh-Hant-TW">(沃凱科技股份有限公司)</span></p>
+    <table>
+      <tr><td>Registered office</td><td>[TODO: registered address]</td></tr>
+      <tr><td>Company registration no.</td><td>[TODO]</td></tr>
+      <tr><td>VAT / tax ID</td><td>[TODO]</td></tr>
+      <tr><td>Email</td><td>[TODO: contact email]</td></tr>
+      <tr><td>Phone</td><td>+886 [TODO]</td></tr>
+    </table>
+    <p class="links"><a href="#legal">Privacy Policy</a><a href="#legal">Imprint</a></p>
+    <p>© 2026 Volcatech Co., Ltd.</p>
+    <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
+  </div>
+  <div class="wrap backlink"><a href="index.html">← Layout home</a> · <a href="../index.html">All style demos</a></div>
+</footer>
+</div>
+</div>
+
+<script>
+const nb=document.getElementById('navbtn'),sb=document.getElementById('sidebar');
+nb.addEventListener('click',()=>nb.setAttribute('aria-expanded',String(sb.classList.toggle('open'))));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&sb.classList.contains('open')){sb.classList.remove('open');nb.setAttribute('aria-expanded','false')}});
+</script>
+</body>
+</html>
