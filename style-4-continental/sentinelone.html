@@ -28,15 +28,15 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .btn-ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
 .btn-ghost:hover{background:var(--surface)}
 /* Dual-layer header (Continental signature) */
-header{position:sticky;top:0;z-index:50}
-.topbar{background:var(--surface);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+header{position:relative;z-index:50}
+.topbar{position:relative;background:var(--surface);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted)}
 .topbar-inner{display:flex;align-items:center;justify-content:space-between;height:34px}
 .topbar-co{font-family:var(--disp);font-weight:600;letter-spacing:.04em}
 .topbar-links{display:flex;gap:20px;align-items:center}
 .topbar-links a{color:var(--muted);font-size:12px}
 .topbar-links a:hover{color:var(--accent)}
 .topbar .lang{font-size:12px}
-.mainnav{background:#fff;border-bottom:1px solid var(--line)}
+.mainnav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;gap:30px;height:66px}
 .logo{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:.06em;text-transform:uppercase}
 .menu{display:flex;gap:24px;margin-left:auto;align-items:center;list-style:none}
@@ -152,7 +152,7 @@ footer{border-top:2px solid var(--rule)}
   <div class="mainnav">
     <div class="wrap nav">
       <a class="logo" href="index.html">Volcatech</a>
-      <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'))">Menu</button>
+      <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');const isOpen=m.classList.toggle('open');this.setAttribute('aria-expanded',isOpen);document.body.style.overflow=isOpen?'hidden':''">Menu</button>
       <ul class="menu" id="menu">
         <li><a href="index.html">Home</a></li>
         <li class="dd"><a href="index.html#offer" aria-haspopup="true">§1 Cloud Infrastructure</a>

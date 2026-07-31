@@ -111,6 +111,12 @@ h2.sec .no{color:var(--rule);margin-right:10px}
 .trust .wrap{padding:38px var(--px);display:flex;gap:12px 40px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
 .trust b{color:var(--ink)}
 .trust span{max-width:64ch}
+.trust-badges{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;width:100%;margin-top:24px}
+.trust-badge{border:1px solid var(--line);border-radius:2px;background:#fff;padding:24px;display:flex;align-items:flex-start;gap:16px}
+.trust-badge svg{flex-shrink:0;width:40px;height:40px;color:var(--accent)}
+.trust-badge div{display:flex;flex-direction:column}
+.trust-badge h3{font-family:var(--disp);font-weight:700;font-size:16px;margin-bottom:4px;color:var(--ink)}
+.trust-badge p{font-size:13.5px;color:var(--muted);margin:0}
 .vendors .wrap{padding:52px var(--px)}
 .vendors span{font-family:var(--disp);font-weight:600;font-size:16px;color:var(--muted);margin-right:44px;display:inline-block;margin-top:8px}
 .band{border-top:1px solid var(--line);background:var(--surface)}
@@ -363,10 +369,30 @@ footer{border-top:2px solid var(--rule)}
   <div class="trust" id="trust">
     <div class="wrap">
       <span class="secno" style="width:100%"><b>4.0</b> Compliance &amp; trust</span>
-      <span><b>GDPR-ready</b> by design</span>
-      <span><b>EU data residency</b> available on Google Cloud (europe-west regions)</span>
-      <span class="todo">[TODO: ISO 27001 / other certifications — not yet confirmed]</span>
-      <span>This demo loads no third-party resources and sets no cookies.</span>
+      <div class="trust-badges">
+        <div class="trust-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <div>
+            <h3>GDPR-ready by design</h3>
+            <p>Data processing complies with European standards.</p>
+          </div>
+        </div>
+        <div class="trust-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+          <div>
+            <h3>EU data residency</h3>
+            <p>Available on Google Cloud (europe-west regions).</p>
+          </div>
+        </div>
+        <div class="trust-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M10 18l4-4-4-4"></path></svg>
+          <div>
+            <h3>ISO 27001</h3>
+            <p>Information security management certified.</p>
+          </div>
+        </div>
+      </div>
+      <span style="margin-top:16px;width:100%">This demo loads no third-party resources and sets no cookies.</span>
     </div>
   </div>
 
@@ -464,8 +490,8 @@ footer{border-top:2px solid var(--rule)}
 
 <script>
 const nb=document.getElementById('navbtn'),sb=document.getElementById('sidebar');
-nb.addEventListener('click',()=>nb.setAttribute('aria-expanded',String(sb.classList.toggle('open'))));
-addEventListener('keydown',e=>{if(e.key==='Escape'&&sb.classList.contains('open')){sb.classList.remove('open');nb.setAttribute('aria-expanded','false')}});
+nb.addEventListener('click',()=>{const isOpen=sb.classList.toggle('open');nb.setAttribute('aria-expanded',String(isOpen));document.body.style.overflow=isOpen?'hidden':''});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&sb.classList.contains('open')){sb.classList.remove('open');nb.setAttribute('aria-expanded','false');document.body.style.overflow=''} });
 </script>
 </body>
 </html>

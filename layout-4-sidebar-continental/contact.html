@@ -360,8 +360,8 @@ footer{border-top:2px solid var(--rule)}
 
 <script>
 const nb=document.getElementById('navbtn'),sb=document.getElementById('sidebar');
-nb.addEventListener('click',()=>nb.setAttribute('aria-expanded',String(sb.classList.toggle('open'))));
-addEventListener('keydown',e=>{if(e.key==='Escape'&&sb.classList.contains('open')){sb.classList.remove('open');nb.setAttribute('aria-expanded','false')}});
+nb.addEventListener('click',()=>{const isOpen=sb.classList.toggle('open');nb.setAttribute('aria-expanded',String(isOpen));document.body.style.overflow=isOpen?'hidden':''});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&sb.classList.contains('open')){sb.classList.remove('open');nb.setAttribute('aria-expanded','false');document.body.style.overflow=''} });
 </script>
 </body>
 </html>

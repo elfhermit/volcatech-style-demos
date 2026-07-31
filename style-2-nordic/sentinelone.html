@@ -40,7 +40,19 @@ header{position:sticky;top:0;background:rgba(251,250,247,.94);z-index:50;border-
 .dd ul a{display:block;padding:9px 20px;font-size:14px}
 .dd ul a:hover{background:var(--bg);color:var(--ink)}
 .dd .grp{padding:9px 20px 3px;font-size:10.5px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
-/* Mega-menu (Nordic signature: full-width organized dropdown) */
+/* Mega-menu (Nordic signature: one calm, full-width map of everything we offer) */
+.mega::after {
+  content: "";
+  position: fixed;
+  top: 76px; left: 0; right: 0; bottom: 0;
+  background: rgba(28, 35, 33, 0.25);
+  backdrop-filter: blur(2px);
+  opacity: 0; pointer-events: none; transition: opacity .2s ease;
+  z-index: 40;
+}
+.mega:hover::after, .mega:focus-within::after {
+  opacity: 1; pointer-events: auto;
+}
 .mega{position:static}
 .megamenu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);border-bottom:1px solid var(--line);
   padding:48px 28px 56px;max-width:var(--max);margin:0 auto}
@@ -127,7 +139,7 @@ footer .wrap{max-width:1200px}
 <header>
   <div class="wrap nav">
     <a class="logo" href="index.html">Volcatech</a>
-    <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'))">Menu</button>
+    <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
     <ul class="menu" id="menu">
       <li class="dd mega"><a href="index.html#offer" aria-haspopup="true">What We Offer</a>
         <div class="megamenu">
@@ -161,6 +173,7 @@ footer .wrap{max-width:1200px}
             <a href="index.html#offer" title="Demo: opens the matching section on the home page">Penetration Testing (human-led)</a>
             <a href="index.html#offer" title="Demo: opens the matching section on the home page">Cloud FinOps &amp; Enablement</a>
             <a href="index.html#offer" title="Demo: opens the matching section on the home page">Digital Transformation</a>
+            <a class="mega-cta" style="margin-top:16px;display:inline-block;font-size:13.5px;color:var(--accent);font-weight:600" href="#contact">Need custom scope? Contact sales →</a>
           </div>
           <p class="megafoot">Not sure where to start? <a href="index.html#contact">Talk to us →</a></p>
         </div>

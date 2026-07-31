@@ -100,10 +100,12 @@ header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--
 .entry2>p{color:var(--muted);font-size:15.5px;max-width:52ch}
 .note{margin-top:26px;font-size:14px;color:var(--muted)}
 /* Trust strip as marginalia grid */
-.trust-grid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}
-.trust-grid>span{border-bottom:1px solid var(--line);padding:16px 24px 16px 0;font-size:14px;color:var(--muted);max-width:64ch}
-.trust-grid b{color:var(--ink);font-weight:600}
-.trust-grid .todo{padding:16px 24px 16px 0;border-left:none;border-right:none;border-top:none;border-radius:0;border-bottom:1px solid var(--line)}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.trust-item{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:32px 24px;display:flex;flex-direction:column;gap:12px}
+.trust-item:last-child{border-right:none}
+.trust-item svg{width:28px;height:28px;color:var(--accent)}
+.trust-item h3{font-family:var(--font-display);font-size:16px;color:var(--ink);margin:0}
+.trust-item p{font-size:14px;color:var(--muted);margin:0}
 /* Partners as an editorial name row */
 .vendor-row{display:flex;flex-wrap:wrap;margin-top:16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .vendor-row span{font-family:var(--font-display);font-weight:600;font-size:clamp(18px,2vw,24px);color:var(--muted);
@@ -162,6 +164,7 @@ footer{border-top:1px solid var(--line)}
   .chap-head{grid-template-columns:1fr;gap:14px}
   .entry2{grid-template-columns:1fr}
   .trust-grid{grid-template-columns:1fr}
+  .trust-item{border-right:none}
   .vendor-row span{border-left:none;padding:12px 18px 12px 0}
 }
 @media (max-width:560px){
@@ -173,7 +176,7 @@ footer{border-top:1px solid var(--line)}
 <header>
   <div class="wrap nav">
     <a class="logo" href="index.html">VOLCATECH</a>
-    <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'))">Menu</button>
+    <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow=m.classList.contains('open')?'hidden':''">Menu</button>
     <ul class="menu" id="menu">
       <li><a href="index.html" aria-current="page">Home</a></li>
       <li class="dd"><a href="services.html#cloud" aria-haspopup="true"><span class="code" style="font-size:13px">C</span> Cloud Infrastructure</a>
@@ -349,10 +352,27 @@ footer{border-top:1px solid var(--line)}
       <div class="chap-head">
         <div class="chap-num" aria-hidden="true">03</div>
         <div class="trust-grid">
-          <span><b>GDPR-ready</b> by design</span>
-          <span><b>EU data residency</b> available on Google Cloud (europe-west regions)</span>
-          <span class="todo">[TODO: ISO 27001 / other certifications — not yet confirmed]</span>
-          <span>This demo loads no third-party resources and sets no cookies.</span>
+          <div class="trust-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
+            <div>
+              <h3>GDPR-ready</h3>
+              <p>By design</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+            <div>
+              <h3>EU Data Residency</h3>
+              <p>Available on Google Cloud (europe-west regions)</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+            <div>
+              <h3>ISO 27001</h3>
+              <p class="todo" style="display:inline-block;margin-top:4px">[TODO: Cert status]</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

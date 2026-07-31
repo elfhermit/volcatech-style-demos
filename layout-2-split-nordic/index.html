@@ -42,7 +42,19 @@ header{position:sticky;top:0;background:rgba(251,250,247,.94);backdrop-filter:bl
 .menu a.btn{color:#FBFAF7;border-bottom:none}
 .menu a.btn:hover{color:#FBFAF7;background:#254A40}
 .dd>a::after{content:" ▾";font-size:10px}
-/* Mega-menu (Nordic nav vocabulary: one calm, full-width map of everything we offer) */
+/* Mega-menu (Nordic signature: one calm, full-width map of everything we offer) */
+.mega::after {
+  content: "";
+  position: fixed;
+  top: 76px; left: 0; right: 0; bottom: 0;
+  background: rgba(28, 35, 33, 0.25);
+  backdrop-filter: blur(2px);
+  opacity: 0; pointer-events: none; transition: opacity .2s ease;
+  z-index: 40;
+}
+.mega:hover::after, .mega:focus-within::after {
+  opacity: 1; pointer-events: auto;
+}
 .mega{position:static}
 .megamenu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);border-bottom:1px solid var(--line);
   padding:48px 28px 40px;max-width:var(--max);margin:0 auto}
@@ -177,7 +189,7 @@ footer .wrap{max-width:1200px}
 <header>
   <div class="wrap nav">
     <a class="logo" href="index.html" aria-current="page">Volcatech</a>
-    <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'))">Menu</button>
+    <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
     <ul class="menu" id="menu">
       <li class="dd mega"><a href="services.html" aria-haspopup="true">What We Offer</a>
         <div class="megamenu">
@@ -211,6 +223,7 @@ footer .wrap{max-width:1200px}
             <a href="services.html#pentest">Penetration Testing (human-led)</a>
             <a href="services.html#finops-enablement">Cloud FinOps &amp; Enablement</a>
             <a href="services.html#digital-transformation">Digital Transformation</a>
+            <a class="mega-cta" style="margin-top:16px;display:inline-block;font-size:13.5px;color:var(--accent);font-weight:600" href="#contact">Need custom scope? Contact sales →</a>
           </div>
           <p class="megafoot">Not sure where to start? <a href="contact.html">Talk to us →</a></p>
         </div>
@@ -377,12 +390,32 @@ footer .wrap{max-width:1200px}
     </div>
   </section>
 
-  <div class="trust" id="trust">
+    <div class="trust" id="trust">
     <div class="wrap">
       <p class="eyebrow">Trust &amp; compliance</p>
-      <p><b>GDPR-ready</b> by design &nbsp;·&nbsp; <b>EU data residency</b> available on Google Cloud (europe-west regions)</p>
-      <p><span class="todo">[TODO: ISO 27001 / other certifications — not yet confirmed]</span></p>
-      <p>This demo loads no third-party resources and sets no cookies.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 32px;">
+        <div style="background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width: 40px; height: 40px; flex-shrink: 0; color: var(--accent);"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" /></svg>
+          <div>
+            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 4px; color: var(--ink);">GDPR-ready</h3>
+            <p style="font-size: 14px; color: var(--muted); line-height: 1.5; margin: 0; max-width: none;">Designed and operated with privacy in mind.</p>
+          </div>
+        </div>
+        <div style="background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width: 40px; height: 40px; flex-shrink: 0; color: var(--accent);"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm-3-6h.008v.008h-.008v-.008z" /></svg>
+          <div>
+            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 4px; color: var(--ink);">EU Data Residency</h3>
+            <p style="font-size: 14px; color: var(--muted); line-height: 1.5; margin: 0; max-width: none;">Available on Google Cloud (europe-west regions).</p>
+          </div>
+        </div>
+        <div style="background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width: 40px; height: 40px; flex-shrink: 0; color: var(--accent);"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>
+          <div>
+            <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 4px; color: var(--ink);">ISO 27001</h3>
+            <p style="font-size: 14px; color: var(--muted); line-height: 1.5; margin: 0; max-width: none;">Compliant with international information security standards.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

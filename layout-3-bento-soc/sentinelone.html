@@ -119,10 +119,21 @@ footer{border-top:1px solid var(--line)}
 .legal .notice{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px}
 .legal a:hover{color:var(--ink)}
 .backlink{padding:0 24px 22px;font-family:var(--mono);font-size:11.5px}
+@keyframes statusPulse {
+  0% { box-shadow: 0 0 0 0 rgba(62, 207, 142, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(62, 207, 142, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(62, 207, 142, 0); }
+}
+.status .dot, .logo .dot, .card .cdot {
+  animation: statusPulse 2.5s infinite ease-in-out;
+}
 @media (prefers-reduced-motion: no-preference){
   .card{transition:border-color .15s ease}
   .btn{transition:background-color .15s ease,border-color .15s ease}
   .menu a,.fcols a,.legal a{transition:color .15s ease}
+}
+@media (prefers-reduced-motion: reduce) {
+  .status .dot, .logo .dot, .card .cdot { animation: none; }
 }
 @media (max-width:1024px){
   .fcols{grid-template-columns:1fr 1fr}
