@@ -185,8 +185,9 @@ grep -c 'href="#"' style-3-soc/*.html
 grep -h '繁中' style-3-soc/*.html | grep -vc 'lang="zh-Hant-TW"'
 # 舊選單術語不得殘留 → 每檔應輸出 0
 grep -c 'Arsenal\|>Platform<\|>Operations<' style-3-soc/*.html
-# title 與 meta description 全站唯一 → 應無輸出
+# title 與 meta description 全站唯一 → 兩行皆應無輸出
 grep -h '<title>' style-3-soc/*.html | sort | uniq -d
+grep -h 'name="description"' style-3-soc/*.html | sort | uniq -d
 # aria-current 每檔=3(1 個 markup + 2 個 CSS 選擇器);markup 在首頁=Home、子頁=自己的 nav 項
 grep -c 'aria-current="page"' style-3-soc/*.html
 # ess.html 方案頁零外部連結 → 應輸出 0
