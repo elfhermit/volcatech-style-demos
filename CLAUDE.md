@@ -14,13 +14,16 @@
 
 - `style-3-soc/index.html` = **Nav A(單層)**:三個下拉,下拉內用 mono 小標(`li.grp`)分組。
 - `style-3-soc/index-nav-b.html` = **Nav B(二層)**:分組升級為第二層 flyout(hover/focus-within 展開)。
-- `style-3-soc/sentinelone.html`(產品頁範例)用 Nav A;選單擇一定稿後兩檔合一。
+- 產品頁(皆用 Nav A;選單擇一定稿後統一):`sentinelone.html`、`threatsonar.html`、`cybereyes.html`、
+  `google-secops.html`(2026-08-03 依 `docs/product/` 內部素材新建);另有方案頁 `ess.html`
+  (ESS=沃凱打包方案 WDR+EDR+7x24 SOC,非 19 項 SKU;**全頁零外部連結**,入口在 Services 下拉)。
 - 選單分類已依會議決議由 Platform / Arsenal / Operations 改為
   **`Google Cloud` / `CyberSecurity` / `Services`**(`CyberSecurity` 駝峰是會議指定的刻意寫法,
   勿「順手修正」成 Cybersecurity;正文與板塊名仍用 Cybersecurity)。
   Google Cloud 下拉= GCP 產品樹六組 18 項(Compute / Storage / Analytics / Serverless / Databases / AI,
-  產品資料正本:`docs/GCP_Introduce.md`);CyberSecurity =原 8 項(EDR / SIEM / Built in-house);
-  Services =原 5 項。每個下拉第一行保留 mono 白話對照(`li.head`)。
+  產品資料正本:`docs/GCP_Introduce.md`);CyberSecurity =原 8 項(EDR / **SIEM & WDR** / Built in-house,
+  SentinelOne·ThreatSonar·CyberEyes·Google SecOps 已連真頁;WDR 併記是因 CyberEyes 實為 WDR);
+  Services =原 5 項＋頂部 ESS 方案入口。每個下拉第一行保留 mono 白話對照(`li.head`)。
 
 評選期的 4 個色系風格(style-1/2/4)、4 個版型變體(layout-1〜4)與外部 AI 參考組
 已全部**凍結封存於 `archive/`**(舊評選總覽= `archive/index.html`),一律不再修改;
@@ -29,7 +32,7 @@
 - 目標受眾:歐洲企業的 IT / 資安決策者;語言英文為主(正式版另有繁中 /zh-tw/,架構須可擴充更多語系)
 - 新官網將**改版取代**現有 volcatech.com
 - 公司事實唯一可信來源:`docs/公司_104.md`(僅可用於服務範圍與願景,**不可**用來填統編/VAT/地址)
-- 下一步:選單定稿後補齊其餘 18 個產品/服務頁,再依 `docs/Volcatech_多風格_Build_Prompts.md`
+- 下一步:選單定稿後補齊其餘 15 個產品/服務頁(4 項已建,素材正本 `docs/product/`),再依 `docs/Volcatech_多風格_Build_Prompts.md`
   的「共用基底 + 勝出風格模組」產生正式 **Astro** 版(雙語 i18n、GDPR 隱私頁、sitemap/hreflang)
 - **唯一事實來源(SSOT)**:`docs/Volcatech_多風格_Build_Prompts.md`(§A 19 項服務清單仍有效;
   §B style-3 模組的選單逐字定義為**評選期歷史**,選單分類以本檔上述 0731 決議為準)。
@@ -82,7 +85,8 @@
   唯一允許差異= `<head>` 的 title 與選單相關 CSS、`<header>` 內的選單結構與自我參照連結。
 - 兩檔的下拉**項目名稱與順序完全相同**,只有層級呈現不同(A: `li.grp` 小標;B: `li.sub` 二層)。
 - 改任何共用內容(hero、卡片、Built、Why、Trust、footer)→ **兩檔一起改**,
-  並跑 §驗證方式 的 `<main>` diff 檢查;動到 nav 項目 → 兩變體與 sentinelone.html 三處同步。
+  並跑 §驗證方式 的 `<main>` diff 檢查;動到 nav 項目或 footer 清單 → **全站 7 檔同步**
+  (兩變體＋5 個子頁;子頁的錨點連結帶 `index.html` 前綴、同資料夾頁面用相對檔名)。
 
 ## 封存區:`archive/`(唯讀,平常不動它)
 
@@ -108,9 +112,11 @@
   (2026-08-03 依官方查證)為準;三處(index / index-nav-b / sentinelone)同步。
   Nav B 的 flyout 顯示規則必須用**子代選擇器**(`.dd:hover>ul` 等),
   後代選擇器會讓巢狀層全開。
-- **為勝出風格補產品頁**:複製 `style-3-soc/sentinelone.html` → 改 `<title>`、meta description、
+- **補產品頁**:複製 `style-3-soc/sentinelone.html` → 改 `<title>`、meta description、
   eyebrow 索引碼、內容區塊;產品清單(19 項,含代碼、slug 與原廠網址)見
-  `docs/Volcatech_多風格_Build_Prompts.md` §A;完成後把導覽列/頁尾的暫代錨點換成實際檔案連結。
+  `docs/Volcatech_多風格_Build_Prompts.md` §A,素材見 `docs/product/`(內部,先讀產品簡介總覽.md)。
+  **模板三坑**:`aria-current="page"` 搬到自己的 nav 項、語言切換 EN 的 href 改自己檔名、
+  換成真連結的項刪 `title="Demo:…"`。完成後全站 7 檔的導覽列/頁尾對應項換真連結,功能卡保持偶數張。
 - **選單定稿後**:勝出變體留為 `index.html`,另一變體移入 `archive/`(或依使用者指示刪除),
   並同步根 `index.html`、README、HANDOVER 與本檔。
 - **產生正式 Astro 版**:不要改造本 demo;在新資料夾/新 repo 依
@@ -179,5 +185,15 @@ grep -c 'href="#"' style-3-soc/*.html
 grep -h '繁中' style-3-soc/*.html | grep -vc 'lang="zh-Hant-TW"'
 # 舊選單術語不得殘留 → 每檔應輸出 0
 grep -c 'Arsenal\|>Platform<\|>Operations<' style-3-soc/*.html
+# title 與 meta description 全站唯一 → 應無輸出
+grep -h '<title>' style-3-soc/*.html | sort | uniq -d
+# aria-current 每檔=3(1 個 markup + 2 個 CSS 選擇器);markup 在首頁=Home、子頁=自己的 nav 項
+grep -c 'aria-current="page"' style-3-soc/*.html
+# ess.html 方案頁零外部連結 → 應輸出 0
+grep -c 'https\?://' style-3-soc/ess.html
+# 5 個子頁 footer 與 sentinelone 逐字節相同 → 應輸出 4 行 OK
+for f in threatsonar cybereyes google-secops ess; do \
+  diff <(awk '/<footer/,/<\/footer>/' style-3-soc/sentinelone.html) \
+       <(awk '/<footer/,/<\/footer>/' style-3-soc/$f.html) >/dev/null && echo "$f OK"; done
 # 相對連結存在性(根 + style-3 + archive 入口)可用 python 一次掃(見 docs/reports/ 既往腳本或現寫)
 ```

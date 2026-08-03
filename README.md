@@ -1,19 +1,20 @@
 # Volcatech 官網 Demo — 勝出風格 style-3-soc(SOC Console)
 
 **2026-07-31 內部評選已結束**:勝出組合為 **Style 3 — SOC Console(深色主控台)色系 × 原版直落版型**,
-色系凍結。現行維護對象只有 `style-3-soc/`(3 頁),目前正在比對**兩個選單變體**(Nav A / Nav B)
+色系凍結。現行維護對象只有 `style-3-soc/`(7 頁),目前正在比對**兩個選單變體**(Nav A / Nav B)
 擇一定稿;其餘風格與版型的評選歷史已全部移入 `archive/`(凍結,不再更新)。
 
-| 現行 demo | 路徑 | 說明 |
+| 現行 demo(7 頁) | 路徑 | 說明 |
 |---|---|---|
-| Nav A — 單層下拉 | `style-3-soc/index.html` | 頂部選單 `Google Cloud / CyberSecurity / Services`,下拉內以 mono 小標分組 |
-| Nav B — 二層 flyout | `style-3-soc/index-nav-b.html` | 選單內容同 Nav A,分組升級為第二層 flyout(hover / `:focus-within` 展開) |
-| 產品頁範例 | `style-3-soc/sentinelone.html` | 使用 Nav A |
+| 首頁 Nav A — 單層下拉 | `style-3-soc/index.html` | 頂部選單 `Google Cloud / CyberSecurity / Services`,下拉內以 mono 小標分組 |
+| 首頁 Nav B — 二層 flyout | `style-3-soc/index-nav-b.html` | 選單內容同 Nav A,分組升級為第二層 flyout(hover / `:focus-within` 展開) |
+| 產品頁 ×4 | `sentinelone.html`、`threatsonar.html`、`cybereyes.html`、`google-secops.html` | 均用 Nav A |
+| 方案頁 ×1 | `ess.html` | **Enterprise Security Service(ESS)**:沃凱打包方案(CyberEyes WDR + 多品牌 EDR + 自有 7x24 SOC)。**方案層,不屬 19 項 SKU**;全頁零外部連結;用 Nav A |
 
 兩個首頁變體自 `<main>` 起**逐字節相同**(一致性鐵則),差異只在 header/nav;
 hero 文案(H1 / 副標 / CTA)為會後改版的置中版。選單分類 `CyberSecurity` 的駝峰寫法
 是會議指定的**刻意寫法**(僅限選單分類名;H1 等內文仍為定稿原文)。
-入口總覽:根目錄 `index.html`(Demo hub)。
+入口總覽:根目錄 `index.html`(Demo hub,主卡含上述 7 頁連結)。
 
 ## 評選歷史(已結束,存檔於 `archive/`)
 
@@ -50,7 +51,7 @@ hero 文案(H1 / 副標 / CTA)為會後改版的置中版。選單分類 `CyberS
 ## 1. 本機預覽
 
 **方法 A(最快)**:直接用瀏覽器開啟根目錄的 `index.html`(雙擊即可),
-從 Demo hub 點進 style-3 兩個選單變體與歸檔區。
+從 Demo hub 點進 style-3 的 7 個頁面(兩個選單變體、4 個產品頁、ESS 方案頁)與歸檔區。
 
 **方法 B(建議,行為與正式環境一致)**:
 
@@ -61,7 +62,11 @@ python3 -m http.server 8000
 #   http://localhost:8000/                              → Demo hub
 #   http://localhost:8000/style-3-soc/                  → 首頁 Nav A(單層下拉)
 #   http://localhost:8000/style-3-soc/index-nav-b.html  → 首頁 Nav B(二層 flyout)
-#   http://localhost:8000/style-3-soc/sentinelone.html  → 產品頁範例
+#   http://localhost:8000/style-3-soc/sentinelone.html  → 產品頁:SentinelOne
+#   http://localhost:8000/style-3-soc/threatsonar.html  → 產品頁:ThreatSonar
+#   http://localhost:8000/style-3-soc/cybereyes.html    → 產品頁:CyberEyes
+#   http://localhost:8000/style-3-soc/google-secops.html → 產品頁:Google SecOps
+#   http://localhost:8000/style-3-soc/ess.html          → 方案頁:ESS
 #   http://localhost:8000/archive/                      → 舊評選總覽(已凍結)
 ```
 
@@ -111,13 +116,17 @@ Pages 約 1 分鐘後自動更新(若沒變,瀏覽器強制重新整理 Cmd+Shif
 
 ## 3. Demo 範圍與已知限制
 
-- 現行 demo 共 3 頁(兩個首頁選單變體 + `sentinelone.html`)。**選單沒有死連結**:
-  只有 **SentinelOne** 有獨立產品頁;其餘 18 項服務的選單連結捲到首頁對應區塊
+- 現行 demo 共 7 頁(兩個首頁選單變體 + 4 個產品頁 + 1 個方案頁)。**選單沒有死連結**:
+  **SentinelOne / ThreatSonar / CyberEyes / Google SecOps** 有獨立產品頁、**ESS** 有獨立方案頁,
+  在全站 nav 與 footer 都連真頁;其餘尚無獨立頁的服務,選單連結捲到首頁對應區塊
   (`index.html#offer` / `#built`);Privacy Policy 與 Imprint 指向頁尾法定資訊區(`#legal`),
   正式版才有獨立頁面。
 - **選單內容(兩變體逐字相同)**:`Google Cloud` 下拉 = GCP 產品樹 6 組 18 項
   (Compute / Storage / Analytics / Serverless / Databases / AI);
-  `CyberSecurity` = 8 項(EDR / SIEM / Built in-house 三組);`Services` = 5 項。
+  `CyberSecurity` = 8 項三組(Endpoint — EDR / **Detection — SIEM & WDR** / Built in-house;
+  CyberEyes 實為 WDR,故 SIEM 群組已改名,白話行為
+  `CyberSecurity — EDR · SIEM & WDR · Built in-house`);
+  `Services` = 「Enterprise Security Service (ESS)」置頂 + 原 5 項。
   每個下拉第一行仍是 mono 白話對照。
 - **語言切換(EN / 繁中)**已是真連結與正確的 `lang` / `hreflang` 標記,
   但繁中版本於正式 Astro 版才會產出(游標停留有說明)。
@@ -175,12 +184,17 @@ Volcatech_Web/                  # 專案根(= VS Code 開啟此層、http.server
 │   ├── 公司_104.md                        # 公司事實來源(服務範圍與願景)
 │   ├── 接手開發_Prompts.md                # VS Code 內 AI 協作的現成 prompts
 │   ├── 官網建置計畫_Build_Prompt_v3.md    # legacy(已凍結,規格失效,僅供背景)
+│   ├── product/                           # 產品素材與簡述(索引:README;素材統一入口:產品簡介總覽.md)
 │   ├── (其餘會議/優化筆記若干)
 │   └── backups/                           # 制度檔修改前備份
-├── style-3-soc/                # ★ 勝出風格(現行唯一維護對象)
+├── style-3-soc/                # ★ 勝出風格(現行唯一維護對象,共 7 頁)
 │   ├── index.html              # 首頁 Nav A(單層下拉、mono 小標分組)
 │   ├── index-nav-b.html        # 首頁 Nav B(二層 flyout);<main> 起與 Nav A 逐字節相同
-│   └── sentinelone.html        # 產品頁範例(用 Nav A)
+│   ├── sentinelone.html        # 產品頁(用 Nav A,下同)
+│   ├── threatsonar.html        # 產品頁
+│   ├── cybereyes.html          # 產品頁
+│   ├── google-secops.html      # 產品頁
+│   └── ess.html                # 方案頁:ESS(方案層,非 19 項 SKU;全頁零外部連結)
 ├── archive/                    # 評選歷史,全部凍結不再更新
 │   ├── index.html              # 舊評選總覽(帶已歸檔橫幅)
 │   ├── style-1-zurich/
