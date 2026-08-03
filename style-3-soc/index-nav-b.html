@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-<title>Volcatech — Cloud, cybersecurity and managed services</title>
+<title>Volcatech — Cloud, cybersecurity and managed services (nav variant B)</title>
 <meta name="description" content="Volcatech designs and runs Google Cloud environments for European organisations, deploys and tunes EDR and SIEM, and keeps both under 24/7 monitoring — cloud infrastructure, cybersecurity and managed services from one turn-key partner.">
 <style>
 /* ===== Style 3: SOC Console — dark ops room, engineering credibility =====
@@ -40,7 +40,13 @@ header{position:sticky;top:0;background:rgba(14,20,31,.95);border-bottom:1px sol
 .dd>a::after{content:" ▾";font-size:10px}
 .dd ul{display:none;position:absolute;top:100%;left:-12px;background:var(--surface);border:1px solid var(--line);
   border-radius:6px;min-width:290px;padding:10px 0;list-style:none;max-height:calc(100vh - 90px);overflow-y:auto}
-.dd:hover ul,.dd:focus-within ul{display:block}
+.dd:hover>ul,.dd:focus-within>ul{display:block}
+/* Nav variant B: second-level flyout. Child combinators only — descendant
+   selectors would open every nested level the moment the top item is hovered */
+.sub{position:relative}
+.sub>a::after{content:" ▸";font-size:10px}
+.sub>ul{top:-11px;left:100%;min-width:240px}
+.sub:hover>ul,.sub:focus-within>ul{display:block}
 .dd ul a{display:block;padding:9px 18px;font-size:14px}
 .dd ul a:hover{background:#1B2736;color:var(--ink)}
 .dd .grp{padding:9px 18px 3px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
@@ -126,6 +132,9 @@ footer{border-top:1px solid var(--line)}
 @media (prefers-reduced-motion: reduce) {
   .status .dot, .logo .dot, .card .cdot { animation: none; }
 }
+@media (max-width:1100px){
+  .sub>ul{left:auto;right:100%}
+}
 @media (max-width:1024px){
   .fcols{grid-template-columns:1fr 1fr}
 }
@@ -139,6 +148,7 @@ footer{border-top:1px solid var(--line)}
     max-height:calc(100vh - 66px);overflow-y:auto}
   .menu.open{display:flex}
   .dd ul{display:block;position:static;border:none;padding-left:14px;min-width:0;max-height:none;overflow-y:visible}
+  .sub>ul{position:static;left:auto;right:auto;min-width:0}
   .lang{margin-top:10px}
   .lang a{padding-left:0}
   .lang a+a{padding-left:10px}
@@ -151,53 +161,80 @@ footer{border-top:1px solid var(--line)}
 <body>
 <header>
   <div class="wrap nav">
-    <a class="logo" href="index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
+    <a class="logo" href="index-nav-b.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
     <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
     <ul class="menu" id="menu">
-      <li><a href="index.html" aria-current="page">Home</a></li>
+      <li><a href="index-nav-b.html" aria-current="page">Home</a></li>
       <li class="dd"><a href="#offer" aria-haspopup="true">Google Cloud</a>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
-          <li class="grp">Compute</li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Compute Engine</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Kubernetes Engine</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">VMware Engine</a></li>
-          <li class="grp">Storage</li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Cloud Storage</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Filestore</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Backup and DR</a></li>
-          <li class="grp">Analytics</li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">BigQuery</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Pub/Sub</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Dataflow</a></li>
-          <li class="grp">Serverless</li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Cloud Run</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">App Engine</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">API Gateway</a></li>
-          <li class="grp">Databases</li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">AlloyDB for PostgreSQL</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Cloud SQL</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Datastore</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Firestore</a></li>
-          <li class="grp">AI</li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Vertex AI</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Model Garden</a></li>
+          <li class="sub"><a href="#offer" aria-haspopup="true" title="Demo: opens the matching section on this page">Compute</a>
+            <ul>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">Compute Engine</a></li>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">Kubernetes Engine</a></li>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">VMware Engine</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="#offer" aria-haspopup="true" title="Demo: opens the matching section on this page">Storage</a>
+            <ul>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">Cloud Storage</a></li>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">Filestore</a></li>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">Backup and DR</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="#offer" aria-haspopup="true" title="Demo: opens the matching section on this page">Analytics</a>
+            <ul>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">BigQuery</a></li>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">Pub/Sub</a></li>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">Dataflow</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="#offer" aria-haspopup="true" title="Demo: opens the matching section on this page">Serverless</a>
+            <ul>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">Cloud Run</a></li>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">App Engine</a></li>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">API Gateway</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="#offer" aria-haspopup="true" title="Demo: opens the matching section on this page">Databases</a>
+            <ul>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">AlloyDB for PostgreSQL</a></li>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">Cloud SQL</a></li>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">Datastore</a></li>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">Firestore</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="#offer" aria-haspopup="true" title="Demo: opens the matching section on this page">AI</a>
+            <ul>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">Vertex AI</a></li>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">Model Garden</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
       <li class="dd"><a href="#offer" aria-haspopup="true">CyberSecurity</a>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>CyberSecurity — EDR · SIEM · Built in-house</li>
-          <li class="grp">Endpoint — EDR</li>
-          <li><a href="sentinelone.html">SentinelOne</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">ThreatSonar</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">FortiEDR</a></li>
-          <li class="grp">Detection — SIEM</li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">CyberEyes</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Google SecOps</a></li>
-          <li class="grp">Built in-house — Volcatech AI Security</li>
-          <li><a href="#built" title="Demo: opens the Built by Volcatech section">CE-BAS</a></li>
-          <li><a href="#built" title="Demo: opens the Built by Volcatech section">AI-PTaaS</a></li>
-          <li><a href="#built" title="Demo: opens the Built by Volcatech section">SecPurple</a></li>
+          <li class="sub"><a href="#offer" aria-haspopup="true" title="Demo: opens the matching section on this page">Endpoint — EDR</a>
+            <ul>
+              <li><a href="sentinelone.html">SentinelOne</a></li>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">ThreatSonar</a></li>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">FortiEDR</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="#offer" aria-haspopup="true" title="Demo: opens the matching section on this page">Detection — SIEM</a>
+            <ul>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">CyberEyes</a></li>
+              <li><a href="#offer" title="Demo: opens the matching section on this page">Google SecOps</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="#built" aria-haspopup="true" title="Demo: opens the Built by Volcatech section">Built in-house — Volcatech AI</a>
+            <ul>
+              <li><a href="#built" title="Demo: opens the Built by Volcatech section">CE-BAS</a></li>
+              <li><a href="#built" title="Demo: opens the Built by Volcatech section">AI-PTaaS</a></li>
+              <li><a href="#built" title="Demo: opens the Built by Volcatech section">SecPurple</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
       <li class="dd"><a href="#offer" aria-haspopup="true">Services</a>
@@ -214,7 +251,7 @@ footer{border-top:1px solid var(--line)}
       <li><a class="btn" style="padding:9px 18px" href="#contact">Contact us</a></li>
       <li>
         <nav class="lang" aria-label="Language">
-          <a href="index.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+          <a href="index-nav-b.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
         </nav>
       </li>
     </ul>
