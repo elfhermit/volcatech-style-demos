@@ -1,35 +1,32 @@
-# Volcatech 官網風格 Demos(4 styles + 4 layouts)
+# Volcatech 官網 Demo — 勝出風格 style-3-soc(SOC Console)
 
-**資訊架構與文案完全相同**(3 條業務板塊 / 19 項服務 / 共用 H1 與所有內文,所有版本逐字一致),
-**只有導覽的組織方式與視覺呈現不同**——靜態 demo,用於內部評選最終視覺方向。評選分兩輪:
-第一輪比「色系與視覺語彙」(Style 1–4),第二輪固定色系、**只換版型框架**(Layout 1–4,
-與同號 Style 形成唯一變因為版型的對照組)。評選時請只比較「看起來與用起來」,不要比文案。
+**2026-07-31 內部評選已結束**:勝出組合為 **Style 3 — SOC Console(深色主控台)色系 × 原版直落版型**,
+色系凍結。現行維護對象只有 `style-3-soc/`(3 頁),目前正在比對**兩個選單變體**(Nav A / Nav B)
+擇一定稿;其餘風格與版型的評選歷史已全部移入 `archive/`(凍結,不再更新)。
 
-| 風格 | 路徑 | 一句話定位 | 導覽結構 |
-|---|---|---|---|
-| Style 1 — Zurich Grid(瑞士型錄) | `style-1-zurich/` | 精準理性,型錄索引碼 + 細網格 | 扁平型錄索引:`(C)` / `(E·S·A)` / `(X)` 三下拉 |
-| Style 2 — Nordic Calm(北歐留白) | `style-2-nordic/` | 沉靜信任,目錄式 Hero | 單一 Mega-menu「What We Offer」,展開 3 欄 |
-| Style 3 — SOC Console(深色主控台) | `style-3-soc/` | 戰情室語彙,mono 狀態列 + 琥珀訊號色 | 維運術語 Platform / Arsenal / Operations |
-| Style 4 — Continental Spec(DIN 規格書) | `style-4-continental/` | 工程文件可信感,規格表卡片 + 紅規線 | 雙層 header + `§1`–`§3` 章節編號 |
+| 現行 demo | 路徑 | 說明 |
+|---|---|---|
+| Nav A — 單層下拉 | `style-3-soc/index.html` | 頂部選單 `Google Cloud / CyberSecurity / Services`,下拉內以 mono 小標分組 |
+| Nav B — 二層 flyout | `style-3-soc/index-nav-b.html` | 選單內容同 Nav A,分組升級為第二層 flyout(hover / `:focus-within` 展開) |
+| 產品頁範例 | `style-3-soc/sentinelone.html` | 使用 Nav A |
 
-每個風格含兩頁:`index.html`(首頁)與 `sentinelone.html`(產品頁範例)。
+兩個首頁變體自 `<main>` 起**逐字節相同**(一致性鐵則),差異只在 header/nav;
+hero 文案(H1 / 副標 / CTA)為會後改版的置中版。選單分類 `CyberSecurity` 的駝峰寫法
+是會議指定的**刻意寫法**(僅限選單分類名;H1 等內文仍為定稿原文)。
+入口總覽:根目錄 `index.html`(Demo hub)。
 
-| 版型變體(第二輪) | 路徑 | 版型框架 | 沿用色系 |
-|---|---|---|---|
-| Layout 1 — Magazine Editorial | `layout-1-magazine-zurich/` | 雜誌編輯式:超大 H1 + 三欄目錄 + 序號章節 | Style 1 |
-| Layout 2 — Split & Zig-zag | `layout-2-split-nordic/` | 分割式 hero + 交錯圖文 | Style 2 |
-| Layout 3 — Bento Grid | `layout-3-bento-soc/` | 儀表板卡牆,一屏總覽(深色) | Style 3 |
-| Layout 4 — Fixed Sidebar | `layout-4-sidebar-continental/` | 左側常駐 `§1`–`§3` 目錄側欄 | Style 4 |
+## 評選歷史(已結束,存檔於 `archive/`)
 
-每個版型變體含五頁:`index.html`、`sentinelone.html`、`services.html`、`about.html`、`contact.html`。
-入口總覽:根目錄 `index.html`。
+評選分兩輪:第一輪比「色系與視覺語彙」(Style 1–4),第二輪固定色系、只換版型框架
+(Layout 1–4,與同號 Style 形成唯一變因為版型的對照組);所有版本資訊架構與文案逐字一致。
+0731 會議選定 Style 3 色系 × 原版直落版型後,以下內容已全數歸檔且**凍結不再更新**:
 
-| 參考組(不列入評選) | 路徑 | 內容 | 維護方式 |
-|---|---|---|---|
-| GPT Layout Variants | `Volcatech_Layout_Variants_GPT/` | 同一份版型變體規格交給 **GPT** 產出的實作,4 變體 × 5 頁 | **原樣保留、不修改、不 review** |
-
-參考組用來對照「同一份規格、不同 AI 實作」的落差,從根 `index.html` 最下方進入。
-詳細規則見 `CLAUDE.md` 的「外部 AI 參考組」專節。
+- 落選風格:`archive/style-1-zurich/`、`archive/style-2-nordic/`、`archive/style-4-continental/`
+- 版型變體:`archive/layout-1-magazine-zurich/`、`archive/layout-2-split-nordic/`、
+  `archive/layout-3-bento-soc/`、`archive/layout-4-sidebar-continental/`
+- 外部 AI 參考組:`archive/Volcatech_Layout_Variants_GPT/`(GPT 依同規格產出的實作,
+  **維持唯讀:不修改、不 review**,規則見 `CLAUDE.md` 專節)
+- 舊評選總覽:`archive/index.html`(帶已歸檔橫幅)
 
 ---
 
@@ -42,8 +39,7 @@
    - 對任一 `.html` 按右鍵 → **Open with Live Server**(存檔自動重新整理);
    - 或 `Terminal → Run Task… → Serve demos (http://localhost:8000)`(已內建於 `.vscode/tasks.json`)。
 4. AI 協作:**Claude Code 會自動讀取根目錄 `CLAUDE.md`**(專案背景 + 硬性規則 + tokens 速查),
-   直接下指令即可;常見任務(微調風格、補產品頁、混搭、產正式 Astro 版、推 GitHub)的
-   **現成 prompt 在 `docs/接手開發_Prompts.md`**。GitHub Copilot 使用者由
+   直接下指令即可;常見任務的現成 prompt 在 `docs/接手開發_Prompts.md`。GitHub Copilot 使用者由
    `.github/copilot-instructions.md` 自動套用相同規則。
 5. 公司資料佔位:全域搜尋 `[TODO` 逐一替換(註冊地址 / 統編 / VAT / Email / 電話 / 認證等)。
    全案只用 `[TODO: 說明]` 一種語法。公司事實來源為 `docs/公司_104.md`,
@@ -53,21 +49,28 @@
 
 ## 1. 本機預覽
 
-**方法 A(最快)**:直接用瀏覽器開啟根目錄的 `index.html`(雙擊即可),從總覽頁點進各風格。
+**方法 A(最快)**:直接用瀏覽器開啟根目錄的 `index.html`(雙擊即可),
+從 Demo hub 點進 style-3 兩個選單變體與歸檔區。
 
 **方法 B(建議,行為與正式環境一致)**:
 
 ```bash
 # 在專案根目錄(本 README 所在層)執行
 python3 -m http.server 8000
-# 瀏覽器開 http://localhost:8000
+# 瀏覽器開啟:
+#   http://localhost:8000/                              → Demo hub
+#   http://localhost:8000/style-3-soc/                  → 首頁 Nav A(單層下拉)
+#   http://localhost:8000/style-3-soc/index-nav-b.html  → 首頁 Nav B(二層 flyout)
+#   http://localhost:8000/style-3-soc/sentinelone.html  → 產品頁範例
+#   http://localhost:8000/archive/                      → 舊評選總覽(已凍結)
 ```
 
 ---
 
 ## 2. 部署到 GitHub Pages(demo 對外展示用)
 
-純靜態 HTML,**零建置設定**,推上去即可用。
+純靜態 HTML,**零建置設定**,推上去即可用。部署方式不變;
+`style-3-soc/` 的線上路徑不變,被歸檔的頁面網址前多一層 `/archive/`。
 
 **發布範圍**:`docs/` 已列入 `.gitignore` —— 內部建置計畫與規格書**不推上 public repo**
 (本機檔案仍保留)。`.nojekyll` 空檔案的作用是關閉 GitHub Pages 的 Jekyll 處理,
@@ -108,57 +111,36 @@ Pages 約 1 分鐘後自動更新(若沒變,瀏覽器強制重新整理 Cmd+Shif
 
 ## 3. Demo 範圍與已知限制
 
-- 每風格(Style)實作 2 頁、每版型變體(Layout)實作 5 頁。**選單沒有死連結**:
-  只有 **SentinelOne** 有獨立產品頁;Style 版其餘 18 項服務的選單連結捲到首頁對應區塊
-  (`index.html#offer` / `#built`),Layout 版則指到 `services.html#<slug>` 服務總覽錨點;
-  Privacy Policy 與 Imprint 指向頁尾法定資訊區(`#legal`),正式版才有獨立頁面。
+- 現行 demo 共 3 頁(兩個首頁選單變體 + `sentinelone.html`)。**選單沒有死連結**:
+  只有 **SentinelOne** 有獨立產品頁;其餘 18 項服務的選單連結捲到首頁對應區塊
+  (`index.html#offer` / `#built`);Privacy Policy 與 Imprint 指向頁尾法定資訊區(`#legal`),
+  正式版才有獨立頁面。
+- **選單內容(兩變體逐字相同)**:`Google Cloud` 下拉 = GCP 產品樹 6 組 18 項
+  (Compute / Storage / Analytics / Serverless / Databases / AI);
+  `CyberSecurity` = 8 項(EDR / SIEM / Built in-house 三組);`Services` = 5 項。
+  每個下拉第一行仍是 mono 白話對照。
 - **語言切換(EN / 繁中)**已是真連結與正確的 `lang` / `hreflang` 標記,
   但繁中版本於正式 Astro 版才會產出(游標停留有說明)。
 - **字體**:demo 以系統字體近似呈現(已宣告目標字體名稱,若本機安裝則直接套用)。
-  正式版依規格以 `@fontsource` 自行代管 Space Grotesk / Source Serif 4 / IBM Plex / Barlow / Inter
+  正式版依規格以 `@fontsource` 自行代管 IBM Plex Sans / IBM Plex Mono
   (GDPR:不外連 Google Fonts CDN)。
-- 手機版(<860px 或 <900px)導覽列收合為 Menu 按鈕(選單本身可捲動);
-  下拉選單支援滑鼠 hover 與鍵盤 focus(`:focus-within`)。
+- 手機版導覽列收合為 Menu 按鈕(選單本身可捲動);
+  下拉選單支援滑鼠 hover 與鍵盤 focus(`:focus-within`),Nav B 的第二層 flyout 同樣支援。
 - 公司事實(註冊地址、統編、VAT、Email、電話、ISO 認證等)以 `[TODO: 說明]` 佔位,未經確認不虛構。
   **對外分享 demo 前,建議至少先取得可用的聯絡 Email 與電話**,否則頁尾整片佔位觀感不佳。
-
-### 外部 AI 參考組(`Volcatech_Layout_Variants_GPT/`)
-
-把 `docs/版型變體_外部AI_Prompt_Pack.md` 交給 **GPT** 跑出來的同規格實作(2026-07-31 收進 repo),
-用來對照「同一份規格、不同 AI 實作」的落差。已確認它的 H1 / section 順序 / 三個新頁型的共用文案
-與本專案逐字相同、無外部資源、外連原廠皆帶 `rel="noopener"`,因此與 Layout 1–4 可直接並排比較。
-
-**維護規則:平常不異動、不 review 這包**——不改它的頁面、不套用本專案 tokens、不補返回連結,
-本專案的一致性檢查指令也刻意不涵蓋它(改過就失去對照價值)。它自帶的 `CLAUDE.md` / `README.md` /
-`HANDOVER.md` 只描述它自己,**不適用於本專案**;規則衝突時一律以根目錄的 `CLAUDE.md` 為準。
-若要採用它的某個做法,是把做法移植到本專案的 `layout-*/`,而不是就地改它。完整規則見
-`CLAUDE.md` 的「外部 AI 參考組」專節。
-
-> 它的頁面沒有返回本總覽的連結(不修改原則的後果),瀏覽時用「上一頁」返回。
-> 它的子資料夾與本專案根目錄的 `layout-*/` **同名但內容獨立**——編輯前先確認路徑前綴。
+- `archive/` 內全部內容(落選風格、版型變體、GPT 參考包、舊總覽)已凍結:
+  不修改、不 review、不納入任何檢查;其中 GPT 參考包自帶的 `CLAUDE.md` / `README.md` /
+  `HANDOVER.md` 只描述它自己,**不適用本專案**,規則衝突以根目錄 `CLAUDE.md` 為準。
 
 ---
 
-## 4. 評選建議
-
-1. **3 秒測試**:遮住 logo 給不知情的人看首屏 3 秒,要能答出「賣**雲端 + 資安 + 託管維運**」。
-2. **觸達性測試**:從首頁出發,**2 次點擊內**要找得到「24/7 SOC」與「上雲搬遷(Cloud Migration)」。
-3. 想像收件人是**歐洲企業的資安主管**——哪一版讓他覺得「這家懂我們」?
-4. 手機 390px 寬再看一次(重點:Style 2 的 19 項 mega-menu、Style 4 的雙層 header 收合後)。
-5. 深色的 Style 3 特別檢查長文閱讀舒適度。
-6. 想像名片、簡報、提案書套用同風格是否成立。
-
-**三個刻意變因(評選時請忽略,不要當成優劣)**:Style 4 的 CTA 用 `Request a proposal`
-(其餘三風格用 `Contact us`);Style 2 沒有頂層 `Home`(logo 即入口);
-Style 3 用 `Arsenal` 等維運術語(每個下拉首行都附白話對照)。
-除此之外**所有文案四風格逐字相同**。
-
----
-
-## 5. 選出風格之後(正式版)
+## 4. 選單變體定稿之後(正式版)
 
 1. 開啟 `docs/Volcatech_多風格_Build_Prompts.md`(**全案唯一事實來源**)。
-2. 複製【A. 共用基底 Prompt】+ 勝出的【風格模組】,一起貼給 Claude Code。
+2. 複製【A. 共用基底 Prompt】+ 勝出的【風格 3(SOC Console)模組】,一起貼給 Claude Code。
+   **注意**:該檔 §B 的 style-3 選單定義(`Platform / Arsenal / Operations`)是評選期歷史;
+   0731 會後選單分類已改為 `Google Cloud / CyberSecurity / Services`(含 GCP 產品樹),
+   **現行選單以 `style-3-soc/` 頁面為準**。
 3. 產出完整 Astro 版(19 個產品/服務頁 ×2 語系、3 個總覽頁、GDPR 隱私頁與 Imprint、
    sitemap/hreflang、GitHub Actions 自動部署),再依同檔的【品質底線(驗收)】逐項自檢。
 
@@ -168,11 +150,11 @@ Style 3 用 `Arsenal` 等維運術語(每個下拉首行都附白話對照)。
 
 ---
 
-## 6. 專案結構
+## 5. 專案結構
 
 ```text
 Volcatech_Web/                  # 專案根(= VS Code 開啟此層、http.server 起在此層)
-├── index.html                  # 風格總覽入口
+├── index.html                  # Demo hub:style-3 主卡(雙變體連結)+ 歸檔入口
 ├── README.md
 ├── CLAUDE.md                   # Claude Code 自動讀取的專案規則
 ├── HANDOVER.md                 # 進度與接手指引(速查;規格正本在 docs/)
@@ -185,26 +167,30 @@ Volcatech_Web/                  # 專案根(= VS Code 開啟此層、http.server
 ├── .github/
 │   └── copilot-instructions.md # GitHub Copilot 專案指示
 ├── docs/                       # 不隨 demo 發布(已列入 .gitignore)
-│   ├── Volcatech_多風格_Build_Prompts.md  # ★ 唯一事實來源:基底 + 4 風格模組
-│   ├── Volcatech_版型變體_Build_Prompts.md # ★ 版型變體(layout-*)正本:基底 + 4 版型模組
-│   ├── 版型框架挑選指南.md                 # 版型科普與挑選依據(給非設計背景)
-│   ├── 版型變體_外部AI_Prompt_Pack.md      # 自足式 prompt 匯出品(給 ChatGPT/Gemini 用)
+│   ├── Volcatech_多風格_Build_Prompts.md  # ★ 唯一事實來源:基底 + 風格模組(§B style-3 選單定義為評選期歷史)
+│   ├── Volcatech_版型變體_Build_Prompts.md # 版型變體正本(評選歷史,對應 archive/ 內 layout 資料夾)
+│   ├── 版型框架挑選指南.md                 # 版型科普與挑選依據(評選歷史)
+│   ├── 版型變體_外部AI_Prompt_Pack.md      # 自足式 prompt 匯出品(評選歷史)
+│   ├── meeting_0731.md                    # 0731 評選會議紀錄
 │   ├── 公司_104.md                        # 公司事實來源(服務範圍與願景)
 │   ├── 接手開發_Prompts.md                # VS Code 內 AI 協作的現成 prompts
 │   ├── 官網建置計畫_Build_Prompt_v3.md    # legacy(已凍結,規格失效,僅供背景)
+│   ├── (其餘會議/優化筆記若干)
 │   └── backups/                           # 制度檔修改前備份
-├── style-1-zurich/       index.html · sentinelone.html
-├── style-2-nordic/       index.html · sentinelone.html
-├── style-3-soc/          index.html · sentinelone.html
-├── style-4-continental/  index.html · sentinelone.html
-├── layout-1-magazine-zurich/     ┐
-├── layout-2-split-nordic/        │ 各 5 頁:index · sentinelone ·
-├── layout-3-bento-soc/           │ services · about · contact
-├── layout-4-sidebar-continental/ ┘
-└── Volcatech_Layout_Variants_GPT/  # 外部 AI 參考組:唯讀,平常不異動也不 review
-    ├── index.html                  # 它自己的總覽入口(無返回本站連結)
-    ├── README.md / HANDOVER.md / CLAUDE.md   # 只描述它自己,不適用本專案
-    └── layout-1〜4 同名資料夾/     # 內容與本專案的 layout-*/ 完全獨立
+├── style-3-soc/                # ★ 勝出風格(現行唯一維護對象)
+│   ├── index.html              # 首頁 Nav A(單層下拉、mono 小標分組)
+│   ├── index-nav-b.html        # 首頁 Nav B(二層 flyout);<main> 起與 Nav A 逐字節相同
+│   └── sentinelone.html        # 產品頁範例(用 Nav A)
+├── archive/                    # 評選歷史,全部凍結不再更新
+│   ├── index.html              # 舊評選總覽(帶已歸檔橫幅)
+│   ├── style-1-zurich/
+│   ├── style-2-nordic/
+│   ├── style-4-continental/
+│   ├── layout-1-magazine-zurich/
+│   ├── layout-2-split-nordic/
+│   ├── layout-3-bento-soc/
+│   ├── layout-4-sidebar-continental/
+│   └── Volcatech_Layout_Variants_GPT/  # 外部 AI 參考組:唯讀,不修改、不 review
 
-(未來)└── site/               # 勝出風格的正式 Astro 版,獨立於本 demo 不混改
+(未來)└── site/               # 正式 Astro 版,獨立於本 demo 不混改
 ```
