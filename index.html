@@ -31,6 +31,8 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
 .card h2{font-size:21px;margin-top:8px}
 .card p{margin-top:10px;color:var(--muted);font-size:14.5px;flex:1}
 .links{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+.links .lbl{width:100%;margin:6px 0 -4px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .links a{border:1px solid var(--line);border-radius:6px;padding:9px 16px;font-size:14px;font-weight:600}
 .links a:hover{border-color:var(--muted)}
 .links a.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
@@ -70,15 +72,28 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
         <p>戰情室語彙:mono 狀態列、狀態圓點、琥珀訊號色。選單分類已依會議決議改為
           <b>Google Cloud / CyberSecurity / Services</b>,每個下拉第一行保留 mono 白話對照。
           SentinelOne、ThreatSonar、CyberEyes、Google SecOps 已有獨立產品頁(內容取自公司產品文件改寫),
-          另有 ESS 方案頁(沃凱打包方案,入口在 Services 下拉);其餘選單項目仍捲至首頁對應區塊(游標停留有說明)。</p>
+          另有 ESS 方案頁(沃凱打包方案,入口在 Services 下拉)。
+          <b>2026-08-04 新增 Cloud 線 8 頁</b>:一個總覽頁 + 六個 GCP 分類頁 + 一個沃凱雲端服務頁,
+          Google Cloud 下拉的 18 項產品全部改為深連結(分類頁#產品錨點),不再是佔位。
+          其餘選單項目仍捲至首頁對應區塊(游標停留有說明)。</p>
         <div class="links">
           <a class="primary" href="style-3-soc/index.html">首頁 — Nav A(單層)</a>
           <a class="primary" href="style-3-soc/index-nav-b.html">首頁 — Nav B(二層)</a>
+          <span class="lbl">Cybersecurity 線</span>
           <a href="style-3-soc/sentinelone.html">SentinelOne</a>
           <a href="style-3-soc/threatsonar.html">ThreatSonar</a>
           <a href="style-3-soc/cybereyes.html">CyberEyes</a>
           <a href="style-3-soc/google-secops.html">Google SecOps</a>
           <a href="style-3-soc/ess.html">ESS 方案頁</a>
+          <span class="lbl">Cloud 線(新增 8 頁)</span>
+          <a class="primary" href="style-3-soc/cloud.html">Cloud 總覽</a>
+          <a href="style-3-soc/cloud-compute.html">Compute</a>
+          <a href="style-3-soc/cloud-storage.html">Storage</a>
+          <a href="style-3-soc/cloud-analytics.html">Analytics</a>
+          <a href="style-3-soc/cloud-serverless.html">Serverless</a>
+          <a href="style-3-soc/cloud-databases.html">Databases</a>
+          <a href="style-3-soc/cloud-ai.html">AI</a>
+          <a href="style-3-soc/cloud-services.html">Cloud services &amp; Armor</a>
         </div>
       </div>
     </div>

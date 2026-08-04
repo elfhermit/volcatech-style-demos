@@ -19,6 +19,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.
 a{color:inherit;text-decoration:none}
 a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+main [id]{scroll-margin-top:80px}
 .status{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
 .status .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--status);margin-right:9px;vertical-align:1px}
 .btn{display:inline-block;background:var(--accent);color:#0E141F;font-weight:600;font-size:15px;
@@ -37,7 +38,7 @@ header{position:sticky;top:0;background:rgba(14,20,31,.95);border-bottom:1px sol
 .menu a[aria-current="page"]{border-bottom:2px solid var(--accent)}
 .dd>a::after{content:" ▾";font-size:10px}
 .dd ul{display:none;position:absolute;top:100%;left:-12px;background:var(--surface);border:1px solid var(--line);
-  border-radius:6px;min-width:290px;padding:10px 0;list-style:none}
+  border-radius:6px;min-width:290px;padding:10px 0;list-style:none;max-height:calc(100vh - 90px);overflow-y:auto}
 .dd:hover ul,.dd:focus-within ul{display:block}
 .dd ul a{display:block;padding:9px 18px;font-size:14px}
 .dd ul a:hover{background:#1B2736;color:var(--ink)}
@@ -123,7 +124,7 @@ footer{border-top:1px solid var(--line)}
     border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;padding:16px 24px;gap:4px;
     max-height:calc(100vh - 66px);overflow-y:auto}
   .menu.open{display:flex}
-  .dd ul{display:block;position:static;border:none;padding-left:14px;min-width:0}
+  .dd ul{display:block;position:static;border:none;padding-left:14px;min-width:0;max-height:none;overflow-y:visible}
   .lang{margin-top:10px}
   .lang a{padding-left:0}
   .lang a+a{padding-left:10px}
@@ -140,33 +141,40 @@ footer{border-top:1px solid var(--line)}
     <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
     <ul class="menu" id="menu">
       <li><a href="index.html">Home</a></li>
-      <li class="dd"><a href="index.html#offer" aria-haspopup="true">Google Cloud</a>
+      <li class="dd"><a href="cloud.html" aria-haspopup="true">Google Cloud</a>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
+          <li><a href="cloud.html">Overview — all Google Cloud services</a></li>
           <li class="grp">Compute</li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">Compute Engine</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">Kubernetes Engine</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">VMware Engine</a></li>
+          <li><a href="cloud-compute.html#compute-engine">Compute Engine</a></li>
+          <li><a href="cloud-compute.html#kubernetes-engine">Kubernetes Engine</a></li>
+          <li><a href="cloud-compute.html#vmware-engine">VMware Engine</a></li>
           <li class="grp">Storage</li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">Cloud Storage</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">Filestore</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">Backup and DR</a></li>
+          <li><a href="cloud-storage.html#cloud-storage">Cloud Storage</a></li>
+          <li><a href="cloud-storage.html#filestore">Filestore</a></li>
+          <li><a href="cloud-storage.html#backup-dr">Backup and DR</a></li>
           <li class="grp">Analytics</li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">BigQuery</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">Pub/Sub</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">Dataflow</a></li>
+          <li><a href="cloud-analytics.html#bigquery">BigQuery</a></li>
+          <li><a href="cloud-analytics.html#pubsub">Pub/Sub</a></li>
+          <li><a href="cloud-analytics.html#dataflow">Dataflow</a></li>
           <li class="grp">Serverless</li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">Cloud Run</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">App Engine</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">API Gateway</a></li>
+          <li><a href="cloud-serverless.html#cloud-run">Cloud Run</a></li>
+          <li><a href="cloud-serverless.html#app-engine">App Engine</a></li>
+          <li><a href="cloud-serverless.html#api-gateway">API Gateway</a></li>
           <li class="grp">Databases</li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">AlloyDB for PostgreSQL</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">Cloud SQL</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">Datastore</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">Firestore</a></li>
+          <li><a href="cloud-databases.html#alloydb">AlloyDB for PostgreSQL</a></li>
+          <li><a href="cloud-databases.html#cloud-sql">Cloud SQL</a></li>
+          <li><a href="cloud-databases.html#datastore">Datastore</a></li>
+          <li><a href="cloud-databases.html#firestore">Firestore</a></li>
           <li class="grp">AI</li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">Vertex AI</a></li>
-          <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">Model Garden</a></li>
+          <li><a href="cloud-ai.html#vertex-ai">Vertex AI</a></li>
+          <li><a href="cloud-ai.html#model-garden">Model Garden</a></li>
+          <li class="grp">Edge security</li>
+          <li><a href="cloud-services.html#cloud-armor">Cloud Armor</a></li>
+          <li class="grp">Volcatech cloud services</li>
+          <li><a href="cloud-services.html#cloud-migration">Cloud Migration &amp; Kubernetes</a></li>
+          <li><a href="cloud-services.html#hybrid-cloud-backup">Hybrid Cloud &amp; Backup</a></li>
+          <li><a href="cloud-services.html#data-ai-engineering">Data &amp; AI Engineering</a></li>
         </ul>
       </li>
       <li class="dd"><a href="index.html#offer" aria-haspopup="true">CyberSecurity</a>
@@ -293,15 +301,17 @@ footer{border-top:1px solid var(--line)}
         <dt>Registered office</dt><dd>[TODO: registered address]</dd>
       </dl>
     </div>
-    <div>
+    <div id="cloud-list">
       <h4>Cloud Infrastructure</h4>
       <ul>
-        <li><a href="index.html#offer">Compute Engine (VM)</a></li>
-        <li><a href="index.html#offer">Cloud SQL (Database)</a></li>
-        <li><a href="index.html#offer">Cloud Armor (WAF)</a></li>
-        <li><a href="index.html#offer">Cloud Migration &amp; Kubernetes</a></li>
-        <li><a href="index.html#offer">Hybrid Cloud &amp; Backup</a></li>
-        <li><a href="index.html#offer">Data &amp; AI Engineering</a></li>
+        <li><a href="cloud.html">Overview</a></li>
+        <li><a href="cloud-compute.html">Compute</a></li>
+        <li><a href="cloud-storage.html">Storage</a></li>
+        <li><a href="cloud-analytics.html">Analytics</a></li>
+        <li><a href="cloud-serverless.html">Serverless</a></li>
+        <li><a href="cloud-databases.html">Databases</a></li>
+        <li><a href="cloud-ai.html">AI</a></li>
+        <li><a href="cloud-services.html">Cloud services &amp; Cloud Armor</a></li>
       </ul>
     </div>
     <div>

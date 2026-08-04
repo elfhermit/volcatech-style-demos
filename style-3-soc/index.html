@@ -21,6 +21,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.
 a{color:inherit;text-decoration:none}
 a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+main [id]{scroll-margin-top:80px}
 .status{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
 .status .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--status);margin-right:9px;vertical-align:1px}
 .btn{display:inline-block;background:var(--accent);color:#0E141F;font-weight:600;font-size:15px;
@@ -155,33 +156,40 @@ footer{border-top:1px solid var(--line)}
     <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
     <ul class="menu" id="menu">
       <li><a href="index.html" aria-current="page">Home</a></li>
-      <li class="dd"><a href="#offer" aria-haspopup="true">Google Cloud</a>
+      <li class="dd"><a href="cloud.html" aria-haspopup="true">Google Cloud</a>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
+          <li><a href="cloud.html">Overview — all Google Cloud services</a></li>
           <li class="grp">Compute</li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Compute Engine</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Kubernetes Engine</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">VMware Engine</a></li>
+          <li><a href="cloud-compute.html#compute-engine">Compute Engine</a></li>
+          <li><a href="cloud-compute.html#kubernetes-engine">Kubernetes Engine</a></li>
+          <li><a href="cloud-compute.html#vmware-engine">VMware Engine</a></li>
           <li class="grp">Storage</li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Cloud Storage</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Filestore</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Backup and DR</a></li>
+          <li><a href="cloud-storage.html#cloud-storage">Cloud Storage</a></li>
+          <li><a href="cloud-storage.html#filestore">Filestore</a></li>
+          <li><a href="cloud-storage.html#backup-dr">Backup and DR</a></li>
           <li class="grp">Analytics</li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">BigQuery</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Pub/Sub</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Dataflow</a></li>
+          <li><a href="cloud-analytics.html#bigquery">BigQuery</a></li>
+          <li><a href="cloud-analytics.html#pubsub">Pub/Sub</a></li>
+          <li><a href="cloud-analytics.html#dataflow">Dataflow</a></li>
           <li class="grp">Serverless</li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Cloud Run</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">App Engine</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">API Gateway</a></li>
+          <li><a href="cloud-serverless.html#cloud-run">Cloud Run</a></li>
+          <li><a href="cloud-serverless.html#app-engine">App Engine</a></li>
+          <li><a href="cloud-serverless.html#api-gateway">API Gateway</a></li>
           <li class="grp">Databases</li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">AlloyDB for PostgreSQL</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Cloud SQL</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Datastore</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Firestore</a></li>
+          <li><a href="cloud-databases.html#alloydb">AlloyDB for PostgreSQL</a></li>
+          <li><a href="cloud-databases.html#cloud-sql">Cloud SQL</a></li>
+          <li><a href="cloud-databases.html#datastore">Datastore</a></li>
+          <li><a href="cloud-databases.html#firestore">Firestore</a></li>
           <li class="grp">AI</li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Vertex AI</a></li>
-          <li><a href="#offer" title="Demo: opens the matching section on this page">Model Garden</a></li>
+          <li><a href="cloud-ai.html#vertex-ai">Vertex AI</a></li>
+          <li><a href="cloud-ai.html#model-garden">Model Garden</a></li>
+          <li class="grp">Edge security</li>
+          <li><a href="cloud-services.html#cloud-armor">Cloud Armor</a></li>
+          <li class="grp">Volcatech cloud services</li>
+          <li><a href="cloud-services.html#cloud-migration">Cloud Migration &amp; Kubernetes</a></li>
+          <li><a href="cloud-services.html#hybrid-cloud-backup">Hybrid Cloud &amp; Backup</a></li>
+          <li><a href="cloud-services.html#data-ai-engineering">Data &amp; AI Engineering</a></li>
         </ul>
       </li>
       <li class="dd"><a href="#offer" aria-haspopup="true">CyberSecurity</a>
@@ -239,7 +247,7 @@ footer{border-top:1px solid var(--line)}
           <div class="head"><span class="lbl">C-Series — Google Cloud</span><span class="cdot" aria-hidden="true"></span></div>
           <h2>Cloud Infrastructure</h2>
           <p>Google Cloud design, migration and day-2 operations — Compute Engine, Cloud SQL, Cloud Armor, Kubernetes, hybrid setups and data/AI pipelines. EU regions available.</p>
-          <a href="#cloud-list" title="Demo: jumps to the full list in the footer">Explore Cloud Infrastructure <span class="arr" aria-hidden="true">→</span></a>
+          <a href="cloud.html">Explore Cloud Infrastructure <span class="arr" aria-hidden="true">→</span></a>
         </div>
         <div class="card">
           <div class="head"><span class="lbl">E·S·A-Series — CyberSecurity</span><span class="cdot" aria-hidden="true"></span></div>
@@ -357,12 +365,14 @@ footer{border-top:1px solid var(--line)}
     <div id="cloud-list">
       <h4>Cloud Infrastructure</h4>
       <ul>
-        <li><a href="#offer">Compute Engine (VM)</a></li>
-        <li><a href="#offer">Cloud SQL (Database)</a></li>
-        <li><a href="#offer">Cloud Armor (WAF)</a></li>
-        <li><a href="#offer">Cloud Migration &amp; Kubernetes</a></li>
-        <li><a href="#offer">Hybrid Cloud &amp; Backup</a></li>
-        <li><a href="#offer">Data &amp; AI Engineering</a></li>
+        <li><a href="cloud.html">Overview</a></li>
+        <li><a href="cloud-compute.html">Compute</a></li>
+        <li><a href="cloud-storage.html">Storage</a></li>
+        <li><a href="cloud-analytics.html">Analytics</a></li>
+        <li><a href="cloud-serverless.html">Serverless</a></li>
+        <li><a href="cloud-databases.html">Databases</a></li>
+        <li><a href="cloud-ai.html">AI</a></li>
+        <li><a href="cloud-services.html">Cloud services &amp; Cloud Armor</a></li>
       </ul>
     </div>
     <div id="security-list">

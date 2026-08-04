@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-<title>Enterprise Security Service (ESS) — Volcatech</title>
-<meta name="description" content="Volcatech's enterprise security programme: web-layer detection, endpoint protection and a 24/7 SOC under one contract and one SLA.">
+<title>Serverless on Google Cloud (Cloud Run, App Engine, API Gateway) — Volcatech</title>
+<meta name="description" content="Cloud Run, App Engine and API Gateway — containerised applications and governed APIs, built and tuned by Volcatech.">
 <style>
 :root{
   --bg:#0E141F; --surface:#16202E; --ink:#E9EEF5; --muted:#9AA8BA;
@@ -76,6 +76,11 @@ h2.sec{font-weight:600;font-size:clamp(24px,3.2vw,34px);line-height:1.15;margin-
 .loglist p{font-size:15px}
 .loglist small{display:block;color:var(--muted);margin-top:2px;font-size:14px}
 .todo{font-family:var(--mono);color:var(--muted);font-size:12px;border:1px dashed var(--line);padding:2px 8px;border-radius:4px}
+.vsrc{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-left:10px;vertical-align:1px}
+.cards2 .go{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:12.5px;
+  color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:2px}
+.cards2 .go:hover{border-color:var(--accent)}
 .ext{border-top:1px solid var(--line)}
 .ext .wrap{padding:26px 24px;font-family:var(--mono);font-size:13px;color:var(--muted)}
 .ext a{color:var(--accent);font-weight:600}
@@ -141,7 +146,7 @@ footer{border-top:1px solid var(--line)}
     <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
     <ul class="menu" id="menu">
       <li><a href="index.html">Home</a></li>
-      <li class="dd"><a href="cloud.html" aria-haspopup="true">Google Cloud</a>
+      <li class="dd"><a href="cloud.html" aria-current="page" aria-haspopup="true">Google Cloud</a>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
           <li><a href="cloud.html">Overview — all Google Cloud services</a></li>
@@ -196,7 +201,7 @@ footer{border-top:1px solid var(--line)}
       <li class="dd"><a href="index.html#offer" aria-haspopup="true">Services</a>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Services — Managed Services</li>
-          <li><a href="ess.html" aria-current="page">Enterprise Security Service (ESS)</a></li>
+          <li><a href="ess.html">Enterprise Security Service (ESS)</a></li>
           <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">24/7 SOC &amp; Incident Response</a></li>
           <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">ISMS / PIMS Consulting</a></li>
           <li><a href="index.html#offer" title="Demo: opens the matching section on the home page">Penetration Testing (human-led)</a></li>
@@ -208,7 +213,7 @@ footer{border-top:1px solid var(--line)}
       <li><a class="btn" style="padding:9px 18px" href="index.html#contact">Contact us</a></li>
       <li>
         <nav class="lang" aria-label="Language">
-          <a href="ess.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+          <a href="cloud-serverless.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
         </nav>
       </li>
     </ul>
@@ -218,12 +223,11 @@ footer{border-top:1px solid var(--line)}
 <main>
   <div class="phero">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>ESS / PROGRAMME — Operated by Volcatech</p>
-      <p class="code" style="margin-top:26px">ESS · SERVICES · ENTERPRISE SECURITY</p>
-      <h1>Enterprise Security Service</h1>
-      <p class="vendor">Programme: Volcatech — WDR + EDR + 24/7 SOC in one contract</p>
-      <p class="tag">Web-layer detection, endpoint protection and around-the-clock response, delivered as one programme.
-        One team watches, one team acts — and one contract covers it all.</p>
+      <p class="status"><span class="dot" aria-hidden="true"></span>CI-04 / SERVERLESS — Google Cloud services</p>
+      <p class="code" style="margin-top:26px">CI-04 · CLOUD INFRASTRUCTURE · SERVERLESS</p>
+      <h1>Serverless on Google Cloud</h1>
+      <p class="vendor">Vendor: Google Cloud · Containers, applications and API front doors</p>
+      <p class="tag">Run applications without managing servers — containers that scale from zero, and one governed front door for every API.</p>
       <div class="cta">
         <a class="btn" href="index.html#contact">Contact us</a>
         <a class="btn btn-ghost" href="index.html#contact">Talk to our team</a>
@@ -233,83 +237,67 @@ footer{border-top:1px solid var(--line)}
 
   <section>
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Pain points — before the programme</p>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Pain points — before the project</p>
       <h2 class="sec">The problems this takes off your board.</h2>
       <div class="loglist" style="max-width:820px">
-        <div><span class="d" style="background:var(--accent)"></span><p>Tools without a team<small>Point products raise alerts all day, but correlating and acting on them is nobody's full-time job.</small></p></div>
-        <div><span class="d" style="background:var(--accent)"></span><p>Nights go unwatched<small>Attacks do not keep office hours, and an in-house rota for 03:00 alerts is hard to staff and harder to keep.</small></p></div>
-        <div><span class="d" style="background:var(--accent)"></span><p>Contract sprawl<small>Separate vendors for detection, endpoints and monitoring mean multiple SLAs, multiple escalation paths and no single owner.</small></p></div>
+        <div><span class="d" style="background:var(--accent)"></span><p>Idle capacity<small>Servers run at three percent all night and still bill at full rate.</small></p></div>
+        <div><span class="d" style="background:var(--accent)"></span><p>Release friction<small>Every deployment needs a maintenance window and someone on standby.</small></p></div>
+        <div><span class="d" style="background:var(--accent)"></span><p>Ungoverned APIs<small>Endpoints multiply with no shared authentication, quota or logging.</small></p></div>
       </div>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Programme components</p>
-      <h2 class="sec">What's inside the programme.</h2>
-      <div class="cards2">
-        <div><h3>CyberEyes WDR</h3><p>Web Detection and Response records and models your web traffic, raising attack-chain alerts for what slips past the WAF.</p></div>
-        <div><h3>EDR tuned to your environment</h3><p>Endpoint detection and response selected and tuned for your asset mix — behavioral detection, isolation and forensic timelines on every covered endpoint.</p></div>
-        <div><h3>Volcatech SOC, 24/7</h3><p>Our own analysts watch around the clock: L1 monitors in real time, L2 investigates, contains and reports.</p></div>
-        <div><h3>One contract, one SLA</h3><p>Detection, protection and response under a single agreement, a single service level and a single point of accountability.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Service flow</p>
-      <h2 class="sec">Five steps from raw logs to resolved incidents.</h2>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Google Cloud services</p>
+      <h2 class="sec">Three ways to ship without servers.</h2>
       <div class="loglist" style="max-width:820px">
-        <div><span class="d"></span><p>01 · Data collection<small>Logs and telemetry from web, network and endpoints flow into the detection stack.</small></p></div>
-        <div><span class="d"></span><p>02 · Threat detection<small>WDR and EDR analyze behavior continuously, catching what static rules miss.</small></p></div>
-        <div><span class="d"></span><p>03 · Correlated alerting<small>Related events collapse into a single attack-chain alert with severity and scope attached.</small></p></div>
-        <div><span class="d"></span><p>04 · SOC analysis &amp; response<small>Analysts validate the alert, contain the threat — isolate, block, clean — and notify your IT with clear actions.</small></p></div>
-        <div><span class="d"></span><p>05 · Reporting &amp; improvement<small>Every case ends with an incident report and tuning recommendations that feed back into your defenses.</small></p></div>
+        <div id="cloud-run"><span class="d"></span><p>Cloud Run<small>Managed platform that runs containerised apps in any language, scaling from zero to high traffic.</small></p></div>
+        <div id="app-engine"><span class="d"></span><p>App Engine<small>Serverless application platform for web and mobile back ends — you write the code, Google runs the infrastructure.</small></p></div>
+        <div id="api-gateway"><span class="d"></span><p>API Gateway<small>Managed gateway giving Cloud Run, App Engine and Cloud Functions a secure, monitored REST front door.</small></p></div>
       </div>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Coverage timeline</p>
-      <h2 class="sec">Before, during and after an attack.</h2>
-      <div class="loglist" style="max-width:820px">
-        <div><span class="d"></span><p>Before an incident<small>Attack-surface inventory and behavioral baselines are built while things are quiet, so anomalies stand out later.</small></p></div>
-        <div><span class="d"></span><p>During an attack<small>WDR and EDR detect and block the early moves while the SOC responds in real time — isolation, blocking, cleanup.</small></p></div>
-        <div><span class="d"></span><p>After containment<small>L2 analysts deliver the incident report, close the gaps it exposed and tune detection for the next attempt.</small></p></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Scenarios</p>
-      <h2 class="sec">Four attacks this programme is built to catch.</h2>
+      <p class="status"><span class="dot" aria-hidden="true"></span>What Volcatech delivers</p>
+      <h2 class="sec">What we build on it.</h2>
       <div class="cards2">
-        <div><h3>WebShell implant</h3><p>A shell dropped through an upload form starts taking commands — the traffic breaks the learned baseline and the chain is flagged before it spreads.</p></div>
-        <div><h3>SQL injection</h3><p>Injection attempts surface as anomalous request behavior — including the slow, patient kind engineered to stay under rate-based rules.</p></div>
-        <div><h3>Ransomware</h3><p>EDR catches the pre-encryption moves and isolates the host while the SOC coordinates containment and recovery.</p></div>
-        <div><h3>Unusual server sign-in</h3><p>A login at the wrong hour, from the wrong place or with the wrong account triggers review — the SOC verifies with your IT before it becomes an incident.</p></div>
+        <div><h3>Containerisation</h3><p>Existing applications packaged and moved onto a managed runtime.</p></div>
+        <div><h3>Deployment pipelines</h3><p>Build, test and release automated so deployments stop needing a window.</p></div>
+        <div><h3>API governance</h3><p>Authentication, quotas and logging applied consistently across services.</p></div>
+        <div><h3>Scale and cost tuning</h3><p>Concurrency, minimum instances and timeouts tuned against real traffic.</p></div>
       </div>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Why Volcatech</p>
-      <h2 class="sec">The right EDR is the one you can run.</h2>
-      <p style="margin-top:24px;color:var(--muted);max-width:66ch">Our selection method is deliberately simple: core assets get a top-tier EDR,
-        standard assets get a cost-effective one, and mixed deployments are managed as one through our SOC.
-        The question is never which product ranks highest in the abstract — it is what your team can operate and sustain.
-        We design the mix, deploy it and run it, so the answer stays true long after day one.
-        <span class="todo">[TODO: service scope &amp; SLA details]</span></p>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Business outcomes — after go-live</p>
+      <h2 class="sec">What changes on day one.</h2>
+      <div class="loglist" style="max-width:820px">
+        <div><span class="d"></span><p>You pay for traffic<small>Idle services scale to zero instead of billing overnight.</small></p></div>
+        <div><span class="d"></span><p>Releases become routine<small>Deployments happen during the day, without a standby rota.</small></p></div>
+        <div><span class="d"></span><p>APIs behave the same<small>One front door means one set of rules to audit.</small></p></div>
+      </div>
     </div>
   </section>
+
+  <section>
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Why build with Volcatech</p>
+      <h2 class="sec">Serverless still needs an operating model.</h2>
+      <p style="margin-top:24px;color:var(--muted);max-width:66ch">We containerise what you already run, automate the release path and tune concurrency against real traffic — so scaling to zero does not mean guessing at runtime.
+        <span class="todo">[TODO: local references &amp; delivery details]</span></p>
+    </div>
+  </section>
+
+  <div class="ext"><div class="wrap">Vendor resources → <a href="https://cloud.google.com/run" target="_blank" rel="noopener">cloud.google.com/run ↗</a> · <a href="https://cloud.google.com/appengine" target="_blank" rel="noopener">cloud.google.com/appengine ↗</a> · <a href="https://cloud.google.com/api-gateway" target="_blank" rel="noopener">cloud.google.com/api-gateway ↗</a></div></div>
 
   <div class="band">
     <div class="wrap">
-      <h2>One contract for detection, protection and response — scope yours with us.</h2>
+      <h2>Move an application to a managed runtime — start with one.</h2>
       <div><a class="btn" href="index.html#contact">Contact us</a></div>
     </div>
   </div>
