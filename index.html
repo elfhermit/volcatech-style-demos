@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Volcatech 官網 Demo — 勝出風格 SOC Console(選單雙變體比對)</title>
-<meta name="description" content="Volcatech 新官網 demo 入口:0731 評選勝出的 SOC Console 風格,現正比對兩種頂部選單變體(單層下拉 vs 二層巢狀);歷史評選(4 styles + 4 layouts + 外部 AI 參考組)已歸檔。">
+<title>Volcatech 官網 Demo — 首頁版面變體比對(V1/V2/V3)</title>
+<meta name="description" content="Volcatech 新官網 demo 入口:在 0731 勝出的 SOC Console 風格上比對三個首頁版面變體,各自回答「公司做什麼／產品有哪些／合作夥伴是誰」;另含選單雙變體與已歸檔的歷史評選。">
 <style>
 :root{--bg:#111418;--surface:#1B2026;--ink:#F2F4F6;--muted:#9AA4AE;--line:#2A313A;--max:1100px}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -20,16 +20,23 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
 .head p{margin-top:16px;color:var(--muted);max-width:64ch}
 .note{margin-top:24px;border:1px solid var(--line);border-radius:8px;padding:16px 20px;font-size:14.5px;color:var(--muted)}
 .note b{color:var(--ink)}
+.note ol{margin:10px 0 0 20px} .note ol li{margin-top:6px}
+.note ul{margin:10px 0 0 20px} .note ul li{margin-top:6px}
 .sect{margin-top:6px;font-size:22px}
 .sect small{display:block;font-size:13.5px;color:var(--muted);margin-top:6px;font-weight:400}
 .grid{display:grid;grid-template-columns:1fr;gap:22px;padding:32px 0 48px}
+.grid.two{grid-template-columns:1fr 1fr}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
 .sw{display:flex;height:64px}
 .sw span{flex:1}
 .card .body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}
 .card .no{font-size:12px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
 .card h2{font-size:21px;margin-top:8px}
-.card p{margin-top:10px;color:var(--muted);font-size:14.5px;flex:1}
+.card p{margin-top:10px;color:var(--muted);font-size:14.5px}
+.card p.grow{flex:1}
+.bet{margin-top:14px;border-left:2px solid #3ECF8E;padding:2px 0 2px 14px;font-size:14.5px;color:var(--ink)}
+.spec{margin-top:14px;font-size:13.5px;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.85}
+.spec b{color:var(--ink);font-weight:600}
 .links{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
 .links .lbl{width:100%;margin:6px 0 -4px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
   font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
@@ -40,53 +47,182 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
   letter-spacing:.08em;color:var(--muted);text-transform:uppercase;vertical-align:middle;margin-left:10px}
 .foot{border-top:1px solid var(--line);padding:26px 0 56px;font-size:13.5px;color:var(--muted)}
 .foot a{text-decoration:underline}
+@media (max-width:760px){
+  .grid.two{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="head">
     <p class="kicker">Volcatech — Website Demo Hub</p>
-    <h1>勝出風格:SOC Console(style-3)——選單雙變體比對中</h1>
-    <p>2026-07-31 內部評選會議選定 <b>Style 3(SOC Console 深色色系)× 原版直落版型</b> 為勝出組合,
-      後續開發都在此風格上進行。會後已完成:① 首頁 H1 改置中;② 頂部選單分類由
-      Platform / Arsenal / Operations 改為 <b>Google Cloud / CyberSecurity / Services</b>,
-      Google Cloud 下拉改放 GCP 產品樹(Compute / Storage / Analytics / Serverless / Databases / AI 六組 18 項);
-      ③ 做出兩種選單層級變體供比對(下方主卡的 Nav A / Nav B)。</p>
+    <h1>首頁版面變體比對:讓歐洲客戶看懂「做什麼／有哪些／夥伴是誰」</h1>
+    <p>色系與版型已於 2026-07-31 定案為 <b>Style 3(SOC Console 深色)× 原版直落</b>,不再變動。
+      這一輪要決定的是<b>首頁的資訊架構</b>——同一批內容、同一個 hero,只換「hero 之後第一眼看到什麼」。
+      三個變體各押一個賭注,加上現行版當對照組,共四個方案橫向比較。</p>
     <div class="note">
-      <b>怎麼比兩個選單變體:</b>兩頁除了選單以外<b>逐字節相同</b>,唯一變因是層級——
-      <b>Nav A(單層)</b>:一個下拉內用 mono 小標分組,一次攤開全部項目;
-      <b>Nav B(二層)</b>:分組升級為第二層飛出選單(hover 或鍵盤 Tab 展開)。
-      桌機請試 hover 斜移與純鍵盤 Tab 走訪;手機(390px)兩變體都會攤平成常駐清單,
-      重點看 Google Cloud 六組 18 項在小螢幕的捲動負擔。
+      <b>為什麼要改:</b>盤點現行首頁後找到三個結構性病灶(不是文案問題)
+      <ol>
+        <li><b>「產品有哪些」動線是斷的</b>——三張卡裡,Cybersecurity 與 Managed Services 點下去是跳到<b>頁尾清單</b>,
+          只有 Cloud 有真的總覽頁;另有 9 個項目完全沒有落點頁。</li>
+        <li><b>「合作夥伴」只有六個字</b>——純文字品牌名平鋪,不能點、沒說明、看不出「為什麼是這幾家、你對它們做到什麼程度」。</li>
+        <li><b>「公司做什麼」缺交付流程</b>——沒有任何一段講「我們怎麼交付、誰負責什麼」,
+          而這對 DACH／北歐的保守採購,權重高於產品規格。</li>
+      </ol>
+    </div>
+    <div class="note">
+      <b>本輪已一併補上(三個變體共用的地基):</b>
+      <ul>
+        <li>新增 <b>cybersecurity.html</b> 與 <b>services.html</b> 兩個總覽頁,讓三條業務線都有真的落點(對稱既有的 cloud.html)。</li>
+        <li>全站 23 個檔的選單與頁尾同步:原本指向 <code>#offer</code> / <code>#built</code> 的
+          <b>約 300 個佔位連結全部改成深連結</b>,兩個下拉頂部各加 Overview 入口。</li>
+      </ul>
     </div>
   </div>
 
-  <h2 class="sect">現行開發|style-3-soc<small>0731 勝出組合;色系凍結,選單擇一後定稿。</small></h2>
+  <h2 class="sect">四個方案橫向比較<span class="tag">本輪重點</span>
+    <small>hero(狀態列／H1／副標／兩顆 CTA／三張 console 卡)四個方案<b>完全相同</b>,差異從第二區塊開始——變因乾淨。
+      每個方案都有 Nav A(單層)與 Nav B(二層)兩份;頁面底部有切換列,比較時不必回到本頁。</small></h2>
+
+  <div class="grid two">
+    <div class="card">
+      <div class="sw" aria-hidden="true"><span style="background:#0E141F"></span><span style="background:#16202E"></span><span style="background:#27344A"></span><span style="background:#9AA8BA"></span></div>
+      <div class="body">
+        <p class="no">對照組<span class="tag">現況</span></p>
+        <h2>現行版</h2>
+        <p class="grow">今天線上的樣子,除了動線修復(三張卡改連真頁)之外沒有動。留著它才知道另外三個到底改善了多少。</p>
+        <p class="bet">押注:維持現狀。</p>
+        <p class="spec">
+          hero → <b>Built by Volcatech</b> → Why → Trust(三個小 icon) → Vendors(<b>六個純文字</b>) → CTA
+        </p>
+        <div class="links">
+          <a class="primary" href="style-3-soc/index.html">Nav A(單層)</a>
+          <a href="style-3-soc/index-nav-b.html">Nav B(二層)</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sw" aria-hidden="true"><span style="background:#0E141F"></span><span style="background:#16202E"></span><span style="background:#3ECF8E"></span><span style="background:#FFB224"></span></div>
+      <div class="body">
+        <p class="no">變體 V1</p>
+        <h2>信任前置 Trust-first</h2>
+        <p class="grow">先讓對方相信你交得出來,再談你有什麼。新增「How we work」三步驟(Design → Deliver → Operate),
+          每步寫明<b>我們做什麼／你做什麼／你拿到什麼</b>;Trust 區從三個小 icon 改寫成講<b>資料主權與存取控制</b>的四項,
+          並補上 Imprint 一次點擊可達(德國 §5 TMG 要求)。夥伴區是六張能力卡,每家寫「這是什麼／我們拿它做什麼」。</p>
+        <p class="bet">押注:歐洲採購第一關不是產品規格,是「這家台灣公司我敢不敢用」。</p>
+        <p class="spec">
+          hero → <b>How we work</b> → <b>Trust(四項)</b> → <b>Partners(六張能力卡)</b> → <b>全服務索引</b> → Built → Why → CTA
+        </p>
+        <div class="links">
+          <a class="primary" href="style-3-soc/index-v1-proof.html">Nav A(單層)</a>
+          <a href="style-3-soc/index-v1-proof-nav-b.html">Nav B(二層)</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sw" aria-hidden="true"><span style="background:#0E141F"></span><span style="background:#111A26"></span><span style="background:#16202E"></span><span style="background:#FFB224"></span></div>
+      <div class="body">
+        <p class="no">變體 V2</p>
+        <h2>型錄前置 Catalogue-first</h2>
+        <p class="grow">一屏看完我們到底有哪些東西。hero 之後直接是<b>21 列的服務目錄表</b>:代碼｜名稱｜一句話｜Powered by。
+          最後一欄回答「這項背後是誰的技術」,所以「產品有哪些」與「夥伴是誰」一次答完。
+          <b>注意</b>:這一欄與「一句話描述」是下拉選單與頁尾都沒有的資訊——如果拿掉,這個變體就只是選單的第三份複本。</p>
+        <p class="bet">押注:客戶最常問的是「你們有什麼」,而現況要點三層才看得到。</p>
+        <p class="spec">
+          hero → <b>Service catalogue(21 列)</b> → Partners(代理/自研二分) → Built → How we work(精簡) → Why → Trust → CTA
+        </p>
+        <div class="links">
+          <a class="primary" href="style-3-soc/index-v2-catalogue.html">Nav A(單層)</a>
+          <a href="style-3-soc/index-v2-catalogue-nav-b.html">Nav B(二層)</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sw" aria-hidden="true"><span style="background:#0E141F"></span><span style="background:#111A26"></span><span style="background:#9AA8BA"></span><span style="background:#3ECF8E"></span></div>
+      <div class="body">
+        <p class="no">變體 V3</p>
+        <h2>參考架構圖 Reference architecture</h2>
+        <p class="grow">一張純 CSS 的分層圖:Web 層 → 端點 → 偵測 → 維運,底下墊 Google Cloud 平台。
+          每個方塊都是真連結,角落標原廠;屬於 <b>ESS 打包方案</b>的方塊掛一個 ESS 標記,
+          圖下方一條橫幅解釋 ESS 是什麼——這是全站唯一能一眼說清楚 ESS 的地方。</p>
+        <p class="bet">押注:工程背景的決策者用「分層」理解供應商;而「這些東西彼此怎麼接起來」是首頁其他區塊都沒回答的問題。</p>
+        <p class="spec">
+          hero → <b>Reference architecture(四層+平台)</b> → 全服務索引 → Partners(二分) → Built → Why → Trust → CTA
+        </p>
+        <div class="links">
+          <a class="primary" href="style-3-soc/index-v3-flow.html">Nav A(單層)</a>
+          <a href="style-3-soc/index-v3-flow-nav-b.html">Nav B(二層)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note" style="margin-bottom:44px">
+    <b>明天現場怎麼測(每個方案各跑一次):</b>
+    <ol>
+      <li>打開頁面 <b>20 秒</b>後闔上——請說出這家公司做什麼?(測病灶 3)</li>
+      <li>你要點幾下才能看到「全部產品清單」?可以接受嗎?(測病灶 1)</li>
+      <li>看完 Partners 區,你認為沃凱是「轉售商」還是「能自己操作的服務商」?(測病灶 2)</li>
+      <li>有沒有哪一句讓你覺得在吹牛、或需要法務確認?</li>
+      <li>你是德國採購,你會先找什麼?(Imprint／隱私／資料落地／合約)——找得到嗎?</li>
+      <li>三個變體中,你會把哪一個給 CFO 看?哪一個給技術主管看?</li>
+    </ol>
+    <b style="display:block;margin-top:14px">還沒有素材、頁面上一律標 [TODO] 的項目:</b>
+    合作夥伴等級、ISO 27001、EU region 具體位置、交付模式(是否部署在客戶自有租戶)、事件回應時間承諾(SLA)、
+    Managed Services 五項服務內文、FortiEDR 產品描述、公司法定資訊(統編／VAT／地址／Email／電話)。
+  </div>
+
+  <h2 class="sect">新增的兩個總覽頁<span class="tag">動線修復</span>
+    <small>補上之後,三條業務線都有真的落點頁,首頁三張卡不再把人丟到頁尾。</small></h2>
+
+  <div class="grid two">
+    <div class="card">
+      <div class="body">
+        <p class="no">CS · CYBERSECURITY · OVERVIEW</p>
+        <h2>cybersecurity.html</h2>
+        <p class="grow">八項資安產品分三群(EDR / SIEM &amp; WDR / 自研),每項一個錨點供選單深連結。
+          自研三品沿用首頁 Built 區的既有描述;FortiEDR 待素材。</p>
+        <div class="links"><a class="primary" href="style-3-soc/cybersecurity.html">開啟</a></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="body">
+        <p class="no">MS · MANAGED SERVICES · OVERVIEW</p>
+        <h2>services.html</h2>
+        <p class="grow">六項服務,ESS 連到既有方案頁。<b>其餘五項沒有素材</b>,內文一律 [TODO] 佔位——
+          這頁是「架構就位、內容待填」,不是品質問題。</p>
+        <div class="links"><a class="primary" href="style-3-soc/services.html">開啟</a></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="sect">現行開發｜style-3-soc 全部頁面
+    <small>0731 勝出組合;色系凍結。以下 15 個內容頁在四個首頁方案之間共用。</small></h2>
 
   <div class="grid">
     <div class="card">
       <div class="sw" aria-hidden="true"><span style="background:#0E141F"></span><span style="background:#16202E"></span><span style="background:#FFB224"></span><span style="background:#3ECF8E"></span></div>
       <div class="body">
         <p class="no">Style 3<span class="tag">勝出</span></p>
-        <h2>SOC Console|資安主控台(深色)</h2>
-        <p>戰情室語彙:mono 狀態列、狀態圓點、琥珀訊號色。選單分類已依會議決議改為
-          <b>Google Cloud / CyberSecurity / Services</b>,每個下拉第一行保留 mono 白話對照。
-          SentinelOne、ThreatSonar、CyberEyes、Google SecOps 已有獨立產品頁(內容取自公司產品文件改寫),
-          另有 ESS 方案頁(沃凱打包方案,入口在 Services 下拉)。
-          <b>2026-08-04 新增 Cloud 線 8 頁</b>:一個總覽頁 + 六個 GCP 分類頁 + 一個沃凱雲端服務頁,
-          Google Cloud 下拉的 18 項產品全部改為深連結(分類頁#產品錨點),不再是佔位。
-          其餘選單項目仍捲至首頁對應區塊(游標停留有說明)。</p>
+        <h2>SOC Console｜資安主控台(深色)</h2>
+        <p>戰情室語彙:mono 狀態列、狀態圓點、琥珀訊號色。選單分類為
+          <b>Google Cloud / CyberSecurity / Services</b>,每個下拉第一行保留 mono 白話對照,
+          三個下拉頂部都有 Overview 入口。</p>
         <div class="links">
-          <a class="primary" href="style-3-soc/index.html">首頁 — Nav A(單層)</a>
-          <a class="primary" href="style-3-soc/index-nav-b.html">首頁 — Nav B(二層)</a>
+          <span class="lbl">總覽頁</span>
+          <a class="primary" href="style-3-soc/cloud.html">Cloud 總覽</a>
+          <a class="primary" href="style-3-soc/cybersecurity.html">Cybersecurity 總覽</a>
+          <a class="primary" href="style-3-soc/services.html">Services 總覽</a>
           <span class="lbl">Cybersecurity 線</span>
           <a href="style-3-soc/sentinelone.html">SentinelOne</a>
           <a href="style-3-soc/threatsonar.html">ThreatSonar</a>
           <a href="style-3-soc/cybereyes.html">CyberEyes</a>
           <a href="style-3-soc/google-secops.html">Google SecOps</a>
           <a href="style-3-soc/ess.html">ESS 方案頁</a>
-          <span class="lbl">Cloud 線(新增 8 頁)</span>
-          <a class="primary" href="style-3-soc/cloud.html">Cloud 總覽</a>
+          <span class="lbl">Cloud 線(GCP 分類頁)</span>
           <a href="style-3-soc/cloud-compute.html">Compute</a>
           <a href="style-3-soc/cloud-storage.html">Storage</a>
           <a href="style-3-soc/cloud-analytics.html">Analytics</a>

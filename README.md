@@ -1,22 +1,35 @@
 # Volcatech 官網 Demo — 勝出風格 style-3-soc(SOC Console)
 
 **2026-07-31 內部評選已結束**:勝出組合為 **Style 3 — SOC Console(深色主控台)色系 × 原版直落版型**,
-色系凍結。現行維護對象只有 `style-3-soc/`(15 頁),目前正在比對**兩個選單變體**(Nav A / Nav B)
-擇一定稿;其餘風格與版型的評選歷史已全部移入 `archive/`(凍結,不再更新)。
+色系凍結。現行維護對象只有 `style-3-soc/`(23 頁);其餘風格與版型的評選歷史已全部移入
+`archive/`(凍結,不再更新)。目前有**兩條並行的比對軸**:
 
-| 現行 demo(15 頁) | 路徑 | 說明 |
+1. **版面**(2026-08-04 新增):四個首頁方案橫向比較,決定首頁的資訊架構。
+2. **選單**:Nav A(單層)vs Nav B(二層 flyout),每個版面方案都出兩份。
+
+| 首頁方案(4 × Nav A/B = 8 檔) | Nav A 路徑 | hero 之後第一眼 |
 |---|---|---|
-| 首頁 Nav A — 單層下拉 | `style-3-soc/index.html` | 頂部選單 `Google Cloud / CyberSecurity / Services`,下拉內以 mono 小標分組 |
-| 首頁 Nav B — 二層 flyout | `style-3-soc/index-nav-b.html` | 選單內容同 Nav A,分組升級為第二層 flyout(hover / `:focus-within` 展開) |
-| Cloud 總覽 ×1 | `cloud.html` | 代碼 CI;h1 `Cloud Infrastructure`。六分類導覽 + 沃凱雲端服務 |
+| 現行(對照組) | `style-3-soc/index.html` | Built → Why → Trust → Vendors(六個純文字品牌名) |
+| V1 信任前置 | `style-3-soc/index-v1-proof.html` | How we work 三步驟 → Trust 四項(資料主權/存取控制) → Partners 六張能力卡 → 全服務索引 |
+| V2 型錄前置 | `style-3-soc/index-v2-catalogue.html` | Service catalogue 21 列表格(代碼｜名稱｜一句話｜Powered by) |
+| V3 參考架構 | `style-3-soc/index-v3-flow.html` | Reference architecture 四層圖(Web→端點→偵測→維運)＋ Google Cloud 底座 |
+
+Nav B 版一律是 `<Nav A 檔名>-nav-b.html`。
+
+| 其餘 15 頁 | 路徑 | 說明 |
+|---|---|---|
+| 總覽頁 ×3 | `cloud.html`、`cybersecurity.html`、`services.html` | 代碼 CI / CS / MS;三條業務線各一個落點頁 |
 | Cloud 分類頁 ×7 | `cloud-compute.html`、`cloud-storage.html`、`cloud-analytics.html`、`cloud-serverless.html`、`cloud-databases.html`、`cloud-ai.html`、`cloud-services.html` | 代碼 CI-01〜CI-07;各頁收錄該分類的 GCP 產品(每項一個錨點),`cloud-services.html` 另含 Cloud Armor 與沃凱自有雲端服務 3 項 |
 | 產品頁 ×4 | `sentinelone.html`、`threatsonar.html`、`cybereyes.html`、`google-secops.html` | 均用 Nav A |
 | 方案頁 ×1 | `ess.html` | **Enterprise Security Service(ESS)**:沃凱打包方案(CyberEyes WDR + 多品牌 EDR + 自有 7x24 SOC)。**方案層,不屬 19 項 SKU**;全頁零外部連結;用 Nav A |
 
-兩個首頁變體自 `<main>` 起**逐字節相同**(一致性鐵則),差異只在 header/nav;
-hero 文案(H1 / 副標 / CTA)為會後改版的置中版。選單分類 `CyberSecurity` 的駝峰寫法
+一致性鐵則是**雙軸**:同一版面的 Nav A/B 自 `<main>` 起**逐字節相同**(差異只在 header/nav);
+跨版面方案則凍結共用文案(H1、副標、Why H2、CTA、footer 品牌句五句在 8 個首頁逐字相同),
+且四個方案的 hero 區塊完全一致——比的是版面,不是文案。
+hero 文案(H1 / 副標 / CTA)為 0731 會後改版的置中版。選單分類 `CyberSecurity` 的駝峰寫法
 是會議指定的**刻意寫法**(僅限選單分類名;H1 等內文仍為定稿原文)。
-入口總覽:根目錄 `index.html`(Demo hub,主卡含上述 15 頁連結)。
+入口總覽:根目錄 `index.html`(Demo hub,首屏即四方案橫向比較);
+八個首頁底部另有 backlink 切換列,比較時不必回 hub。
 
 ## 評選歷史(已結束,存檔於 `archive/`)
 
@@ -53,7 +66,8 @@ hero 文案(H1 / 副標 / CTA)為會後改版的置中版。選單分類 `CyberS
 ## 1. 本機預覽
 
 **方法 A(最快)**:直接用瀏覽器開啟根目錄的 `index.html`(雙擊即可),
-從 Demo hub 點進 style-3 的 15 個頁面(兩個選單變體、8 個 Cloud 頁、4 個產品頁、ESS 方案頁)與歸檔區。
+從 Demo hub 點進 style-3 的 23 個頁面(8 個首頁方案、3 個總覽頁、7 個 Cloud 分類頁、
+4 個產品頁、ESS 方案頁)與歸檔區。
 
 **方法 B(建議,行為與正式環境一致)**:
 
@@ -61,10 +75,16 @@ hero 文案(H1 / 副標 / CTA)為會後改版的置中版。選單分類 `CyberS
 # 在專案根目錄(本 README 所在層)執行
 python3 -m http.server 8000
 # 瀏覽器開啟:
-#   http://localhost:8000/                              → Demo hub
-#   http://localhost:8000/style-3-soc/                  → 首頁 Nav A(單層下拉)
-#   http://localhost:8000/style-3-soc/index-nav-b.html  → 首頁 Nav B(二層 flyout)
-#   http://localhost:8000/style-3-soc/cloud.html        → Cloud 總覽(CI)
+#   http://localhost:8000/                                     → Demo hub(四方案比較)
+#   http://localhost:8000/style-3-soc/                         → 現行首頁 Nav A
+#   http://localhost:8000/style-3-soc/index-nav-b.html         → 現行首頁 Nav B
+#   http://localhost:8000/style-3-soc/index-v1-proof.html      → V1 信任前置
+#   http://localhost:8000/style-3-soc/index-v2-catalogue.html  → V2 型錄前置
+#   http://localhost:8000/style-3-soc/index-v3-flow.html       → V3 參考架構
+#   (以上三個變體各有對應的 -nav-b.html;頁面底部有切換列)
+#   http://localhost:8000/style-3-soc/cloud.html               → Cloud 總覽(CI)
+#   http://localhost:8000/style-3-soc/cybersecurity.html       → Cybersecurity 總覽(CS)
+#   http://localhost:8000/style-3-soc/services.html            → Managed Services 總覽(MS)
 #   http://localhost:8000/style-3-soc/cloud-compute.html    → Cloud 分類頁:Compute(CI-01)
 #   http://localhost:8000/style-3-soc/cloud-storage.html    → Cloud 分類頁:Storage(CI-02)
 #   http://localhost:8000/style-3-soc/cloud-analytics.html  → Cloud 分類頁:Analytics(CI-03)
@@ -126,14 +146,15 @@ Pages 約 1 分鐘後自動更新(若沒變,瀏覽器強制重新整理 Cmd+Shif
 
 ## 3. Demo 範圍與已知限制
 
-- 現行 demo 共 15 頁(兩個首頁選單變體 + 8 個 Cloud 頁 + 4 個產品頁 + 1 個方案頁)。
-  **選單沒有死連結**:**Google Cloud** 下拉的 18 項 GCP 產品全部是深連結
+- 現行 demo 共 23 頁(8 個首頁方案 + 3 個總覽頁 + 7 個 Cloud 分類頁 + 4 個產品頁 + 1 個方案頁)。
+  **選單三個下拉都零佔位連結**(2026-08-04 起):**Google Cloud** 的 18 項 GCP 產品是深連結
   (`分類頁#產品錨點`,例 `cloud-compute.html#compute-engine`);
-  **SentinelOne / ThreatSonar / CyberEyes / Google SecOps** 有獨立產品頁、
-  **ESS** 有獨立方案頁,在全站 nav 與 footer 都連真頁;其餘尚無獨立頁的服務,
-  選單連結捲到首頁對應區塊(`index.html#offer` / `#built`);
+  **CyberSecurity** 的 8 項連到產品頁或 `cybersecurity.html#錨點`;
+  **Services** 的 6 項連到 `ess.html` 或 `services.html#錨點`;三個下拉頂部都有 Overview 入口。
+  尚無獨立產品頁的 9 個項目(FortiEDR、自研三品、Managed Services 五項),
+  動線是「總覽頁的一列」而非一整頁。
   Privacy Policy 與 Imprint 指向頁尾法定資訊區(`#legal`),正式版才有獨立頁面。
-- **選單內容(兩變體逐字相同)**:`Google Cloud` 下拉 = 頂部 Overview 入口(`cloud.html`)
+- **選單內容(Nav A 與 Nav B 逐字相同)**:`Google Cloud` 下拉 = 頂部 Overview 入口(`cloud.html`)
   加上八組 22 項(GCP 產品樹六組 18 項:Compute / Storage / Analytics / Serverless /
   Databases / AI;另加 Edge security 1 項與 Volcatech cloud services 3 項);
   `CyberSecurity` = 8 項三組(Endpoint — EDR / **Detection — SIEM & WDR** / Built in-house;
@@ -183,7 +204,7 @@ Pages 約 1 分鐘後自動更新(若沒變,瀏覽器強制重新整理 Cmd+Shif
 
 ```text
 Volcatech_Web/                  # 專案根(= VS Code 開啟此層、http.server 起在此層)
-├── index.html                  # Demo hub:style-3 主卡(雙變體連結)+ 歸檔入口
+├── index.html                  # Demo hub:四個首頁方案橫向比較 + 總覽頁 + 內容頁 + 歸檔入口
 ├── README.md
 ├── CLAUDE.md                   # Claude Code 自動讀取的專案規則
 ├── HANDOVER.md                 # 進度與接手指引(速查;規格正本在 docs/)
@@ -207,10 +228,21 @@ Volcatech_Web/                  # 專案根(= VS Code 開啟此層、http.server
 │   ├── 官網建置計畫_Build_Prompt_v3.md    # legacy(已凍結,規格失效,僅供背景)
 │   ├── product/                           # 產品素材與簡述(索引:README;素材統一入口:產品簡介總覽.md)
 │   ├── (其餘會議/優化筆記若干)
+│   ├── reports/                           # 要保留的一次性腳本與比對報告(檔名帶日期)
+│   │   ├── build_variants_20260804.py     # ★ 六個版面變體的產生器——變體檔不要手改,改這支後重跑
+│   │   └── sync_nav_20260804.py           # 全站選單/頁尾深連結同步腳本
 │   └── backups/                           # 制度檔修改前備份
-├── style-3-soc/                # ★ 勝出風格(現行唯一維護對象,共 15 頁)
-│   ├── index.html              # 首頁 Nav A(單層下拉、mono 小標分組)
-│   ├── index-nav-b.html        # 首頁 Nav B(二層 flyout);<main> 起與 Nav A 逐字節相同
+├── style-3-soc/                # ★ 勝出風格(現行唯一維護對象,共 23 頁)
+│   ├── index.html              # 首頁 — 現行版(對照組)Nav A
+│   ├── index-nav-b.html        # 首頁 — 現行版 Nav B(二層 flyout)
+│   ├── index-v1-proof.html         # 首頁 — V1 信任前置(＋ -nav-b 版)
+│   ├── index-v1-proof-nav-b.html
+│   ├── index-v2-catalogue.html     # 首頁 — V2 型錄前置(＋ -nav-b 版)
+│   ├── index-v2-catalogue-nav-b.html
+│   ├── index-v3-flow.html          # 首頁 — V3 參考架構圖(＋ -nav-b 版)
+│   ├── index-v3-flow-nav-b.html
+│   ├── cybersecurity.html      # Cybersecurity 總覽(CS):8 產品分 3 群,11 個錨點
+│   ├── services.html           # Managed Services 總覽(MS):6 服務,6 個錨點([TODO] 待補內文)
 │   ├── cloud.html              # Cloud 總覽(CI):六分類導覽 + 沃凱雲端服務
 │   ├── cloud-compute.html      # Cloud 分類頁 CI-01:Compute Engine / Kubernetes Engine / VMware Engine
 │   ├── cloud-storage.html      # Cloud 分類頁 CI-02:Cloud Storage / Filestore / Backup and DR

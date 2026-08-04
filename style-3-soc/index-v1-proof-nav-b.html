@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-<title>Volcatech — Cloud, cybersecurity and managed services (nav variant B)</title>
-<meta name="description" content="Volcatech designs and runs Google Cloud environments for European organisations, deploys and tunes EDR and SIEM, and keeps both under 24/7 monitoring — cloud infrastructure, cybersecurity and managed services from one turn-key partner. Navigation variant B demo.">
+<title>Volcatech — Cloud, cybersecurity and managed services (layout V1: trust first, nav variant B)</title>
+<meta name="description" content="Volcatech designs and runs Google Cloud environments for European organisations, deploys and tunes EDR and SIEM, and keeps both under 24/7 monitoring. Layout variant V1 leads with the delivery process and data residency. Navigation variant B demo.">
 <style>
 /* ===== Style 3: SOC Console — dark ops room, engineering credibility =====
    Production build self-hosts fonts via @fontsource (GDPR). Demo uses system fallbacks. */
@@ -159,15 +159,69 @@ footer{border-top:1px solid var(--line)}
 @media (max-width:560px){
   .fcols{grid-template-columns:1fr}
 }
+
+/* Variant — How we work: numbered delivery steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+.steps>div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:26px 24px}
+.steps .no{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.steps h3{font-size:18px;margin-top:12px}
+.steps>div>p{margin-top:9px;font-size:14.5px;color:var(--muted)}
+.steps dl{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:13.5px}
+.steps dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:9px}
+.steps dd{color:var(--ink)}
+/* Variant V1 — data-sovereignty facts, two columns */
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:44px}
+.facts>div{display:flex;align-items:flex-start;gap:16px;background:var(--surface);
+  border:1px solid var(--line);border-radius:8px;padding:22px 22px}
+.facts svg{width:28px;height:28px;flex-shrink:0;color:var(--status)}
+.facts h3{font-size:16px}
+.facts p{margin-top:5px;font-size:14px;color:var(--muted)}
+.legalrow{margin-top:26px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.legalrow a{color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:2px}
+.legalrow a:hover{border-color:var(--accent)}
+/* Variant V1 — partner capability cards. Wordmarks are set in mono type;
+   no vendor logo files are used (no licence, and no external assets allowed) */
+.pcards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:44px}
+.pcards>div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:24px 24px}
+.pcards .wm{font-family:var(--mono);font-size:20px;font-weight:600;color:var(--ink);letter-spacing:.02em}
+.pcards dl{margin-top:14px;font-size:14px}
+.pcards dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-top:12px}
+.pcards dd{color:var(--muted)}
+.pcards .go{display:inline-block;margin-top:18px;font-family:var(--mono);font-size:12.5px;
+  color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:2px}
+.pcards .go:hover{border-color:var(--accent)}
+.pcards .tier{display:block;margin-top:14px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+/* Variants V1/V3 — compact index of every service, three columns */
+.index3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.index3>div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:24px 24px}
+.index3 h3{font-size:17px}
+.index3 h3 .n{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-left:10px;
+  letter-spacing:.08em;font-weight:400}
+.index3 ul{list-style:none;margin-top:14px}
+.index3 li{margin-top:7px;font-size:14px;color:var(--muted)}
+.index3 li a:hover{color:var(--ink)}
+.index3 .go{display:inline-block;margin-top:18px;font-family:var(--mono);font-size:12.5px;
+  color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:2px}
+.index3 .go:hover{border-color:var(--accent)}
+@media (max-width:900px){
+  .steps,.facts,.pcards,.index3,.ptwo{grid-template-columns:1fr}
+  .cat .row{grid-template-columns:1fr;gap:4px}
+  .cat .v{text-align:left}
+  .cat .vlbl{display:inline}
+  .layer,.base{grid-template-columns:1fr;gap:12px}
+  .nodes{flex-direction:column}
+  .node{min-width:0;width:100%}
+}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap nav">
-    <a class="logo" href="index-nav-b.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
+    <a class="logo" href="index-v1-proof-nav-b.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
     <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
     <ul class="menu" id="menu">
-      <li><a href="index-nav-b.html" aria-current="page">Home</a></li>
+      <li><a href="index-v1-proof-nav-b.html" aria-current="page">Home</a></li>
       <li class="dd"><a href="cloud.html" aria-haspopup="true">Google Cloud</a>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
@@ -270,7 +324,7 @@ footer{border-top:1px solid var(--line)}
       <li><a class="btn" style="padding:9px 18px" href="#contact">Contact us</a></li>
       <li>
         <nav class="lang" aria-label="Language">
-          <a href="index-nav-b.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+          <a href="index-v1-proof-nav-b.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
         </nav>
       </li>
     </ul>
@@ -312,6 +366,194 @@ footer{border-top:1px solid var(--line)}
     </div>
   </div>
 
+
+  <section id="how">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>How we work</p>
+      <h2 class="sec">Three steps, agreed before we start.</h2>
+      <p class="lead">Every engagement runs the same way, so you know who owns what at each point — including the point where you decide to leave.</p>
+      <div class="steps">
+        <div>
+          <p class="no">01 · Design</p>
+          <h3>Assess and design</h3>
+          <p>We map your current estate, agree the target architecture and write it down — scope, owners and exit criteria before any migration starts.</p>
+          <dl>
+            <dt>We do</dt><dd>Assessment, target design, migration plan</dd>
+            <dt>You do</dt><dd>Give us access and name one decision owner</dd>
+            <dt>You get</dt><dd>An architecture document that stays yours</dd>
+          </dl>
+        </div>
+        <div>
+          <p class="no">02 · Deliver</p>
+          <h3>Build and migrate</h3>
+          <p>We build the landing zone, migrate the workloads and deploy EDR and SIEM in your own tenancy — not ours. You keep the keys. <span class="todo">[TODO: confirm delivery model]</span></p>
+          <dl>
+            <dt>We do</dt><dd>Landing zone, migration, deployment and tuning</dd>
+            <dt>You do</dt><dd>Approve the cutover windows</dd>
+            <dt>You get</dt><dd>A running environment, documented</dd>
+          </dl>
+        </div>
+        <div>
+          <p class="no">03 · Operate</p>
+          <h3>Run and report</h3>
+          <p>Our SOC monitors the platform and the tools around the clock. One monthly report, one escalation path, and the same engineers who built it. <span class="todo">[TODO: response-time commitment]</span></p>
+          <dl>
+            <dt>We do</dt><dd>Monitoring, triage, response and reporting</dd>
+            <dt>You do</dt><dd>Keep one named contact reachable</dd>
+            <dt>You get</dt><dd>A monthly report and one number to call</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="trust">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Trust &amp; compliance</p>
+      <h2 class="sec">Where your data lives, and who can reach it.</h2>
+      <div class="facts">
+        <div><svg aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+          <div>
+            <h3>GDPR-ready by design</h3>
+            <p>No third-party resources and no cookies on this site, and the data processing terms are agreed before the first workload moves.</p>
+          </div>
+        </div>
+        <div><svg aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+          <div>
+            <h3>EU data residency</h3>
+            <p>Workloads run in Google Cloud European regions. <span class="todo">[TODO: confirm which regions]</span></p>
+          </div>
+        </div>
+        <div><svg aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4-2a6 6 0 01-7.743 5.743L11 14H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
+          <div>
+            <h3>Your tenancy, your keys</h3>
+            <p>We deploy into your own Google Cloud project and your own security tenants, with named engineers and logged access. <span class="todo">[TODO: confirm delivery model and access control]</span></p>
+          </div>
+        </div>
+        <div><svg aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+          <div>
+            <h3>ISO 27001</h3>
+            <p><span class="todo">[TODO: to be confirmed]</span></p>
+          </div>
+        </div>
+      </div>
+      <p class="legalrow">Company and legal disclosures → <a href="#legal">Imprint</a> · <a href="#legal">Privacy Policy</a></p>
+      <p style="margin-top:18px;font-family:var(--mono);font-size:13px;color:var(--muted)">This demo loads no third-party resources and sets no cookies.</p>
+    </div>
+  </section>
+
+  <section id="partners">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Technology partners</p>
+      <h2 class="sec">We operate what we sell, and we build what we cannot buy.</h2>
+      <p class="lead">Five vendors we selected and now run for our customers — and three services we build ourselves, because nobody sells them the way our customers need them.</p>
+      <div class="pcards">
+        <div>
+          <p class="wm">Google Cloud</p>
+          <dl>
+            <dt>What it is</dt><dd>Cloud platform — compute, storage, databases, data and AI</dd>
+            <dt>What we do with it</dt><dd>Design the landing zone, migrate the workloads and operate the environment afterwards, with cost governance and European regions.</dd>
+          </dl>
+          <a class="go" href="cloud.html">Cloud Infrastructure →</a>
+          <span class="todo tier">[TODO: partner tier]</span>
+        </div>
+        <div>
+          <p class="wm">SentinelOne</p>
+          <dl>
+            <dt>What it is</dt><dd>Endpoint detection and response (EDR)</dd>
+            <dt>What we do with it</dt><dd>Run the proof of concept on your machines, tune the policies, then watch the console from our own SOC.</dd>
+          </dl>
+          <a class="go" href="sentinelone.html">SentinelOne →</a>
+          <span class="todo tier">[TODO: partner tier]</span>
+        </div>
+        <div>
+          <p class="wm">TeamT5</p>
+          <dl>
+            <dt>What it is</dt><dd>ThreatSonar — endpoint forensics on Asia-Pacific APT intelligence</dd>
+            <dt>What we do with it</dt><dd>Start with a compromise assessment, then leave it resident with managed detection behind it.</dd>
+          </dl>
+          <a class="go" href="threatsonar.html">ThreatSonar →</a>
+          <span class="todo tier">[TODO: partner tier]</span>
+        </div>
+        <div>
+          <p class="wm">Fortinet</p>
+          <dl>
+            <dt>What it is</dt><dd>FortiEDR — endpoint detection and response</dd>
+            <dt>What we do with it</dt><dd><span class="todo">[TODO: what we do with it]</span></dd>
+          </dl>
+          <a class="go" href="cybersecurity.html#fortiedr">FortiEDR →</a>
+          <span class="todo tier">[TODO: partner tier]</span>
+        </div>
+        <div>
+          <p class="wm">CyberEyes</p>
+          <dl>
+            <dt>What it is</dt><dd>Web detection and response (WDR)</dd>
+            <dt>What we do with it</dt><dd>Put it in front of your applications to catch what the WAF misses, and feed confirmed findings into the SIEM.</dd>
+          </dl>
+          <a class="go" href="cybereyes.html">CyberEyes →</a>
+          <span class="todo tier">[TODO: partner tier]</span>
+        </div>
+        <div>
+          <p class="wm">Volcatech AI</p>
+          <dl>
+            <dt>What it is</dt><dd>CE-BAS, AI-PTaaS and SecPurple — built in-house, not resold</dd>
+            <dt>What we do with it</dt><dd>We develop and operate all three. They exist to test whether the tools above actually catch what they should.</dd>
+          </dl>
+          <a class="go" href="#built">Built by Volcatech →</a>
+          <span class="tier">Developed and operated by Volcatech</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="catalogue">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Everything we deliver</p>
+      <h2 class="sec">The full list, in one place.</h2>
+      <div class="index3">
+        <div>
+          <h3>Cloud Infrastructure<span class="n">7 areas</span></h3>
+          <ul>
+            <li><a href="cloud-compute.html">Compute</a></li>
+            <li><a href="cloud-storage.html">Storage</a></li>
+            <li><a href="cloud-analytics.html">Analytics</a></li>
+            <li><a href="cloud-serverless.html">Serverless</a></li>
+            <li><a href="cloud-databases.html">Databases</a></li>
+            <li><a href="cloud-ai.html">AI</a></li>
+            <li><a href="cloud-services.html">Cloud services &amp; Cloud Armor</a></li>
+          </ul>
+          <a class="go" href="cloud.html">All Google Cloud services →</a>
+        </div>
+        <div>
+          <h3>Cybersecurity<span class="n">8 products</span></h3>
+          <ul>
+            <li><a href="sentinelone.html">SentinelOne</a></li>
+            <li><a href="threatsonar.html">ThreatSonar</a></li>
+            <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
+            <li><a href="cybereyes.html">CyberEyes</a></li>
+            <li><a href="google-secops.html">Google SecOps</a></li>
+            <li><a href="cybersecurity.html#ce-bas">CE-BAS</a></li>
+            <li><a href="cybersecurity.html#ai-ptaas">AI-PTaaS</a></li>
+            <li><a href="cybersecurity.html#secpurple">SecPurple</a></li>
+          </ul>
+          <a class="go" href="cybersecurity.html">All security products →</a>
+        </div>
+        <div>
+          <h3>Managed Services<span class="n">6 services</span></h3>
+          <ul>
+            <li><a href="ess.html">Enterprise Security Service (ESS)</a></li>
+            <li><a href="services.html#soc">24/7 SOC &amp; Incident Response</a></li>
+            <li><a href="services.html#isms">ISMS / PIMS Consulting</a></li>
+            <li><a href="services.html#pentest">Penetration Testing (human-led)</a></li>
+            <li><a href="services.html#finops">Cloud FinOps &amp; Enablement</a></li>
+            <li><a href="services.html#dx">Digital Transformation</a></li>
+          </ul>
+          <a class="go" href="services.html">All managed services →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="built" id="built">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Built in-house — Volcatech AI Security</p>
@@ -338,6 +580,7 @@ footer{border-top:1px solid var(--line)}
     </div>
   </section>
 
+
   <section id="why">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why Volcatech</p>
@@ -350,45 +593,6 @@ footer{border-top:1px solid var(--line)}
     </div>
   </section>
 
-  <section id="trust">
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Trust &amp; compliance</p>
-      <div class="cols3" style="margin-top:24px">
-        <div style="display:flex;align-items:flex-start;gap:16px">
-          <svg style="width:32px;height:32px;flex-shrink:0;color:var(--status)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-          <div>
-            <h3 style="font-size:16px;color:var(--ink)">GDPR-ready</h3>
-            <p style="font-size:14px;color:var(--muted);margin-top:4px">By design</p>
-          </div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:16px">
-          <svg style="width:32px;height:32px;flex-shrink:0;color:var(--status)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-          <div>
-            <h3 style="font-size:16px;color:var(--ink)">EU data residency</h3>
-            <p style="font-size:14px;color:var(--muted);margin-top:4px">Google Cloud (europe-west)</p>
-          </div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:16px">
-          <svg style="width:32px;height:32px;flex-shrink:0;color:var(--status)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
-          <div>
-            <h3 style="font-size:16px;color:var(--ink)">ISO 27001</h3>
-            <p style="font-size:14px;color:var(--muted);margin-top:4px"><span class="todo">[TODO: to be confirmed]</span></p>
-          </div>
-        </div>
-      </div>
-      <p style="margin-top:24px;font-family:var(--mono);font-size:13px;color:var(--muted)">This demo loads no third-party resources and sets no cookies.</p>
-
-    </div>
-  </section>
-
-  <section id="vendors">
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Technology partners</p>
-      <div class="vendors" style="margin-top:12px">
-        <span>Google Cloud</span><span>SentinelOne</span><span>TeamT5</span><span>Fortinet</span><span>CyberEyes</span><span>Volcatech AI</span>
-      </div>
-    </div>
-  </section>
 
   <div class="band" id="contact">
     <div class="wrap">
@@ -401,7 +605,7 @@ footer{border-top:1px solid var(--line)}
 <footer>
   <div class="wrap fcols">
     <div class="fbrand">
-      <a class="logo" href="index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
+      <a class="logo" href="index-v1-proof.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
       <p>Cloud, security and managed operations for European organisations.</p>
       <dl>
         <dt>Email</dt><dd>[TODO: contact email]</dd>
@@ -472,7 +676,7 @@ footer{border-top:1px solid var(--line)}
     <p>© 2026 Volcatech Co., Ltd.</p>
     <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
   </div>
-  <div class="wrap backlink"><a href="../index.html">← Demo hub</a> · Layout: <a href="index.html">Current</a> · <a href="index-v1-proof.html">V1</a> · <a href="index-v2-catalogue.html">V2</a> · <a href="index-v3-flow.html">V3</a> · Nav: <a href="index.html">A</a> · <a href="index-nav-b.html">B</a></div>
+  <div class="wrap backlink"><a href="../index.html">← Demo hub</a> · Layout: <a href="index.html">Current</a> · <a href="index-v1-proof.html">V1</a> · <a href="index-v2-catalogue.html">V2</a> · <a href="index-v3-flow.html">V3</a> · Nav: <a href="index-v1-proof.html">A</a> · <a href="index-v1-proof-nav-b.html">B</a></div>
 </footer>
 </body>
 </html>

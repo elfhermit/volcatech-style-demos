@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-<title>Volcatech — Cloud, cybersecurity and managed services</title>
-<meta name="description" content="Volcatech designs and runs Google Cloud environments for European organisations, deploys and tunes EDR and SIEM, and keeps both under 24/7 monitoring — cloud infrastructure, cybersecurity and managed services from one turn-key partner.">
+<title>Volcatech — Cloud, cybersecurity and managed services (layout V2: catalogue first)</title>
+<meta name="description" content="Volcatech designs and runs Google Cloud environments for European organisations, deploys and tunes EDR and SIEM, and keeps both under 24/7 monitoring. Layout variant V2 leads with the full service catalogue and the vendor behind each item.">
 <style>
 /* ===== Style 3: SOC Console — dark ops room, engineering credibility =====
    Production build self-hosts fonts via @fontsource (GDPR). Demo uses system fallbacks. */
@@ -147,15 +147,59 @@ footer{border-top:1px solid var(--line)}
 @media (max-width:560px){
   .fcols{grid-template-columns:1fr}
 }
+
+/* Variant V2 — service catalogue table. Built from CSS grid rather than <table>
+   so the 390px fallback is a stacked block, not a horizontally scrolling table */
+.cat{margin-top:44px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.cat .grp{background:#111A26;padding:13px 22px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.cat .row{display:grid;grid-template-columns:96px 1.1fr 1.6fr 140px;gap:18px;align-items:baseline;
+  background:var(--surface);padding:15px 22px;border-top:1px solid var(--line)}
+.cat .row:hover{background:#1B2736}
+.cat .c{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--muted)}
+.cat .n{font-size:15px;font-weight:600}
+.cat .n a:hover{text-decoration:underline}
+.cat .t{font-size:14px;color:var(--muted)}
+.cat .v{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right}
+.cat .v.own{color:var(--ink)}
+.cat .vlbl{display:none}
+/* Variant — How we work: numbered delivery steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+.steps>div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:26px 24px}
+.steps .no{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.steps h3{font-size:18px;margin-top:12px}
+.steps>div>p{margin-top:9px;font-size:14.5px;color:var(--muted)}
+.steps dl{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:13.5px}
+.steps dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:9px}
+.steps dd{color:var(--ink)}
+/* Variants V2/V3 — partner vs in-house, stated as a two-column split */
+.ptwo{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:44px}
+.ptwo>div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:26px 24px}
+.ptwo h3{font-size:18px}
+.ptwo p{margin-top:10px;font-size:14.5px;color:var(--muted)}
+.ptwo .wmrow{font-family:var(--mono);font-size:15px;color:var(--ink);margin-top:18px;line-height:1.9}
+.ptwo .tier{display:inline-block;margin-top:16px}
+.ptwo .go{display:inline-block;margin-top:18px;font-family:var(--mono);font-size:12.5px;
+  color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:2px}
+.ptwo .go:hover{border-color:var(--accent)}
+@media (max-width:900px){
+  .steps,.facts,.pcards,.index3,.ptwo{grid-template-columns:1fr}
+  .cat .row{grid-template-columns:1fr;gap:4px}
+  .cat .v{text-align:left}
+  .cat .vlbl{display:inline}
+  .layer,.base{grid-template-columns:1fr;gap:12px}
+  .nodes{flex-direction:column}
+  .node{min-width:0;width:100%}
+}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap nav">
-    <a class="logo" href="index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
+    <a class="logo" href="index-v2-catalogue.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
     <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
     <ul class="menu" id="menu">
-      <li><a href="index.html" aria-current="page">Home</a></li>
+      <li><a href="index-v2-catalogue.html" aria-current="page">Home</a></li>
       <li class="dd"><a href="cloud.html" aria-haspopup="true">Google Cloud</a>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
@@ -225,7 +269,7 @@ footer{border-top:1px solid var(--line)}
       <li><a class="btn" style="padding:9px 18px" href="#contact">Contact us</a></li>
       <li>
         <nav class="lang" aria-label="Language">
-          <a href="index.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+          <a href="index-v2-catalogue.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
         </nav>
       </li>
     </ul>
@@ -267,6 +311,62 @@ footer{border-top:1px solid var(--line)}
     </div>
   </div>
 
+
+  <section id="catalogue">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Service catalogue</p>
+      <h2 class="sec">Everything we deliver, and whose technology is behind it.</h2>
+      <p class="lead">Twenty-one services across three lines. The right-hand column says who makes each one — and where it says Volcatech, we built it ourselves.</p>
+      <div class="cat">
+        <p class="grp">CI · CLOUD INFRASTRUCTURE — Google Cloud, designed and operated by Volcatech</p>
+        <div class="row"><span class="c">CI-01</span><span class="n"><a href="cloud-compute.html">Compute</a></span><span class="t">Virtual machines, managed Kubernetes and native VMware, chosen per workload.</span><span class="v"><span class="vlbl">Powered by </span>Google Cloud</span></div>
+        <div class="row"><span class="c">CI-02</span><span class="n"><a href="cloud-storage.html">Storage</a></span><span class="t">Object storage, managed file systems and backup with retention you can audit.</span><span class="v"><span class="vlbl">Powered by </span>Google Cloud</span></div>
+        <div class="row"><span class="c">CI-03</span><span class="n"><a href="cloud-analytics.html">Analytics</a></span><span class="t">A warehouse, a message bus and a processing engine, assembled into pipelines.</span><span class="v"><span class="vlbl">Powered by </span>Google Cloud</span></div>
+        <div class="row"><span class="c">CI-04</span><span class="n"><a href="cloud-serverless.html">Serverless</a></span><span class="t">Containers that scale from zero and one governed front door for every API.</span><span class="v"><span class="vlbl">Powered by </span>Google Cloud</span></div>
+        <div class="row"><span class="c">CI-05</span><span class="n"><a href="cloud-databases.html">Databases</a></span><span class="t">Managed relational and NoSQL engines, migrated from your existing estate.</span><span class="v"><span class="vlbl">Powered by </span>Google Cloud</span></div>
+        <div class="row"><span class="c">CI-06</span><span class="n"><a href="cloud-ai.html">AI</a></span><span class="t">Google&#39;s AI platform and model catalogue, with governance set before rollout.</span><span class="v"><span class="vlbl">Powered by </span>Google Cloud</span></div>
+        <div class="row"><span class="c">CI-07</span><span class="n"><a href="cloud-services.html">Cloud services &amp; Cloud Armor</a></span><span class="t">Edge protection, migration, hybrid backup and data engineering around the platform.</span><span class="v own"><span class="vlbl">Powered by </span>Google Cloud + own</span></div>
+        <p class="grp">E · S · A — CYBERSECURITY — selected, deployed, tuned and monitored by Volcatech</p>
+        <div class="row"><span class="c">E-01</span><span class="n"><a href="sentinelone.html">SentinelOne</a></span><span class="t">Autonomous endpoint detection and response, with ransomware rollback.</span><span class="v"><span class="vlbl">Powered by </span>SentinelOne</span></div>
+        <div class="row"><span class="c">E-02</span><span class="n"><a href="threatsonar.html">ThreatSonar</a></span><span class="t">Endpoint forensics built on Asia-Pacific APT intelligence.</span><span class="v"><span class="vlbl">Powered by </span>TeamT5</span></div>
+        <div class="row"><span class="c">E-03</span><span class="n"><a href="cybersecurity.html#fortiedr">FortiEDR</a></span><span class="t"><span class="todo">[TODO: one-line description]</span></span><span class="v"><span class="vlbl">Powered by </span>Fortinet</span></div>
+        <div class="row"><span class="c">S-01</span><span class="n"><a href="cybereyes.html">CyberEyes</a></span><span class="t">Web detection and response for what gets past the WAF.</span><span class="v"><span class="vlbl">Powered by </span>CyberEyes</span></div>
+        <div class="row"><span class="c">S-02</span><span class="n"><a href="google-secops.html">Google SecOps</a></span><span class="t">Cloud-native SIEM with built-in SOAR, threat intelligence and analytics.</span><span class="v"><span class="vlbl">Powered by </span>Google Cloud</span></div>
+        <div class="row"><span class="c">A-01</span><span class="n"><a href="cybersecurity.html#ce-bas">CE-BAS</a></span><span class="t">Continuous external breach and attack simulation.</span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+        <div class="row"><span class="c">A-02</span><span class="n"><a href="cybersecurity.html#ai-ptaas">AI-PTaaS</a></span><span class="t">Automated penetration testing delivered as a subscription.</span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+        <div class="row"><span class="c">A-03</span><span class="n"><a href="cybersecurity.html#secpurple">SecPurple</a></span><span class="t">Purple-team exercises that end as detection rules your SOC keeps.</span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+        <p class="grp">X · MANAGED SERVICES — operated by Volcatech</p>
+        <div class="row"><span class="c">X-01</span><span class="n"><a href="ess.html">Enterprise Security Service (ESS)</a></span><span class="t">WDR, EDR and our 24/7 SOC bundled into a single contract.</span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+        <div class="row"><span class="c">X-02</span><span class="n"><a href="services.html#soc">24/7 SOC &amp; Incident Response</a></span><span class="t"><span class="todo">[TODO: one-line description]</span></span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+        <div class="row"><span class="c">X-03</span><span class="n"><a href="services.html#isms">ISMS / PIMS Consulting</a></span><span class="t"><span class="todo">[TODO: one-line description]</span></span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+        <div class="row"><span class="c">X-04</span><span class="n"><a href="services.html#pentest">Penetration Testing (human-led)</a></span><span class="t"><span class="todo">[TODO: one-line description]</span></span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+        <div class="row"><span class="c">X-05</span><span class="n"><a href="services.html#finops">Cloud FinOps &amp; Enablement</a></span><span class="t"><span class="todo">[TODO: one-line description]</span></span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+        <div class="row"><span class="c">X-06</span><span class="n"><a href="services.html#dx">Digital Transformation</a></span><span class="t"><span class="todo">[TODO: one-line description]</span></span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="partners">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Technology partners</p>
+      <h2 class="sec">We operate what we sell, and we build what we cannot buy.</h2>
+      <div class="ptwo">
+        <div>
+          <h3>Partner technology</h3>
+          <p>Selected against your estate, deployed into your own tenancy, tuned, and then monitored from our SOC. We do not hand the console over and walk away.</p>
+          <p class="wmrow">Google Cloud · SentinelOne · TeamT5 · Fortinet · CyberEyes</p>
+          <span class="todo tier">[TODO: partner tier]</span>
+        </div>
+        <div>
+          <h3>Built by Volcatech</h3>
+          <p>Developed and operated in-house. They exist to test whether the partner tooling on the left actually catches what it should.</p>
+          <p class="wmrow">CE-BAS · AI-PTaaS · SecPurple</p>
+          <a class="go" href="#built">What the three do →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="built" id="built">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Built in-house — Volcatech AI Security</p>
@@ -293,6 +393,31 @@ footer{border-top:1px solid var(--line)}
     </div>
   </section>
 
+
+  <section id="how">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>How we work</p>
+      <h2 class="sec">Three steps, agreed before we start.</h2>
+      <div class="steps">
+        <div>
+          <p class="no">01 · Design</p>
+          <h3>Assess and design</h3>
+          <p>Scope, owners and exit criteria written down before any migration starts.</p>
+        </div>
+        <div>
+          <p class="no">02 · Deliver</p>
+          <h3>Build and migrate</h3>
+          <p>Deployed into your own tenancy, not ours. You keep the keys. <span class="todo">[TODO: confirm delivery model]</span></p>
+        </div>
+        <div>
+          <p class="no">03 · Operate</p>
+          <h3>Run and report</h3>
+          <p>One escalation path, one monthly report, the same engineers who built it. <span class="todo">[TODO: response-time commitment]</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="why">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why Volcatech</p>
@@ -304,6 +429,7 @@ footer{border-top:1px solid var(--line)}
       </div>
     </div>
   </section>
+
 
   <section id="trust">
     <div class="wrap">
@@ -336,14 +462,6 @@ footer{border-top:1px solid var(--line)}
     </div>
   </section>
 
-  <section id="vendors">
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Technology partners</p>
-      <div class="vendors" style="margin-top:12px">
-        <span>Google Cloud</span><span>SentinelOne</span><span>TeamT5</span><span>Fortinet</span><span>CyberEyes</span><span>Volcatech AI</span>
-      </div>
-    </div>
-  </section>
 
   <div class="band" id="contact">
     <div class="wrap">
@@ -356,7 +474,7 @@ footer{border-top:1px solid var(--line)}
 <footer>
   <div class="wrap fcols">
     <div class="fbrand">
-      <a class="logo" href="index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
+      <a class="logo" href="index-v2-catalogue.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
       <p>Cloud, security and managed operations for European organisations.</p>
       <dl>
         <dt>Email</dt><dd>[TODO: contact email]</dd>
@@ -427,7 +545,7 @@ footer{border-top:1px solid var(--line)}
     <p>© 2026 Volcatech Co., Ltd.</p>
     <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
   </div>
-  <div class="wrap backlink"><a href="../index.html">← Demo hub</a> · Layout: <a href="index.html">Current</a> · <a href="index-v1-proof.html">V1</a> · <a href="index-v2-catalogue.html">V2</a> · <a href="index-v3-flow.html">V3</a> · Nav: <a href="index.html">A</a> · <a href="index-nav-b.html">B</a></div>
+  <div class="wrap backlink"><a href="../index.html">← Demo hub</a> · Layout: <a href="index.html">Current</a> · <a href="index-v1-proof.html">V1</a> · <a href="index-v2-catalogue.html">V2</a> · <a href="index-v3-flow.html">V3</a> · Nav: <a href="index-v2-catalogue.html">A</a> · <a href="index-v2-catalogue-nav-b.html">B</a></div>
 </footer>
 </body>
 </html>

@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-<title>Analytics on Google Cloud (BigQuery, Pub/Sub, Dataflow) — Volcatech</title>
-<meta name="description" content="BigQuery, Pub/Sub and Dataflow — data pipelines, ETL and analytics platforms designed and operated by Volcatech.">
+<title>Managed Services — operations you can hand over to Volcatech</title>
+<meta name="description" content="24/7 SOC and incident response, ISMS and PIMS consulting, human-led penetration testing, cloud cost governance and digital transformation — under one contract.">
 <style>
 :root{
   --bg:#0E141F; --surface:#16202E; --ink:#E9EEF5; --muted:#9AA8BA;
@@ -146,7 +146,7 @@ footer{border-top:1px solid var(--line)}
     <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
     <ul class="menu" id="menu">
       <li><a href="index.html">Home</a></li>
-      <li class="dd"><a href="cloud.html" aria-current="page" aria-haspopup="true">Google Cloud</a>
+      <li class="dd"><a href="cloud.html" aria-haspopup="true">Google Cloud</a>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
           <li><a href="cloud.html">Overview — all Google Cloud services</a></li>
@@ -199,7 +199,7 @@ footer{border-top:1px solid var(--line)}
           <li><a href="cybersecurity.html#secpurple">SecPurple</a></li>
         </ul>
       </li>
-      <li class="dd"><a href="services.html" aria-haspopup="true">Services</a>
+      <li class="dd"><a href="services.html" aria-current="page" aria-haspopup="true">Services</a>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Services — Managed Services</li>
           <li><a href="services.html">Overview — all managed services</a></li>
@@ -215,7 +215,7 @@ footer{border-top:1px solid var(--line)}
       <li><a class="btn" style="padding:9px 18px" href="index.html#contact">Contact us</a></li>
       <li>
         <nav class="lang" aria-label="Language">
-          <a href="cloud-analytics.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+          <a href="services.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
         </nav>
       </li>
     </ul>
@@ -225,11 +225,11 @@ footer{border-top:1px solid var(--line)}
 <main>
   <div class="phero">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>CI-03 / ANALYTICS — Google Cloud services</p>
-      <p class="code" style="margin-top:26px">CI-03 · CLOUD INFRASTRUCTURE · ANALYTICS</p>
-      <h1>Analytics on Google Cloud</h1>
-      <p class="vendor">Vendor: Google Cloud · Warehouse, messaging and pipelines</p>
-      <p class="tag">A warehouse, a message bus and a processing engine — assembled into pipelines that your analysts can query and your auditors can trace.</p>
+      <p class="status"><span class="dot" aria-hidden="true"></span>MS / OVERVIEW — Managed Services practice</p>
+      <p class="code" style="margin-top:26px">MS · MANAGED SERVICES · OVERVIEW</p>
+      <h1>Managed Services</h1>
+      <p class="vendor">Operated by Volcatech — one team, one contract, one escalation path</p>
+      <p class="tag">Around-the-clock monitoring, security consulting and cloud operations. You keep the decisions; we keep the rota.</p>
       <div class="cta">
         <a class="btn" href="index.html#contact">Contact us</a>
         <a class="btn btn-ghost" href="index.html#contact">Talk to our team</a>
@@ -239,67 +239,68 @@ footer{border-top:1px solid var(--line)}
 
   <section>
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Pain points — before the project</p>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Pain points — before the handover</p>
       <h2 class="sec">The problems this takes off your board.</h2>
       <div class="loglist" style="max-width:820px">
-        <div><span class="d" style="background:var(--accent)"></span><p>Data in silos<small>Every system holds its own truth and none of them agree.</small></p></div>
-        <div><span class="d" style="background:var(--accent)"></span><p>Reports that arrive late<small>Batch jobs finish after the decision has already been made.</small></p></div>
-        <div><span class="d" style="background:var(--accent)"></span><p>Pipelines nobody owns<small>Scripts run on a forgotten server until they quietly stop.</small></p></div>
+        <div><span class="d" style="background:var(--accent)"></span><p>A rota you cannot staff<small>Twenty-four-hour cover needs a team. Most IT departments have one person who already has another job.</small></p></div>
+        <div><span class="d" style="background:var(--accent)"></span><p>Compliance as a yearly panic<small>Evidence gets assembled the month before the audit, largely from memory.</small></p></div>
+        <div><span class="d" style="background:var(--accent)"></span><p>Nobody owns the middle<small>The platform vendor points at the security vendor, and both point at the internal team.</small></p></div>
       </div>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Google Cloud services</p>
-      <h2 class="sec">Ingest, process, analyse.</h2>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Six services</p>
+      <h2 class="sec">Six ways to hand work over.</h2>
       <div class="loglist" style="max-width:820px">
-        <div id="bigquery"><span class="d"></span><p>BigQuery<small>Serverless data warehouse running SQL analytics at petabyte scale, with ML and geospatial analysis built in.</small></p></div>
-        <div id="pubsub"><span class="d"></span><p>Pub/Sub<small>Asynchronous messaging that ingests events into analytics pipelines and decouples services.</small></p></div>
-        <div id="dataflow"><span class="d"></span><p>Dataflow<small>Managed, autoscaling processing for batch and streaming data, built on Apache Beam.</small></p></div>
+        <div id="ess"><span class="d"></span><p><a href="ess.html">Enterprise Security Service (ESS)</a> <span class="vsrc">Programme</span><small>Web detection, endpoint protection and around-the-clock response bundled into a single contract — the packaged form of the three services below.</small></p></div>
+        <div id="soc"><span class="d"></span><p>24/7 SOC &amp; Incident Response <span class="vsrc">Volcatech</span><small><span class="todo">[TODO: service description]</span></small></p></div>
+        <div id="isms"><span class="d"></span><p>ISMS / PIMS Consulting <span class="vsrc">Volcatech</span><small><span class="todo">[TODO: service description]</span></small></p></div>
+        <div id="pentest"><span class="d"></span><p>Penetration Testing (human-led) <span class="vsrc">Volcatech</span><small><span class="todo">[TODO: service description]</span></small></p></div>
+        <div id="finops"><span class="d"></span><p>Cloud FinOps &amp; Enablement <span class="vsrc">Volcatech</span><small><span class="todo">[TODO: service description]</span></small></p></div>
+        <div id="dx"><span class="d"></span><p>Digital Transformation <span class="vsrc">Volcatech</span><small><span class="todo">[TODO: service description]</span></small></p></div>
       </div>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>What Volcatech delivers</p>
-      <h2 class="sec">What we build on it.</h2>
+      <p class="status"><span class="dot" aria-hidden="true"></span>How a managed service runs</p>
+      <h2 class="sec">The rota is the product.</h2>
       <div class="cards2">
-        <div><h3>Data cleansing and ETL</h3><p>Source data profiled, cleansed and loaded on a schedule you can audit.</p></div>
-        <div><h3>Streaming pipelines</h3><p>Events flow from application to warehouse without a nightly batch window.</p></div>
-        <div><h3>Analytics visualisation</h3><p>Dashboards built on modelled data, not on ad-hoc exports.</p></div>
-        <div><h3>Cost and query governance</h3><p>Slot usage, partitioning and access reviewed as part of the service.</p></div>
+        <div><h3>Onboarding and runbooks</h3><p>Before anything goes live we agree what is in scope, who gets called and what happens at each severity.</p></div>
+        <div><h3>Monitoring and escalation</h3><p>One escalation path, agreed in advance, so nobody has to decide who to phone during an incident. <span class="todo">[TODO: response-time commitment]</span></p></div>
+        <div><h3>Reporting you can forward</h3><p>A fixed reporting cycle covering what was seen, what was done and what is still open. <span class="todo">[TODO: reporting format and frequency]</span></p></div>
+        <div><h3>Reviews and improvement</h3><p>Scope, thresholds and runbooks are revisited on a schedule rather than after an incident.</p></div>
       </div>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Business outcomes — after go-live</p>
-      <h2 class="sec">What changes on day one.</h2>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Business outcomes — after the handover</p>
+      <h2 class="sec">What changes once we take the rota.</h2>
       <div class="loglist" style="max-width:820px">
-        <div><span class="d"></span><p>One place to query<small>Analysts stop reconciling exports from four systems.</small></p></div>
-        <div><span class="d"></span><p>Fresher answers<small>Streaming ingestion shortens the gap between event and report.</small></p></div>
-        <div><span class="d"></span><p>Pipelines with an owner<small>Jobs are monitored and alerted like any other production system.</small></p></div>
+        <div><span class="d"></span><p>Cover without headcount<small>Out-of-hours cover becomes a line in a contract rather than a hiring plan.</small></p></div>
+        <div><span class="d"></span><p>One escalation path<small>The same team answers whether the cause turns out to be the platform or the security tooling.</small></p></div>
+        <div><span class="d"></span><p>Audit evidence as a by-product<small>Reporting is produced continuously, not reconstructed the month before the audit. <span class="todo">[TODO: reporting format and frequency]</span></small></p></div>
       </div>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Why build with Volcatech</p>
-      <h2 class="sec">Pipelines need running, not just building.</h2>
-      <p style="margin-top:24px;color:var(--muted);max-width:66ch">We model the data, build the ingestion path and then monitor the jobs — so a broken pipeline raises an alert instead of a quiet gap in the numbers.
-        <span class="todo">[TODO: local references &amp; delivery details]</span></p>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Why operate with Volcatech</p>
+      <h2 class="sec">We operate what we sell, and we build what we cannot buy.</h2>
+      <p style="margin-top:24px;color:var(--muted);max-width:66ch">The team that designs your Google Cloud environment and deploys your security tooling is the team that then runs both. There is no handover to a second supplier, and no argument about whose ticket it is.
+        <span class="todo">[TODO: partner tier and certifications]</span></p>
     </div>
   </section>
-
-  <div class="ext"><div class="wrap">Vendor resources → <a href="https://cloud.google.com/bigquery" target="_blank" rel="noopener">cloud.google.com/bigquery ↗</a> · <a href="https://cloud.google.com/pubsub" target="_blank" rel="noopener">cloud.google.com/pubsub ↗</a> · <a href="https://cloud.google.com/products/dataflow" target="_blank" rel="noopener">cloud.google.com/products/dataflow ↗</a></div></div>
 
   <div class="band">
     <div class="wrap">
-      <h2>Turn scattered data into one queryable platform.</h2>
+      <h2>Tell us which shifts you cannot cover — we will scope the rota.</h2>
       <div><a class="btn" href="index.html#contact">Contact us</a></div>
     </div>
   </div>

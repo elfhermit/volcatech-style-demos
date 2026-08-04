@@ -9,11 +9,29 @@
 ## 這個專案是什麼
 
 沃凱科技(Volcatech)新官網的 demo 專案。**2026-07-31 內部評選已結束**,勝出組合為
-**style-3-soc(SOC Console 深色色系)× 原版直落版型**,色系凍結;現階段工作是在勝出風格上
-比對**兩種頂部選單變體**(正本:`docs/meeting_0731.md`):
+**style-3-soc(SOC Console 深色色系)× 原版直落版型**,色系凍結。
+現階段有**兩個並行的比對軸**(選單正本:`docs/meeting_0731.md`;版面正本:本檔下方「版面變體」節):
+
+**軸一:頂部選單變體(Nav A vs Nav B)**
 
 - `style-3-soc/index.html` = **Nav A(單層)**:三個下拉,下拉內用 mono 小標(`li.grp`)分組。
 - `style-3-soc/index-nav-b.html` = **Nav B(二層)**:分組升級為第二層 flyout(hover/focus-within 展開)。
+
+**軸二:首頁版面變體(2026-08-04 新增,共 8 個首頁檔 = 4 方案 × Nav A/B)**
+
+| 方案 | Nav A 檔名 | 押注 / hero 之後第一眼 |
+|---|---|---|
+| 現行(對照組) | `index.html` | 維持現狀:Built → Why → Trust → Vendors(六個純文字) |
+| V1 信任前置 | `index-v1-proof.html` | **How we work** 三步驟 → Trust 四項(資料主權/存取控制) → Partners 六張能力卡 |
+| V2 型錄前置 | `index-v2-catalogue.html` | **Service catalogue** 21 列表格(代碼｜名稱｜一句話｜Powered by) |
+| V3 參考架構 | `index-v3-flow.html` | **Reference architecture** 四層圖(Web→端點→偵測→維運)＋Google Cloud 底座 |
+
+Nav B 版一律是 `<Nav A 檔名>-nav-b.html`,由腳本從 Nav A 版換 header 產生,**不得手改**。
+三個變體要解的是盤點出的三個結構性病灶:①「產品有哪些」動線斷在頁尾錨點;
+②「合作夥伴」只有六個純文字品牌名、無語境;③「公司做什麼」缺交付流程與可驗證性。
+變體共用的新區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(服務索引/型錄)、
+`#stack`(V3 架構圖)。核心句 `We operate what we sell, and we build what we cannot buy.`
+是三個變體共用的凍結文案(**對照組刻意不含**,故它在 8 個首頁中只命中 6 次)。
 - 資安產品頁(皆用 Nav A;選單擇一定稿後統一):`sentinelone.html`、`threatsonar.html`、`cybereyes.html`、
   `google-secops.html`(2026-08-03 依 `docs/product/` 內部素材新建);另有方案頁 `ess.html`
   (ESS=沃凱打包方案 WDR+EDR+7x24 SOC,非 19 項 SKU;**全頁零外部連結**,入口在 Services 下拉)。
@@ -40,7 +58,10 @@
 
 評選期的 4 個色系風格(style-1/2/4)、4 個版型變體(layout-1〜4)與外部 AI 參考組
 已全部**凍結封存於 `archive/`**(舊評選總覽= `archive/index.html`),一律不再修改;
-根 `index.html` 已改為聚焦 style-3 與雙變體比對的 Demo hub。
+根 `index.html` 已改為 Demo hub:首屏是**四個版面方案的橫向比較**(現行/V1/V2/V3,每張卡寫明押注
+與 section 序列,各附 Nav A/B 兩個入口),下方依序為兩個新總覽頁、style-3 全部內容頁、歷史存檔入口。
+八個首頁檔底部另有 backlink 切換列(`Layout: Current · V1 · V2 · V3 · Nav: A · B`),
+比較時不必回 hub。
 
 - 目標受眾:歐洲企業的 IT / 資安決策者;語言英文為主(正式版另有繁中 /zh-tw/,架構須可擴充更多語系)
 - 新官網將**改版取代**現有 volcatech.com
@@ -95,16 +116,46 @@
 (mono 微標籤如 `li.head`/`li.grp`/status 行不在此限)。
 歷史四風格的 tokens 對照見 `archive/index.html` 或 `docs/Volcatech_多風格_Build_Prompts.md` §B。
 
-## 兩變體一致性鐵則(選單比對有效性的前提)
+## 一致性鐵則:雙軸(兩條比對軸都成立的前提)
+
+2026-08-04 起有 8 個首頁檔(4 個版面方案 × Nav A/B)。舊的單一鐵則
+(「兩變體自 `<main>` 起逐字節相同」)已不適用於跨版面比對,改為雙軸:
+
+### 軸 1|同一版面的 Nav A ↔ Nav B:自 `<main>` 起逐字節相同
 
 比的是「選單層級」,不是內容。因此:
 
-- `index.html` 與 `index-nav-b.html` **自 `<main>` 起逐字節相同**(含 footer 與 backlink 列);
-  唯一允許差異= `<head>` 的 title 與選單相關 CSS、`<header>` 內的選單結構與自我參照連結。
+- 每一組 A/B **自 `<main>` 起逐字節相同**(含 footer 與 backlink 列);唯一允許差異=
+  `<head>` 的 title/description 與選單相關 CSS、`<header>` 內的選單結構與自我參照連結。
 - 兩檔的下拉**項目名稱與順序完全相同**,只有層級呈現不同(A: `li.grp` 小標;B: `li.sub` 二層)。
-- 改任何共用內容(hero、卡片、Built、Why、Trust、footer)→ **兩檔一起改**,
-  並跑 §驗證方式 的 `<main>` diff 檢查;動到 nav 項目或 footer 清單 → **全站 7 檔同步**
-  (兩變體＋5 個子頁;子頁的錨點連結帶 `index.html` 前綴、同資料夾頁面用相對檔名)。
+- ⚠ 坑:Nav B 母版的**頁尾 logo** 指向 `index.html` 而非自己,產生 Nav B 版時必須一併改成
+  該變體的 Nav A 檔名,否則軸 1 diff 會紅在 `<footer>` 裡。
+- **Nav B 版一律用腳本從 Nav A 版產生**(只換 `<header>`、title/description、自我參照連結),
+  不得手改。共 4 組 diff 必須全部無輸出。
+
+### 軸 2|跨版面方案:共用文案逐字凍結
+
+不要求結構相同(結構就是變因),但共用文案必須逐字一致,否則會變成比文案而不是比版面
+(踩過的坑:全域教訓簿 2026-07-30)。**凍結清單**:
+
+| 句子 | 應命中的首頁檔數 |
+|---|---|
+| `Cloud infrastructure, cybersecurity and managed services — from one turn-key partner.`(H1) | 8 |
+| `…deploy and tune EDR and SIEM… one point of accountability.`(副標) | 8 |
+| `One partner accountable for the whole stack.`(Why H2) | 8 |
+| `Tell us about your environment — we will map the path to cloud, security and operations.`(CTA) | 8 |
+| `Cloud, security and managed operations for European organisations.`(footer 品牌句) | 8 |
+| `We operate what we sell, and we build what we cannot buy.`(核心句) | **6**(僅三變體) |
+
+最後一句刻意只在三個變體出現——`index.html` / `index-nav-b.html` 是**未經內容改動的對照組**,
+代表「今天線上的樣子」,不得為了湊一致而修改它。
+
+### 共同規則
+
+- 四個方案的 **hero 區塊(`#top` 含 `#offer` 三張卡)完全相同**,差異一律從第二區塊開始。
+- 改任何共用內容(hero、Built、Why、Trust、footer)→ **8 個首頁一起改**(改共用區塊後重跑產生腳本)。
+- 動到 nav 項目或 footer 清單 → **全站 23 檔同步**(8 首頁 ＋ 3 總覽頁 ＋ 12 內容頁);
+  子頁的錨點連結帶 `index.html` 前綴、同資料夾頁面用相對檔名。
 
 ## 封存區:`archive/`(唯讀,平常不動它)
 
@@ -124,11 +175,19 @@
 
 ## 常見任務怎麼做
 
-- **微調現行風格**:只改 `style-3-soc/` 內三個 html 的 tokens 與 CSS;
-  共用內容三頁同步、兩變體跑 `<main>` diff(見一致性鐵則)。
+- **微調現行風格**:改 `style-3-soc/` 內各頁的 tokens 與 CSS;共用內容全站同步、
+  四組 A/B 跑 `<main>` diff(見一致性鐵則雙軸)。
+- **改首頁版面變體**:變體檔**不要手改**——它們由腳本從 `index.html` / `index-nav-b.html`
+  組出(hero / Built / Why / Trust / CTA 直接從現行首頁切片,確保跨變體逐字節相同)。
+  改法:編輯產生腳本內的變體區塊後重跑,再跑雙軸檢查。腳本做法見 `HANDOVER.md` §版面變體。
+  ⚠ V3 架構圖的三條硬約束:①不得用 `position:absolute`(768/390px 會崩,層間箭頭用
+  `.stack>*+*` 的 normal-flow 元素);②承載語意的線條用 `--muted` 不用 `--line`
+  (`--line #27344A` 在 `--bg` 上只有 **1.47:1**,不到 WCAG 1.4.11 的 3:1);
+  ③箭頭字元用 `aria-hidden="true"` 的真字元,**不要**放進 `::before content`,
+  也**不要**用 `role="img"` 包整張圖(會把裡面的連結對輔助科技隱藏)。
 - **調整選單**:項目與分類名以本檔 0731 決議為準;GCP 產品名以 `docs/GCP_Introduce.md`
   (2026-08-03 查證、08-04 補 Cloud Armor)為準。
-  ⚠️ **選單動到就是全站 15 檔同步**——手改必定漏,
+  ⚠️ **選單動到就是全站 23 檔同步**——手改必定漏,
   用腳本產生後跑 §驗證方式(既往腳本在 scratchpad,做法見 `docs/Cloud線_內容規劃_20260804.md` §7)。
   Nav B 的 flyout 顯示規則必須用**子代選擇器**(`.dd:hover>ul` 等),
   後代選擇器會讓巢狀層全開;且 Nav B 的 `.dd ul` **絕不可加 overflow**(會裁掉 flyout)。
@@ -137,11 +196,13 @@
   **模板四坑**:①`aria-current="page"` 搬到自己的 nav 項(Cloud 分類頁則掛頂層「Google Cloud」)、
   ②語言切換 EN 的 href 改自己檔名、③換成真連結的項刪 `title="Demo:…"`、
   ④`cards2` 必須偶數張(產品數為奇數時,把產品清單改走 `loglist`,`cards2` 留給沃凱交付項)。
-  完成後全站 15 檔的導覽列/頁尾對應項換真連結。
+  完成後全站 23 檔的導覽列/頁尾對應項換真連結。
 - **補 Cloud 分類頁**:內容正本是 `docs/Cloud線_內容規劃_20260804.md`(§4 骨架、§5 逐項英文文案、
   §6 逐頁大綱);產品事實一律出自 `docs/GCP_Introduce.md`,不得自行擴充未查證的產品。
   每個產品在名冊 `loglist` 佔一列且**必須帶 `id`**(nav 深連結的落點),
   新頁必含 `main [id]{scroll-margin-top:80px}`,否則 66px sticky header 會蓋住落點。
+- **版面定稿後**:勝出方案的內容搬進 `index.html`(對照組位置),落選的三個版面檔移入 `archive/`
+  (或依使用者指示刪除);首頁檔數從 8 收斂回 2(Nav A/B),一致性鐵則的軸 2 隨之退場。
 - **選單定稿後**:勝出變體留為 `index.html`,另一變體移入 `archive/`(或依使用者指示刪除),
   並同步根 `index.html`、README、HANDOVER 與本檔。
 - **產生正式 Astro 版**:不要改造本 demo;在新資料夾/新 repo 依
@@ -195,37 +256,54 @@ python3 -m http.server 8000   # 開 http://localhost:8000 逐頁檢查(含 390px
 ### 一致性檢查(改過 style-3 任何頁面後必跑)
 
 ```bash
-# 兩變體自 <main> 起逐字節相同 → 應無輸出
-diff <(awk '/<main>/,0' style-3-soc/index.html) <(awk '/<main>/,0' style-3-soc/index-nav-b.html)
-# H1 兩個首頁逐字相同 → 應輸出 2
-grep -Fl 'from one turn-key partner.' style-3-soc/index*.html | wc -l
-# section 順序兩檔必須完全一致(top→offer→built→why→trust→vendors→contact→legal)
-for f in style-3-soc/index*.html; do echo -n "$f: "; \
-  grep -o 'id="\(top\|offer\|built\|why\|trust\|vendors\|contact\|legal\)"' "$f" | tr '\n' ' '; echo; done
+cd style-3-soc
+# 軸1:四組「同版面 Nav A ↔ Nav B」自 <main> 起逐字節相同 → 四組皆應無輸出
+for v in "index:index-nav-b" "index-v1-proof:index-v1-proof-nav-b" \
+         "index-v2-catalogue:index-v2-catalogue-nav-b" "index-v3-flow:index-v3-flow-nav-b"; do
+  a=${v%%:*}; b=${v##*:}; echo "== $a vs $b"
+  diff <(awk '/<main>/,0' $a.html) <(awk '/<main>/,0' $b.html)
+done
+# 軸2:五句定稿文案在 8 個首頁全數命中 → 每句皆應輸出 8
+while IFS= read -r s; do printf '%3d  %s\n' "$(grep -Fl "$s" index*.html | wc -l)" "${s:0:52}"; done <<'EOF'
+from one turn-key partner.
+one point of accountability.
+One partner accountable for the whole stack.
+we will map the path to cloud, security and operations.
+Cloud, security and managed operations for European organisations.
+EOF
+# 核心句只在三變體 → 應輸出 6(對照組 index.html / index-nav-b.html 刻意不含)
+grep -Fl 'We operate what we sell, and we build what we cannot buy.' index-v*.html | wc -l
 # CTA 一律 Contact us(sentence case);禁 Contact Us、禁 Request a proposal(那是 style-4 的刻意變因)
-grep -oh 'Contact us\|Contact Us\|Request a proposal' style-3-soc/*.html | sort | uniq -c
+grep -oh 'Contact us\|Contact Us\|Request a proposal' *.html | sort | uniq -c
 # 死連結:每檔應只剩語言切換的 1 個
-grep -c 'href="#"' style-3-soc/*.html
+grep -c 'href="#"' *.html
 # 「繁中」每筆同行都要有 lang 屬性 → 應輸出 0
-grep -h '繁中' style-3-soc/*.html | grep -vc 'lang="zh-Hant-TW"'
+grep -h '繁中' *.html | grep -vc 'lang="zh-Hant-TW"'
 # 舊選單術語不得殘留 → 每檔應輸出 0
-grep -c 'Arsenal\|>Platform<\|>Operations<' style-3-soc/*.html
-# title 與 meta description 全站唯一 → 兩行皆應無輸出
-grep -h '<title>' style-3-soc/*.html | sort | uniq -d
-grep -h 'name="description"' style-3-soc/*.html | sort | uniq -d
+grep -c 'Arsenal\|>Platform<\|>Operations<' *.html
+# 佔位連結歸零 → 每檔應輸出 0(改連真頁後不該再有頁尾錨點動線)
+grep -c '#security-list\|#managed-list' *.html
+# title 與 meta description 全站唯一 → 兩行皆應無輸出(註解宣稱兩項,指令就有兩條)
+grep -h '<title>' *.html | sort | uniq -d
+grep -h 'name="description"' *.html | sort | uniq -d
 # aria-current 每檔=3(1 個 markup + 2 個 CSS 選擇器);markup 在首頁=Home、子頁=自己的 nav 項
-grep -c 'aria-current="page"' style-3-soc/*.html
-# ess.html 方案頁零外部連結 → 應輸出 0(注意:cloud-services.html 有 1 條 Cloud Armor 外連,不適用此規則)
-grep -c 'https\?://' style-3-soc/ess.html
-# 錨點偏移:15 檔每檔應為 1(缺了的話 sticky header 會蓋住 #錨點 落點)
-grep -c 'scroll-margin-top' style-3-soc/*.html
+grep -c 'aria-current="page"' *.html
+# ess.html 與 services.html 零外部連結 → 皆應輸出 0
+grep -c 'https\?://' ess.html services.html
+# 錨點偏移:每檔應 ≥1(缺了的話 sticky header 會蓋住 #錨點 落點)
+grep -c 'scroll-margin-top' *.html
+# V3 圖中連結的鍵盤焦點不被遮蔽 → 兩檔應各為 1
+grep -c '\.stack a{scroll-margin-top' index-v3-flow*.html
 # Cloud 深連結落點:22 個錨點 id 必須存在(18 GCP 產品 + Cloud Armor + 沃凱服務 3 項)
 grep -ohE 'id="(compute-engine|kubernetes-engine|vmware-engine|cloud-storage|filestore|backup-dr|bigquery|pubsub|dataflow|cloud-run|app-engine|api-gateway|alloydb|cloud-sql|datastore|firestore|vertex-ai|model-garden|cloud-armor|cloud-migration|hybrid-cloud-backup|data-ai-engineering)"' \
-  style-3-soc/cloud*.html | sort -u | wc -l   # 應為 22
-# 13 個子頁 footer 與 sentinelone 逐字節相同 → 應輸出 12 行 OK
-for f in threatsonar cybereyes google-secops ess \
-         cloud cloud-compute cloud-storage cloud-analytics cloud-serverless cloud-databases cloud-ai cloud-services; do \
-  diff <(awk '/<footer/,/<\/footer>/' style-3-soc/sentinelone.html) \
-       <(awk '/<footer/,/<\/footer>/' style-3-soc/$f.html) >/dev/null && echo "$f OK"; done
-# 相對連結存在性(根 + style-3 + archive 入口)可用 python 一次掃(見 docs/reports/ 既往腳本或現寫)
+  cloud*.html | sort -u | wc -l   # 應為 22
+# 兩個新總覽頁的落點:cybersecurity 8 產品 + 3 區塊、services 6 服務
+grep -ohE 'id="(sentinelone|threatsonar|fortiedr|cybereyes|google-secops|ce-bas|ai-ptaas|secpurple)"' cybersecurity.html | sort -u | wc -l  # 應為 8
+grep -ohE 'id="(edr|detection|in-house)"' cybersecurity.html | sort -u | wc -l   # 應為 3
+grep -ohE 'id="(ess|soc|isms|pentest|finops|dx)"' services.html | sort -u | wc -l # 應為 6
+# 14 個內容頁 footer 與 sentinelone 逐字節相同 → 應輸出 14 行 OK(排除 8 個 index*.html 與 sentinelone 自己)
+for f in $(ls *.html | grep -vE '^(sentinelone|index.*)\.html$'); do
+  diff <(awk '/<footer/,/<\/footer>/' sentinelone.html) \
+       <(awk '/<footer/,/<\/footer>/' $f) >/dev/null && echo "$f OK" || echo "$f DIFF"; done
+# 相對連結存在性(根 + style-3 共 24 檔)可用 python 一次掃:每個 href 的檔案與 #id 都要存在
 ```

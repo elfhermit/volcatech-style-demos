@@ -14,13 +14,20 @@
 ## 1. 目前狀態
 
 **2026-07-31 內部評選已結束**：勝出組合＝**Style 3（SOC Console 深色色系）× 原版直落版型**，
-色系凍結。現行維護對象只有 `style-3-soc/`，**共 15 頁**：`index.html`＝Nav A、
-`index-nav-b.html`＝Nav B、8 個 Cloud 頁（`cloud.html` 總覽＋`cloud-compute`／`cloud-storage`／
-`cloud-analytics`／`cloud-serverless`／`cloud-databases`／`cloud-ai`／`cloud-services` 七個分類頁）、
-4 個產品頁（`sentinelone.html`／`threatsonar.html`／`cybereyes.html`／`google-secops.html`）、
-1 個方案頁（`ess.html`）；所有子頁用 Nav A。
+色系凍結。現行維護對象只有 `style-3-soc/`，**共 23 頁**：
+
+- **8 個首頁**＝4 個版面方案 × Nav A/B（2026-08-04 新增，見下方 §版面變體）：
+  `index` / `index-v1-proof` / `index-v2-catalogue` / `index-v3-flow`，各附 `-nav-b` 版。
+- **3 個總覽頁**：`cloud.html`（CI）、`cybersecurity.html`（CS，2026-08-04 新建）、
+  `services.html`（MS，2026-08-04 新建）。
+- **6 個 GCP 分類頁**：`cloud-compute` / `cloud-storage` / `cloud-analytics` /
+  `cloud-serverless` / `cloud-databases` / `cloud-ai`；＋`cloud-services`（CI-07）。
+- **4 個產品頁**：`sentinelone` / `threatsonar` / `cybereyes` / `google-secops`；＋方案頁 `ess.html`。
+- 所有非首頁的子頁都用 Nav A。
+
 落選的 3 個風格、4 個版型變體與 GPT 參考包已全部移入 `archive/`（凍結），
-舊評選總覽為 `archive/index.html`，根 `index.html` 重寫為 Demo hub（主卡 15 連結）。
+舊評選總覽為 `archive/index.html`；根 `index.html` 重寫為 Demo hub，
+首屏是**四個版面方案的橫向比較**。
 
 ### 定調的資訊架構（沿用不變）
 
@@ -104,28 +111,78 @@
    本次使用者指示不參考 `docs/公司_104.md`，目前無素材，屬待補項而非疏漏。
 8. Cloud 線內容正本為內部文件 `docs/Cloud線_內容規劃_20260804.md`（gitignored，勿在頁面連結它）。
 
+### 本輪完成的事（2026-08-04 下午，首頁版面變體）
+
+**起因**：盤點現行首頁後找到三個結構性病灶（不是文案問題）——
+①「產品有哪些」動線斷在頁尾錨點（三張卡只有 Cloud 有真總覽頁，另有 9 個項目完全沒落點）；
+②「合作夥伴」只有六個純文字品牌名、不能點也沒說明；
+③「公司做什麼」完全沒有交付流程段落，而這對 DACH／北歐採購的權重高於產品規格。
+
+1. **新增 2 個總覽頁**：`cybersecurity.html`（CS，8 產品分 3 群、11 個錨點）、
+   `services.html`（MS，6 服務、6 個錨點）。三條業務線至此都有真落點。
+2. **全站 23 檔動線修復**：原本指向 `#offer` / `#built` 的**約 300 個佔位連結**改成深連結；
+   CyberSecurity / Services 兩個下拉頂部各加 Overview 入口；頁尾三個欄標題變成連結。
+   腳本：`docs/reports/sync_nav_20260804.py`。
+3. **3 個首頁版面變體 × Nav A/B = 6 個新檔**（見下方 §版面變體）。
+4. 根 `index.html` 改造成四方案橫向比較；8 個首頁底部加 backlink 切換列。
+5. `CLAUDE.md` 的「兩變體一致性鐵則」改寫為**雙軸**（軸 1 同版面 A/B 逐字節相同、
+   軸 2 跨版面凍結共用文案）。舊的單軸鐵則對多版面比對已失效。
+6. **已知待補**：Managed Services 五項服務（SOC／ISMS／Pentest／FinOps／DX）與 FortiEDR
+   無素材，內文一律 `[TODO]`；合作夥伴等級、ISO 27001、EU region、交付模式、SLA 同樣待確認。
+
+### 版面變體（改變體前必讀）
+
+| 方案 | Nav A 檔名 | hero 之後第一眼 |
+|---|---|---|
+| 現行（對照組） | `index.html` | Built → Why → Trust → Vendors（六個純文字） |
+| V1 信任前置 | `index-v1-proof.html` | How we work 三步 → Trust 四項 → Partners 六張能力卡 → 服務索引 |
+| V2 型錄前置 | `index-v2-catalogue.html` | Service catalogue 21 列（代碼｜名稱｜一句話｜Powered by） |
+| V3 參考架構 | `index-v3-flow.html` | Reference architecture 四層圖 ＋ Google Cloud 底座 |
+
+**變體檔不要手改。**它們由 `docs/reports/build_variants_20260804.py` 產生：
+hero / Built / Why / Trust / CTA 五個共用區塊直接從 `index.html` **切片**取得，
+所以跨變體必定逐字節相同（hero 區塊四方案 md5 相同已驗證）；
+Nav B 版由 `index-nav-b.html` 當母版、只換 header 與自我參照連結產出。
+要改版面就編輯該腳本內對應的區塊字串後**重跑**，再跑 `CLAUDE.md` §一致性檢查的雙軸指令。
+
+踩過的三個坑（腳本內已註記，勿還原）：
+
+1. 自我參照連結的替換若早於 backlink 列處理，會把切換列裡的「Current」也改成變體自己——
+   backlink 必須先換成佔位符隔離。
+2. Nav B 母版的**頁尾 logo** 指向 `index.html` 而非自己；不一併處理，軸 1 diff 會紅在 `<footer>`。
+3. V3 圖層標題不能單獨叫 `Operations` / `Platform`——會撞到「舊選單術語不得殘留」的機械檢查
+   而永遠誤報（現用 `Operations & validation` / `Cloud platform`）。連註解裡都不能出現該字串樣式。
+
+V3 架構圖的三條硬約束（獨立審查結論，勿違反）：不得用 `position:absolute`（768/390px 會崩）；
+承載語意的線條用 `--muted` 不用 `--line`（`--line #27344A` 在 `--bg` 上只有 **1.47:1**，
+不到 WCAG 1.4.11 的 3:1）；箭頭用帶 `aria-hidden` 的真字元，不放 `::before content`，
+也不用 `role="img"` 包整張圖（會把裡面的連結對輔助科技隱藏）。
+
 ---
 
 ## 2. 現行導覽結構速查（style-3-soc）
 
-> 兩變體的選單分類與各下拉內容**完全相同**，差別只在「分組的呈現層級」。
+> Nav A 與 Nav B 的選單分類與各下拉內容**完全相同**，差別只在「分組的呈現層級」。
 
 | 變體 | 檔案 | 結構 |
 |---|---|---|
-| **Nav A（單層下拉）** | `index.html` 與全部 13 個子頁（8 個 Cloud 頁＋`sentinelone`／`threatsonar`／`cybereyes`／`google-secops`／`ess`） | `● VOLCATECH` \| `Home` \| `Google Cloud ▾` \| `CyberSecurity ▾` \| `Services ▾` \| `About` \| `[Contact us]` \| `EN 繁中`；下拉內以 mono 小標分組 |
-| **Nav B（二層 flyout）** | `index-nav-b.html` | 頂層同 Nav A；下拉內的分組升級為第二層 flyout（hover / `:focus-within` 展開） |
+| **Nav A（單層下拉）** | 4 個 `index*.html` 的 Nav A 版與全部 15 個子頁（3 總覽頁＋7 個 Cloud 分類頁＋`sentinelone`／`threatsonar`／`cybereyes`／`google-secops`／`ess`） | `● VOLCATECH` \| `Home` \| `Google Cloud ▾` \| `CyberSecurity ▾` \| `Services ▾` \| `About` \| `[Contact us]` \| `EN 繁中`；下拉內以 mono 小標分組 |
+| **Nav B（二層 flyout）** | 4 個 `*-nav-b.html` | 頂層同 Nav A；下拉內的分組升級為第二層 flyout（hover / `:focus-within` 展開） |
 
-各下拉內容（首行皆為 mono 白話對照）：
+各下拉內容（首行皆為 mono 白話對照）。**2026-08-04 起三個下拉都零佔位連結**：
 
 - `Google Cloud`：頂部 Overview 入口（連 `cloud.html`）＋**八組 22 項**——GCP 產品樹六組 18 項
   （Compute / Storage / Analytics / Serverless / Databases / AI，每項為深連結
   `分類頁#產品錨點`，例 `cloud-compute.html#compute-engine`）／`Edge security` 1 項
-  （Cloud Armor）／`Volcatech cloud services` 3 項；**本下拉零佔位連結**
-- `CyberSecurity`：8 項三組，head 白話行「CyberSecurity — EDR · SIEM & WDR · Built in-house」——
-  Endpoint — EDR（SentinelOne、ThreatSonar 連真頁；FortiEDR 捲首頁）／
+  （Cloud Armor）／`Volcatech cloud services` 3 項
+- `CyberSecurity`：頂部 Overview 入口（連 `cybersecurity.html`）＋ 8 項三組，
+  head 白話行「CyberSecurity — EDR · SIEM & WDR · Built in-house」——
+  Endpoint — EDR（SentinelOne、ThreatSonar 連真頁；FortiEDR → `cybersecurity.html#fortiedr`）／
   **Detection — SIEM & WDR**（CyberEyes、Google SecOps 連真頁；CyberEyes 實為 WDR，故群組改名）／
-  Built in-house（CE-BAS、AI-PTaaS、SecPurple → `#built`）
-- `Services`：「Enterprise Security Service (ESS)」置頂（連 `ess.html`）＋ 原 5 項
+  Built in-house（CE-BAS／AI-PTaaS／SecPurple → `cybersecurity.html#ce-bas` 等深連結）
+- `Services`：頂部 Overview 入口（連 `services.html`）＋「Enterprise Security Service (ESS)」
+  （連 `ess.html`）＋ 原 5 項（→ `services.html#soc` / `#isms` / `#pentest` / `#finops` / `#dx`）
+- Nav B 的第二層群組父項也已改為深連結（`cybersecurity.html#edr` / `#detection` / `#in-house`）
 
 舊風格與版型（Style 1／2／4、Layout 1–4）的導覽結構已隨頁面**歸檔至 `archive/`**（凍結），
 逐字定義見規格正本 §B（評選歷史，僅供回顧）。
@@ -134,21 +191,32 @@
 
 1. 選單分類 `CyberSecurity` 的**駝峰寫法是 0731 會議指定的刻意寫法**，不要「修正」成
    Cybersecurity（僅限選單分類名；H1 等內文仍為定稿原文的正常拼寫）。
-2. **兩首頁變體自 `<main>` 起逐字節相同**（一致性鐵則）：改任何 `<main>` 之後的內容，
-   兩檔必須同步，改完用 diff 驗證：
-   `diff <(sed -n '/<main/,$p' style-3-soc/index.html) <(sed -n '/<main/,$p' style-3-soc/index-nav-b.html)`
-3. 全部 13 個子頁（`cloud`／`cloud-compute`／`cloud-storage`／`cloud-analytics`／
-   `cloud-serverless`／`cloud-databases`／`cloud-ai`／`cloud-services`／`sentinelone`／
-   `threatsonar`／`cybereyes`／`google-secops`／`ess`）用 Nav A；
-   **若會議選 Nav B，要換 header 的頁面現在是這 13 個子頁**（技術債，擇一定稿後一次處理；
-   2026-08-04 Cloud 線建置後成本已明顯上升）。
-4. **動 nav 或 footer＝全站 15 檔同步**（兩首頁變體＋13 個子頁）；`ess.html` 全頁
-   **禁任何外部連結**（ESS 是方案層，非 19 項 SKU，footer `#managed-list` 也以它置頂）。
-   零外部連結規則**只適用 `ess.html`**——`cloud-services.html` 有 1 條 Cloud Armor 官方連結。
+2. **一致性鐵則是雙軸**（2026-08-04 起，舊的單軸版本已失效，正本在 `CLAUDE.md`）：
+   - **軸 1** 同一版面的 Nav A ↔ Nav B 自 `<main>` 起逐字節相同，共 4 組必須全綠：
+     ```bash
+     cd style-3-soc
+     for v in "index:index-nav-b" "index-v1-proof:index-v1-proof-nav-b" \
+              "index-v2-catalogue:index-v2-catalogue-nav-b" "index-v3-flow:index-v3-flow-nav-b"; do
+       a=${v%%:*}; b=${v##*:}; echo "== $a vs $b"
+       diff <(awk '/<main>/,0' $a.html) <(awk '/<main>/,0' $b.html)
+     done
+     ```
+   - **軸 2** 跨版面方案凍結共用文案（五句定稿在 8 個首頁各命中 8 次；核心句只在三變體共 6 次）。
+3. 全部 15 個子頁（3 總覽頁 `cloud`／`cybersecurity`／`services`＋7 個 Cloud 分類頁
+   `cloud-compute`／`cloud-storage`／`cloud-analytics`／`cloud-serverless`／`cloud-databases`／
+   `cloud-ai`／`cloud-services`＋4 產品頁 `sentinelone`／`threatsonar`／`cybereyes`／
+   `google-secops`＋方案頁 `ess`）用 Nav A；
+   **若會議選 Nav B，要換 header 的頁面就是這 15 個子頁**（技術債，擇一定稿後一次處理；
+   8 個首頁本身已各有 A/B 兩份，不在此列）。
+4. **動 nav 或 footer＝全站 23 檔同步**（8 個首頁＋15 個子頁）——手改必定漏，
+   用腳本（參考 `docs/reports/sync_nav_20260804.py`）產生後跑驗證；`ess.html` 全頁
+   **禁任何外部連結**（ESS 是方案層，非 19 項 SKU）。
+   零外部連結規則適用 `ess.html` 與 `services.html`——`cloud-services.html` 有 1 條
+   Cloud Armor 官方連結、`cybersecurity.html` 有 5 條原廠連結，皆合法。
 5. **Nav A 的 `.dd ul` 有 `max-height:calc(100vh - 90px);overflow-y:auto`**（Google Cloud
    下拉 32 列會溢出視窗）；**Nav B 刻意沒有**——加上去會裁掉二層 flyout。改選單 CSS 時勿「順手統一」。
-6. 全 15 檔的 `main [id]` 都有 `scroll-margin-top:80px`，深連結錨點才不會被 sticky header 遮住；
-   新增頁面時一併帶上。
+6. 全 23 檔的 `main [id]` 都有 `scroll-margin-top:80px`，深連結錨點才不會被 sticky header 遮住；
+   新增頁面時一併帶上。V3 兩檔另需 `.stack a{scroll-margin-top:80px}`（圖中連結的鍵盤焦點）。
 
 ---
 
@@ -158,10 +226,15 @@
       原版直落版型，色系凍結。會後已完成：hero 文案置中、選單分類改名
       （`Google Cloud / CyberSecurity / Services`）＋ GCP 產品樹、選單雙變體（Nav A／Nav B）。
       落選風格與版型已歸檔至 `archive/`。會議紀錄見 `docs/meeting_0731.md`。
-- [ ] **任務 1d（進行中）：選單變體擇一定稿**：比對 `index.html`（Nav A）與
-      `index-nav-b.html`（Nav B），擇一後併回單一 `index.html`；**若選 Nav B，
-      需同步 13 個子頁的 header**（8 個 Cloud 頁＋sentinelone／threatsonar／cybereyes／
-      google-secops／ess），並注意 Nav B 不可套用 Nav A 的 `.dd ul` max-height。
+- [ ] **任務 1d（進行中）：選單變體擇一定稿**：比對 Nav A 與 Nav B，擇一後併回單一版本；
+      **若選 Nav B，需同步 15 個子頁的 header**（3 總覽頁＋7 個 Cloud 分類頁＋4 產品頁＋ESS），
+      並注意 Nav B 不可套用 Nav A 的 `.dd ul` max-height。
+- [ ] **任務 1e（進行中，2026-08-04 下午新增）：首頁版面方案擇一定稿**：
+      四個方案橫向比較（現行對照組／V1 信任前置／V2 型錄前置／V3 參考架構圖），
+      入口在根 `index.html`。定稿後把勝出方案的內容搬進 `index.html`，
+      落選的三個版面檔移入 `archive/`（或依指示刪除），首頁檔數由 8 收斂回 2，
+      一致性鐵則的軸 2 隨之退場。變體由 `docs/reports/build_variants_20260804.py` 產生，
+      不要手改變體檔。
 - [ ] **任務 2：補齊其餘產品/服務頁——待補 9 頁（2026-08-04）**：
       Cybersecurity 8 項已完成 4 項（SentinelOne／ThreatSonar／CyberEyes／Google SecOps），
       **待補＝Cybersecurity 剩 4 項＋Managed Services 5 項**；
@@ -193,18 +266,29 @@
 
 ```text
 請讀取根目錄的 HANDOVER.md 與 CLAUDE.md。
-用 python3 -m http.server 8000 啟動本機伺服器，對 style-3-soc 的 15 頁
-（index、index-nav-b、cloud、cloud-compute、cloud-storage、cloud-analytics、
-cloud-serverless、cloud-databases、cloud-ai、cloud-services、sentinelone、
-threatsonar、cybereyes、google-secops、ess）做檢查：
-① HTML 標籤配對（python html.parser）
-② 兩首頁變體自 <main> 起逐字節相同（diff 驗證）
+用 python3 -m http.server 8000 啟動本機伺服器，對 style-3-soc 的全部 23 頁做檢查
+（用 ls style-3-soc/*.html 取得清單，不要用寫死的檔名——現況是 8 個首頁
+index / index-nav-b / index-v1-proof / index-v1-proof-nav-b / index-v2-catalogue /
+index-v2-catalogue-nav-b / index-v3-flow / index-v3-flow-nav-b，加 15 個子頁）：
+① HTML 標籤配對（python html.parser）＋ 每頁唯一 h1
+② 一致性鐵則雙軸：軸1 四組「同版面 Nav A↔B」自 <main> 起逐字節相同；
+   軸2 五句定稿文案在 8 個 index*.html 各命中 8 次、核心句
+   「We operate what we sell, and we build what we cannot buy.」恰 6 次
+   （對照組 index.html / index-nav-b.html 刻意不含，不要「修正」成 8）
 ③ 390 / 768 / 1024 / 1440px 無水平捲軸（Nav B 的二層 flyout 特別看窄幅；
-   Nav A 的 Google Cloud 下拉 32 列要能在視窗內捲動）
-④ 確認頁面無任何外部資源請求；ess.html 另須確認全頁零外部連結
-　（cloud-services.html 例外：允許 1 條 Cloud Armor 官方連結）
+   Nav A 的 Google Cloud 下拉 32 列要能在視窗內捲動；
+   V3 的架構圖在 900px 以下要塌成單欄且層序不亂）
+④ 確認頁面無任何外部資源請求、無新增 <script>；ess.html 與 services.html 全頁零外部連結
+　（cloud-services.html 允許 1 條 Cloud Armor 官方連結、cybersecurity.html 允許 5 條原廠連結）
 ⑤ 各子頁 aria-current="page" 掛在自己那一項、語言切換 EN 連結自指本頁
-⑥ Google Cloud 下拉的 18 個深連結目標錨點都存在（分類頁#產品錨點），跳轉後標題不被 header 遮住
+⑥ 三個下拉的深連結目標錨點都存在（Cloud 22 個、cybersecurity 11 個、services 6 個），
+   跳轉後標題不被 sticky header 遮住；子頁（15 個非首頁）不得殘留 #offer / #built。
+   首頁的同頁錨點是合法的，不要當成殘留佔位刪掉：每個首頁有 1 個 #offer
+   （hero 的「Explore our services」按鈕），三個變體另有連到同頁 id="built" 的 #built
+   （Partners 卡與頁尾各 1）。判準是「該 id 在同一頁存在」而非「有沒有 # 開頭」。
+⑦ 內容真實性：合作等級、認證、SLA、客戶數一律 [TODO] 佔位，
+   且不得出現「Google SecOps 認證經銷商 / Cloud Security MSSP / Premier Partner」
+   （那是蓋亞的資格，不是沃凱的）
 檢查範圍不含 archive/（已凍結的評選歷史，不 review）。
 回報每項 PASS/FAIL 與證據，不要順手改檔案。
 ```
@@ -227,8 +311,10 @@ threatsonar、cybereyes、google-secops、ess）做檢查：
   用 Nav A；CyberSecurity 駝峰是刻意寫法）
 - 新產品頁三個常見坑：① aria-current="page" 掛在自己那一項；
   ② 語言切換的 EN 連結自指本頁檔名；③ 該項改真連結後刪掉 title="Demo: …" 提示
-- 動 nav / footer＝全站 15 檔（含新頁遞增）同步；兩首頁自 <main> 起逐字節相同
-- 完成後把指向 index.html#offer / #built 的暫代錨點換成實際檔案連結
+- 動 nav / footer＝全站 23 檔（含新頁遞增）同步，用腳本產生不要手改
+  （參考 docs/reports/sync_nav_20260804.py）；同版面的 Nav A/B 自 <main> 起逐字節相同
+- 新頁的動線落點：現在 Cybersecurity 與 Managed Services 各項在
+  cybersecurity.html / services.html 的名冊已有錨點，補頁後把該列改成連到新頁
 ```
 
 ### Prompt C：產生正式版 Astro 網站
@@ -256,10 +342,21 @@ sitemap/hreflang，以及 GitHub Actions 自動化部署。
 python3 -m http.server 8000
 
 # 瀏覽器開啟：
-# Demo hub：                http://localhost:8000/
-# 首頁 Nav A（單層下拉）：  http://localhost:8000/style-3-soc/index.html
-# 首頁 Nav B（二層 flyout）：http://localhost:8000/style-3-soc/index-nav-b.html
+# Demo hub（四方案比較）：  http://localhost:8000/
+#
+# 8 個首頁 = 4 個版面方案 × Nav A/B（頁面底部有 backlink 切換列，不必回 hub）
+# 現行 Nav A：              http://localhost:8000/style-3-soc/index.html
+# 現行 Nav B：              http://localhost:8000/style-3-soc/index-nav-b.html
+# V1 信任前置 Nav A：       http://localhost:8000/style-3-soc/index-v1-proof.html
+# V1 信任前置 Nav B：       http://localhost:8000/style-3-soc/index-v1-proof-nav-b.html
+# V2 型錄前置 Nav A：       http://localhost:8000/style-3-soc/index-v2-catalogue.html
+# V2 型錄前置 Nav B：       http://localhost:8000/style-3-soc/index-v2-catalogue-nav-b.html
+# V3 參考架構 Nav A：       http://localhost:8000/style-3-soc/index-v3-flow.html
+# V3 參考架構 Nav B：       http://localhost:8000/style-3-soc/index-v3-flow-nav-b.html
+#
 # Cloud 總覽（CI）：        http://localhost:8000/style-3-soc/cloud.html
+# Cybersecurity 總覽（CS）：http://localhost:8000/style-3-soc/cybersecurity.html
+# Managed Services（MS）：  http://localhost:8000/style-3-soc/services.html
 # Cloud Compute（CI-01）：  http://localhost:8000/style-3-soc/cloud-compute.html
 # Cloud Storage（CI-02）：  http://localhost:8000/style-3-soc/cloud-storage.html
 # Cloud Analytics（CI-03）：http://localhost:8000/style-3-soc/cloud-analytics.html
