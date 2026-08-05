@@ -155,8 +155,10 @@ Pages 約 1 分鐘後自動更新(若沒變,瀏覽器強制重新整理 Cmd+Shif
   動線是「總覽頁的一列」而非一整頁。
   Privacy Policy 與 Imprint 指向頁尾法定資訊區(`#legal`),正式版才有獨立頁面。
 - **選單內容(Nav A 與 Nav B 逐字相同)**:`Google Cloud` 下拉 = 頂部 Overview 入口(`cloud.html`)
-  加上八組 22 項(GCP 產品樹六組 18 項:Compute / Storage / Analytics / Serverless /
-  Databases / AI;另加 Edge security 1 項與 Volcatech cloud services 3 項);
+  加上六組 18 項(GCP 產品樹:Compute / Storage / Analytics / Serverless / Databases / AI);
+  **2026-08-05 起,`Edge security`(Cloud Armor)與 `Volcatech cloud services`(3 項)
+  兩組已依指示從選單移除**——只動選單,頁尾的「Cloud services & Cloud Armor」、
+  `cloud.html` 的相關區塊與 `cloud-services.html` 頁面本身都保留;
   `CyberSecurity` = 8 項三組(Endpoint — EDR / **Detection — SIEM & WDR** / Built in-house;
   CyberEyes 實為 WDR,故 SIEM 群組已改名,白話行為
   `CyberSecurity — EDR · SIEM & WDR · Built in-house`);

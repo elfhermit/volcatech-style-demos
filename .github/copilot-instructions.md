@@ -35,7 +35,9 @@
   「CyberSecurity — EDR · SIEM & WDR · Built in-house」。`Services` 下拉以
   「Enterprise Security Service (ESS)」置頂。
 - **三個下拉都零佔位連結,不要改回 `#offer` / `#built`**:
-  `Google Cloud` = Overview(`cloud.html`)＋八組 22 項,18 項 GCP 產品是
+  `Google Cloud` = Overview(`cloud.html`)＋**六組 18 項**(2026-08-05 起,
+  `Edge security` 與 `Volcatech cloud services` 兩組已從選單移除;
+  **只動選單**——頁尾那列、`cloud.html` 區塊與 `cloud-services.html` 頁面都保留),18 項 GCP 產品是
   `分類頁#產品錨點` 深連結(例 `cloud-compute.html#compute-engine`);
   `CyberSecurity` = Overview(`cybersecurity.html`)＋ 8 項,連產品頁或 `cybersecurity.html#錨點`;
   `Services` = Overview(`services.html`)＋ ESS ＋ 5 項 `services.html#錨點`。
@@ -45,7 +47,7 @@
   同版面的 A/B 自 `<main>` 起仍須逐字節相同。頁尾三個欄標題(Cloud Infrastructure /
   Cybersecurity / Managed Services)都是連到對應總覽頁的連結。
 - **選單 CSS 兩處刻意的不對稱,勿「順手統一」**:Nav A 的 `.dd ul` 有
-  `max-height:calc(100vh - 90px);overflow-y:auto`(Google Cloud 下拉 32 列會溢出視窗),
+  `max-height:calc(100vh - 90px);overflow-y:auto`(Google Cloud 下拉 26 列在矮視窗會溢出),
   **Nav B 刻意沒有**(加了會裁掉二層 flyout);全 23 檔的 `main [id]` 都有
   `scroll-margin-top:80px`,新增頁面要一併帶上。
 - **V3 參考架構圖(`index-v3-flow*.html`)的三條硬約束**:① 不得用 `position:absolute`

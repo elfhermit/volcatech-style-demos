@@ -46,13 +46,17 @@ Nav B 版一律是 `<Nav A 檔名>-nav-b.html`,由腳本從 Nav A 版換 header 
 - 選單分類已依會議決議由 Platform / Arsenal / Operations 改為
   **`Google Cloud` / `CyberSecurity` / `Services`**(`CyberSecurity` 駝峰是會議指定的刻意寫法,
   勿「順手修正」成 Cybersecurity;正文與板塊名仍用 Cybersecurity)。
-  Google Cloud 下拉= **八組 22 項**(Compute / Storage / Analytics / Serverless / Databases / AI 六組 18 項
-  ＋ Edge security 1 項 ＋ Volcatech cloud services 3 項),頂部另有 Overview 入口 → `cloud.html`;
+  Google Cloud 下拉= **六組 18 項**(Compute / Storage / Analytics / Serverless / Databases / AI),
+  頂部另有 Overview 入口 → `cloud.html`;
+  ⚠️ 2026-08-05 使用者指示**從選單移除** `Edge security`(Cloud Armor)與
+  `Volcatech cloud services`(3 項)兩組——**只動選單**:頁尾的「Cloud services & Cloud Armor」、
+  `cloud.html` 內的相關區塊與 `cloud-services.html` 頁面本身一律保留不動
+  (腳本:`docs/reports/remove_gcp_groups_20260805.py`);
   **18 項全部是深連結**(`分類頁#產品錨點`),產品資料正本:`docs/GCP_Introduce.md`
   (2026-08-04 補入第 7 節 Cloud Armor);CyberSecurity =原 8 項(EDR / **SIEM & WDR** / Built in-house,
   SentinelOne·ThreatSonar·CyberEyes·Google SecOps 已連真頁;WDR 併記是因 CyberEyes 實為 WDR);
   Services =原 5 項＋頂部 ESS 方案入口。每個下拉第一行保留 mono 白話對照(`li.head`)。
-  **Nav A 的 `.dd ul` 必須帶 `max-height`＋`overflow-y:auto`**(32 列會溢出視窗);
+  **Nav A 的 `.dd ul` 必須帶 `max-height`＋`overflow-y:auto`**(26 列在矮視窗會溢出);
   **Nav B 反之絕不可加 overflow**——會變成 clip container 裁掉二層 flyout,
   且它第一層只有 10 列不會溢出(理由已寫在 `index-nav-b.html` 的 CSS 註解)。
 

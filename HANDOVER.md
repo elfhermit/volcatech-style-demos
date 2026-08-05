@@ -92,7 +92,8 @@
    | `cloud-ai.html` | CI-06 | AI on Google Cloud | Vertex AI／Model Garden |
    | `cloud-services.html` | CI-07 | Cloud services and edge security | Cloud Armor＋沃凱雲端服務 3 項 |
 
-2. **`Google Cloud` 下拉由「六組 18 項全是 `#offer` 佔位」改為八組 22 項且全部連真頁**：
+2. **`Google Cloud` 下拉由「六組 18 項全是 `#offer` 佔位」改為八組 22 項且全部連真頁**
+   （⚠ 這是 08-04 當時狀態；**08-05 已移除其中兩組**，現行是六組 18 項，見下方 08-05 紀錄）：
    原六組 18 項改為**深連結**（`分類頁#產品錨點`，例 `cloud-compute.html#compute-engine`），
    新增 `Edge security` 1 項與 `Volcatech cloud services` 3 項，下拉頂部另加 Overview 入口
    指向 `cloud.html`。**Google Cloud 線至此零佔位連結。**
@@ -102,7 +103,8 @@
    Cloud Migration & Kubernetes／Hybrid Cloud & Backup／Data & AI Engineering）。
 4. **CSS 兩處調整**：全 15 檔加 `main [id]{scroll-margin-top:80px}`（深連結錨點不被 sticky
    header 遮住）；Nav A 的 `.dd ul` 加 `max-height:calc(100vh - 90px);overflow-y:auto`
-   （22 項＋分組小標共 32 列會溢出視窗）。**Nav B 刻意不加**——加了會裁掉二層 flyout。
+   （22 項＋分組小標共 32 列會溢出視窗；**此為 08-04 當時列數，08-05 移除兩組後為 26 列**）。
+   **Nav B 刻意不加**——加了會裁掉二層 flyout。
 5. **SKU 代碼體系定案**：舊 §A 的 `C-01`〜`C-06` 等為 pre-0731 歷史體系，保留封存、
    不對齊、不上站；現行 Cloud 線用頁面層代碼 `CI`／`CI-01`〜`CI-07`。
 6. 根 `index.html`（Demo hub）主卡擴為 15 連結；`CLAUDE.md` 同步更新。
@@ -129,6 +131,23 @@
    軸 2 跨版面凍結共用文案）。舊的單軸鐵則對多版面比對已失效。
 6. **已知待補**：Managed Services 五項服務（SOC／ISMS／Pentest／FinOps／DX）與 FortiEDR
    無素材，內文一律 `[TODO]`；合作夥伴等級、ISO 27001、EU region、交付模式、SLA 同樣待確認。
+
+### 本輪完成的事（2026-08-05，選單精簡）
+
+使用者指示：從 `Google Cloud` 下拉移除 **`Edge security`**（Cloud Armor）與
+**`Volcatech cloud services`**（Cloud Migration & Kubernetes／Hybrid Cloud & Backup／
+Data & AI Engineering）兩組，下拉由八組 22 項回到 **六組 18 項**（Nav A 共 26 列）。
+
+**範圍僅限選單**（使用者明確裁決「只動選單」）——以下一律保留不動：
+頁尾 Cloud Infrastructure 欄的「Cloud services & Cloud Armor」那列、`cloud.html` 內
+指向 Cloud Armor 與沃凱服務的區塊、`cloud-services.html` 頁面本身（含 22 個錨點 id）。
+因此 `cloud-services.html` 現在的入口是頁尾與 `cloud.html`，不在下拉選單內。
+
+腳本：`docs/reports/remove_gcp_groups_20260805.py`（可重複執行；Nav A 刪 `li.grp` 區塊、
+Nav B 刪兩個 `li.sub` flyout 區塊，全 23 檔每檔恰好命中一次）。
+**已驗**：軸 1 四組全綠、軸 2 五句 8/8＋核心句 6、24 檔連結與錨點全可解析、
+頁尾 14 檔逐字節相同、重跑 `build_variants_20260804.py` 後 6 個變體檔 md5 不變
+（證明手動移除的結果與產生腳本一致）。
 
 ### 版面變體（改變體前必讀）
 
@@ -171,10 +190,12 @@ V3 架構圖的三條硬約束（獨立審查結論，勿違反）：不得用 `
 
 各下拉內容（首行皆為 mono 白話對照）。**2026-08-04 起三個下拉都零佔位連結**：
 
-- `Google Cloud`：頂部 Overview 入口（連 `cloud.html`）＋**八組 22 項**——GCP 產品樹六組 18 項
+- `Google Cloud`：頂部 Overview 入口（連 `cloud.html`）＋**六組 18 項**——GCP 產品樹
   （Compute / Storage / Analytics / Serverless / Databases / AI，每項為深連結
-  `分類頁#產品錨點`，例 `cloud-compute.html#compute-engine`）／`Edge security` 1 項
-  （Cloud Armor）／`Volcatech cloud services` 3 項
+  `分類頁#產品錨點`，例 `cloud-compute.html#compute-engine`）。
+  **2026-08-05 起 `Edge security`（Cloud Armor）與 `Volcatech cloud services`（3 項）
+  兩組已從選單移除**——只動選單，頁尾那列、`cloud.html` 的相關區塊與
+  `cloud-services.html` 頁面本身都保留（腳本 `docs/reports/remove_gcp_groups_20260805.py`）
 - `CyberSecurity`：頂部 Overview 入口（連 `cybersecurity.html`）＋ 8 項三組，
   head 白話行「CyberSecurity — EDR · SIEM & WDR · Built in-house」——
   Endpoint — EDR（SentinelOne、ThreatSonar 連真頁；FortiEDR → `cybersecurity.html#fortiedr`）／
@@ -214,7 +235,7 @@ V3 架構圖的三條硬約束（獨立審查結論，勿違反）：不得用 `
    零外部連結規則適用 `ess.html` 與 `services.html`——`cloud-services.html` 有 1 條
    Cloud Armor 官方連結、`cybersecurity.html` 有 5 條原廠連結，皆合法。
 5. **Nav A 的 `.dd ul` 有 `max-height:calc(100vh - 90px);overflow-y:auto`**（Google Cloud
-   下拉 32 列會溢出視窗）；**Nav B 刻意沒有**——加上去會裁掉二層 flyout。改選單 CSS 時勿「順手統一」。
+   下拉 26 列在矮視窗會溢出）；**Nav B 刻意沒有**——加上去會裁掉二層 flyout。改選單 CSS 時勿「順手統一」。
 6. 全 23 檔的 `main [id]` 都有 `scroll-margin-top:80px`，深連結錨點才不會被 sticky header 遮住；
    新增頁面時一併帶上。V3 兩檔另需 `.stack a{scroll-margin-top:80px}`（圖中連結的鍵盤焦點）。
 
@@ -276,7 +297,7 @@ index-v2-catalogue-nav-b / index-v3-flow / index-v3-flow-nav-b，加 15 個子�
    「We operate what we sell, and we build what we cannot buy.」恰 6 次
    （對照組 index.html / index-nav-b.html 刻意不含，不要「修正」成 8）
 ③ 390 / 768 / 1024 / 1440px 無水平捲軸（Nav B 的二層 flyout 特別看窄幅；
-   Nav A 的 Google Cloud 下拉 32 列要能在視窗內捲動；
+   Nav A 的 Google Cloud 下拉 26 列要能在視窗內捲動；
    V3 的架構圖在 900px 以下要塌成單欄且層序不亂）
 ④ 確認頁面無任何外部資源請求、無新增 <script>；ess.html 與 services.html 全頁零外部連結
 　（cloud-services.html 允許 1 條 Cloud Armor 官方連結、cybersecurity.html 允許 5 條原廠連結）
