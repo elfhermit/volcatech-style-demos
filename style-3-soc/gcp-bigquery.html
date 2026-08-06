@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-<title>Cybersecurity — EDR, WDR and SIEM operated by Volcatech</title>
-<meta name="description" content="Endpoint EDR, web-layer WDR and SIEM selected, deployed and tuned for European organisations — and watched by our own 24/7 SOC.">
+<title>BigQuery — serverless data warehouse on Google Cloud | Volcatech</title>
+<meta name="description" content="BigQuery runs SQL analytics over very large tables with no cluster to provision, and trains models from SQL through BigQuery ML. Designed, deployed and operated by Volcatech.">
 <style>
 :root{
   --bg:#0E141F; --surface:#16202E; --ink:#E9EEF5; --muted:#9AA8BA;
@@ -271,7 +271,7 @@ a.node:hover{border-color:var(--accent)}
     <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
     <ul class="menu" id="menu">
       <li><a href="index.html">Home</a></li>
-      <li class="dd"><button type="button" aria-haspopup="true">Google Cloud</button>
+      <li class="dd"><button type="button" class="on" aria-haspopup="true">Google Cloud</button>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
           <li><a href="cloud.html">Overview — all Google Cloud services</a></li>
@@ -291,7 +291,7 @@ a.node:hover{border-color:var(--accent)}
           </li>
           <li class="sub"><a href="cloud-analytics.html" aria-haspopup="true">Analytics</a>
             <ul>
-              <li><a href="gcp-bigquery.html">BigQuery</a></li>
+              <li><a href="gcp-bigquery.html" aria-current="page">BigQuery</a></li>
               <li><a href="gcp-pubsub.html">Pub/Sub</a></li>
               <li><a href="gcp-dataflow.html">Dataflow</a></li>
             </ul>
@@ -319,10 +319,10 @@ a.node:hover{border-color:var(--accent)}
           </li>
         </ul>
       </li>
-      <li class="dd"><button type="button" class="on" aria-haspopup="true">CyberSecurity</button>
+      <li class="dd"><button type="button" aria-haspopup="true">CyberSecurity</button>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>CyberSecurity — EDR · SIEM &amp; WDR · Built in-house</li>
-          <li><a href="cybersecurity.html" aria-current="page">Overview — all security products</a></li>
+          <li><a href="cybersecurity.html">Overview — all security products</a></li>
           <li class="sub"><a href="cybersecurity.html#edr" aria-haspopup="true">Endpoint — EDR</a>
             <ul>
               <li><a href="sentinelone.html">SentinelOne</a></li>
@@ -356,7 +356,7 @@ a.node:hover{border-color:var(--accent)}
       <li><a class="btn" style="padding:9px 18px" href="index.html#contact">Contact us</a></li>
       <li>
         <nav class="lang" aria-label="Language">
-          <a href="cybersecurity.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+          <a href="gcp-bigquery.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
         </nav>
       </li>
     </ul>
@@ -366,119 +366,87 @@ a.node:hover{border-color:var(--accent)}
 <main>
   <div class="phero">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>CS / OVERVIEW — Cybersecurity practice</p>
-      <p class="code" style="margin-top:26px">CS · CYBERSECURITY · OVERVIEW</p>
-      <h1>Cybersecurity</h1>
-      <p class="vendor">Vendors: SentinelOne · TeamT5 · Fortinet · CyberEyes · Google Cloud · Built in-house</p>
-      <p class="tag">Endpoint EDR, web-layer WDR and SIEM from vendors we select — plus three testing services we build ourselves. All of it watched by our own 24/7 SOC.</p>
+      <p class="status"><span class="dot" aria-hidden="true"></span>CI-03 / Analytics — Google Cloud service</p>
+      <p class="code" style="margin-top:26px">CI-03 · ANALYTICS · BIGQUERY</p>
+      <h1>BigQuery</h1>
+      <p class="vendor">Google Cloud · Data warehouse</p>
+      <p class="tag">A serverless data warehouse. Load the data, write SQL, and let the query engine decide how much machine to put behind it.</p>
       <div class="cta">
         <a class="btn" href="index.html#contact">Contact us</a>
-        <a class="btn btn-ghost" href="index.html#contact">Talk to our team</a>
+        <a class="btn btn-ghost" href="cloud-analytics.html">All analytics services</a>
       </div>
     </div>
   </div>
 
-  <section id="pain">
+  <section id="value">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Pain points — before the engagement</p>
-      <h2 class="sec">The problems this takes off your board.</h2>
-      <div class="probs">
-        <div><h3>Tools bought, never tuned</h3><p>Licences are in place but detections still run at default settings, so real attacks look like noise.</p></div>
-        <div><h3>Alerts with nobody behind them</h3><p>A console nobody watches at 02:00 is a log archive, not a defence.</p></div>
-        <div><h3>Gaps between the layers</h3><p>Web traffic, endpoints and detection are each covered by a different tool from a different supplier.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="edr">
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Endpoint — EDR</p>
-      <h2 class="sec">Three endpoint platforms, one selection process.</h2>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Why teams choose it</p>
+      <h2 class="sec">What BigQuery is good at.</h2>
       <div class="trio">
-        <div id="sentinelone"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.6-3.2 8.4-8 9.6C7.2 20.4 4 16.6 4 12V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><h3>SentinelOne <span class="vsrc">SentinelOne</span></h3>
-          <p>Static and behavioural AI run on the device itself: execution is stopped locally, ransomware damage can be rolled back, and related events collapse into a single attack story.</p>
-          <a class="go" href="sentinelone.html">Product page →</a></div>
-        <div id="threatsonar"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12l6-4"/></svg><h3>ThreatSonar <span class="vsrc">TeamT5</span></h3>
-          <p>Endpoint forensics built on Asia-Pacific APT intelligence. Run it as a one-off compromise assessment, or leave it resident with managed detection behind it.</p>
-          <a class="go" href="threatsonar.html">Product page →</a></div>
-        <div id="fortiedr"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><h3>FortiEDR <span class="vsrc">Fortinet</span></h3>
-          <p><span class="todo">[TODO: product description]</span> A dedicated page will follow once the vendor material is confirmed.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg><h3>No infrastructure to size</h3><p>There are no nodes to provision, resize or keep warm. Storage and compute are billed separately, so data that is only queried occasionally does not carry a cluster.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><h3>SQL over large tables</h3><p>Analytical queries run across tables large enough that a preparatory aggregation step would normally be required first, which keeps exploratory work interactive.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2 2-6z"/></svg><h3>Models where the data already is</h3><p>BigQuery ML trains and serves models from SQL, so the data does not have to leave the warehouse for a separate feature pipeline.</p></div>
       </div>
     </div>
   </section>
 
-  <section id="detection">
+  <section id="features">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Detection — SIEM &amp; WDR</p>
-      <h2 class="sec">Detection beyond the endpoint.</h2>
-      <div class="duo">
-        <div id="cybereyes"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.5"/></svg><h3>CyberEyes <span class="vsrc">CyberEyes</span></h3>
-          <p>Web detection and response: it watches what actually reaches your applications after the WAF, and hands confirmed findings to the SIEM instead of to a dashboard.</p>
-          <a class="go" href="cybereyes.html">Product page →</a></div>
-        <div id="google-secops"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5L6.5 17M12 11.5L17.5 17"/></svg><h3>Google SecOps <span class="vsrc">Google Cloud</span></h3>
-          <p>Cloud-native SIEM with built-in SOAR, threat intelligence and behavioural analytics — the place where endpoint, web and cloud telemetry meet.</p>
-          <a class="go" href="google-secops.html">Product page →</a></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="in-house">
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Built in-house — Volcatech AI Security</p>
-      <h2 class="sec">Three services we build, not resell.</h2>
-      <div class="trio">
-        <div id="ce-bas"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg><h3>CE-BAS — Continuous External Breach and Attack Simulation <span class="vsrc">Volcatech</span></h3>
-          <p>Continuously probes your internet-facing assets the way an external attacker would, and reports which exposures are actually exploitable.</p></div>
-        <div id="ai-ptaas"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="8" height="10" rx="4"/><path d="M8 11H4M20 11h-4M8 15H4.5M19.5 15H16M9 6l1.5 2M15 6l-1.5 2"/></svg><h3>AI-PTaaS — Smart Automated Penetration Testing as a Service <span class="vsrc">Volcatech</span></h3>
-          <p>Automated, repeatable penetration testing delivered as a subscription, so findings arrive between annual audits instead of once a year.</p></div>
-        <div id="secpurple"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5.5a3 3 0 0 1 0 5.8"/><path d="M17.5 20a6 6 0 0 0-3-5.2"/></svg><h3>SecPurple — Professional Purple Team Support <span class="vsrc">Volcatech</span></h3>
-          <p>Runs attack-and-defence exercises with your team, then turns each finding into a detection rule your SOC keeps.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="delivery">
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>What we deliver</p>
-      <h2 class="sec">A licence is not a defence.</h2>
-      <ol class="steps">
-        <li><span class="n">01</span><h3>Selection and proof of concept</h3><p>We shortlist against your estate and run the trial on your own machines, not on a demo tenant.</p></li>
-        <li class="ar" aria-hidden="true">→</li>
-        <li><span class="n">02</span><h3>Deployment and tuning</h3><p>Policies, exclusions and detection thresholds set for your environment, then reviewed after the first month.</p></li>
-        <li class="ar" aria-hidden="true">→</li>
-        <li><span class="n">03</span><h3>24/7 monitoring</h3><p>Our SOC watches the consoles we deploy, so an alert reaches a person rather than a mailbox. <span class="todo">[TODO: response-time commitment]</span></p></li>
-        <li class="ar" aria-hidden="true">→</li>
-        <li><span class="n">04</span><h3>Incident response</h3><p>When something is confirmed, the same team contains it and writes the report you hand to your board.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <section id="outcomes">
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Business outcomes — after rollout</p>
-      <h2 class="sec">What changes once it is running.</h2>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Key features</p>
+      <h2 class="sec">What you get, specifically.</h2>
       <div class="spec">
-        <div><span class="n" aria-hidden="true">01</span><div><h3>Fewer consoles, fewer suppliers</h3><p>One team selects, deploys and operates every layer, so nothing falls between two contracts.</p></div></div>
-        <div><span class="n" aria-hidden="true">02</span><div><h3>Detections that mean something</h3><p>Tuning is part of the service, so alert volume goes down while the signal goes up.</p></div></div>
-        <div><span class="n" aria-hidden="true">03</span><div><h3>Evidence for auditors</h3><p>Coverage, incidents and response times are reported on a fixed cycle. <span class="todo">[TODO: reporting format and frequency]</span></p></div></div>
+        <div><span class="n" aria-hidden="true">01</span><div><h3>BigQuery ML</h3><p>Model training and prediction expressed as SQL statements, run by the same engine that runs the queries.</p></div></div>
+        <div><span class="n" aria-hidden="true">02</span><div><h3>Geospatial analysis</h3><p>Geography types and functions are part of the query language, so location data does not need a separate system.</p></div></div>
+        <div><span class="n" aria-hidden="true">03</span><div><h3>Vertex AI integration</h3><p>Tables register as sources for Vertex AI, so a warehouse column can become a training feature without an export step.</p></div></div>
       </div>
     </div>
   </section>
 
-  <section id="why">
+  <section id="usecases">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Why secure with Volcatech</p>
-      <h2 class="sec">We operate what we sell, and we build what we cannot buy.</h2>
-      <p style="margin-top:24px;color:var(--muted);max-width:66ch">Our SOC watches the tools we deploy, and our own CE-BAS, AI-PTaaS and SecPurple services test whether those tools actually catch what they should. Selection, deployment, monitoring and response sit with the same team and the same contract.
-        <span class="todo">[TODO: partner tier and certifications]</span></p>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Where it fits</p>
+      <h2 class="sec">Three situations it is built for.</h2>
+      <div class="uses">
+        <div><h3>Business intelligence</h3><p>Reporting layers where the underlying tables keep growing and the query patterns keep changing.</p></div>
+        <div><h3>Customer data platforms</h3><p>Behavioural and transactional events landed continuously and queried against each other.</p></div>
+        <div><h3>Feature preparation</h3><p>The aggregation and join work that sits between raw events and a model training set.</p></div>
+      </div>
     </div>
   </section>
 
-  <div class="ext"><div class="wrap">Vendor resources → <a href="https://www.sentinelone.com" target="_blank" rel="noopener">sentinelone.com ↗</a> · <a href="https://teamt5.org" target="_blank" rel="noopener">teamt5.org ↗</a> · <a href="https://www.fortinet.com" target="_blank" rel="noopener">fortinet.com ↗</a> · <a href="https://cybereyes.ai" target="_blank" rel="noopener">cybereyes.ai ↗</a> · <a href="https://cloud.google.com/security/products/security-operations" target="_blank" rel="noopener">cloud.google.com/security/products/security-operations ↗</a></div></div>
+  <section id="stack">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Works with</p>
+      <h2 class="sec">Where BigQuery sits.</h2>
+      <div class="stack">
+        <div class="layer"><h3>Ingest</h3>
+          <ul class="nodes">
+            <li><a class="node" href="gcp-pubsub.html">Pub/Sub</a></li>
+            <li><a class="node" href="gcp-dataflow.html">Dataflow</a></li>
+          </ul>
+        </div>
+        <p class="flowmark"><span aria-hidden="true">↓</span> streams into</p>
+        <div class="layer"><h3>Warehouse</h3>
+          <ul class="nodes">
+            <li><span class="node self">BigQuery</span></li>
+          </ul>
+        </div>
+        <p class="flowmark"><span aria-hidden="true">↓</span> feeds</p>
+        <div class="layer"><h3>AI</h3>
+          <ul class="nodes">
+            <li><a class="node" href="gcp-vertex-ai.html">Vertex AI</a></li>
+            <li><a class="node" href="gcp-model-garden.html">Model Garden</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="lead" style="margin-top:26px">Volcatech designs the layout, deploys it and keeps it under monitoring. <span class="todo">[TODO: delivery model and response times]</span></p>
+    </div>
+  </section>
 
+  <div class="ext"><div class="wrap">Vendor resources → <a href="https://cloud.google.com/bigquery" target="_blank" rel="noopener">cloud.google.com/bigquery ↗</a></div></div>
   <div class="band">
     <div class="wrap">
-      <h2>Tell us which layers you already cover — we will map the gaps.</h2>
+      <h2>Size your workloads for Google Cloud — book a scoping session.</h2>
       <div><a class="btn" href="index.html#contact">Contact us</a></div>
     </div>
   </div>

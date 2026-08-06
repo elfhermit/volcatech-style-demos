@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-<title>Compute on Google Cloud (VMs, GKE, VMware) — Volcatech</title>
-<meta name="description" content="Compute Engine, Kubernetes Engine and VMware Engine — sized, migrated and operated for European organisations by Volcatech.">
+<title>[lab] Compute on Google Cloud — block layout proposal (rule-compliant)</title>
+<meta name="description" content="Lab proposal: the Compute category page rebuilt as blocks instead of three repeated lists, without leaving the project rules — no external CDN, no framework, no added script. Not a production page.">
 <style>
 :root{
   --bg:#0E141F; --surface:#16202E; --ink:#E9EEF5; --muted:#9AA8BA;
@@ -128,99 +128,55 @@ footer{border-top:1px solid var(--line)}
 .legal .notice{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px}
 .legal a:hover{color:var(--ink)}
 .backlink{padding:0 24px 22px;font-family:var(--mono);font-size:11.5px}
-/* ===== Block components (0806 content rework) — shared by all 20 pages =====
-   The 0805 review said a content page reads as one undifferentiated column of text:
-   the same .loglist three or four times over. Each section now gets its own treatment,
-   so the shape of a section tells you what kind of thing is in it before you read it.
-   No new colour token — three surface depths, one accent edge, one real arrow row.
-
-   Situational blocks share one rule on purpose. .probs is the state before the project
-   (pain points), .uses is the state it is built for (scenarios); both are short
-   situational statements and the eyebrow above already says which one you are reading. */
-.probs,.uses{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
-.probs>div,.uses>div{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+/* ===== lab proposal: block layout for a category page (0806) =====
+   Same copy as style-3-soc/cloud-compute.html, four different treatments. Nothing here
+   introduces a new colour token — the differentiation comes from surface depth, an accent
+   edge, and one real arrow row. */
+.labbar{background:#1B2736;border-bottom:1px solid var(--muted)}
+.labbar .wrap{padding:14px 24px;font-family:var(--mono);font-size:12.5px;color:var(--ink);
+  display:flex;gap:8px 20px;flex-wrap:wrap;align-items:baseline}
+.labbar b{color:var(--accent)}
+.labbar a{color:var(--muted);border-bottom:1px solid var(--line)}
+.labbar a:hover{color:var(--ink);border-color:var(--accent)}
+/* 1 — problems. Accent edge, no icon: this section is the "before" state. */
+.probs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.probs>div{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
   border-radius:0 8px 8px 0;padding:22px 22px}
-.probs h3,.uses h3{font-size:16.5px}
-.probs p,.uses p{margin-top:8px;font-size:14.5px;color:var(--muted)}
-/* 四項時加 .four —— 預設三欄會把第四張留在下一列只佔 1/3 寬 */
-.probs.four,.uses.four{grid-template-columns:repeat(4,1fr)}
-/* Products and services: an icon card that answers "what is actually on offer" and links
-   out, instead of one more row of text. Same card at three track counts — a catalogue is
-   not always divisible by three. Icons are hand-drawn 24x24 strokes, never image files. */
-.trio,.quad,.duo{display:grid;gap:18px;margin-top:44px}
-.trio{grid-template-columns:repeat(3,1fr)}
-.quad{grid-template-columns:repeat(4,1fr)}
-.duo{grid-template-columns:repeat(2,1fr)}
-.trio>div,.quad>div,.duo>div{background:var(--surface);border:1px solid var(--line);border-radius:8px;
-  padding:24px 22px;display:flex;flex-direction:column}
-.trio .ic,.quad .ic,.duo .ic{display:block;color:var(--accent)}
-.trio h3,.quad h3,.duo h3{font-size:17px;margin-top:16px}
-.trio .full,.quad .full,.duo .full{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--muted);font-weight:400;margin-top:5px}
-.trio p,.quad p,.duo p{margin-top:9px;font-size:14.5px;color:var(--muted);flex:1}
-/* 廠商標記（.vsrc）搬進卡片標題後會繼承 h3 的粗體。它是 mono 微標籤不是標題的一部分，
-   在卡片裡改成獨立一行、不加粗；.vsrc 本體的 CSS 在各頁基底，這裡只做卡片內的 scope 覆寫。 */
-.trio .vsrc,.quad .vsrc,.duo .vsrc{display:block;margin:5px 0 0;font-weight:400}
-.trio .go,.quad .go,.duo .go,.loglist .go{display:inline-block;margin-top:16px;font-family:var(--mono);font-size:12.5px;
+.probs h3{font-size:16.5px}
+.probs p{margin-top:8px;font-size:14.5px;color:var(--muted)}
+/* 2 — the products themselves. Icon cards with a real link out, so "what do you actually
+   sell" is answerable from the block rather than from a row of text. */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.trio>div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:24px 22px;
+  display:flex;flex-direction:column}
+.trio .ic{display:block;color:var(--accent)}
+.trio h3{font-size:17px;margin-top:16px}
+.trio p{margin-top:9px;font-size:14.5px;color:var(--muted);flex:1}
+.trio .go{display:inline-block;margin-top:16px;font-family:var(--mono);font-size:12.5px;
   color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:2px;align-self:flex-start}
-.trio .go:hover,.quad .go:hover,.duo .go:hover,.loglist .go:hover{border-color:var(--accent)}
-/* 0806：每個 GCP 產品都有內頁之後，產品卡有兩個出口（產品頁 ＋ 原廠頁）。卡片本身是
-   flex column，兩個 inline-block 的 .go 不包起來會各佔一行，所以用 .goes 併成一列。
-   兩個出口的先後有意義：站內的產品頁在前，離站的原廠頁在後。 */
-.goes{display:flex;flex-wrap:wrap;gap:18px;margin-top:16px;align-self:flex-start}
-.goes .go{margin-top:0}
-/* Sequences — the "arrows between blocks" the review asked for. The arrows are real
-   characters marked aria-hidden, never ::before content, so assistive tech reads the step
-   and skips the glyph. Node borders carry meaning, so they use --muted: --line against
-   the page background is 1.47:1, under the 3:1 that WCAG 1.4.11 asks for. */
+.trio .go:hover{border-color:var(--accent)}
+/* 3 — delivery as a sequence. Arrows are real characters marked aria-hidden, never
+   ::before content, so assistive tech reads the steps and skips the glyph. Node borders
+   use --muted: --line on --bg is 1.47:1, under the 3:1 of WCAG 1.4.11. */
 .steps{list-style:none;margin-top:44px;display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
 .steps>li{flex:1 1 200px;background:#111A26;border:1px solid var(--muted);border-radius:8px;padding:20px 18px}
 .steps>li.ar{flex:0 0 auto;border:0;background:none;padding:0;display:flex;align-items:center;
   color:var(--muted);font-family:var(--mono);font-size:18px}
 .steps .n{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted)}
 .steps h3{font-size:16px;margin-top:10px}
-.steps>li>h3:first-child{margin-top:0}
 .steps p{margin-top:7px;font-size:14px;color:var(--muted)}
-/* Facts as a spec sheet: deeper panel, mono index, one continuous surface. */
+/* 4 — outcomes as a spec sheet: deeper panel, mono index, one continuous surface. */
 .spec{margin-top:40px;background:#111A26;border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .spec>div{display:grid;grid-template-columns:42px 1fr;gap:16px;padding:20px 22px;align-items:start}
 .spec>div+div{border-top:1px solid var(--line)}
 .spec .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px}
 .spec h3{font-size:16px}
 .spec p{margin-top:6px;font-size:14.5px;color:var(--muted)}
-/* Where a thing sits relative to the rest. Normal flow only — absolute positioning
-   breaks this layout at 768 and 390px. */
-.stack{margin-top:40px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.stack>*+*{border-top:1px solid var(--line)}
-.stack a{scroll-margin-top:80px}
-.layer{background:var(--surface);padding:22px;display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center}
-.layer>h3{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:400}
-.nodes{list-style:none;display:flex;flex-wrap:wrap;gap:10px}
-.node{display:block;border:1px solid var(--muted);border-radius:6px;padding:12px 14px;min-width:170px;background:#111A26}
-a.node:hover{border-color:var(--accent)}
-.node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
-.flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
-  font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
-/* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
-   shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
-.probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
-.probs>div:hover,.uses>div:hover,.trio>div:hover,.quad>div:hover,.duo>div:hover{transform:translateY(-2px);border-color:var(--muted)}
-/* 1040px is deliberately not one of the widths used elsewhere in this file: the nav
-   checker slices on the 1100px and 1024px queries and needs each to appear once. */
-@media (max-width:1040px){
-  .quad,.probs.four,.uses.four{grid-template-columns:repeat(2,1fr)}
-}
 @media (max-width:900px){
-  .probs,.uses,.trio,.quad,.duo,.probs.four,.uses.four{grid-template-columns:1fr}
+  .probs,.trio{grid-template-columns:1fr}
   .steps{flex-direction:column}
   .steps>li.ar{justify-content:center;transform:rotate(90deg)}
-  .layer{grid-template-columns:1fr;gap:10px}
 }
-@media (prefers-reduced-motion: reduce){
-  .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
-  .probs>div:hover,.uses>div:hover,.trio>div:hover,.quad>div:hover,.duo>div:hover{transform:none}
-}
-/* ===== end block components ===== */
 @keyframes statusPulse {
   0% { box-shadow: 0 0 0 0 rgba(62, 207, 142, 0.7); }
   70% { box-shadow: 0 0 0 6px rgba(62, 207, 142, 0); }
@@ -265,56 +221,63 @@ a.node:hover{border-color:var(--accent)}
 </style>
 </head>
 <body>
+<div class="labbar">
+  <div class="wrap"><b>lab / proposal</b> — same copy as the live category page, block layout instead of three
+    repeated lists. Rule-compliant: no external CDN, no framework, no added &lt;script&gt;.
+    <span>Compare: <a href="../style-3-soc/cloud-compute.html">live page</a> ·
+    <a href="tailwind-cloud-compute.html">Tailwind version</a> ·
+    <a href="index.html">lab index</a></span></div>
+</div>
 <header onkeydown="if(event.key==='Escape')this.querySelector('.logo').focus()">
   <div class="wrap nav">
-    <a class="logo" href="index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
+    <a class="logo" href="../style-3-soc/index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
     <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
     <ul class="menu" id="menu">
-      <li><a href="index.html">Home</a></li>
+      <li><a href="../style-3-soc/index.html">Home</a></li>
       <li class="dd"><button type="button" class="on" aria-haspopup="true">Google Cloud</button>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
-          <li><a href="cloud.html">Overview — all Google Cloud services</a></li>
-          <li class="sub"><a href="cloud-compute.html" aria-current="page" aria-haspopup="true">Compute</a>
+          <li><a href="../style-3-soc/cloud.html">Overview — all Google Cloud services</a></li>
+          <li class="sub"><a href="../style-3-soc/cloud-compute.html" aria-current="page" aria-haspopup="true">Compute</a>
             <ul>
-              <li><a href="gcp-compute-engine.html">Compute Engine</a></li>
-              <li><a href="gcp-kubernetes-engine.html">Kubernetes Engine</a></li>
-              <li><a href="gcp-vmware-engine.html">VMware Engine</a></li>
+              <li><a href="../style-3-soc/gcp-compute-engine.html">Compute Engine</a></li>
+              <li><a href="../style-3-soc/cloud-compute.html#kubernetes-engine">Kubernetes Engine</a></li>
+              <li><a href="../style-3-soc/cloud-compute.html#vmware-engine">VMware Engine</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cloud-storage.html" aria-haspopup="true">Storage</a>
+          <li class="sub"><a href="../style-3-soc/cloud-storage.html" aria-haspopup="true">Storage</a>
             <ul>
-              <li><a href="gcp-cloud-storage.html">Cloud Storage</a></li>
-              <li><a href="gcp-filestore.html">Filestore</a></li>
-              <li><a href="gcp-backup-dr.html">Backup and DR</a></li>
+              <li><a href="../style-3-soc/cloud-storage.html#cloud-storage">Cloud Storage</a></li>
+              <li><a href="../style-3-soc/cloud-storage.html#filestore">Filestore</a></li>
+              <li><a href="../style-3-soc/cloud-storage.html#backup-dr">Backup and DR</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cloud-analytics.html" aria-haspopup="true">Analytics</a>
+          <li class="sub"><a href="../style-3-soc/cloud-analytics.html" aria-haspopup="true">Analytics</a>
             <ul>
-              <li><a href="gcp-bigquery.html">BigQuery</a></li>
-              <li><a href="gcp-pubsub.html">Pub/Sub</a></li>
-              <li><a href="gcp-dataflow.html">Dataflow</a></li>
+              <li><a href="../style-3-soc/gcp-bigquery.html">BigQuery</a></li>
+              <li><a href="../style-3-soc/cloud-analytics.html#pubsub">Pub/Sub</a></li>
+              <li><a href="../style-3-soc/cloud-analytics.html#dataflow">Dataflow</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cloud-serverless.html" aria-haspopup="true">Serverless</a>
+          <li class="sub"><a href="../style-3-soc/cloud-serverless.html" aria-haspopup="true">Serverless</a>
             <ul>
-              <li><a href="gcp-cloud-run.html">Cloud Run</a></li>
-              <li><a href="gcp-app-engine.html">App Engine</a></li>
-              <li><a href="gcp-api-gateway.html">API Gateway</a></li>
+              <li><a href="../style-3-soc/gcp-cloud-run.html">Cloud Run</a></li>
+              <li><a href="../style-3-soc/cloud-serverless.html#app-engine">App Engine</a></li>
+              <li><a href="../style-3-soc/cloud-serverless.html#api-gateway">API Gateway</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cloud-databases.html" aria-haspopup="true">Databases</a>
+          <li class="sub"><a href="../style-3-soc/cloud-databases.html" aria-haspopup="true">Databases</a>
             <ul>
-              <li><a href="gcp-alloydb.html">AlloyDB for PostgreSQL</a></li>
-              <li><a href="gcp-cloud-sql.html">Cloud SQL</a></li>
-              <li><a href="gcp-datastore.html">Datastore</a></li>
-              <li><a href="gcp-firestore.html">Firestore</a></li>
+              <li><a href="../style-3-soc/cloud-databases.html#alloydb">AlloyDB for PostgreSQL</a></li>
+              <li><a href="../style-3-soc/cloud-databases.html#cloud-sql">Cloud SQL</a></li>
+              <li><a href="../style-3-soc/cloud-databases.html#datastore">Datastore</a></li>
+              <li><a href="../style-3-soc/cloud-databases.html#firestore">Firestore</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cloud-ai.html" aria-haspopup="true">AI</a>
+          <li class="sub"><a href="../style-3-soc/cloud-ai.html" aria-haspopup="true">AI</a>
             <ul>
-              <li><a href="gcp-vertex-ai.html">Vertex AI</a></li>
-              <li><a href="gcp-model-garden.html">Model Garden</a></li>
+              <li><a href="../style-3-soc/cloud-ai.html#vertex-ai">Vertex AI</a></li>
+              <li><a href="../style-3-soc/cloud-ai.html#model-garden">Model Garden</a></li>
             </ul>
           </li>
         </ul>
@@ -322,23 +285,23 @@ a.node:hover{border-color:var(--accent)}
       <li class="dd"><button type="button" aria-haspopup="true">CyberSecurity</button>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>CyberSecurity — EDR · SIEM &amp; WDR · Built in-house</li>
-          <li><a href="cybersecurity.html">Overview — all security products</a></li>
-          <li class="sub"><a href="cybersecurity.html#edr" aria-haspopup="true">Endpoint — EDR</a>
+          <li><a href="../style-3-soc/cybersecurity.html">Overview — all security products</a></li>
+          <li class="sub"><a href="../style-3-soc/cybersecurity.html#edr" aria-haspopup="true">Endpoint — EDR</a>
             <ul>
-              <li><a href="sentinelone.html">SentinelOne</a></li>
-              <li><a href="threatsonar.html">ThreatSonar</a></li>
+              <li><a href="../style-3-soc/sentinelone.html">SentinelOne</a></li>
+              <li><a href="../style-3-soc/threatsonar.html">ThreatSonar</a></li>
               <li><span class="off">FortiEDR<span class="soon">Coming soon</span></span></li>
             </ul>
           </li>
-          <li class="sub"><a href="cybersecurity.html#detection" aria-haspopup="true">Detection — SIEM &amp; WDR</a>
+          <li class="sub"><a href="../style-3-soc/cybersecurity.html#detection" aria-haspopup="true">Detection — SIEM &amp; WDR</a>
             <ul>
-              <li><a href="cybereyes.html">CyberEyes</a></li>
-              <li><a href="google-secops.html">Google SecOps</a></li>
+              <li><a href="../style-3-soc/cybereyes.html">CyberEyes</a></li>
+              <li><a href="../style-3-soc/google-secops.html">Google SecOps</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cybersecurity.html#in-house" aria-haspopup="true">Built in-house — Volcatech AI Security</a>
+          <li class="sub"><a href="../style-3-soc/cybersecurity.html#in-house" aria-haspopup="true">Built in-house — Volcatech AI Security</a>
             <ul>
-              <li><a href="cybersecurity.html#ce-bas">CE-BAS</a></li>
+              <li><a href="../style-3-soc/cybersecurity.html#ce-bas">CE-BAS</a></li>
             </ul>
           </li>
         </ul>
@@ -346,17 +309,17 @@ a.node:hover{border-color:var(--accent)}
       <li class="dd"><button type="button" aria-haspopup="true">Services</button>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Services — Managed Services</li>
-          <li><a href="services.html">Overview — all managed services</a></li>
-          <li><a href="ess.html">Enterprise Security Service (ESS)</a></li>
-          <li><a href="services.html#soc">24/7 SOC &amp; Incident Response</a></li>
+          <li><a href="../style-3-soc/services.html">Overview — all managed services</a></li>
+          <li><a href="../style-3-soc/ess.html">Enterprise Security Service (ESS)</a></li>
+          <li><a href="../style-3-soc/services.html#soc">24/7 SOC &amp; Incident Response</a></li>
           <li><span class="off">GCP Managed Services<span class="soon">Coming soon</span></span></li>
         </ul>
       </li>
-      <li><a href="index.html#why">About</a></li>
-      <li><a class="btn" style="padding:9px 18px" href="index.html#contact">Contact us</a></li>
+      <li><a href="../style-3-soc/index.html#why">About</a></li>
+      <li><a class="btn" style="padding:9px 18px" href="../style-3-soc/index.html#contact">Contact us</a></li>
       <li>
         <nav class="lang" aria-label="Language">
-          <a href="cloud-compute.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+          <a href="inline-cloud-compute.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
         </nav>
       </li>
     </ul>
@@ -372,8 +335,8 @@ a.node:hover{border-color:var(--accent)}
       <p class="vendor">Vendor: Google Cloud · Virtual machines, Kubernetes and VMware</p>
       <p class="tag">Virtual machines, managed Kubernetes and native VMware — chosen per workload, then built and operated by one team.</p>
       <div class="cta">
-        <a class="btn" href="index.html#contact">Contact us</a>
-        <a class="btn btn-ghost" href="index.html#contact">Talk to our team</a>
+        <a class="btn" href="../style-3-soc/index.html#contact">Contact us</a>
+        <a class="btn btn-ghost" href="../style-3-soc/index.html#contact">Talk to our team</a>
       </div>
     </div>
   </div>
@@ -397,13 +360,13 @@ a.node:hover{border-color:var(--accent)}
       <div class="trio">
         <div id="compute-engine"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4"/></svg><h3>Compute Engine</h3>
           <p>Customisable virtual machines with preset or custom machine types, for web servers, databases and AI workloads.</p>
-          <div class="goes"><a class="go" href="gcp-compute-engine.html">Product page →</a><a class="go" href="https://cloud.google.com/products/compute" target="_blank" rel="noopener">Vendor page ↗</a></div></div>
+          <a class="go" href="../style-3-soc/gcp-compute-engine.html">Product page →</a></div>
         <div id="kubernetes-engine"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg><h3>Kubernetes Engine (GKE)</h3>
           <p>Managed Kubernetes for deploying and auto-scaling containerised applications, with the full Kubernetes API.</p>
-          <div class="goes"><a class="go" href="gcp-kubernetes-engine.html">Product page →</a><a class="go" href="https://cloud.google.com/kubernetes-engine" target="_blank" rel="noopener">Vendor page ↗</a></div></div>
+          <a class="go" href="https://cloud.google.com/kubernetes-engine" target="_blank" rel="noopener">Vendor page ↗</a></div>
         <div id="vmware-engine"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg><h3>VMware Engine</h3>
           <p>Run native VMware workloads on Google Cloud without re-architecting, keeping your existing tools and processes.</p>
-          <div class="goes"><a class="go" href="gcp-vmware-engine.html">Product page →</a><a class="go" href="https://cloud.google.com/vmware-engine" target="_blank" rel="noopener">Vendor page ↗</a></div></div>
+          <a class="go" href="https://cloud.google.com/vmware-engine" target="_blank" rel="noopener">Vendor page ↗</a></div>
       </div>
     </div>
   </section>
@@ -450,7 +413,7 @@ a.node:hover{border-color:var(--accent)}
   <div class="band">
     <div class="wrap">
       <h2>Size your workloads for Google Cloud — book a scoping session.</h2>
-      <div><a class="btn" href="index.html#contact">Contact us</a></div>
+      <div><a class="btn" href="../style-3-soc/index.html#contact">Contact us</a></div>
     </div>
   </div>
 </main>
@@ -458,7 +421,7 @@ a.node:hover{border-color:var(--accent)}
 <footer>
   <div class="wrap fcols">
     <div class="fbrand">
-      <a class="logo" href="index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
+      <a class="logo" href="../style-3-soc/index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
       <p>Cloud, security and managed operations for European organisations.</p>
       <dl>
         <dt>Email</dt><dd>[TODO: contact email]</dd>
@@ -467,54 +430,54 @@ a.node:hover{border-color:var(--accent)}
       </dl>
     </div>
     <div id="cloud-list">
-      <h4><a href="cloud.html">Cloud Infrastructure</a></h4>
+      <h4><a href="../style-3-soc/cloud.html">Cloud Infrastructure</a></h4>
       <ul>
-        <li><a href="cloud.html">Overview</a></li>
-        <li><a href="cloud-compute.html">Compute</a></li>
-        <li><a href="cloud-storage.html">Storage</a></li>
-        <li><a href="cloud-analytics.html">Analytics</a></li>
-        <li><a href="cloud-serverless.html">Serverless</a></li>
-        <li><a href="cloud-databases.html">Databases</a></li>
-        <li><a href="cloud-ai.html">AI</a></li>
-        <li><a href="cloud-services.html">Cloud services &amp; Cloud Armor</a></li>
+        <li><a href="../style-3-soc/cloud.html">Overview</a></li>
+        <li><a href="../style-3-soc/cloud-compute.html">Compute</a></li>
+        <li><a href="../style-3-soc/cloud-storage.html">Storage</a></li>
+        <li><a href="../style-3-soc/cloud-analytics.html">Analytics</a></li>
+        <li><a href="../style-3-soc/cloud-serverless.html">Serverless</a></li>
+        <li><a href="../style-3-soc/cloud-databases.html">Databases</a></li>
+        <li><a href="../style-3-soc/cloud-ai.html">AI</a></li>
+        <li><a href="../style-3-soc/cloud-services.html">Cloud services &amp; Cloud Armor</a></li>
       </ul>
     </div>
     <div>
-      <h4><a href="cybersecurity.html">Cybersecurity</a></h4>
+      <h4><a href="../style-3-soc/cybersecurity.html">Cybersecurity</a></h4>
       <p class="sub">Endpoint — EDR</p>
       <ul>
-        <li><a href="sentinelone.html">SentinelOne</a></li>
-        <li><a href="threatsonar.html">ThreatSonar</a></li>
-        <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
+        <li><a href="../style-3-soc/sentinelone.html">SentinelOne</a></li>
+        <li><a href="../style-3-soc/threatsonar.html">ThreatSonar</a></li>
+        <li><a href="../style-3-soc/cybersecurity.html#fortiedr">FortiEDR</a></li>
       </ul>
       <p class="sub">Detection — SIEM & WDR</p>
       <ul>
-        <li><a href="cybereyes.html">CyberEyes</a></li>
-        <li><a href="google-secops.html">Google SecOps</a></li>
+        <li><a href="../style-3-soc/cybereyes.html">CyberEyes</a></li>
+        <li><a href="../style-3-soc/google-secops.html">Google SecOps</a></li>
       </ul>
       <p class="sub">Built in-house</p>
       <ul>
-        <li><a href="cybersecurity.html#ce-bas">CE-BAS</a></li>
-        <li><a href="cybersecurity.html#ai-ptaas">AI-PTaaS</a></li>
-        <li><a href="cybersecurity.html#secpurple">SecPurple</a></li>
+        <li><a href="../style-3-soc/cybersecurity.html#ce-bas">CE-BAS</a></li>
+        <li><a href="../style-3-soc/cybersecurity.html#ai-ptaas">AI-PTaaS</a></li>
+        <li><a href="../style-3-soc/cybersecurity.html#secpurple">SecPurple</a></li>
       </ul>
     </div>
     <div>
-      <h4><a href="services.html">Managed Services</a></h4>
+      <h4><a href="../style-3-soc/services.html">Managed Services</a></h4>
       <ul>
-        <li><a href="ess.html">Enterprise Security Service (ESS)</a></li>
-        <li><a href="services.html#soc">24/7 SOC &amp; Incident Response</a></li>
-        <li><a href="services.html#isms">ISMS / PIMS Consulting</a></li>
-        <li><a href="services.html#pentest">Penetration Testing (human-led)</a></li>
-        <li><a href="services.html#finops">Cloud FinOps &amp; Enablement</a></li>
-        <li><a href="services.html#dx">Digital Transformation</a></li>
+        <li><a href="../style-3-soc/ess.html">Enterprise Security Service (ESS)</a></li>
+        <li><a href="../style-3-soc/services.html#soc">24/7 SOC &amp; Incident Response</a></li>
+        <li><a href="../style-3-soc/services.html#isms">ISMS / PIMS Consulting</a></li>
+        <li><a href="../style-3-soc/services.html#pentest">Penetration Testing (human-led)</a></li>
+        <li><a href="../style-3-soc/services.html#finops">Cloud FinOps &amp; Enablement</a></li>
+        <li><a href="../style-3-soc/services.html#dx">Digital Transformation</a></li>
       </ul>
     </div>
     <div>
       <h4>Company</h4>
       <ul>
-        <li><a href="index.html#why">About</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="../style-3-soc/index.html#why">About</a></li>
+        <li><a href="../style-3-soc/index.html#contact">Contact</a></li>
         <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
         <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
       </ul>
@@ -529,7 +492,7 @@ a.node:hover{border-color:var(--accent)}
     <p>© 2026 Volcatech Co., Ltd.</p>
     <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
   </div>
-  <div class="wrap backlink"><a href="index.html">← Style home</a> · <a href="../index.html">Demo hub</a></div>
+  <div class="wrap backlink"><a href="index.html">← lab index</a> · <a href="../style-3-soc/cloud-compute.html">Live page</a> · <a href="tailwind-cloud-compute.html">Tailwind version</a> · <a href="../index.html">Demo hub</a></div>
 </footer>
 </body>
 </html>

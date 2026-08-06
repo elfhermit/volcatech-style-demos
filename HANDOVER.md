@@ -1,6 +1,6 @@
 # Volcatech 官網風格 Demo 接手指引 (Handover)
 
-> **最後更新**：2026-08-04
+> **最後更新**：2026-08-06
 > **本檔定位**：進度速查與接手指令集。
 > **規格正本是 `docs/Volcatech_多風格_Build_Prompts.md`**——本檔與它衝突時，一律以它為準。
 > 唯一例外：該檔 §B 的 style-3 選單定義（`Platform / Arsenal / Operations`）是**評選期歷史**，
@@ -13,21 +13,29 @@
 
 ## 1. 目前狀態
 
-**2026-07-31 內部評選已結束**：勝出組合＝**Style 3（SOC Console 深色色系）× 原版直落版型**，
-色系凍結。現行維護對象只有 `style-3-soc/`，**共 23 頁**：
+**2026-07-31 內部評選已結束**：勝出組合＝**Style 3（SOC Console 深色色系）× 原版直落版型**，色系凍結。
+**2026-08-05 會議又定案三件事**（結算正本：`docs/meeting_0805_end.md`）：①首頁收斂為兩案；
+②選單改三層、第一層不可點、全站統一 Nav B；③內容頁改版——**0806 定案走守硬性規則的
+inline CSS 版**（`lab/` 的 Tailwind 版落選），16 個內容頁與首頁已全數改用區塊元件。
 
-- **8 個首頁**＝4 個版面方案 × Nav A/B（2026-08-04 新增，見下方 §版面變體）：
-  `index` / `index-v1-proof` / `index-v2-catalogue` / `index-v3-flow`，各附 `-nav-b` 版。
-- **3 個總覽頁**：`cloud.html`（CI）、`cybersecurity.html`（CS，2026-08-04 新建）、
-  `services.html`（MS，2026-08-04 新建）。
-- **6 個 GCP 分類頁**：`cloud-compute` / `cloud-storage` / `cloud-analytics` /
-  `cloud-serverless` / `cloud-databases` / `cloud-ai`；＋`cloud-services`（CI-07）。
-- **4 個產品頁**：`sentinelone` / `threatsonar` / `cybereyes` / `google-secops`；＋方案頁 `ess.html`。
-- 所有非首頁的子頁都用 Nav A。
+現行維護對象 `style-3-soc/`，**共 36 頁**：
 
-落選的 3 個風格、4 個版型變體與 GPT 參考包已全部移入 `archive/`（凍結），
-舊評選總覽為 `archive/index.html`；根 `index.html` 重寫為 Demo hub，
-首屏是**四個版面方案的橫向比較**。
+- **2 個首頁**：`index.html`（現行版，對照組）、`index-v1-proof.html`（V1 信任前置，
+  由 `docs/reports/build_v1_20260806.py` 產生，**不得手改**）。
+- **3 個總覽頁**：`cloud.html`（CI）、`cybersecurity.html`（CS）、`services.html`（MS）。
+- **7 個 GCP 分類頁**：`cloud-compute` / `cloud-storage` / `cloud-analytics` /
+  `cloud-serverless` / `cloud-databases` / `cloud-ai` / `cloud-services`（CI-01〜07）。
+- **19 個 GCP 產品頁**（2026-08-06 補齊，選單第三層）：18 個 GCP 產品各一頁，
+  ＋ `gcp-cloud-armor.html`（**孤兒頁**：它所屬的 Edge security 那組已於 0805 移出選單，
+  入口在 `cloud-services.html#cloud-armor` 與 `cloud.html` 的產品索引）。
+  全部由 `build_gcp_pages_20260806.py` 的 `PAGES` 產生，**不要手改頁面**。
+- **4 個資安產品頁**：`sentinelone` / `threatsonar` / `cybereyes` / `google-secops`；＋方案頁 `ess.html`。
+- **全 36 頁選單統一為三層 Nav B**，不再有 Nav A。
+
+另有 `lab/` 4 個檔（當初的兩案對照，**已定案走 inline 版**，留檔備查、隨時可刪）。
+落選的 3 個風格、4 個版型變體、GPT 參考包，以及 0805 封存的 6 個首頁變體檔
+（`archive/style-3-homepage-variants/`）都在 `archive/`（凍結）；
+封存總覽為 `archive/index.html`；根 `index.html` 是 Demo hub。
 
 ### 定調的資訊架構（沿用不變）
 
@@ -52,6 +60,8 @@
 2. **選單雙變體**：`index.html`＝Nav A（單層下拉、mono 小標分組）；`index-nav-b.html`＝Nav B
    （分組升級為第二層 flyout，hover / `:focus-within` 展開）；`sentinelone.html` 用 Nav A。
    兩首頁自 `<main>` 起**逐字節相同**（新一致性鐵則）。
+   ⚠ **已於 2026-08-06 退場**：Nav B 勝出並升級為三層，Nav A 與 `index-nav-b.html` 都不再存在
+   （後者已封存至 `archive/style-3-homepage-variants/`），該條鐵則由「全站 header 同源」取代。
 3. **首頁 hero 文案（H1／副標／CTA）改置中**。
 4. **歸檔**：style-1／2／4、layout 四個變體、GPT 參考包 → `archive/`；
    補建先前文件宣稱有但實際缺失的 `.nojekyll`。GitHub Pages 部署方式不變，
@@ -115,6 +125,9 @@
 
 ### 本輪完成的事（2026-08-04 下午，首頁版面變體）
 
+> ⚠ 這是 08-04 當時狀態。**08-05 已收斂為 2 案**（V2/V3 封存）、**08-06 選單改三層 Nav B**，
+> 下文的「8 個首頁」「23 檔」「Nav A/B」皆為歷史；現況見上方 08-06 那節與 §2。
+
 **起因**：盤點現行首頁後找到三個結構性病灶（不是文案問題）——
 ①「產品有哪些」動線斷在頁尾錨點（三張卡只有 Cloud 有真總覽頁，另有 9 個項目完全沒落點）；
 ②「合作夥伴」只有六個純文字品牌名、不能點也沒說明；
@@ -134,6 +147,10 @@
 
 ### 本輪完成的事（2026-08-05，選單精簡）
 
+> ⚠ 這是 08-05 當時狀態。**08-06 選單已重寫為三層 Nav B**，下文的「Nav A 共 26 列」與
+> `remove_gcp_groups_20260805.py`（已封印）皆為歷史；移除兩組的結果現在直接體現在
+> `rebuild_nav_20260806.py` 的 MENU 定義裡。
+
 使用者指示：從 `Google Cloud` 下拉移除 **`Edge security`**（Cloud Armor）與
 **`Volcatech cloud services`**（Cloud Migration & Kubernetes／Hybrid Cloud & Backup／
 Data & AI Engineering）兩組，下拉由八組 22 項回到 **六組 18 項**（Nav A 共 26 列）。
@@ -149,95 +166,176 @@ Nav B 刪兩個 `li.sub` flyout 區塊，全 23 檔每檔恰好命中一次）�
 頁尾 14 檔逐字節相同、重跑 `build_variants_20260804.py` 後 6 個變體檔 md5 不變
 （證明手動移除的結果與產生腳本一致）。
 
-### 版面變體（改變體前必讀）
+### 本輪完成的事（2026-08-06，選單三層化 ＋ 首頁收斂 ＋ 內容頁改版提案）
 
-| 方案 | Nav A 檔名 | hero 之後第一眼 |
-|---|---|---|
-| 現行（對照組） | `index.html` | Built → Why → Trust → Vendors（六個純文字） |
-| V1 信任前置 | `index-v1-proof.html` | How we work 三步 → Trust 四項 → Partners 六張能力卡 → 服務索引 |
-| V2 型錄前置 | `index-v2-catalogue.html` | Service catalogue 21 列（代碼｜名稱｜一句話｜Powered by） |
-| V3 參考架構 | `index-v3-flow.html` | Reference architecture 四層圖 ＋ Google Cloud 底座 |
+依 `docs/meeting_0805_end.md`。分兩軌：**軌 A 動結構（落地）**、**軌 B 出視覺提案（不落地）**。
 
-**變體檔不要手改。**它們由 `docs/reports/build_variants_20260804.py` 產生：
-hero / Built / Why / Trust / CTA 五個共用區塊直接從 `index.html` **切片**取得，
-所以跨變體必定逐字節相同（hero 區塊四方案 md5 相同已驗證）；
-Nav B 版由 `index-nav-b.html` 當母版、只換 header 與自我參照連結產出。
-要改版面就編輯該腳本內對應的區塊字串後**重跑**，再跑 `CLAUDE.md` §一致性檢查的雙軸指令。
+**軌 A：**
 
-踩過的三個坑（腳本內已註記，勿還原）：
+1. **首頁收斂為 2 檔**：6 個變體檔 `git mv` 到 `archive/style-3-homepage-variants/`，
+   相對連結由 `docs/reports/archive_homepage_variants_20260806.py` 重指回 `../../style-3-soc/`。
+   留下的兩檔 backlink 列改成 `Layout: Current · V1`（Nav A/B 那組隨 Nav A 退場）。
+2. **選單三層化 ＋ 全站 Nav B**（17 檔）：`docs/reports/rebuild_nav_20260806.py`。
+   第一層改成 `<button>`（不可點，但保留 keyboard focusable 讓 `:focus-within` 生效）；
+   `aria-current` 移到第二層真連結，第一層改掛非 ARIA 的 `class="on"`；
+   `<header>` 加行內 `onkeydown`，Esc 把焦點交給 logo（補 WCAG 2.2 SC 1.4.13 Dismissible）。
+3. **3 個 GCP 產品頁**：`docs/reports/build_gcp_pages_20260806.py`，以 `cloud-compute.html`
+   為底檔、只換 `<main>`，所以 footer 自動與 `sentinelone.html` 逐字節相同。
+4. 根 hub 四卡改兩卡、補 3 個新頁與 lab 入口；`archive/index.html` 補第三輪封存的導流。
+5. `build_variants_20260804.py` 改造成 `build_v1_20260806.py`（只產 V1、只吃 index.html 一份母版）；
+   `sync_nav_20260804.py` 與 `remove_gcp_groups_20260805.py` 檔頭加 `sys.exit` **封印**。
 
-1. 自我參照連結的替換若早於 backlink 列處理，會把切換列裡的「Current」也改成變體自己——
-   backlink 必須先換成佔位符隔離。
-2. Nav B 母版的**頁尾 logo** 指向 `index.html` 而非自己；不一併處理，軸 1 diff 會紅在 `<footer>`。
-3. V3 圖層標題不能單獨叫 `Operations` / `Platform`——會撞到「舊選單術語不得殘留」的機械檢查
-   而永遠誤報（現用 `Operations & validation` / `Cloud platform`）。連註解裡都不能出現該字串樣式。
+**軌 B：** `lab/` 四個檔（比對入口、守規則版分類頁改版、兩個 Tailwind 實驗頁）。
+文案與被比對的頁面逐字相同，只有版型不同。**Tailwind 頁刻意違反禁 CDN／禁框架／色系凍結**，
+那正是要被看見的成本；不得擴散到 `style-3-soc/`。
 
-V3 架構圖的三條硬約束（獨立審查結論，勿違反）：不得用 `position:absolute`（768/390px 會崩）；
-承載語意的線條用 `--muted` 不用 `--line`（`--line #27344A` 在 `--bg` 上只有 **1.47:1**，
-不到 WCAG 1.4.11 的 3:1）；箭頭用帶 `aria-hidden` 的真字元，不放 `::before content`，
+**踩到的三個坑（腳本內已註記）：**
+
+1. `rebuild_nav` 第一版**不冪等**——它只用正則移除 `@media (max-width:1100px)` 區塊，
+   卻沒移除自己上一輪留下的註解，跑第二次註解就疊一層。修法：註解與 media 分兩次清，
+   並加後置條件檢查（四個切片各只能存在一份）。
+2. **nav CSS 不是一段，是三段**（桌機／行動版／1100px），另加一個插入點。
+   而且**不能用 `@media (max-width:900px){` 當行動版切片邊界**——當時的變體首頁有兩個同名
+   media block，只有 17/23 檔唯一命中。改用 `.navbtn{display:block}` 當錨點。
+3. 第一層 `<a>` 換成 `<button>` 後，`.menu a[aria-current="page"]` 這條 CSS 匹配不到 button，
+   **10 個檔的「你在這裡」黃底線會靜默消失**——而 `grep -c 'aria-current'` 仍回報正常。
+   這是「檢查說沒事、畫面壞了」的組合，必須改 CSS 選擇器並用瀏覽器實際確認。
+
+**已驗**：`check_nav_20260806.py` PASS（並做過注入破壞測試，確認它抓得到）、
+`check_links_20260806.py` 25 檔全通過、軸 2 五句 2/2＋核心句 1、footer 17/17 逐字節相同、
+重跑 `build_v1_20260806.py` 產出與現況逐字節一致。
+
+### 本輪完成的事（2026-08-06 下午，內容頁全面區塊化）
+
+0805 的意見是「內容頁都是文字 list，看久了視覺疲勞；想要區塊、顏色區分、箭頭表關聯」。
+0806 使用者裁決：**走守硬性規則的 inline CSS 版，Tailwind 版不採用**。
+
+1. **共用元件 CSS 抽成唯一正本** `docs/reports/restyle_content_20260806.py`（`BLOCK_CSS`
+   ＋ 35 個自繪 icon 的 `ICONS`），注入全部 36 頁。元件：`.probs`/`.uses`（琥珀左邊界）、
+   `.trio`/`.quad`/`.duo`（icon 卡＋`.go` 連結）、`.steps`（真箭頭流程）、`.spec`（深色編號面板）、
+   `.stack`（分層圖）。**零新色票**——區分只靠三層表面深度、一道琥珀邊界、一列真箭頭。
+2. **16 個內容頁 ＋ 首頁的 `<main>` 全部改寫**。原本每頁重複三四次的 `.loglist`／`.cards2`
+   已在 style-3-soc 絕跡（`grep -lE 'class="(loglist|cards2)"' *.html` → 無）。
+3. **軸 3（新）：文案零漂移**。`docs/reports/check_copy_20260806.py` 拿 git 基準逐句比對
+   `<main>`，少一句就 FAIL、多一句要在白名單（`.go` 標籤／箭頭／兩位數編號）。
+   一次改 16 頁的版型，沒有這條就沒有東西擋得住某一頁被順手改字。
+4. **軸 1 擴充成四段切片**：`check_nav_20260806.py` 現在也比對區塊元件 CSS，
+   36 檔必須逐字節相同。已做注入破壞測試（改一頁的 `.spec` 字級 → 正確點名該檔）。
+5. **`lab/` 定案留檔**：`lab/index.html` 與根 `index.html` 都已標記「已定案走 inline 版」。
+   該資料夾隨時可整個刪掉。
+6. **`build_gcp_pages_20260806.py` 不再自己注入 CSS**，改 import 共用正本的 `svg()`，
+   icon 與元件樣式只剩一份定義。
+
+**踩到的坑（下次會再遇到）**
+1. **`.steps` 是最容易誤用的元件**。四張並列的交付卡硬插箭頭 = 假造推進關係。
+   本輪有兩頁（cloud-storage／cloud-analytics）判定為並列而改用 `.quad`，理由寫在施工回報裡；
+   cloud-analytics 的反證特別值得記：Data cleansing/ETL 與 Streaming pipelines 是兩種併行進料，
+   箭頭無論指哪個方向都是錯的。**判不出順序就不要用 `.steps`。**
+2. **`.probs`/`.uses` 預設三欄，四項會排成 3+1**（第四張只佔 1/3 寬）。四項要加 `.four`。
+   而且 `.probs.four` 的優先權高於 `.probs`，兩個 media query 都得補上覆寫，否則窄螢幕維持四欄。
+3. **`.vsrc` 搬進 `<h3>` 會繼承粗體**。它是 mono 微標籤不是標題的一部分，
+   卡片內要 scope 覆寫成獨立一行、`font-weight:400`。
+4. **元件 CSS 不能用 `@media (max-width:1100px)` 或 `(max-width:1024px)`**——
+   `check_nav` 用這兩個查詢當切片邊界，各只能出現一次。本輪的四欄斷點因此改用 1040px。
+5. **`ess.html` 的步驟編號寫在標題文字裡**（`01 · Data collection`），拆成 `.n` span 會讓軸 3
+   判定少一句。這是文案凍結與版型一致性的真實衝突，已登記為已知缺口 7。
+
+**已驗**：`check_nav` / `check_copy` / `check_links` 三支 PASS；36 頁無 `<img>`/`<script>`/
+外部資源；外連全帶 `rel="noopener"`；`ess.html` 與 `services.html` 零外連；footer 17/17 逐字節相同；
+22／8／3／6 個錨點 id 全在；軸 2 五句 2/2 ＋ 核心句 1；每頁 icon 無重複。
+14 個 subagent 分 6 組施工並交叉驗收，**0 blocker**，6 項 advisory 已逐項處理或登記。
+
+### V1 首頁（改它之前必讀）
+
+**V1 不要手改。**它由 `docs/reports/build_v1_20260806.py` 從 `index.html` 產生：
+hero / Built / Why / Trust / CTA 五個共用區塊直接**切片**取得，所以兩案必定逐字節相同。
+要改 V1 就編輯該腳本內對應的區塊字串後**重跑**；要改共用區塊就改 `index.html` 再重跑。
+`<main>` 以外全部繼承母版，所以母版的 header 換過之後重跑，V1 的選單會一起帶到。
+
+踩過的坑（腳本內已註記，勿還原）：自我參照連結的替換若早於 backlink 列處理，
+會把切換列裡的「Current」也改成 V1 自己——backlink 必須先換成佔位符隔離。
+
+（V2/V3 已封存。它們留下的兩個教訓仍然有效：圖層標題不能單獨叫 `Operations` / `Platform`，
+會撞到「舊選單術語不得殘留」的機械檢查而永遠誤報，連註解裡都不能出現該字串樣式。）
+
+分層圖（`.stack`）的三條硬約束，現由 3 個 GCP 產品頁沿用，勿違反：
+不得用 `position:absolute`（768/390px 會崩）；承載語意的線條用 `--muted` 不用 `--line`
+（`--line #27344A` 在 `--bg` 上只有 **1.47:1**，不到 WCAG 1.4.11 的 3:1）；
+箭頭用帶 `aria-hidden` 的真字元，不放 `::before content`，
 也不用 `role="img"` 包整張圖（會把裡面的連結對輔助科技隱藏）。
 
 ---
 
 ## 2. 現行導覽結構速查（style-3-soc）
 
-> Nav A 與 Nav B 的選單分類與各下拉內容**完全相同**，差別只在「分組的呈現層級」。
+> **選單的唯一正本是 `docs/reports/rebuild_nav_20260806.py` 的 `MENU` 常數**，不是任何 HTML 檔。
+> 改它 → 重跑腳本（36 檔一次同步）→ 跑 `check_nav_20260806.py`。手改必定漏。
 
-| 變體 | 檔案 | 結構 |
-|---|---|---|
-| **Nav A（單層下拉）** | 4 個 `index*.html` 的 Nav A 版與全部 15 個子頁（3 總覽頁＋7 個 Cloud 分類頁＋`sentinelone`／`threatsonar`／`cybereyes`／`google-secops`／`ess`） | `● VOLCATECH` \| `Home` \| `Google Cloud ▾` \| `CyberSecurity ▾` \| `Services ▾` \| `About` \| `[Contact us]` \| `EN 繁中`；下拉內以 mono 小標分組 |
-| **Nav B（二層 flyout）** | 4 個 `*-nav-b.html` | 頂層同 Nav A；下拉內的分組升級為第二層 flyout（hover / `:focus-within` 展開） |
+2026-08-06 起全站統一**三層 Nav B**，不再有 Nav A：
 
-各下拉內容（首行皆為 mono 白話對照）。**2026-08-04 起三個下拉都零佔位連結**：
+- **第一層不可點**：`Google Cloud` / `CyberSecurity` / `Services` 是
+  `<button type="button" aria-haspopup="true">`，只 hover / focus 展開。
+  用 button 而非 span，是為了保留 keyboard focusable 讓 `:focus-within` 生效、不需要 JS。
+- **第二層**＝分類頁；**第三層**＝產品。
+- 頂層列：`● VOLCATECH` | `Home` | `Google Cloud ▾` | `CyberSecurity ▾` | `Services ▾` |
+  `About` | `[Contact us]` | `EN 繁中`。
 
-- `Google Cloud`：頂部 Overview 入口（連 `cloud.html`）＋**六組 18 項**——GCP 產品樹
-  （Compute / Storage / Analytics / Serverless / Databases / AI，每項為深連結
-  `分類頁#產品錨點`，例 `cloud-compute.html#compute-engine`）。
-  **2026-08-05 起 `Edge security`（Cloud Armor）與 `Volcatech cloud services`（3 項）
-  兩組已從選單移除**——只動選單，頁尾那列、`cloud.html` 的相關區塊與
-  `cloud-services.html` 頁面本身都保留（腳本 `docs/reports/remove_gcp_groups_20260805.py`）
-- `CyberSecurity`：頂部 Overview 入口（連 `cybersecurity.html`）＋ 8 項三組，
+各下拉內容（首行皆為 mono 白話對照）：
+
+- `Google Cloud`：Overview（`cloud.html`）＋六組 18 項。
+  **Compute Engine → `gcp-compute-engine.html`、Cloud Run → `gcp-cloud-run.html`、
+  BigQuery → `gcp-bigquery.html`** 已是獨立頁；其餘 15 項仍是 `分類頁#產品錨點`（過渡狀態）。
+  第二層群組父項指向分類頁本身（`cloud-compute.html` 等）。
+- `CyberSecurity`：Overview（`cybersecurity.html`）＋三組，
   head 白話行「CyberSecurity — EDR · SIEM & WDR · Built in-house」——
-  Endpoint — EDR（SentinelOne、ThreatSonar 連真頁；FortiEDR → `cybersecurity.html#fortiedr`）／
-  **Detection — SIEM & WDR**（CyberEyes、Google SecOps 連真頁；CyberEyes 實為 WDR，故群組改名）／
-  Built in-house（CE-BAS／AI-PTaaS／SecPurple → `cybersecurity.html#ce-bas` 等深連結）
-- `Services`：頂部 Overview 入口（連 `services.html`）＋「Enterprise Security Service (ESS)」
-  （連 `ess.html`）＋ 原 5 項（→ `services.html#soc` / `#isms` / `#pentest` / `#finops` / `#dx`）
-- Nav B 的第二層群組父項也已改為深連結（`cybersecurity.html#edr` / `#detection` / `#in-house`）
+  Endpoint — EDR（SentinelOne／ThreatSonar 連真頁；**FortiEDR 是不可點灰字**）／
+  **Detection — SIEM & WDR**（CyberEyes／Google SecOps 連真頁；CyberEyes 實為 WDR，故群組改名）／
+  **Built in-house — Volcatech AI Security**（只剩 CE-BAS → `cybersecurity.html#ce-bas`）。
+  第二層群組父項是深連結（`cybersecurity.html#edr` / `#detection` / `#in-house`）。
+- `Services`（**扁平，無第二層**）：Overview（`services.html`）＋ ESS（`ess.html`）＋
+  24/7 SOC & Incident Response（`services.html#soc`）＋ **GCP Managed Services（不可點灰字）**。
 
-舊風格與版型（Style 1／2／4、Layout 1–4）的導覽結構已隨頁面**歸檔至 `archive/`**（凍結），
-逐字定義見規格正本 §B（評選歷史，僅供回顧）。
+**0805 從選單移除、但頁面區塊全部保留的項目**（只動選單，不要「順手清乾淨」）：
+AI-PTaaS、SecPurple、ISMS / PIMS、Penetration Testing、Cloud FinOps、Digital Transformation，
+以及更早移除的 Edge security（Cloud Armor）與 Volcatech cloud services 3 項。
+它們在 `cybersecurity.html` / `services.html` / `cloud-services.html` 的區塊、
+以及頁尾清單一律照舊。⚠ **首頁 Built by Volcatech 仍須列 CE-BAS / AI-PTaaS / SecPurple 三品**（硬性規則）。
 
 ### 現行注意事項（改 style-3-soc 前必讀）
 
 1. 選單分類 `CyberSecurity` 的**駝峰寫法是 0731 會議指定的刻意寫法**，不要「修正」成
    Cybersecurity（僅限選單分類名；H1 等內文仍為定稿原文的正常拼寫）。
-2. **一致性鐵則是雙軸**（2026-08-04 起，舊的單軸版本已失效，正本在 `CLAUDE.md`）：
-   - **軸 1** 同一版面的 Nav A ↔ Nav B 自 `<main>` 起逐字節相同，共 4 組必須全綠：
+2. **一致性鐵則是雙軸**（正本在 `CLAUDE.md`；軸 1 已於 2026-08-06 換人）：
+   - **軸 1**＝全站 header 同源。舊的「Nav A ↔ Nav B 自 `<main>` 起逐字節相同」隨 Nav A 退場而失效，
+     接手的是：
      ```bash
-     cd style-3-soc
-     for v in "index:index-nav-b" "index-v1-proof:index-v1-proof-nav-b" \
-              "index-v2-catalogue:index-v2-catalogue-nav-b" "index-v3-flow:index-v3-flow-nav-b"; do
-       a=${v%%:*}; b=${v##*:}; echo "== $a vs $b"
-       diff <(awk '/<main>/,0' $a.html) <(awk '/<main>/,0' $b.html)
-     done
+     python3 docs/reports/check_nav_20260806.py     # 36 檔 header 正規化後逐字節相同
+     python3 docs/reports/check_links_20260806.py   # 標籤配對 / 唯一 h1 / 連結與錨點
      ```
-   - **軸 2** 跨版面方案凍結共用文案（五句定稿在 8 個首頁各命中 8 次；核心句只在三變體共 6 次）。
-3. 全部 15 個子頁（3 總覽頁 `cloud`／`cybersecurity`／`services`＋7 個 Cloud 分類頁
-   `cloud-compute`／`cloud-storage`／`cloud-analytics`／`cloud-serverless`／`cloud-databases`／
-   `cloud-ai`／`cloud-services`＋4 產品頁 `sentinelone`／`threatsonar`／`cybereyes`／
-   `google-secops`＋方案頁 `ess`）用 Nav A；
-   **若會議選 Nav B，要換 header 的頁面就是這 15 個子頁**（技術債，擇一定稿後一次處理；
-   8 個首頁本身已各有 A/B 兩份，不在此列）。
-4. **動 nav 或 footer＝全站 23 檔同步**（8 個首頁＋15 個子頁）——手改必定漏，
-   用腳本（參考 `docs/reports/sync_nav_20260804.py`）產生後跑驗證；`ess.html` 全頁
-   **禁任何外部連結**（ESS 是方案層，非 19 項 SKU）。
-   零外部連結規則適用 `ess.html` 與 `services.html`——`cloud-services.html` 有 1 條
+     ⚠ 這條檢查的存在意義：它是全站**唯一**能自動抓到「手改漏一檔」的東西。舊軸 1 死掉時
+     一次要動 36 檔 × 4 個切片，正是最需要它的時候。已做過注入破壞測試，確認抓得到。
+   - **軸 2** 兩個首頁凍結共用文案（五句定稿各命中 2 次；核心句只在 V1，共 1 次）。
+3. **`aria-current` 與 `class="on"` 是兩個角色，不可混用**：
+   `aria-current="page"` 掛「選單裡 href 等於本檔名的那個 `<a>`」（通常在第二層）；
+   第一層 button 的視覺高亮用非 ARIA 的 `class="on"`。
+   ⚠ 第一層從 `<a>` 換成 `<button>` 時，`.menu a[aria-current="page"]` 這條 CSS 會匹配不到，
+   **10 個檔的黃底線會靜默消失，而 `grep -c` 仍回報正常**——改完必須用瀏覽器實際確認。
+4. **孤兒頁**（選單裡沒有連結指向它，因此 header 內沒有 `aria-current`）目前只有
+   `cloud-services.html`。孤兒必須**明文登記**在 `check_nav_20260806.py` 的 `ORPHANS`，
+   不能默默出現——腳本會擋。
+5. **動 nav ＝ 改 `MENU` 後重跑腳本**（36 檔一次同步）；**動 footer 清單 ＝ 36 檔都要改**
+   （footer 目前沒有產生器，靠「17 個內容頁 footer 與 sentinelone 逐字節相同」把關）。
+   `ess.html` 與 `services.html` **禁任何外部連結**；`cloud-services.html` 有 1 條
    Cloud Armor 官方連結、`cybersecurity.html` 有 5 條原廠連結，皆合法。
-5. **Nav A 的 `.dd ul` 有 `max-height:calc(100vh - 90px);overflow-y:auto`**（Google Cloud
-   下拉 26 列在矮視窗會溢出）；**Nav B 刻意沒有**——加上去會裁掉二層 flyout。改選單 CSS 時勿「順手統一」。
-6. 全 23 檔的 `main [id]` 都有 `scroll-margin-top:80px`，深連結錨點才不會被 sticky header 遮住；
-   新增頁面時一併帶上。V3 兩檔另需 `.stack a{scroll-margin-top:80px}`（圖中連結的鍵盤焦點）。
+6. **`.dd ul` 絕不可加 overflow**——會變成 clip container 裁掉二層 flyout。
+   Nav A 時代的 `max-height`/`overflow-y` 已隨 Nav A 一起退場（Nav B 面板最多 8 列，不需要捲動）。
+   **`.sub` 的四條規則一律 scope 成 `.menu .sub`**——footer 有內文用的 `<p class="sub">`。
+7. **901–1100px 這一段，二層改成在面板內就地展開**（`position:static`），不是側開 flyout——
+   該區間視窗放不下側開的 flyout，窄端會跑出左緣。
+8. 全 36 檔的 `main [id]` 都有 `scroll-margin-top:80px`，深連結錨點才不會被 sticky header 遮住；
+   新增頁面時一併帶上。3 個 GCP 產品頁另需 `.stack a{scroll-margin-top:80px}`（圖中連結的鍵盤焦點）。
+9. **`lab/` 的規則與 `style-3-soc/` 不同，而且只在 `lab/` 內有效**：那兩個 Tailwind 頁
+   刻意違反禁外部 CDN / 禁框架 / 色系凍結。不得擴散；定案後整個資料夾刪掉。
 
 ---
 
@@ -247,15 +345,28 @@ V3 架構圖的三條硬約束（獨立審查結論，勿違反）：不得用 `
       原版直落版型，色系凍結。會後已完成：hero 文案置中、選單分類改名
       （`Google Cloud / CyberSecurity / Services`）＋ GCP 產品樹、選單雙變體（Nav A／Nav B）。
       落選風格與版型已歸檔至 `archive/`。會議紀錄見 `docs/meeting_0731.md`。
-- [ ] **任務 1d（進行中）：選單變體擇一定稿**：比對 Nav A 與 Nav B，擇一後併回單一版本；
-      **若選 Nav B，需同步 15 個子頁的 header**（3 總覽頁＋7 個 Cloud 分類頁＋4 產品頁＋ESS），
-      並注意 Nav B 不可套用 Nav A 的 `.dd ul` max-height。
-- [ ] **任務 1e（進行中，2026-08-04 下午新增）：首頁版面方案擇一定稿**：
-      四個方案橫向比較（現行對照組／V1 信任前置／V2 型錄前置／V3 參考架構圖），
-      入口在根 `index.html`。定稿後把勝出方案的內容搬進 `index.html`，
-      落選的三個版面檔移入 `archive/`（或依指示刪除），首頁檔數由 8 收斂回 2，
-      一致性鐵則的軸 2 隨之退場。變體由 `docs/reports/build_variants_20260804.py` 產生，
-      不要手改變體檔。
+- [x] **任務 1d：選單變體定稿——已完成（2026-08-05 決議、08-06 實作）**：選 Nav B，
+      並升級為三層、第一層不可點。全站 36 檔已統一，Nav A 退場。
+- [ ] **任務 1e（進行中）：首頁兩案擇一定稿**：現行版（對照組）vs V1 信任前置，
+      入口在根 `index.html`。0805 已先淘汰 V2／V3。定稿後把勝出方案的內容搬進 `index.html`，
+      另一個移入 `archive/`，首頁收斂為 1 檔，一致性鐵則的軸 2 與
+      `build_v1_20260806.py` 一併退場。
+- [x] **任務 1f：內容頁視覺方向定案——已完成（2026-08-06）**：選**守硬性規則的 inline CSS 版**，
+      Tailwind 版不採用（代價是外部 CDN、色系解凍與建置步驟，三項都與硬性規則衝突）。
+      元件已套到全部 36 頁，`lab/` 留檔備查、隨時可刪。
+- [ ] **任務 1f-2（新）：`lab/` 何時刪**：它已完成階段任務，留著只有「當初為什麼沒選 Tailwind」
+      的紀錄價值。刪掉時 `docs/reports/build_lab_20260806.py` 可一併移除，
+      CLAUDE.md 已知缺口第 5 條也隨之消失。**刪除時機由專案負責人決定**（未 commit 前刪掉就找不回來）。
+- [x] ~~**任務 1f-3：`cloud.html` 的 Overview 要不要展開到產品層**~~
+      **2026-08-06 完成**（ADR 0002）：兩層都留——六領域卡在上當導覽，下面接 `.loglist`
+      攤開全部 19 個產品。索引的描述句由 `link_products_20260806.py` 從分類頁抽取，
+      不另寫一份會漂移的文案。
+- [x] ~~**任務 1g：其餘 15 個 GCP 產品頁做不做**~~
+      **2026-08-06 完成**（ADR 0003）：全部做，19 頁。
+      ⚠ 原本的素材盤點結論「約 5 個產品內容撐不起一頁」**實測不成立**——
+      `docs/GCP_Introduce_v2.md` 覆蓋 19 個產品全部、欄位齊備；唯一破格的是 Model Garden
+      （沒有「關鍵特色」欄，改為模型清單）。這條錯誤的盤點差點讓 16 頁不做，
+      教訓是**素材充足與否要逐產品實際打開來看，不能憑印象下結論**。
 - [ ] **任務 2：補齊其餘產品/服務頁——待補 9 頁（2026-08-04）**：
       Cybersecurity 8 項已完成 4 項（SentinelOne／ThreatSonar／CyberEyes／Google SecOps），
       **待補＝Cybersecurity 剩 4 項＋Managed Services 5 項**；
@@ -287,30 +398,41 @@ V3 架構圖的三條硬約束（獨立審查結論，勿違反）：不得用 `
 
 ```text
 請讀取根目錄的 HANDOVER.md 與 CLAUDE.md。
-用 python3 -m http.server 8000 啟動本機伺服器，對 style-3-soc 的全部 23 頁做檢查
-（用 ls style-3-soc/*.html 取得清單，不要用寫死的檔名——現況是 8 個首頁
-index / index-nav-b / index-v1-proof / index-v1-proof-nav-b / index-v2-catalogue /
-index-v2-catalogue-nav-b / index-v3-flow / index-v3-flow-nav-b，加 15 個子頁）：
-① HTML 標籤配對（python html.parser）＋ 每頁唯一 h1
-② 一致性鐵則雙軸：軸1 四組「同版面 Nav A↔B」自 <main> 起逐字節相同；
-   軸2 五句定稿文案在 8 個 index*.html 各命中 8 次、核心句
-   「We operate what we sell, and we build what we cannot buy.」恰 6 次
-   （對照組 index.html / index-nav-b.html 刻意不含，不要「修正」成 8）
-③ 390 / 768 / 1024 / 1440px 無水平捲軸（Nav B 的二層 flyout 特別看窄幅；
-   Nav A 的 Google Cloud 下拉 26 列要能在視窗內捲動；
-   V3 的架構圖在 900px 以下要塌成單欄且層序不亂）
-④ 確認頁面無任何外部資源請求、無新增 <script>；ess.html 與 services.html 全頁零外部連結
+先跑兩支檢查腳本，兩支都必須 PASS：
+  python3 docs/reports/check_nav_20260806.py     # 軸1：36 檔 header 正規化後逐字節相同
+  python3 docs/reports/check_links_20260806.py   # 標籤配對 / 唯一 h1 / 相對連結與錨點
+
+再用 python3 -m http.server 8000 啟動本機伺服器，對 style-3-soc 的全部 36 頁做檢查
+（用 ls style-3-soc/*.html 取得清單，不要用寫死的檔名）：
+① 軸2：五句定稿文案在 2 個 index*.html 各命中 2 次、核心句
+   「We operate what we sell, and we build what we cannot buy.」恰 1 次
+   （對照組 index.html 刻意不含，不要「修正」成 2）
+② 選單（三層 Nav B）：
+   - 第一層 Google Cloud / CyberSecurity / Services **不可點**（是 <button> 不是 <a>）
+   - 斜著移進第二層 flyout 不掉層；純鍵盤 Tab 全程可達
+   - 下拉開著時按 Esc 會關閉（焦點回到左上角 logo）
+   - FortiEDR 與 GCP Managed Services 是不可點灰字，且不得寫成 <a href="#">
+③ 390 / 768 / 1024 / 1440px 無水平捲軸。特別測 **約 1000px**：
+   二層應改成在面板內就地展開，不是側開 flyout（該區間 19 個原 Nav A 檔從沒測過）。
+   390px：選單三層全部攤開成縮排清單。
+④ 「你在這裡」的指示：開 cloud.html（Overview 型）、cloud-compute.html（第二層型）、
+   sentinelone.html（第三層型）、gcp-cloud-run.html（第三層新頁）四種落點型態，
+   確認 aria-current 的黃底線與第一層 button 的 .on 高亮都在。
+   ⚠ grep -c 數的是行數不是語意——第一層換成 button 之後就算樣式壞了它仍回報正常。
+⑤ 無任何外部資源請求、無新增 <script> 標籤；ess.html 與 services.html 全頁零外部連結
 　（cloud-services.html 允許 1 條 Cloud Armor 官方連結、cybersecurity.html 允許 5 條原廠連結）
-⑤ 各子頁 aria-current="page" 掛在自己那一項、語言切換 EN 連結自指本頁
 ⑥ 三個下拉的深連結目標錨點都存在（Cloud 22 個、cybersecurity 11 個、services 6 個），
-   跳轉後標題不被 sticky header 遮住；子頁（15 個非首頁）不得殘留 #offer / #built。
-   首頁的同頁錨點是合法的，不要當成殘留佔位刪掉：每個首頁有 1 個 #offer
-   （hero 的「Explore our services」按鈕），三個變體另有連到同頁 id="built" 的 #built
-   （Partners 卡與頁尾各 1）。判準是「該 id 在同一頁存在」而非「有沒有 # 開頭」。
-⑦ 內容真實性：合作等級、認證、SLA、客戶數一律 [TODO] 佔位，
+   跳轉後標題不被 sticky header 遮住。首頁的同頁錨點（#offer / #built）是合法的，
+   判準是「該 id 在同一頁存在」而非「有沒有 # 開頭」。
+⑦ 0805 從選單移除的 6 項（AI-PTaaS／SecPurple／ISMS／Pentest／FinOps／DX）：
+   **header 區內應為 0，但頁面區塊與頁尾清單必須還在**——只動選單是使用者的明確裁決，
+   不要當成殘留清掉。首頁 Built by Volcatech 仍須列三品。
+⑧ 內容真實性：合作等級、認證、SLA、客戶數一律 [TODO] 佔位，
    且不得出現「Google SecOps 認證經銷商 / Cloud Security MSSP / Premier Partner」
    （那是蓋亞的資格，不是沃凱的）
-檢查範圍不含 archive/（已凍結的評選歷史，不 review）。
+檢查範圍：根 index.html、style-3-soc/、lab/。**不含 archive/**（已凍結，不 review）。
+lab/ 的兩個 Tailwind 頁刻意違反禁 CDN／禁框架／色系凍結，那是預期的，不要當成缺陷回報；
+但要確認它們沒有擴散到 style-3-soc/。
 回報每項 PASS/FAIL 與證據，不要順手改檔案。
 ```
 
@@ -328,12 +450,14 @@ index-v2-catalogue-nav-b / index-v3-flow / index-v3-flow-nav-b，加 15 個子�
 - pentest.html 是 human-led、scoped engagement with report and retest
 - ai-ptaas.html 是 automated、continuous、subscription
   兩者不得混淆（這是採購方最容易問的問題）
-- 導覽列與頁尾維持 style-3-soc 現行結構（Google Cloud / CyberSecurity / Services，
-  用 Nav A；CyberSecurity 駝峰是刻意寫法）
-- 新產品頁三個常見坑：① aria-current="page" 掛在自己那一項；
-  ② 語言切換的 EN 連結自指本頁檔名；③ 該項改真連結後刪掉 title="Demo: …" 提示
-- 動 nav / footer＝全站 23 檔（含新頁遞增）同步，用腳本產生不要手改
-  （參考 docs/reports/sync_nav_20260804.py）；同版面的 Nav A/B 自 <main> 起逐字節相同
+- 導覽列與頁尾維持 style-3-soc 現行結構（三層 Nav B；Google Cloud / CyberSecurity /
+  Services；CyberSecurity 駝峰是刻意寫法）
+- header **不要手寫**：新頁建好後跑 docs/reports/rebuild_nav_20260806.py，
+  aria-current 與第一層的 class="on" 會自動落到正確位置；
+  並把該項在 MENU 常數裡的 href 從錨點改成新頁檔名
+- 動 nav ＝ 改 MENU 後重跑腳本（36 檔一次同步）；動 footer ＝ 36 檔都要改
+  （footer 沒有產生器，靠「與 sentinelone.html 逐字節相同」把關）
+- 改完跑 docs/reports/check_nav_20260806.py 與 check_links_20260806.py，兩支都要 PASS
 - 新頁的動線落點：現在 Cybersecurity 與 Managed Services 各項在
   cybersecurity.html / services.html 的名冊已有錨點，補頁後把該列改成連到新頁
 ```
@@ -363,17 +487,19 @@ sitemap/hreflang，以及 GitHub Actions 自動化部署。
 python3 -m http.server 8000
 
 # 瀏覽器開啟：
-# Demo hub（四方案比較）：  http://localhost:8000/
+# Demo hub：                http://localhost:8000/
 #
-# 8 個首頁 = 4 個版面方案 × Nav A/B（頁面底部有 backlink 切換列，不必回 hub）
-# 現行 Nav A：              http://localhost:8000/style-3-soc/index.html
-# 現行 Nav B：              http://localhost:8000/style-3-soc/index-nav-b.html
-# V1 信任前置 Nav A：       http://localhost:8000/style-3-soc/index-v1-proof.html
-# V1 信任前置 Nav B：       http://localhost:8000/style-3-soc/index-v1-proof-nav-b.html
-# V2 型錄前置 Nav A：       http://localhost:8000/style-3-soc/index-v2-catalogue.html
-# V2 型錄前置 Nav B：       http://localhost:8000/style-3-soc/index-v2-catalogue-nav-b.html
-# V3 參考架構 Nav A：       http://localhost:8000/style-3-soc/index-v3-flow.html
-# V3 參考架構 Nav B：       http://localhost:8000/style-3-soc/index-v3-flow-nav-b.html
+# 2 個首頁（頁面底部有 Layout 切換列，不必回 hub）
+# 現行版（對照組）：        http://localhost:8000/style-3-soc/index.html
+# V1 信任前置：             http://localhost:8000/style-3-soc/index-v1-proof.html
+#
+# lab/ 內容頁改版提案（三欄比對；Tailwind 頁需連網）
+# 比對入口：                http://localhost:8000/lab/
+#
+# 3 個 GCP 產品頁（選單第三層樣板）
+# Compute Engine：          http://localhost:8000/style-3-soc/gcp-compute-engine.html
+# Cloud Run：               http://localhost:8000/style-3-soc/gcp-cloud-run.html
+# BigQuery：                http://localhost:8000/style-3-soc/gcp-bigquery.html
 #
 # Cloud 總覽（CI）：        http://localhost:8000/style-3-soc/cloud.html
 # Cybersecurity 總覽（CS）：http://localhost:8000/style-3-soc/cybersecurity.html

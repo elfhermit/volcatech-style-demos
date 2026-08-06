@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>lab — 內容頁改版：兩種做法的比對</title>
+<meta name="description" content="Volcatech 官網 demo 的實驗區:同一個內容頁,一份守硬性規則的 inline CSS 深色改版,一份照會議 prompt 用 Tailwind CDN 的實驗版,文案完全相同,只比版型。">
+<style>
+:root{
+  --bg:#0E141F; --surface:#16202E; --deep:#111A26; --ink:#E9EEF5; --muted:#9AA8BA;
+  --line:#27344A; --accent:#FFB224; --status:#3ECF8E;
+  --sans:'IBM Plex Sans','Noto Sans TC',ui-sans-serif,system-ui,'Helvetica Neue',Arial,sans-serif;
+  --mono:'IBM Plex Mono','Noto Sans TC',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.7}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.head{padding:64px 0 8px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:clamp(27px,3.6vw,38px);line-height:1.2;margin-top:14px;font-weight:600}
+.head>p{margin-top:16px;color:var(--muted);max-width:74ch}
+.note{margin-top:24px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0;padding:20px 22px;font-size:15px;color:var(--muted)}
+.note b{color:var(--ink)}
+.note ul,.note ol{margin:10px 0 0 20px}
+.note li{margin-top:7px}
+code{font-family:var(--mono);font-size:.9em;background:var(--deep);border:1px solid var(--line);
+  border-radius:4px;padding:1px 6px}
+h2.sect{font-size:20px;margin:56px 0 4px;font-weight:600;display:flex;flex-wrap:wrap;align-items:baseline;gap:12px}
+h2.sect small{font-family:var(--sans);font-size:14px;font-weight:400;color:var(--muted);flex:1 1 100%;line-height:1.65}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);
+  background:var(--accent);border-radius:3px;padding:2px 8px}
+/* Comparison table. Wide content scrolls inside its own container so the page body never does. */
+.tblwrap{margin-top:22px;overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:14.5px}
+th,td{text-align:left;padding:14px 18px;vertical-align:top;border-top:1px solid var(--line)}
+thead th{border-top:0;background:var(--deep);font-family:var(--mono);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);font-weight:400;white-space:nowrap}
+tbody th{font-weight:600;color:var(--ink);white-space:nowrap}
+td{color:var(--muted)}
+.yes{color:var(--status)} .no{color:var(--accent)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:24px 22px;
+  display:flex;flex-direction:column}
+.card.warn{border-color:var(--muted)}
+.card .no2{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.card h3{font-size:18px;margin-top:12px}
+.card p{margin-top:10px;font-size:14.5px;color:var(--muted);flex:1}
+.links{margin-top:18px;display:flex;flex-wrap:wrap;gap:9px}
+.links a{font-size:14px;border:1px solid var(--line);border-radius:6px;padding:8px 14px;color:var(--ink);
+  text-decoration:none;min-height:36px;display:inline-flex;align-items:center}
+.links a:hover{border-color:var(--accent)}
+.links a.primary{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:600}
+.links a.primary:hover{background:#E69E14}
+.foot{margin:56px 0 64px;padding-top:22px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:12px;color:var(--muted)}
+.foot a{color:var(--muted)}
+.foot a:hover{color:var(--ink)}
+@media (max-width:900px){ .cards{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <p class="kicker">Volcatech — lab / 內容頁改版比對</p>
+    <h1>同一頁,兩種改法:守規則 vs 照 prompt</h1>
+    <p>0805 會議指出內容頁「都是純文字 list,視覺疲勞」。實際盤點證實:一個分類頁裡
+      <code>loglist</code> 這個元件出現三次(痛點／產品／成效),連續九列長得一模一樣,
+      唯一的區分手段是 9px 圓點的顏色——視覺權重太低。</p>
+
+    <div class="note">
+      <b>為什麼要開這個資料夾:</b>會議附的優化 prompt 要求 <b>Tailwind CSS(CDN)</b>、
+      <b>Phosphor/Lucide Icons</b> 與<b>淺色色票</b>(#FFFFFF／#F8FAFC／#0F172A)。
+      這三項與本專案的硬性規則正面衝突:
+      <ul>
+        <li><b>禁外部 CDN</b>——GDPR 前提。訪客 IP 會送到第三方主機。</li>
+        <li><b>禁框架與建置步驟</b>——demo 必須單檔自足、能直接用瀏覽器開。</li>
+        <li><b>色系 0731 已凍結</b>為深色 SOC Console。</li>
+      </ul>
+      所以不在 <code>style-3-soc/</code> 直接改,而是兩種做法各做一份擺在一起比。
+      <b>文案完全相同、一字未改</b>——這樣比的才是版型,不是文案。
+    </div>
+
+    <div class="note">
+      <b>看之前先知道:</b>Tailwind 版<b>需要連網</b>才會有樣式(它從 cdn.tailwindcss.com 抓 CSS)。
+      斷網或 CDN 被擋時,那兩頁會退化成沒有樣式的純 HTML——這本身就是「依賴外部 CDN」的成本示範。
+      守規則版沒有這個問題,離線也長一樣。
+    </div>
+  </div>
+
+  <h2 class="sect">分類頁(第二層)<span class="tag">三欄對照</span>
+    <small>Compute 分類頁。現況是三段 <code>loglist</code>;兩份提案都把它拆成四種不同的視覺處理。</small></h2>
+
+  <div class="cards">
+    <div class="card">
+      <p class="no2">A · 現況</p>
+      <h3>cloud-compute.html</h3>
+      <p>今天線上的樣子。痛點 3 列、產品 3 列、成效 3 列,三段共用同一個 <code>loglist</code>,
+        中間夾一組 <code>cards2</code> 四張卡。要比較改善幅度就從這裡開始看。</p>
+      <div class="links"><a class="primary" href="../style-3-soc/cloud-compute.html">開啟現況</a></div>
+    </div>
+
+    <div class="card">
+      <p class="no2">B · 守規則版</p>
+      <h3>inline CSS · 深色</h3>
+      <p>四種視覺處理:<b>問題卡</b>(琥珀左邊界)→ <b>產品卡</b>(自繪 SVG icon + 真連結)→
+        <b>交付流程</b>(四步驟,中間夾真箭頭字元)→ <b>成效表</b>(深一階底色 + mono 編號)。
+        零外部請求、零框架、零新增 <code>&lt;script&gt;</code>,離線可開。</p>
+      <div class="links"><a class="primary" href="inline-cloud-compute.html">開啟守規則版</a></div>
+    </div>
+
+    <div class="card warn">
+      <p class="no2">C · Tailwind 實驗版</p>
+      <h3>Tailwind CDN · 淺色</h3>
+      <p>照 prompt 的五模組做:二欄 hero、三欄卡片、<b>互動式頁籤</b>(Key features / Use cases)、
+        架構整合區、深色底 CTA。<b>需要連網</b>;有 <code>&lt;script&gt;</code>;色票不是凍結的那組。</p>
+      <div class="links"><a class="primary" href="tailwind-cloud-compute.html">開啟 Tailwind 版</a></div>
+    </div>
+  </div>
+
+  <h2 class="sect">產品頁(第三層)<span class="tag">兩欄對照</span>
+    <small>Cloud Run。這是全新頁型(改版前沒有 GCP 產品頁),所以只有兩份可比,沒有「現況」。
+      守規則版已經上線,就在 <code>style-3-soc/</code> 裡。</small></h2>
+
+  <div class="cards">
+    <div class="card">
+      <p class="no2">B · 守規則版<span class="tag" style="margin-left:8px">已上線</span></p>
+      <h3>gcp-cloud-run.html</h3>
+      <p>Hero → 核心優勢三卡 → 關鍵特色(spec 面板)→ 適用場景(琥珀左邊界)→
+        Works with(分層圖 + 箭頭)→ CTA。<b>兩塊平鋪、不做頁籤</b>——可深連結、Ctrl+F 找得到、
+        與全站其他 19 頁的線性 section 結構同源。</p>
+      <div class="links"><a class="primary" href="../style-3-soc/gcp-cloud-run.html">開啟守規則版</a></div>
+    </div>
+
+    <div class="card warn">
+      <p class="no2">C · Tailwind 實驗版</p>
+      <h3>tailwind-cloud-run.html</h3>
+      <p>同樣的內容,但「關鍵特色／適用場景」收進<b>真的頁籤</b>裡,一次只看得到一半。
+        這正是兩種做法最大的差別,也是最值得你當場判斷的一點。</p>
+      <div class="links"><a class="primary" href="tailwind-cloud-run.html">開啟 Tailwind 版</a></div>
+    </div>
+  </div>
+
+  <h2 class="sect">兩種做法的代價對照
+    <small>視覺效果的差距沒有想像中大,差別主要在下面這幾列。</small></h2>
+
+  <div class="tblwrap">
+    <table>
+      <thead>
+        <tr><th scope="col">項目</th><th scope="col">守規則版(inline CSS)</th><th scope="col">Tailwind 實驗版</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">外部請求</th>
+          <td class="yes">0 個。離線可開,GDPR 前提成立。</td>
+          <td class="no">1 個(cdn.tailwindcss.com)。訪客 IP 會到第三方;CDN 掛掉頁面就沒樣式。</td></tr>
+        <tr><th scope="row">JavaScript</th>
+          <td class="yes">只有選單那一行行內 handler。</td>
+          <td class="no">頁籤需要一段 script;Tailwind CDN 本身也是 JIT 編譯器,在瀏覽器裡即時產生 CSS。</td></tr>
+        <tr><th scope="row">首次繪製</th>
+          <td class="yes">CSS 在 HTML 裡,沒有等待。</td>
+          <td class="no">要等 CDN 回應並在瀏覽器編譯完才有樣式,會看到一瞬間的無樣式畫面。</td></tr>
+        <tr><th scope="row">色系</th>
+          <td class="yes">0731 凍結的深色 tokens,與全站一致。</td>
+          <td class="no">淺色(slate 色階)。要採用等於解凍色系,全站 20 頁都得重做。</td></tr>
+        <tr><th scope="row">頁籤內容</th>
+          <td>平鋪成兩個 section:可深連結、Ctrl+F 搜得到、螢幕閱讀器順著讀。</td>
+          <td>真頁籤:版面短一半,但被收起那半 Ctrl+F 搜不到,也不能深連結。</td></tr>
+        <tr><th scope="row">改版成本</th>
+          <td>元件寫進各頁 inline CSS,7 個分類頁要各套一次(可用腳本批次)。</td>
+          <td class="no">要先把整個 demo 的技術棧換掉;正式 Astro 版還得再拆一次。</td></tr>
+        <tr><th scope="row">視覺結果</th>
+          <td colspan="2">兩邊都達成「不再是純文字 list」——卡片網格、色塊分區、hover 微互動、箭頭關聯。
+            差別是深色 vs 淺色的觀感,不是做不做得到。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note" style="margin-top:26px">
+    <b>已定案(2026-08-06):走 B,守規則的 inline CSS 版。</b>
+    <ul>
+      <li>元件(<code>.probs</code> / <code>.trio</code> / <code>.quad</code> / <code>.duo</code> /
+        <code>.steps</code> / <code>.spec</code> / <code>.uses</code>)已寫進
+        <code>style-3-soc/</code> 全部 20 頁,正本是
+        <code>docs/reports/restyle_content_20260806.py</code>。</li>
+      <li>16 個內容頁與首頁的 <code>&lt;main&gt;</code> 已改用新元件,文案逐字未動
+        (由 <code>docs/reports/check_copy_20260806.py</code> 逐句把關)。</li>
+      <li><b>C(Tailwind)未採用</b>:代價是外部 CDN、色系解凍與建置步驟,三項都與硬性規則衝突。</li>
+    </ul>
+    這個資料夾自此只剩紀錄價值——它保存了「當初為什麼沒選 Tailwind」的實際對照。
+    <b>可以整個刪掉</b>,刪除時機由專案負責人決定。
+  </div>
+
+  <div class="foot">
+    <a href="../index.html">← 回 Demo hub</a> ·
+    <a href="../style-3-soc/index.html">style-3-soc 首頁</a><br>
+    本機預覽與部署方式見專案 README.md。
+  </div>
+</div>
+</body>
+</html>

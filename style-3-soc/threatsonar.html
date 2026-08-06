@@ -34,15 +34,37 @@ header{position:sticky;top:0;background:rgba(14,20,31,.95);border-bottom:1px sol
 .menu{display:flex;gap:24px;margin-left:auto;align-items:center;list-style:none}
 .menu>li{position:relative}
 .menu a{font-size:14.5px;color:var(--muted);padding:8px 0}
-.menu a:hover,.menu a[aria-current="page"]{color:var(--ink)}
-.menu a[aria-current="page"]{border-bottom:2px solid var(--accent)}
-.dd>a::after{content:" ▾";font-size:10px}
+/* Top-level entries are disclosure triggers, not links (0805 decision): a <button> keeps
+   them keyboard-focusable so :focus-within still opens the panel with no JS. The reset has
+   to carry padding and line-height too — .menu a does not select a button, and a shorter
+   <li> would pull the panel up and leave a gap the pointer falls through. */
+.menu>li>button{background:none;border:0;padding:8px 0;font:inherit;font-size:14.5px;
+  line-height:inherit;color:var(--muted);cursor:default;appearance:none}
+.menu a:hover,.menu>li>button:hover,.menu a[aria-current="page"],.menu>li>.on{color:var(--ink)}
+/* Two separate roles: aria-current marks the link that IS this page (now usually on the
+   second level, since Nav B exposes the category pages); .on is the purely visual
+   "you are somewhere in this section" cue on the first-level button. */
+.menu>li>a[aria-current="page"],.menu>li>.on{border-bottom:2px solid var(--accent)}
+.dd>a::after,.dd>button::after{content:" ▾";font-size:10px}
+/* The panel must stay overflow:visible — any overflow value turns it into a clip
+   container and hides the .sub flyouts outside its edge. Nav B panels are short
+   (8 rows at most) so they do not need to scroll. */
 .dd ul{display:none;position:absolute;top:100%;left:-12px;background:var(--surface);border:1px solid var(--line);
-  border-radius:6px;min-width:290px;padding:10px 0;list-style:none;max-height:calc(100vh - 90px);overflow-y:auto}
-.dd:hover ul,.dd:focus-within ul{display:block}
+  border-radius:6px;min-width:290px;padding:10px 0;list-style:none}
+.dd:hover>ul,.dd:focus-within>ul{display:block}
+/* Second-level flyout. Child combinators only — descendant selectors would open every
+   nested level the moment the top item is hovered. Scoped to .menu because the footer
+   uses its own .sub class for column sub-headings. */
+.menu .sub{position:relative}
+.menu .sub>a::after{content:" ▸";font-size:10px}
+.menu .sub>ul{top:-11px;left:100%;min-width:240px}
+.menu .sub:hover>ul,.menu .sub:focus-within>ul{display:block}
 .dd ul a{display:block;padding:9px 18px;font-size:14px}
 .dd ul a:hover{background:#1B2736;color:var(--ink)}
-.dd .grp{padding:9px 18px 3px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+/* Entries with no page yet. Plain text, deliberately not focusable — there is nowhere
+   to go. .dd ul a does not select a span, so the padding has to be repeated. */
+.dd ul .off{display:block;padding:9px 18px;font-size:14px;color:var(--muted);cursor:default}
+.dd ul .off .soon{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;margin-left:8px}
 /* First row of every dropdown: plain-language decode of the ops term */
 .dd .head{padding:6px 18px 8px;margin-bottom:4px;border-bottom:1px solid var(--line);
   font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
@@ -101,6 +123,99 @@ footer{border-top:1px solid var(--line)}
 .legal .notice{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px}
 .legal a:hover{color:var(--ink)}
 .backlink{padding:0 24px 22px;font-family:var(--mono);font-size:11.5px}
+/* ===== Block components (0806 content rework) — shared by all 20 pages =====
+   The 0805 review said a content page reads as one undifferentiated column of text:
+   the same .loglist three or four times over. Each section now gets its own treatment,
+   so the shape of a section tells you what kind of thing is in it before you read it.
+   No new colour token — three surface depths, one accent edge, one real arrow row.
+
+   Situational blocks share one rule on purpose. .probs is the state before the project
+   (pain points), .uses is the state it is built for (scenarios); both are short
+   situational statements and the eyebrow above already says which one you are reading. */
+.probs,.uses{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.probs>div,.uses>div{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0;padding:22px 22px}
+.probs h3,.uses h3{font-size:16.5px}
+.probs p,.uses p{margin-top:8px;font-size:14.5px;color:var(--muted)}
+/* 四項時加 .four —— 預設三欄會把第四張留在下一列只佔 1/3 寬 */
+.probs.four,.uses.four{grid-template-columns:repeat(4,1fr)}
+/* Products and services: an icon card that answers "what is actually on offer" and links
+   out, instead of one more row of text. Same card at three track counts — a catalogue is
+   not always divisible by three. Icons are hand-drawn 24x24 strokes, never image files. */
+.trio,.quad,.duo{display:grid;gap:18px;margin-top:44px}
+.trio{grid-template-columns:repeat(3,1fr)}
+.quad{grid-template-columns:repeat(4,1fr)}
+.duo{grid-template-columns:repeat(2,1fr)}
+.trio>div,.quad>div,.duo>div{background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  padding:24px 22px;display:flex;flex-direction:column}
+.trio .ic,.quad .ic,.duo .ic{display:block;color:var(--accent)}
+.trio h3,.quad h3,.duo h3{font-size:17px;margin-top:16px}
+.trio .full,.quad .full,.duo .full{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);font-weight:400;margin-top:5px}
+.trio p,.quad p,.duo p{margin-top:9px;font-size:14.5px;color:var(--muted);flex:1}
+/* 廠商標記（.vsrc）搬進卡片標題後會繼承 h3 的粗體。它是 mono 微標籤不是標題的一部分，
+   在卡片裡改成獨立一行、不加粗；.vsrc 本體的 CSS 在各頁基底，這裡只做卡片內的 scope 覆寫。 */
+.trio .vsrc,.quad .vsrc,.duo .vsrc{display:block;margin:5px 0 0;font-weight:400}
+.trio .go,.quad .go,.duo .go,.loglist .go{display:inline-block;margin-top:16px;font-family:var(--mono);font-size:12.5px;
+  color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:2px;align-self:flex-start}
+.trio .go:hover,.quad .go:hover,.duo .go:hover,.loglist .go:hover{border-color:var(--accent)}
+/* 0806：每個 GCP 產品都有內頁之後，產品卡有兩個出口（產品頁 ＋ 原廠頁）。卡片本身是
+   flex column，兩個 inline-block 的 .go 不包起來會各佔一行，所以用 .goes 併成一列。
+   兩個出口的先後有意義：站內的產品頁在前，離站的原廠頁在後。 */
+.goes{display:flex;flex-wrap:wrap;gap:18px;margin-top:16px;align-self:flex-start}
+.goes .go{margin-top:0}
+/* Sequences — the "arrows between blocks" the review asked for. The arrows are real
+   characters marked aria-hidden, never ::before content, so assistive tech reads the step
+   and skips the glyph. Node borders carry meaning, so they use --muted: --line against
+   the page background is 1.47:1, under the 3:1 that WCAG 1.4.11 asks for. */
+.steps{list-style:none;margin-top:44px;display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
+.steps>li{flex:1 1 200px;background:#111A26;border:1px solid var(--muted);border-radius:8px;padding:20px 18px}
+.steps>li.ar{flex:0 0 auto;border:0;background:none;padding:0;display:flex;align-items:center;
+  color:var(--muted);font-family:var(--mono);font-size:18px}
+.steps .n{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted)}
+.steps h3{font-size:16px;margin-top:10px}
+.steps>li>h3:first-child{margin-top:0}
+.steps p{margin-top:7px;font-size:14px;color:var(--muted)}
+/* Facts as a spec sheet: deeper panel, mono index, one continuous surface. */
+.spec{margin-top:40px;background:#111A26;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.spec>div{display:grid;grid-template-columns:42px 1fr;gap:16px;padding:20px 22px;align-items:start}
+.spec>div+div{border-top:1px solid var(--line)}
+.spec .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px}
+.spec h3{font-size:16px}
+.spec p{margin-top:6px;font-size:14.5px;color:var(--muted)}
+/* Where a thing sits relative to the rest. Normal flow only — absolute positioning
+   breaks this layout at 768 and 390px. */
+.stack{margin-top:40px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.stack>*+*{border-top:1px solid var(--line)}
+.stack a{scroll-margin-top:80px}
+.layer{background:var(--surface);padding:22px;display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center}
+.layer>h3{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:400}
+.nodes{list-style:none;display:flex;flex-wrap:wrap;gap:10px}
+.node{display:block;border:1px solid var(--muted);border-radius:6px;padding:12px 14px;min-width:170px;background:#111A26}
+a.node:hover{border-color:var(--accent)}
+.node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
+.flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+/* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
+   shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
+.probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
+.probs>div:hover,.uses>div:hover,.trio>div:hover,.quad>div:hover,.duo>div:hover{transform:translateY(-2px);border-color:var(--muted)}
+/* 1040px is deliberately not one of the widths used elsewhere in this file: the nav
+   checker slices on the 1100px and 1024px queries and needs each to appear once. */
+@media (max-width:1040px){
+  .quad,.probs.four,.uses.four{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .probs,.uses,.trio,.quad,.duo,.probs.four,.uses.four{grid-template-columns:1fr}
+  .steps{flex-direction:column}
+  .steps>li.ar{justify-content:center;transform:rotate(90deg)}
+  .layer{grid-template-columns:1fr;gap:10px}
+}
+@media (prefers-reduced-motion: reduce){
+  .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
+  .probs>div:hover,.uses>div:hover,.trio>div:hover,.quad>div:hover,.duo>div:hover{transform:none}
+}
+/* ===== end block components ===== */
 @keyframes statusPulse {
   0% { box-shadow: 0 0 0 0 rgba(62, 207, 142, 0.7); }
   70% { box-shadow: 0 0 0 6px rgba(62, 207, 142, 0); }
@@ -111,6 +226,14 @@ footer{border-top:1px solid var(--line)}
 }
 @media (prefers-reduced-motion: reduce) {
   .status .dot, .logo .dot, .card .cdot { animation: none; }
+}
+/* 901-1100px: not enough room beside the panel for a side flyout — at the narrow end
+   of this band it would run past the left viewport edge. Open the second level inline
+   inside the panel instead, so horizontal overflow is structurally impossible. It still
+   only expands on hover/focus, so the panel never grows past ~12 rows. */
+@media (max-width:1100px){
+  .menu .sub>ul{position:static;top:auto;left:auto;right:auto;min-width:0;
+    border:none;border-radius:0;padding:4px 0 4px 14px}
 }
 @media (max-width:1024px){
   .fcols{grid-template-columns:1fr 1fr}
@@ -124,7 +247,9 @@ footer{border-top:1px solid var(--line)}
     border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;padding:16px 24px;gap:4px;
     max-height:calc(100vh - 66px);overflow-y:auto}
   .menu.open{display:flex}
+  .menu>li>button{padding:8px 0}
   .dd ul{display:block;position:static;border:none;padding-left:14px;min-width:0;max-height:none;overflow-y:visible}
+  .menu .sub>ul{position:static;left:auto;right:auto;min-width:0}
   .lang{margin-top:10px}
   .lang a{padding-left:0}
   .lang a+a{padding-left:10px}
@@ -135,69 +260,91 @@ footer{border-top:1px solid var(--line)}
 </style>
 </head>
 <body>
-<header>
+<header onkeydown="if(event.key==='Escape')this.querySelector('.logo').focus()">
   <div class="wrap nav">
     <a class="logo" href="index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
     <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
     <ul class="menu" id="menu">
       <li><a href="index.html">Home</a></li>
-      <li class="dd"><a href="cloud.html" aria-haspopup="true">Google Cloud</a>
+      <li class="dd"><button type="button" aria-haspopup="true">Google Cloud</button>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
           <li><a href="cloud.html">Overview — all Google Cloud services</a></li>
-          <li class="grp">Compute</li>
-          <li><a href="cloud-compute.html#compute-engine">Compute Engine</a></li>
-          <li><a href="cloud-compute.html#kubernetes-engine">Kubernetes Engine</a></li>
-          <li><a href="cloud-compute.html#vmware-engine">VMware Engine</a></li>
-          <li class="grp">Storage</li>
-          <li><a href="cloud-storage.html#cloud-storage">Cloud Storage</a></li>
-          <li><a href="cloud-storage.html#filestore">Filestore</a></li>
-          <li><a href="cloud-storage.html#backup-dr">Backup and DR</a></li>
-          <li class="grp">Analytics</li>
-          <li><a href="cloud-analytics.html#bigquery">BigQuery</a></li>
-          <li><a href="cloud-analytics.html#pubsub">Pub/Sub</a></li>
-          <li><a href="cloud-analytics.html#dataflow">Dataflow</a></li>
-          <li class="grp">Serverless</li>
-          <li><a href="cloud-serverless.html#cloud-run">Cloud Run</a></li>
-          <li><a href="cloud-serverless.html#app-engine">App Engine</a></li>
-          <li><a href="cloud-serverless.html#api-gateway">API Gateway</a></li>
-          <li class="grp">Databases</li>
-          <li><a href="cloud-databases.html#alloydb">AlloyDB for PostgreSQL</a></li>
-          <li><a href="cloud-databases.html#cloud-sql">Cloud SQL</a></li>
-          <li><a href="cloud-databases.html#datastore">Datastore</a></li>
-          <li><a href="cloud-databases.html#firestore">Firestore</a></li>
-          <li class="grp">AI</li>
-          <li><a href="cloud-ai.html#vertex-ai">Vertex AI</a></li>
-          <li><a href="cloud-ai.html#model-garden">Model Garden</a></li>
+          <li class="sub"><a href="cloud-compute.html" aria-haspopup="true">Compute</a>
+            <ul>
+              <li><a href="gcp-compute-engine.html">Compute Engine</a></li>
+              <li><a href="gcp-kubernetes-engine.html">Kubernetes Engine</a></li>
+              <li><a href="gcp-vmware-engine.html">VMware Engine</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="cloud-storage.html" aria-haspopup="true">Storage</a>
+            <ul>
+              <li><a href="gcp-cloud-storage.html">Cloud Storage</a></li>
+              <li><a href="gcp-filestore.html">Filestore</a></li>
+              <li><a href="gcp-backup-dr.html">Backup and DR</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="cloud-analytics.html" aria-haspopup="true">Analytics</a>
+            <ul>
+              <li><a href="gcp-bigquery.html">BigQuery</a></li>
+              <li><a href="gcp-pubsub.html">Pub/Sub</a></li>
+              <li><a href="gcp-dataflow.html">Dataflow</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="cloud-serverless.html" aria-haspopup="true">Serverless</a>
+            <ul>
+              <li><a href="gcp-cloud-run.html">Cloud Run</a></li>
+              <li><a href="gcp-app-engine.html">App Engine</a></li>
+              <li><a href="gcp-api-gateway.html">API Gateway</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="cloud-databases.html" aria-haspopup="true">Databases</a>
+            <ul>
+              <li><a href="gcp-alloydb.html">AlloyDB for PostgreSQL</a></li>
+              <li><a href="gcp-cloud-sql.html">Cloud SQL</a></li>
+              <li><a href="gcp-datastore.html">Datastore</a></li>
+              <li><a href="gcp-firestore.html">Firestore</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="cloud-ai.html" aria-haspopup="true">AI</a>
+            <ul>
+              <li><a href="gcp-vertex-ai.html">Vertex AI</a></li>
+              <li><a href="gcp-model-garden.html">Model Garden</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
-      <li class="dd"><a href="cybersecurity.html" aria-haspopup="true">CyberSecurity</a>
+      <li class="dd"><button type="button" class="on" aria-haspopup="true">CyberSecurity</button>
         <ul>
-          <li class="head"><span class="dot" aria-hidden="true"></span>CyberSecurity — EDR · SIEM & WDR · Built in-house</li>
+          <li class="head"><span class="dot" aria-hidden="true"></span>CyberSecurity — EDR · SIEM &amp; WDR · Built in-house</li>
           <li><a href="cybersecurity.html">Overview — all security products</a></li>
-          <li class="grp">Endpoint — EDR</li>
-          <li><a href="sentinelone.html">SentinelOne</a></li>
-          <li><a href="threatsonar.html" aria-current="page">ThreatSonar</a></li>
-          <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
-          <li class="grp">Detection — SIEM & WDR</li>
-          <li><a href="cybereyes.html">CyberEyes</a></li>
-          <li><a href="google-secops.html">Google SecOps</a></li>
-          <li class="grp">Built in-house — Volcatech AI Security</li>
-          <li><a href="cybersecurity.html#ce-bas">CE-BAS</a></li>
-          <li><a href="cybersecurity.html#ai-ptaas">AI-PTaaS</a></li>
-          <li><a href="cybersecurity.html#secpurple">SecPurple</a></li>
+          <li class="sub"><a href="cybersecurity.html#edr" aria-haspopup="true">Endpoint — EDR</a>
+            <ul>
+              <li><a href="sentinelone.html">SentinelOne</a></li>
+              <li><a href="threatsonar.html" aria-current="page">ThreatSonar</a></li>
+              <li><span class="off">FortiEDR<span class="soon">Coming soon</span></span></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="cybersecurity.html#detection" aria-haspopup="true">Detection — SIEM &amp; WDR</a>
+            <ul>
+              <li><a href="cybereyes.html">CyberEyes</a></li>
+              <li><a href="google-secops.html">Google SecOps</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="cybersecurity.html#in-house" aria-haspopup="true">Built in-house — Volcatech AI Security</a>
+            <ul>
+              <li><a href="cybersecurity.html#ce-bas">CE-BAS</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
-      <li class="dd"><a href="services.html" aria-haspopup="true">Services</a>
+      <li class="dd"><button type="button" aria-haspopup="true">Services</button>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Services — Managed Services</li>
           <li><a href="services.html">Overview — all managed services</a></li>
           <li><a href="ess.html">Enterprise Security Service (ESS)</a></li>
           <li><a href="services.html#soc">24/7 SOC &amp; Incident Response</a></li>
-          <li><a href="services.html#isms">ISMS / PIMS Consulting</a></li>
-          <li><a href="services.html#pentest">Penetration Testing (human-led)</a></li>
-          <li><a href="services.html#finops">Cloud FinOps &amp; Enablement</a></li>
-          <li><a href="services.html#dx">Digital Transformation</a></li>
+          <li><span class="off">GCP Managed Services<span class="soon">Coming soon</span></span></li>
         </ul>
       </li>
       <li><a href="index.html#why">About</a></li>
@@ -227,44 +374,48 @@ footer{border-top:1px solid var(--line)}
     </div>
   </div>
 
-  <section>
+  <section id="pain">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Pain points — before deployment</p>
       <h2 class="sec">The problems this takes off your board.</h2>
-      <div class="loglist" style="max-width:820px">
-        <div><span class="d" style="background:var(--accent)"></span><p>Silent intrusions<small>Advanced attackers sit inside networks for months without tripping signature-based tools.</small></p></div>
-        <div><span class="d" style="background:var(--accent)"></span><p>Unknown blast radius<small>After an incident, nobody can say with confidence which endpoints are actually clean.</small></p></div>
-        <div><span class="d" style="background:var(--accent)"></span><p>Stretched security teams<small>Forensics and threat hunting stay undone because nobody has the hours — or the tooling.</small></p></div>
+      <div class="probs">
+        <div><h3>Silent intrusions</h3><p>Advanced attackers sit inside networks for months without tripping signature-based tools.</p></div>
+        <div><h3>Unknown blast radius</h3><p>After an incident, nobody can say with confidence which endpoints are actually clean.</p></div>
+        <div><h3>Stretched security teams</h3><p>Forensics and threat hunting stay undone because nobody has the hours — or the tooling.</p></div>
       </div>
     </div>
   </section>
 
-  <section>
+  <section id="capabilities">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Key capabilities</p>
       <h2 class="sec">Assess first, then stay resident.</h2>
-      <div class="cards2">
-        <div><h3>Three scanning modes</h3><p>An agentless health check with memory forensics maps what is already inside. Resident mode adds full-time EDR with isolation and restore protection; offline mode covers air-gapped environments.</p></div>
-        <div><h3>Signal Pattern behavioral engine</h3><p>Unknown threats are caught by how they behave, not by known indicators alone — detection rules are continuously updated from TeamT5's APT research.</p></div>
-        <div><h3>Four-stage anti-ransomware</h3><p>Hidden decoy files trigger blocking the moment encryption touches them, and volume shadow copies are protected from tampering to keep a restore path open.</p></div>
-        <div><h3>MITRE ATT&amp;CK investigation</h3><p>Events are mapped to ATT&amp;CK techniques on a timeline, and automated summary reports turn raw telemetry into findings your team can act on.</p></div>
+      <div class="quad">
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12l6-4"/></svg><h3>Three scanning modes</h3>
+          <p>An agentless health check with memory forensics maps what is already inside. Resident mode adds full-time EDR with isolation and restore protection; offline mode covers air-gapped environments.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2.5"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 16.2a6 6 0 0 0 0-8.4M4.9 4.9a10 10 0 0 0 0 14.2M19.1 19.1a10 10 0 0 0 0-14.2"/></svg><h3>Signal Pattern behavioral engine</h3>
+          <p>Unknown threats are caught by how they behave, not by known indicators alone — detection rules are continuously updated from TeamT5's APT research.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.6-3.2 8.4-8 9.6C7.2 20.4 4 16.6 4 12V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><h3>Four-stage anti-ransomware</h3>
+          <p>Hidden decoy files trigger blocking the moment encryption touches them, and volume shadow copies are protected from tampering to keep a restore path open.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><h3>MITRE ATT&amp;CK investigation</h3>
+          <p>Events are mapped to ATT&amp;CK techniques on a timeline, and automated summary reports turn raw telemetry into findings your team can act on.</p></div>
       </div>
     </div>
   </section>
 
-  <section>
+  <section id="outcomes">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Business benefits — after deployment</p>
       <h2 class="sec">What changes on day one.</h2>
-      <div class="loglist" style="max-width:820px">
-        <div><span class="d"></span><p>Evidence before rollout<small>The compromise assessment shows what is already in your environment before you commit to a deployment.</small></p></div>
-        <div><span class="d"></span><p>No rip-and-replace<small>ThreatSonar runs alongside your existing endpoint protection — a lightweight agent, not a migration project.</small></p></div>
-        <div><span class="d"></span><p>Data stays in-country<small>Run it on-premises or as an in-country cloud service — built for regulated, data-residency-bound environments.</small></p></div>
+      <div class="spec">
+        <div><span class="n" aria-hidden="true">01</span><div><h3>Evidence before rollout</h3><p>The compromise assessment shows what is already in your environment before you commit to a deployment.</p></div></div>
+        <div><span class="n" aria-hidden="true">02</span><div><h3>No rip-and-replace</h3><p>ThreatSonar runs alongside your existing endpoint protection — a lightweight agent, not a migration project.</p></div></div>
+        <div><span class="n" aria-hidden="true">03</span><div><h3>Data stays in-country</h3><p>Run it on-premises or as an in-country cloud service — built for regulated, data-residency-bound environments.</p></div></div>
       </div>
     </div>
   </section>
 
-  <section>
+  <section id="why">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why deploy with Volcatech</p>
       <h2 class="sec">A product is only as good as its operation.</h2>

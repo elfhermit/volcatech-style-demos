@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-<title>Volcatech — Cloud, cybersecurity and managed services (layout V3: reference architecture, nav variant B)</title>
-<meta name="description" content="Volcatech designs and runs Google Cloud environments for European organisations, deploys and tunes EDR and SIEM, and keeps both under 24/7 monitoring. Layout variant V3 leads with a reference architecture showing how the layers connect. Navigation variant B demo.">
+<title>Volcatech — Cloud, cybersecurity and managed services (layout V2: catalogue first, nav variant B)</title>
+<meta name="description" content="Volcatech designs and runs Google Cloud environments for European organisations, deploys and tunes EDR and SIEM, and keeps both under 24/7 monitoring. Layout variant V2 leads with the full service catalogue and the vendor behind each item. Navigation variant B demo.">
 <style>
 /* ===== Style 3: SOC Console — dark ops room, engineering credibility =====
    Production build self-hosts fonts via @fontsource (GDPR). Demo uses system fallbacks. */
@@ -160,48 +160,30 @@ footer{border-top:1px solid var(--line)}
   .fcols{grid-template-columns:1fr}
 }
 
-/* Variant V3 — reference architecture map.
-   Everything is in normal flow: no absolute positioning and no magic numbers,
-   so the four breakpoints fall out of the grid rather than being hand-tuned.
-   Semantic strokes (node borders, flow marks) use --muted, not --line:
-   --line on --bg is 1.47:1 and would fail WCAG 1.4.11 for non-text contrast. */
-.stack{margin-top:40px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.stack>*+*{border-top:1px solid var(--line)}
-.stack a{scroll-margin-top:80px}
-.layer{background:var(--surface);padding:22px;display:grid;grid-template-columns:140px 1fr;gap:18px;align-items:center}
-.layer>h3,.base>h3{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--muted);font-weight:400}
-.nodes{list-style:none;display:flex;flex-wrap:wrap;gap:10px}
-.node{display:block;height:100%;border:1px solid var(--muted);border-radius:6px;
-  padding:12px 14px;min-width:172px;background:#111A26}
-a.node:hover{border-color:var(--accent)}
-.node .nm{display:block;font-size:14.5px;font-weight:600;color:var(--ink)}
-.node .src{display:block;margin-top:3px;font-family:var(--mono);font-size:12px;color:var(--muted)}
-.node .chip{font-family:var(--mono);font-size:11px;letter-spacing:.08em;border:1px solid var(--muted);
-  border-radius:3px;padding:0 5px;color:var(--muted);font-weight:400;vertical-align:2px}
-.node.plain{border-style:dashed}
-.flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
-  font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
-.base{background:#111A26;padding:22px;display:grid;grid-template-columns:140px 1fr;gap:18px;align-items:center}
-.essbar{margin-top:18px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;
-  border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:18px 22px}
-.essbar p{font-size:14.5px;color:var(--muted);max-width:74ch}
-.essbar b{color:var(--ink);font-family:var(--mono)}
-.essbar .go{font-family:var(--mono);font-size:12.5px;color:var(--ink);
-  border-bottom:1px solid var(--line);padding-bottom:2px;white-space:nowrap}
-.essbar .go:hover{border-color:var(--accent)}
-/* Variants V1/V3 — compact index of every service, three columns */
-.index3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
-.index3>div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:24px 24px}
-.index3 h3{font-size:17px}
-.index3 h3 .n{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-left:10px;
-  letter-spacing:.08em;font-weight:400}
-.index3 ul{list-style:none;margin-top:14px}
-.index3 li{margin-top:7px;font-size:14px;color:var(--muted)}
-.index3 li a:hover{color:var(--ink)}
-.index3 .go{display:inline-block;margin-top:18px;font-family:var(--mono);font-size:12.5px;
-  color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:2px}
-.index3 .go:hover{border-color:var(--accent)}
+/* Variant V2 — service catalogue table. Built from CSS grid rather than <table>
+   so the 390px fallback is a stacked block, not a horizontally scrolling table */
+.cat{margin-top:44px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.cat .grp{background:#111A26;padding:13px 22px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.cat .row{display:grid;grid-template-columns:96px 1.1fr 1.6fr 140px;gap:18px;align-items:baseline;
+  background:var(--surface);padding:15px 22px;border-top:1px solid var(--line)}
+.cat .row:hover{background:#1B2736}
+.cat .c{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--muted)}
+.cat .n{font-size:15px;font-weight:600}
+.cat .n a:hover{text-decoration:underline}
+.cat .t{font-size:14px;color:var(--muted)}
+.cat .v{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right}
+.cat .v.own{color:var(--ink)}
+.cat .vlbl{display:none}
+/* Variant — How we work: numbered delivery steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+.steps>div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:26px 24px}
+.steps .no{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.steps h3{font-size:18px;margin-top:12px}
+.steps>div>p{margin-top:9px;font-size:14.5px;color:var(--muted)}
+.steps dl{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:13.5px}
+.steps dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:9px}
+.steps dd{color:var(--ink)}
 /* Variants V2/V3 — partner vs in-house, stated as a two-column split */
 .ptwo{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:44px}
 .ptwo>div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:26px 24px}
@@ -226,101 +208,101 @@ a.node:hover{border-color:var(--accent)}
 <body>
 <header>
   <div class="wrap nav">
-    <a class="logo" href="index-v3-flow-nav-b.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
+    <a class="logo" href="index-v2-catalogue-nav-b.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
     <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
     <ul class="menu" id="menu">
-      <li><a href="index-v3-flow-nav-b.html" aria-current="page">Home</a></li>
-      <li class="dd"><a href="cloud.html" aria-haspopup="true">Google Cloud</a>
+      <li><a href="index-v2-catalogue-nav-b.html" aria-current="page">Home</a></li>
+      <li class="dd"><a href="../../style-3-soc/cloud.html" aria-haspopup="true">Google Cloud</a>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
-          <li><a href="cloud.html">Overview — all Google Cloud services</a></li>
-          <li class="sub"><a href="cloud-compute.html" aria-haspopup="true">Compute</a>
+          <li><a href="../../style-3-soc/cloud.html">Overview — all Google Cloud services</a></li>
+          <li class="sub"><a href="../../style-3-soc/cloud-compute.html" aria-haspopup="true">Compute</a>
             <ul>
-              <li><a href="cloud-compute.html#compute-engine">Compute Engine</a></li>
-              <li><a href="cloud-compute.html#kubernetes-engine">Kubernetes Engine</a></li>
-              <li><a href="cloud-compute.html#vmware-engine">VMware Engine</a></li>
+              <li><a href="../../style-3-soc/cloud-compute.html#compute-engine">Compute Engine</a></li>
+              <li><a href="../../style-3-soc/cloud-compute.html#kubernetes-engine">Kubernetes Engine</a></li>
+              <li><a href="../../style-3-soc/cloud-compute.html#vmware-engine">VMware Engine</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cloud-storage.html" aria-haspopup="true">Storage</a>
+          <li class="sub"><a href="../../style-3-soc/cloud-storage.html" aria-haspopup="true">Storage</a>
             <ul>
-              <li><a href="cloud-storage.html#cloud-storage">Cloud Storage</a></li>
-              <li><a href="cloud-storage.html#filestore">Filestore</a></li>
-              <li><a href="cloud-storage.html#backup-dr">Backup and DR</a></li>
+              <li><a href="../../style-3-soc/cloud-storage.html#cloud-storage">Cloud Storage</a></li>
+              <li><a href="../../style-3-soc/cloud-storage.html#filestore">Filestore</a></li>
+              <li><a href="../../style-3-soc/cloud-storage.html#backup-dr">Backup and DR</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cloud-analytics.html" aria-haspopup="true">Analytics</a>
+          <li class="sub"><a href="../../style-3-soc/cloud-analytics.html" aria-haspopup="true">Analytics</a>
             <ul>
-              <li><a href="cloud-analytics.html#bigquery">BigQuery</a></li>
-              <li><a href="cloud-analytics.html#pubsub">Pub/Sub</a></li>
-              <li><a href="cloud-analytics.html#dataflow">Dataflow</a></li>
+              <li><a href="../../style-3-soc/cloud-analytics.html#bigquery">BigQuery</a></li>
+              <li><a href="../../style-3-soc/cloud-analytics.html#pubsub">Pub/Sub</a></li>
+              <li><a href="../../style-3-soc/cloud-analytics.html#dataflow">Dataflow</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cloud-serverless.html" aria-haspopup="true">Serverless</a>
+          <li class="sub"><a href="../../style-3-soc/cloud-serverless.html" aria-haspopup="true">Serverless</a>
             <ul>
-              <li><a href="cloud-serverless.html#cloud-run">Cloud Run</a></li>
-              <li><a href="cloud-serverless.html#app-engine">App Engine</a></li>
-              <li><a href="cloud-serverless.html#api-gateway">API Gateway</a></li>
+              <li><a href="../../style-3-soc/cloud-serverless.html#cloud-run">Cloud Run</a></li>
+              <li><a href="../../style-3-soc/cloud-serverless.html#app-engine">App Engine</a></li>
+              <li><a href="../../style-3-soc/cloud-serverless.html#api-gateway">API Gateway</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cloud-databases.html" aria-haspopup="true">Databases</a>
+          <li class="sub"><a href="../../style-3-soc/cloud-databases.html" aria-haspopup="true">Databases</a>
             <ul>
-              <li><a href="cloud-databases.html#alloydb">AlloyDB for PostgreSQL</a></li>
-              <li><a href="cloud-databases.html#cloud-sql">Cloud SQL</a></li>
-              <li><a href="cloud-databases.html#datastore">Datastore</a></li>
-              <li><a href="cloud-databases.html#firestore">Firestore</a></li>
+              <li><a href="../../style-3-soc/cloud-databases.html#alloydb">AlloyDB for PostgreSQL</a></li>
+              <li><a href="../../style-3-soc/cloud-databases.html#cloud-sql">Cloud SQL</a></li>
+              <li><a href="../../style-3-soc/cloud-databases.html#datastore">Datastore</a></li>
+              <li><a href="../../style-3-soc/cloud-databases.html#firestore">Firestore</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cloud-ai.html" aria-haspopup="true">AI</a>
+          <li class="sub"><a href="../../style-3-soc/cloud-ai.html" aria-haspopup="true">AI</a>
             <ul>
-              <li><a href="cloud-ai.html#vertex-ai">Vertex AI</a></li>
-              <li><a href="cloud-ai.html#model-garden">Model Garden</a></li>
+              <li><a href="../../style-3-soc/cloud-ai.html#vertex-ai">Vertex AI</a></li>
+              <li><a href="../../style-3-soc/cloud-ai.html#model-garden">Model Garden</a></li>
             </ul>
           </li>
         </ul>
       </li>
-      <li class="dd"><a href="cybersecurity.html" aria-haspopup="true">CyberSecurity</a>
+      <li class="dd"><a href="../../style-3-soc/cybersecurity.html" aria-haspopup="true">CyberSecurity</a>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>CyberSecurity — EDR · SIEM & WDR · Built in-house</li>
-          <li><a href="cybersecurity.html">Overview — all security products</a></li>
-          <li class="sub"><a href="cybersecurity.html#edr" aria-haspopup="true">Endpoint — EDR</a>
+          <li><a href="../../style-3-soc/cybersecurity.html">Overview — all security products</a></li>
+          <li class="sub"><a href="../../style-3-soc/cybersecurity.html#edr" aria-haspopup="true">Endpoint — EDR</a>
             <ul>
-              <li><a href="sentinelone.html">SentinelOne</a></li>
-              <li><a href="threatsonar.html">ThreatSonar</a></li>
-              <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
+              <li><a href="../../style-3-soc/sentinelone.html">SentinelOne</a></li>
+              <li><a href="../../style-3-soc/threatsonar.html">ThreatSonar</a></li>
+              <li><a href="../../style-3-soc/cybersecurity.html#fortiedr">FortiEDR</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cybersecurity.html#detection" aria-haspopup="true">Detection — SIEM & WDR</a>
+          <li class="sub"><a href="../../style-3-soc/cybersecurity.html#detection" aria-haspopup="true">Detection — SIEM & WDR</a>
             <ul>
-              <li><a href="cybereyes.html">CyberEyes</a></li>
-              <li><a href="google-secops.html">Google SecOps</a></li>
+              <li><a href="../../style-3-soc/cybereyes.html">CyberEyes</a></li>
+              <li><a href="../../style-3-soc/google-secops.html">Google SecOps</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cybersecurity.html#in-house" aria-haspopup="true">Built in-house — Volcatech AI</a>
+          <li class="sub"><a href="../../style-3-soc/cybersecurity.html#in-house" aria-haspopup="true">Built in-house — Volcatech AI</a>
             <ul>
-              <li><a href="cybersecurity.html#ce-bas">CE-BAS</a></li>
-              <li><a href="cybersecurity.html#ai-ptaas">AI-PTaaS</a></li>
-              <li><a href="cybersecurity.html#secpurple">SecPurple</a></li>
+              <li><a href="../../style-3-soc/cybersecurity.html#ce-bas">CE-BAS</a></li>
+              <li><a href="../../style-3-soc/cybersecurity.html#ai-ptaas">AI-PTaaS</a></li>
+              <li><a href="../../style-3-soc/cybersecurity.html#secpurple">SecPurple</a></li>
             </ul>
           </li>
         </ul>
       </li>
-      <li class="dd"><a href="services.html" aria-haspopup="true">Services</a>
+      <li class="dd"><a href="../../style-3-soc/services.html" aria-haspopup="true">Services</a>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Services — Managed Services</li>
-          <li><a href="services.html">Overview — all managed services</a></li>
-          <li><a href="ess.html">Enterprise Security Service (ESS)</a></li>
-          <li><a href="services.html#soc">24/7 SOC &amp; Incident Response</a></li>
-          <li><a href="services.html#isms">ISMS / PIMS Consulting</a></li>
-          <li><a href="services.html#pentest">Penetration Testing (human-led)</a></li>
-          <li><a href="services.html#finops">Cloud FinOps &amp; Enablement</a></li>
-          <li><a href="services.html#dx">Digital Transformation</a></li>
+          <li><a href="../../style-3-soc/services.html">Overview — all managed services</a></li>
+          <li><a href="../../style-3-soc/ess.html">Enterprise Security Service (ESS)</a></li>
+          <li><a href="../../style-3-soc/services.html#soc">24/7 SOC &amp; Incident Response</a></li>
+          <li><a href="../../style-3-soc/services.html#isms">ISMS / PIMS Consulting</a></li>
+          <li><a href="../../style-3-soc/services.html#pentest">Penetration Testing (human-led)</a></li>
+          <li><a href="../../style-3-soc/services.html#finops">Cloud FinOps &amp; Enablement</a></li>
+          <li><a href="../../style-3-soc/services.html#dx">Digital Transformation</a></li>
         </ul>
       </li>
       <li><a href="#why" title="Demo: opens the matching section on this page">About</a></li>
       <li><a class="btn" style="padding:9px 18px" href="#contact">Contact us</a></li>
       <li>
         <nav class="lang" aria-label="Language">
-          <a href="index-v3-flow-nav-b.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+          <a href="index-v2-catalogue-nav-b.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
         </nav>
       </li>
     </ul>
@@ -344,127 +326,55 @@ a.node:hover{border-color:var(--accent)}
           <div class="head"><span class="lbl">C-Series — Google Cloud</span><span class="cdot" aria-hidden="true"></span></div>
           <h2>Cloud Infrastructure</h2>
           <p>Google Cloud design, migration and day-2 operations — Compute Engine, Cloud SQL, Cloud Armor, Kubernetes, hybrid setups and data/AI pipelines. EU regions available.</p>
-          <a href="cloud.html">Explore Cloud Infrastructure <span class="arr" aria-hidden="true">→</span></a>
+          <a href="../../style-3-soc/cloud.html">Explore Cloud Infrastructure <span class="arr" aria-hidden="true">→</span></a>
         </div>
         <div class="card">
           <div class="head"><span class="lbl">E·S·A-Series — CyberSecurity</span><span class="cdot" aria-hidden="true"></span></div>
           <h2>Cybersecurity</h2>
           <p>EDR, SIEM and WDR from SentinelOne, TeamT5, Fortinet, CyberEyes and Google — selected, deployed and tuned — plus three AI-driven testing services we build ourselves.</p>
-          <a href="cybersecurity.html">Explore Cybersecurity <span class="arr" aria-hidden="true">→</span></a>
+          <a href="../../style-3-soc/cybersecurity.html">Explore Cybersecurity <span class="arr" aria-hidden="true">→</span></a>
         </div>
         <div class="card">
           <div class="head"><span class="lbl">X-Series — Services</span><span class="cdot" aria-hidden="true"></span></div>
           <h2>Managed Services</h2>
           <p>24/7 SOC and incident response, ISMS / PIMS consulting, human-led penetration testing, cloud cost governance and digital transformation.</p>
-          <a href="services.html">Explore Managed Services <span class="arr" aria-hidden="true">→</span></a>
+          <a href="../../style-3-soc/services.html">Explore Managed Services <span class="arr" aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
   </div>
 
 
-  <section id="stack">
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Reference architecture</p>
-      <h2 class="sec">Reference architecture — a typical Volcatech deployment.</h2>
-      <p class="lead">Traffic and endpoint telemetry feed Google SecOps; our SOC watches it around the clock; the whole thing runs on Google Cloud. Every box is a product page. This is a typical shape, not a fixed bundle — your scope is agreed per engagement.</p>
-      <div class="stack">
-        <div class="layer">
-          <h3>Web layer</h3>
-          <ul class="nodes">
-            <li><span class="node plain"><span class="nm">Web traffic</span><span class="src">Internet · WAF</span></span></li>
-            <li><a class="node" href="cybereyes.html"><span class="nm">CyberEyes <span class="chip">ESS</span></span><span class="src">WDR · CyberEyes</span></a></li>
-          </ul>
-        </div>
-        <div class="layer">
-          <h3>Endpoints</h3>
-          <ul class="nodes">
-            <li><a class="node" href="sentinelone.html"><span class="nm">SentinelOne <span class="chip">ESS</span></span><span class="src">EDR · SentinelOne</span></a></li>
-            <li><a class="node" href="threatsonar.html"><span class="nm">ThreatSonar <span class="chip">ESS</span></span><span class="src">EDR · TeamT5</span></a></li>
-            <li><a class="node" href="cybersecurity.html#fortiedr"><span class="nm">FortiEDR <span class="chip">ESS</span></span><span class="src">EDR · Fortinet</span></a></li>
-          </ul>
-        </div>
-        <p class="flowmark"><span aria-hidden="true">↓</span> telemetry</p>
-        <div class="layer">
-          <h3>Detection</h3>
-          <ul class="nodes">
-            <li><a class="node" href="google-secops.html"><span class="nm">Google SecOps</span><span class="src">SIEM + SOAR · Google Cloud</span></a></li>
-          </ul>
-        </div>
-        <p class="flowmark"><span aria-hidden="true">↓</span> confirmed alerts</p>
-        <div class="layer">
-          <!-- 層名刻意不用單獨的 Operations / Platform 兩個字：CLAUDE.md 的
-               「舊選單術語不得殘留」檢查會比對「整個元素內容剛好等於該詞」的樣式，
-               雖然圖層名與被淘汰的選單分類語意無關，留著會讓那條檢查永遠誤報 -->
-          <h3>Operations &amp; validation</h3>
-          <ul class="nodes">
-            <li><a class="node" href="services.html#soc"><span class="nm">Volcatech SOC <span class="chip">ESS</span></span><span class="src">24/7 · Volcatech</span></a></li>
-            <li><a class="node" href="cybersecurity.html#ce-bas"><span class="nm">CE-BAS</span><span class="src">Tests the above · Volcatech</span></a></li>
-            <li><a class="node" href="cybersecurity.html#ai-ptaas"><span class="nm">AI-PTaaS</span><span class="src">Tests the above · Volcatech</span></a></li>
-            <li><a class="node" href="cybersecurity.html#secpurple"><span class="nm">SecPurple</span><span class="src">Tests the above · Volcatech</span></a></li>
-          </ul>
-        </div>
-        <div class="base">
-          <h3>Cloud platform</h3>
-          <ul class="nodes">
-            <li><a class="node" href="cloud-compute.html"><span class="nm">Compute</span><span class="src">Google Cloud</span></a></li>
-            <li><a class="node" href="cloud-storage.html"><span class="nm">Storage</span><span class="src">Google Cloud</span></a></li>
-            <li><a class="node" href="cloud-databases.html"><span class="nm">Databases</span><span class="src">Google Cloud</span></a></li>
-            <li><a class="node" href="cloud-analytics.html"><span class="nm">Data &amp; AI</span><span class="src">Google Cloud</span></a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="essbar">
-        <p>The boxes marked <b>ESS</b> are also sold as one packaged contract — web detection, endpoint protection and our 24/7 SOC on a single agreement.</p>
-        <a class="go" href="ess.html">Enterprise Security Service →</a>
-      </div>
-    </div>
-  </section>
-
   <section id="catalogue">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Everything we deliver</p>
-      <h2 class="sec">The full list, in one place.</h2>
-      <div class="index3">
-        <div>
-          <h3>Cloud Infrastructure<span class="n">7 areas</span></h3>
-          <ul>
-            <li><a href="cloud-compute.html">Compute</a></li>
-            <li><a href="cloud-storage.html">Storage</a></li>
-            <li><a href="cloud-analytics.html">Analytics</a></li>
-            <li><a href="cloud-serverless.html">Serverless</a></li>
-            <li><a href="cloud-databases.html">Databases</a></li>
-            <li><a href="cloud-ai.html">AI</a></li>
-            <li><a href="cloud-services.html">Cloud services &amp; Cloud Armor</a></li>
-          </ul>
-          <a class="go" href="cloud.html">All Google Cloud services →</a>
-        </div>
-        <div>
-          <h3>Cybersecurity<span class="n">8 products</span></h3>
-          <ul>
-            <li><a href="sentinelone.html">SentinelOne</a></li>
-            <li><a href="threatsonar.html">ThreatSonar</a></li>
-            <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
-            <li><a href="cybereyes.html">CyberEyes</a></li>
-            <li><a href="google-secops.html">Google SecOps</a></li>
-            <li><a href="cybersecurity.html#ce-bas">CE-BAS</a></li>
-            <li><a href="cybersecurity.html#ai-ptaas">AI-PTaaS</a></li>
-            <li><a href="cybersecurity.html#secpurple">SecPurple</a></li>
-          </ul>
-          <a class="go" href="cybersecurity.html">All security products →</a>
-        </div>
-        <div>
-          <h3>Managed Services<span class="n">6 services</span></h3>
-          <ul>
-            <li><a href="ess.html">Enterprise Security Service (ESS)</a></li>
-            <li><a href="services.html#soc">24/7 SOC &amp; Incident Response</a></li>
-            <li><a href="services.html#isms">ISMS / PIMS Consulting</a></li>
-            <li><a href="services.html#pentest">Penetration Testing (human-led)</a></li>
-            <li><a href="services.html#finops">Cloud FinOps &amp; Enablement</a></li>
-            <li><a href="services.html#dx">Digital Transformation</a></li>
-          </ul>
-          <a class="go" href="services.html">All managed services →</a>
-        </div>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Service catalogue</p>
+      <h2 class="sec">Everything we deliver, and whose technology is behind it.</h2>
+      <p class="lead">Twenty-one services across three lines. The right-hand column says who makes each one — and where it says Volcatech, we built it ourselves.</p>
+      <div class="cat">
+        <p class="grp">CI · CLOUD INFRASTRUCTURE — Google Cloud, designed and operated by Volcatech</p>
+        <div class="row"><span class="c">CI-01</span><span class="n"><a href="../../style-3-soc/cloud-compute.html">Compute</a></span><span class="t">Virtual machines, managed Kubernetes and native VMware, chosen per workload.</span><span class="v"><span class="vlbl">Powered by </span>Google Cloud</span></div>
+        <div class="row"><span class="c">CI-02</span><span class="n"><a href="../../style-3-soc/cloud-storage.html">Storage</a></span><span class="t">Object storage, managed file systems and backup with retention you can audit.</span><span class="v"><span class="vlbl">Powered by </span>Google Cloud</span></div>
+        <div class="row"><span class="c">CI-03</span><span class="n"><a href="../../style-3-soc/cloud-analytics.html">Analytics</a></span><span class="t">A warehouse, a message bus and a processing engine, assembled into pipelines.</span><span class="v"><span class="vlbl">Powered by </span>Google Cloud</span></div>
+        <div class="row"><span class="c">CI-04</span><span class="n"><a href="../../style-3-soc/cloud-serverless.html">Serverless</a></span><span class="t">Containers that scale from zero and one governed front door for every API.</span><span class="v"><span class="vlbl">Powered by </span>Google Cloud</span></div>
+        <div class="row"><span class="c">CI-05</span><span class="n"><a href="../../style-3-soc/cloud-databases.html">Databases</a></span><span class="t">Managed relational and NoSQL engines, migrated from your existing estate.</span><span class="v"><span class="vlbl">Powered by </span>Google Cloud</span></div>
+        <div class="row"><span class="c">CI-06</span><span class="n"><a href="../../style-3-soc/cloud-ai.html">AI</a></span><span class="t">Google&#39;s AI platform and model catalogue, with governance set before rollout.</span><span class="v"><span class="vlbl">Powered by </span>Google Cloud</span></div>
+        <div class="row"><span class="c">CI-07</span><span class="n"><a href="../../style-3-soc/cloud-services.html">Cloud services &amp; Cloud Armor</a></span><span class="t">Edge protection, migration, hybrid backup and data engineering around the platform.</span><span class="v own"><span class="vlbl">Powered by </span>Google Cloud + own</span></div>
+        <p class="grp">E · S · A — CYBERSECURITY — selected, deployed, tuned and monitored by Volcatech</p>
+        <div class="row"><span class="c">E-01</span><span class="n"><a href="../../style-3-soc/sentinelone.html">SentinelOne</a></span><span class="t">Autonomous endpoint detection and response, with ransomware rollback.</span><span class="v"><span class="vlbl">Powered by </span>SentinelOne</span></div>
+        <div class="row"><span class="c">E-02</span><span class="n"><a href="../../style-3-soc/threatsonar.html">ThreatSonar</a></span><span class="t">Endpoint forensics built on Asia-Pacific APT intelligence.</span><span class="v"><span class="vlbl">Powered by </span>TeamT5</span></div>
+        <div class="row"><span class="c">E-03</span><span class="n"><a href="../../style-3-soc/cybersecurity.html#fortiedr">FortiEDR</a></span><span class="t"><span class="todo">[TODO: one-line description]</span></span><span class="v"><span class="vlbl">Powered by </span>Fortinet</span></div>
+        <div class="row"><span class="c">S-01</span><span class="n"><a href="../../style-3-soc/cybereyes.html">CyberEyes</a></span><span class="t">Web detection and response for what gets past the WAF.</span><span class="v"><span class="vlbl">Powered by </span>CyberEyes</span></div>
+        <div class="row"><span class="c">S-02</span><span class="n"><a href="../../style-3-soc/google-secops.html">Google SecOps</a></span><span class="t">Cloud-native SIEM with built-in SOAR, threat intelligence and analytics.</span><span class="v"><span class="vlbl">Powered by </span>Google Cloud</span></div>
+        <div class="row"><span class="c">A-01</span><span class="n"><a href="../../style-3-soc/cybersecurity.html#ce-bas">CE-BAS</a></span><span class="t">Continuous external breach and attack simulation.</span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+        <div class="row"><span class="c">A-02</span><span class="n"><a href="../../style-3-soc/cybersecurity.html#ai-ptaas">AI-PTaaS</a></span><span class="t">Automated penetration testing delivered as a subscription.</span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+        <div class="row"><span class="c">A-03</span><span class="n"><a href="../../style-3-soc/cybersecurity.html#secpurple">SecPurple</a></span><span class="t">Purple-team exercises that end as detection rules your SOC keeps.</span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+        <p class="grp">X · MANAGED SERVICES — operated by Volcatech</p>
+        <div class="row"><span class="c">X-01</span><span class="n"><a href="../../style-3-soc/ess.html">Enterprise Security Service (ESS)</a></span><span class="t">WDR, EDR and our 24/7 SOC bundled into a single contract.</span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+        <div class="row"><span class="c">X-02</span><span class="n"><a href="../../style-3-soc/services.html#soc">24/7 SOC &amp; Incident Response</a></span><span class="t"><span class="todo">[TODO: one-line description]</span></span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+        <div class="row"><span class="c">X-03</span><span class="n"><a href="../../style-3-soc/services.html#isms">ISMS / PIMS Consulting</a></span><span class="t"><span class="todo">[TODO: one-line description]</span></span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+        <div class="row"><span class="c">X-04</span><span class="n"><a href="../../style-3-soc/services.html#pentest">Penetration Testing (human-led)</a></span><span class="t"><span class="todo">[TODO: one-line description]</span></span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+        <div class="row"><span class="c">X-05</span><span class="n"><a href="../../style-3-soc/services.html#finops">Cloud FinOps &amp; Enablement</a></span><span class="t"><span class="todo">[TODO: one-line description]</span></span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
+        <div class="row"><span class="c">X-06</span><span class="n"><a href="../../style-3-soc/services.html#dx">Digital Transformation</a></span><span class="t"><span class="todo">[TODO: one-line description]</span></span><span class="v own"><span class="vlbl">Powered by </span>Volcatech</span></div>
       </div>
     </div>
   </section>
@@ -516,6 +426,30 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </section>
 
+
+  <section id="how">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>How we work</p>
+      <h2 class="sec">Three steps, agreed before we start.</h2>
+      <div class="steps">
+        <div>
+          <p class="no">01 · Design</p>
+          <h3>Assess and design</h3>
+          <p>Scope, owners and exit criteria written down before any migration starts.</p>
+        </div>
+        <div>
+          <p class="no">02 · Deliver</p>
+          <h3>Build and migrate</h3>
+          <p>Deployed into your own tenancy, not ours. You keep the keys. <span class="todo">[TODO: confirm delivery model]</span></p>
+        </div>
+        <div>
+          <p class="no">03 · Operate</p>
+          <h3>Run and report</h3>
+          <p>One escalation path, one monthly report, the same engineers who built it. <span class="todo">[TODO: response-time commitment]</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section id="why">
     <div class="wrap">
@@ -573,7 +507,7 @@ a.node:hover{border-color:var(--accent)}
 <footer>
   <div class="wrap fcols">
     <div class="fbrand">
-      <a class="logo" href="index-v3-flow.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
+      <a class="logo" href="index-v2-catalogue.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
       <p>Cloud, security and managed operations for European organisations.</p>
       <dl>
         <dt>Email</dt><dd>[TODO: contact email]</dd>
@@ -582,47 +516,47 @@ a.node:hover{border-color:var(--accent)}
       </dl>
     </div>
     <div id="cloud-list">
-      <h4><a href="cloud.html">Cloud Infrastructure</a></h4>
+      <h4><a href="../../style-3-soc/cloud.html">Cloud Infrastructure</a></h4>
       <ul>
-        <li><a href="cloud.html">Overview</a></li>
-        <li><a href="cloud-compute.html">Compute</a></li>
-        <li><a href="cloud-storage.html">Storage</a></li>
-        <li><a href="cloud-analytics.html">Analytics</a></li>
-        <li><a href="cloud-serverless.html">Serverless</a></li>
-        <li><a href="cloud-databases.html">Databases</a></li>
-        <li><a href="cloud-ai.html">AI</a></li>
-        <li><a href="cloud-services.html">Cloud services &amp; Cloud Armor</a></li>
+        <li><a href="../../style-3-soc/cloud.html">Overview</a></li>
+        <li><a href="../../style-3-soc/cloud-compute.html">Compute</a></li>
+        <li><a href="../../style-3-soc/cloud-storage.html">Storage</a></li>
+        <li><a href="../../style-3-soc/cloud-analytics.html">Analytics</a></li>
+        <li><a href="../../style-3-soc/cloud-serverless.html">Serverless</a></li>
+        <li><a href="../../style-3-soc/cloud-databases.html">Databases</a></li>
+        <li><a href="../../style-3-soc/cloud-ai.html">AI</a></li>
+        <li><a href="../../style-3-soc/cloud-services.html">Cloud services &amp; Cloud Armor</a></li>
       </ul>
     </div>
     <div id="security-list">
-      <h4><a href="cybersecurity.html">Cybersecurity</a></h4>
+      <h4><a href="../../style-3-soc/cybersecurity.html">Cybersecurity</a></h4>
       <p class="sub">Endpoint — EDR</p>
       <ul>
-        <li><a href="sentinelone.html">SentinelOne</a></li>
-        <li><a href="threatsonar.html">ThreatSonar</a></li>
-        <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
+        <li><a href="../../style-3-soc/sentinelone.html">SentinelOne</a></li>
+        <li><a href="../../style-3-soc/threatsonar.html">ThreatSonar</a></li>
+        <li><a href="../../style-3-soc/cybersecurity.html#fortiedr">FortiEDR</a></li>
       </ul>
       <p class="sub">Detection — SIEM & WDR</p>
       <ul>
-        <li><a href="cybereyes.html">CyberEyes</a></li>
-        <li><a href="google-secops.html">Google SecOps</a></li>
+        <li><a href="../../style-3-soc/cybereyes.html">CyberEyes</a></li>
+        <li><a href="../../style-3-soc/google-secops.html">Google SecOps</a></li>
       </ul>
       <p class="sub">Built in-house</p>
       <ul>
-        <li><a href="cybersecurity.html#ce-bas">CE-BAS</a></li>
-        <li><a href="cybersecurity.html#ai-ptaas">AI-PTaaS</a></li>
-        <li><a href="cybersecurity.html#secpurple">SecPurple</a></li>
+        <li><a href="../../style-3-soc/cybersecurity.html#ce-bas">CE-BAS</a></li>
+        <li><a href="../../style-3-soc/cybersecurity.html#ai-ptaas">AI-PTaaS</a></li>
+        <li><a href="../../style-3-soc/cybersecurity.html#secpurple">SecPurple</a></li>
       </ul>
     </div>
     <div id="managed-list">
-      <h4><a href="services.html">Managed Services</a></h4>
+      <h4><a href="../../style-3-soc/services.html">Managed Services</a></h4>
       <ul>
-        <li><a href="ess.html">Enterprise Security Service (ESS)</a></li>
-        <li><a href="services.html#soc">24/7 SOC &amp; Incident Response</a></li>
-        <li><a href="services.html#isms">ISMS / PIMS Consulting</a></li>
-        <li><a href="services.html#pentest">Penetration Testing (human-led)</a></li>
-        <li><a href="services.html#finops">Cloud FinOps &amp; Enablement</a></li>
-        <li><a href="services.html#dx">Digital Transformation</a></li>
+        <li><a href="../../style-3-soc/ess.html">Enterprise Security Service (ESS)</a></li>
+        <li><a href="../../style-3-soc/services.html#soc">24/7 SOC &amp; Incident Response</a></li>
+        <li><a href="../../style-3-soc/services.html#isms">ISMS / PIMS Consulting</a></li>
+        <li><a href="../../style-3-soc/services.html#pentest">Penetration Testing (human-led)</a></li>
+        <li><a href="../../style-3-soc/services.html#finops">Cloud FinOps &amp; Enablement</a></li>
+        <li><a href="../../style-3-soc/services.html#dx">Digital Transformation</a></li>
       </ul>
     </div>
     <div>
@@ -644,7 +578,7 @@ a.node:hover{border-color:var(--accent)}
     <p>© 2026 Volcatech Co., Ltd.</p>
     <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
   </div>
-  <div class="wrap backlink"><a href="../index.html">← Demo hub</a> · Layout: <a href="index.html">Current</a> · <a href="index-v1-proof.html">V1</a> · <a href="index-v2-catalogue.html">V2</a> · <a href="index-v3-flow.html">V3</a> · Nav: <a href="index-v3-flow.html">A</a> · <a href="index-v3-flow-nav-b.html">B</a></div>
+  <div class="wrap backlink"><a href="../../index.html">← Demo hub</a> · Layout: <a href="../../style-3-soc/index.html">Current</a> · <a href="../../style-3-soc/index-v1-proof.html">V1</a> · <a href="index-v2-catalogue.html">V2</a> · <a href="index-v3-flow.html">V3</a> · Nav: <a href="index-v2-catalogue.html">A</a> · <a href="index-v2-catalogue-nav-b.html">B</a></div>
 </footer>
 </body>
 </html>

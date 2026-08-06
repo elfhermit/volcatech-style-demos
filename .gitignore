@@ -7,3 +7,6 @@ dist/
 
 # 內部規劃文件:不推上 public repo(本機檔案仍保留,不受影響)
 docs/
+
+# 專案層 agent skills 與本機設定:僅本機使用(來源版本見 .claude/skills/SOURCES.md)
+.claude/

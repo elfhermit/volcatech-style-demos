@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>[lab] Cloud Run — Tailwind experiment (light theme, interactive tabs)</title>
+<meta name="description" content="Lab experiment: the Cloud Run product page rebuilt with Tailwind CSS from a CDN and a light palette, following the layout prompt from the 0805 meeting. Not a production page — it breaks the project's no-CDN rule on purpose, so the cost can be seen.">
+<!-- EXPERIMENT ONLY. This page loads Tailwind from an external CDN, which the production
+     rules forbid (GDPR: the visitor's IP reaches a third party). It exists so the visual
+     direction can be judged against the rule-compliant version, not to be shipped. -->
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-slate-900 antialiased">
+
+<!-- ── experiment banner ─────────────────────────────────────────────────── -->
+<div class="bg-amber-400 text-slate-900">
+  <div class="mx-auto max-w-6xl px-6 py-3 text-sm font-medium flex flex-wrap gap-x-5 gap-y-1 items-baseline">
+    <span class="font-bold">lab / Tailwind experiment</span>
+    <span>Loads Tailwind from an external CDN and uses a light palette — both against the production rules. Needs internet to render.</span>
+    <span class="ml-auto flex gap-4 underline decoration-slate-900/30 underline-offset-4">
+      <a href="../style-3-soc/gcp-cloud-run.html">Rule-compliant version</a>
+      <a href="index.html">lab index</a>
+    </span>
+  </div>
+</div>
+
+<!-- ── 1. hero: two columns ──────────────────────────────────────────────── -->
+<header class="bg-slate-900 text-white">
+  <div class="mx-auto max-w-6xl px-6 py-20 grid gap-14 lg:grid-cols-2 lg:items-center">
+    <div>
+      <p class="font-mono text-xs tracking-[0.2em] text-amber-400 uppercase">CI-04 · Serverless · Cloud Run</p>
+      <h1 class="mt-5 text-4xl sm:text-5xl font-semibold leading-tight">Cloud Run</h1>
+      <p class="mt-3 font-mono text-xs uppercase tracking-widest text-slate-400">Google Cloud · Serverless containers</p>
+      <p class="mt-6 text-lg text-slate-300 max-w-xl">A managed platform for running containers. Bring an image in
+        any language and it scales with the traffic — down to nothing when there is none.</p>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href="../style-3-soc/index.html#contact"
+           class="rounded-md bg-amber-400 px-6 py-3 font-semibold text-slate-900 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:bg-amber-300">Contact us</a>
+        <a href="../style-3-soc/cloud-serverless.html"
+           class="rounded-md border border-slate-600 px-6 py-3 font-semibold text-white transition-all hover:-translate-y-0.5 hover:border-slate-400">All serverless services</a>
+      </div>
+    </div>
+
+    <!-- right column: request path, drawn rather than illustrated -->
+    <div class="rounded-xl border border-slate-700 bg-slate-800/60 p-7">
+      <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-400">Request path</p>
+      <ul class="mt-5 space-y-2">
+        <li class="rounded-lg border border-slate-600 bg-slate-900 px-4 py-3 text-sm">Client request</li>
+        <li class="text-center text-slate-500 text-sm" aria-hidden="true">↓</li>
+        <li class="rounded-lg border border-amber-400 bg-slate-900 px-4 py-3 text-sm font-semibold">Cloud Run service</li>
+        <li class="text-center text-slate-500 text-sm" aria-hidden="true">↓ scales 0 → n</li>
+        <li class="rounded-lg border border-slate-600 bg-slate-900 px-4 py-3 text-sm">Container instances</li>
+      </ul>
+      <p class="mt-5 text-xs text-slate-400">No instances are held between requests, so an idle service has nothing running.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ── 2. key value proposition: three cards ─────────────────────────────── -->
+<section class="bg-white">
+  <div class="mx-auto max-w-6xl px-6 py-20">
+    <p class="font-mono text-xs uppercase tracking-[0.18em] text-slate-500">Why teams choose it</p>
+    <h2 class="mt-4 text-3xl font-semibold">What Cloud Run is good at.</h2>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+
+      <div class="rounded-xl border border-slate-200 bg-white p-7 transition-all hover:-translate-y-1 hover:shadow-lg">
+        <svg class="h-7 w-7 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg>
+        <h3 class="mt-5 text-lg font-semibold">Deploy the container, not the platform</h3>
+        <p class="mt-2 text-slate-600">If it builds into an image and listens on a port, it runs here. There is no
+          cluster to size, patch or keep alive between deployments.</p>
+      </div>
+
+      <div class="rounded-xl border border-slate-200 bg-white p-7 transition-all hover:-translate-y-1 hover:shadow-lg">
+        <svg class="h-7 w-7 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <h3 class="mt-5 text-lg font-semibold">Billed by request</h3>
+        <p class="mt-2 text-slate-600">An idle service costs nothing. Traffic that arrives in bursts is charged as
+          bursts rather than as capacity reserved for the peak.</p>
+      </div>
+
+      <div class="rounded-xl border border-slate-200 bg-white p-7 transition-all hover:-translate-y-1 hover:shadow-lg">
+        <svg class="h-7 w-7 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5L4 12l5 7M15 5l5 7-5 7"/></svg>
+        <h3 class="mt-5 text-lg font-semibold">No language constraints</h3>
+        <p class="mt-2 text-slate-600">Runtime, framework and dependency set are decided inside the image. The
+          platform does not have an approved list.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── 3. interactive tabs ───────────────────────────────────────────────── -->
+<section class="bg-slate-50 border-y border-slate-200">
+  <div class="mx-auto max-w-6xl px-6 py-20">
+    <p class="font-mono text-xs uppercase tracking-[0.18em] text-slate-500">Detail</p>
+    <h2 class="mt-4 text-3xl font-semibold">Features and where they apply.</h2>
+
+    <div class="mt-10 flex gap-2 border-b border-slate-300" role="tablist" aria-label="Cloud Run detail">
+      <button type="button" role="tab" id="tab-features" aria-controls="panel-features" aria-selected="true"
+              class="tabbtn min-h-11 rounded-t-lg px-5 py-3 text-sm font-semibold">Key features</button>
+      <button type="button" role="tab" id="tab-uses" aria-controls="panel-uses" aria-selected="false"
+              class="tabbtn min-h-11 rounded-t-lg px-5 py-3 text-sm font-semibold">Use cases</button>
+    </div>
+
+    <div id="panel-features" role="tabpanel" aria-labelledby="tab-features" tabindex="0" class="pt-9">
+      <dl class="grid gap-6 md:grid-cols-3">
+        <div class="rounded-xl bg-white border border-slate-200 p-6">
+          <dt class="font-semibold">Scale to zero</dt>
+          <dd class="mt-2 text-slate-600">With no traffic the service holds no instances, and starts again on the next request.</dd>
+        </div>
+        <div class="rounded-xl bg-white border border-slate-200 p-6">
+          <dt class="font-semibold">HTTPS endpoint on deploy</dt>
+          <dd class="mt-2 text-slate-600">Each service gets a TLS endpoint when it is created — no load balancer or certificate step in between.</dd>
+        </div>
+        <div class="rounded-xl bg-white border border-slate-200 p-6">
+          <dt class="font-semibold">Fast autoscaling</dt>
+          <dd class="mt-2 text-slate-600">Instance count follows concurrent requests closely enough that traffic spikes do not need to be predicted in advance.</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div id="panel-uses" role="tabpanel" aria-labelledby="tab-uses" tabindex="0" class="pt-9" hidden>
+      <dl class="grid gap-6 md:grid-cols-3">
+        <div class="rounded-xl bg-white border-l-4 border-amber-400 border-y border-r border-slate-200 p-6">
+          <dt class="font-semibold">RESTful APIs</dt>
+          <dd class="mt-2 text-slate-600">Request-response services whose load is uneven, where paying for idle capacity overnight is the main waste.</dd>
+        </div>
+        <div class="rounded-xl bg-white border-l-4 border-amber-400 border-y border-r border-slate-200 p-6">
+          <dt class="font-semibold">Web application back ends</dt>
+          <dd class="mt-2 text-slate-600">The server-side half of an application, deployed from the same image the team already builds in CI.</dd>
+        </div>
+        <div class="rounded-xl bg-white border-l-4 border-amber-400 border-y border-r border-slate-200 p-6">
+          <dt class="font-semibold">Internal automation</dt>
+          <dd class="mt-2 text-slate-600">Webhook receivers, scheduled jobs and bot services that run rarely and should not carry a permanent host.</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ── 4. architecture integration ───────────────────────────────────────── -->
+<section class="bg-white">
+  <div class="mx-auto max-w-6xl px-6 py-20">
+    <p class="font-mono text-xs uppercase tracking-[0.18em] text-slate-500">Works with</p>
+    <h2 class="mt-4 text-3xl font-semibold">Where Cloud Run sits.</h2>
+
+    <div class="mt-10 overflow-hidden rounded-xl border border-slate-300">
+      <div class="grid items-center gap-5 bg-slate-50 p-6 sm:grid-cols-[150px_1fr]">
+        <h3 class="font-mono text-[11px] uppercase tracking-[0.16em] text-slate-500">In front</h3>
+        <ul class="flex flex-wrap gap-3">
+          <li><a href="../style-3-soc/cloud-serverless.html#api-gateway" class="block rounded-lg border border-slate-400 bg-white px-4 py-3 text-sm transition-all hover:-translate-y-0.5 hover:border-amber-500 hover:shadow">API Gateway</a></li>
+        </ul>
+      </div>
+      <p class="border-y border-slate-300 bg-white py-2 text-center font-mono text-xs text-slate-500"><span aria-hidden="true">↓</span> requests</p>
+      <div class="grid items-center gap-5 bg-slate-50 p-6 sm:grid-cols-[150px_1fr]">
+        <h3 class="font-mono text-[11px] uppercase tracking-[0.16em] text-slate-500">Runtime</h3>
+        <ul class="flex flex-wrap gap-3">
+          <li><span class="block rounded-lg border-2 border-amber-500 bg-white px-4 py-3 text-sm font-semibold">Cloud Run</span></li>
+        </ul>
+      </div>
+      <p class="border-y border-slate-300 bg-white py-2 text-center font-mono text-xs text-slate-500"><span aria-hidden="true">↓</span> reads and writes</p>
+      <div class="grid items-center gap-5 bg-slate-50 p-6 sm:grid-cols-[150px_1fr]">
+        <h3 class="font-mono text-[11px] uppercase tracking-[0.16em] text-slate-500">State</h3>
+        <ul class="flex flex-wrap gap-3">
+          <li><a href="../style-3-soc/cloud-databases.html#cloud-sql" class="block rounded-lg border border-slate-400 bg-white px-4 py-3 text-sm transition-all hover:-translate-y-0.5 hover:border-amber-500 hover:shadow">Cloud SQL</a></li>
+          <li><a href="../style-3-soc/cloud-databases.html#firestore" class="block rounded-lg border border-slate-400 bg-white px-4 py-3 text-sm transition-all hover:-translate-y-0.5 hover:border-amber-500 hover:shadow">Firestore</a></li>
+          <li><a href="../style-3-soc/cloud-storage.html#cloud-storage" class="block rounded-lg border border-slate-400 bg-white px-4 py-3 text-sm transition-all hover:-translate-y-0.5 hover:border-amber-500 hover:shadow">Cloud Storage</a></li>
+        </ul>
+      </div>
+      <p class="border-y border-slate-300 bg-white py-2 text-center font-mono text-xs text-slate-500"><span aria-hidden="true">↓</span> emits events to</p>
+      <div class="grid items-center gap-5 bg-slate-50 p-6 sm:grid-cols-[150px_1fr]">
+        <h3 class="font-mono text-[11px] uppercase tracking-[0.16em] text-slate-500">Messaging</h3>
+        <ul class="flex flex-wrap gap-3">
+          <li><a href="../style-3-soc/cloud-analytics.html#pubsub" class="block rounded-lg border border-slate-400 bg-white px-4 py-3 text-sm transition-all hover:-translate-y-0.5 hover:border-amber-500 hover:shadow">Pub/Sub</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="mt-7 text-slate-600">Volcatech designs the layout, deploys it and keeps it under monitoring.
+      <span class="ml-1 rounded border border-dashed border-slate-400 px-2 py-0.5 font-mono text-xs text-slate-500">[TODO: delivery model and response times]</span></p>
+
+    <p class="mt-7 font-mono text-sm text-slate-500">Vendor resources →
+      <a href="https://cloud.google.com/run" target="_blank" rel="noopener" class="font-semibold text-amber-600 hover:underline">cloud.google.com/run ↗</a></p>
+  </div>
+</section>
+</main>
+
+<!-- ── 5. bottom CTA ─────────────────────────────────────────────────────── -->
+<footer class="bg-slate-900 text-white">
+  <div class="mx-auto max-w-6xl px-6 py-16 grid gap-8 sm:grid-cols-[2fr_1fr] sm:items-center">
+    <h2 class="text-2xl sm:text-3xl font-semibold leading-snug">Tell us about your environment — we will map the path
+      to cloud, security and operations.</h2>
+    <div class="sm:text-right">
+      <a href="../style-3-soc/index.html#contact"
+         class="inline-block rounded-md bg-amber-400 px-6 py-3 font-semibold text-slate-900 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:bg-amber-300">Contact us</a>
+    </div>
+  </div>
+  <div class="border-t border-slate-800">
+    <div class="mx-auto max-w-6xl px-6 py-6 font-mono text-xs text-slate-400 flex flex-wrap gap-x-5 gap-y-2">
+      <a href="index.html" class="hover:text-white">← lab index</a>
+      <a href="../style-3-soc/gcp-cloud-run.html" class="hover:text-white">Rule-compliant version</a>
+      <a href="../index.html" class="hover:text-white">Demo hub</a>
+      <span class="ml-auto">Experiment page — not part of the demo site.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Tabs need real state, so this page has script. The rule-compliant version answers the
+// same requirement by laying both panels out flat — that difference is the thing to judge.
+(function () {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  var on = 'bg-white border border-b-white border-slate-300 -mb-px text-slate-900';
+  var off = 'text-slate-500 hover:text-slate-900';
+  function select(tab) {
+    tabs.forEach(function (t) {
+      var active = t === tab;
+      t.setAttribute('aria-selected', String(active));
+      t.setAttribute('tabindex', active ? '0' : '-1');
+      t.className = 'tabbtn min-h-11 rounded-t-lg px-5 py-3 text-sm font-semibold ' + (active ? on : off);
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !active;
+    });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(t); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      var next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      next.focus(); select(next);
+    });
+  });
+  select(tabs[0]);
+})();
+</script>
+</body>
+</html>

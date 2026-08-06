@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>[lab] Compute on Google Cloud — Tailwind experiment (light theme)</title>
+<meta name="description" content="Lab experiment: the Compute category page rebuilt with Tailwind CSS from a CDN and a light palette, following the layout prompt from the 0805 meeting. Same copy as the live page — only the layout differs. Not a production page.">
+<!-- EXPERIMENT ONLY. Loads Tailwind from an external CDN, which the production rules
+     forbid (GDPR: the visitor's IP reaches a third party). Copy is byte-for-byte the same
+     as the live page and the rule-compliant proposal, so the comparison is about layout. -->
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-slate-900 antialiased">
+
+<div class="bg-amber-400 text-slate-900">
+  <div class="mx-auto max-w-6xl px-6 py-3 text-sm font-medium flex flex-wrap gap-x-5 gap-y-1 items-baseline">
+    <span class="font-bold">lab / Tailwind experiment</span>
+    <span>Loads Tailwind from an external CDN and uses a light palette — both against the production rules. Needs internet to render.</span>
+    <span class="ml-auto flex gap-4 underline decoration-slate-900/30 underline-offset-4">
+      <a href="../style-3-soc/cloud-compute.html">Live page</a>
+      <a href="inline-cloud-compute.html">Rule-compliant proposal</a>
+      <a href="index.html">lab index</a>
+    </span>
+  </div>
+</div>
+
+<!-- ── 1. hero ───────────────────────────────────────────────────────────── -->
+<header class="bg-slate-900 text-white">
+  <div class="mx-auto max-w-6xl px-6 py-20 grid gap-14 lg:grid-cols-2 lg:items-center">
+    <div>
+      <p class="font-mono text-xs tracking-[0.2em] text-amber-400 uppercase">CI-01 · Cloud Infrastructure · Compute</p>
+      <h1 class="mt-5 text-4xl sm:text-5xl font-semibold leading-tight">Compute on Google Cloud</h1>
+      <p class="mt-3 font-mono text-xs uppercase tracking-widest text-slate-400">Vendor: Google Cloud · Virtual machines, Kubernetes and VMware</p>
+      <p class="mt-6 text-lg text-slate-300 max-w-xl">Virtual machines, managed Kubernetes and native VMware —
+        chosen per workload, then built and operated by one team.</p>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href="../style-3-soc/index.html#contact"
+           class="rounded-md bg-amber-400 px-6 py-3 font-semibold text-slate-900 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:bg-amber-300">Contact us</a>
+        <a href="../style-3-soc/index.html#contact"
+           class="rounded-md border border-slate-600 px-6 py-3 font-semibold text-white transition-all hover:-translate-y-0.5 hover:border-slate-400">Talk to our team</a>
+      </div>
+    </div>
+
+    <div class="rounded-xl border border-slate-700 bg-slate-800/60 p-7">
+      <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-slate-400">Pick per workload</p>
+      <ul class="mt-5 grid gap-3">
+        <li class="rounded-lg border border-slate-600 bg-slate-900 px-4 py-3"><span class="font-semibold">Compute Engine</span><span class="ml-2 text-sm text-slate-400">virtual machines</span></li>
+        <li class="rounded-lg border border-slate-600 bg-slate-900 px-4 py-3"><span class="font-semibold">Kubernetes Engine</span><span class="ml-2 text-sm text-slate-400">containers</span></li>
+        <li class="rounded-lg border border-slate-600 bg-slate-900 px-4 py-3"><span class="font-semibold">VMware Engine</span><span class="ml-2 text-sm text-slate-400">existing VMware estate</span></li>
+      </ul>
+      <p class="mt-5 text-xs text-slate-400">All three run under the same monitoring and change process.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ── 2. problems ───────────────────────────────────────────────────────── -->
+<section class="bg-slate-50 border-b border-slate-200">
+  <div class="mx-auto max-w-6xl px-6 py-20">
+    <p class="font-mono text-xs uppercase tracking-[0.18em] text-slate-500">Pain points — before the project</p>
+    <h2 class="mt-4 text-3xl font-semibold">The problems this takes off your board.</h2>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      <div class="rounded-r-xl border-l-4 border-amber-400 border-y border-r border-slate-200 bg-white p-6">
+        <h3 class="text-lg font-semibold">Sizing guesswork</h3>
+        <p class="mt-2 text-slate-600">Over-provisioned instances carry cost you only discover at quarter end.</p>
+      </div>
+      <div class="rounded-r-xl border-l-4 border-amber-400 border-y border-r border-slate-200 bg-white p-6">
+        <h3 class="text-lg font-semibold">Migration risk</h3>
+        <p class="mt-2 text-slate-600">Rehosting production workloads without downtime needs a plan, not a weekend.</p>
+      </div>
+      <div class="rounded-r-xl border-l-4 border-amber-400 border-y border-r border-slate-200 bg-white p-6">
+        <h3 class="text-lg font-semibold">Platform sprawl</h3>
+        <p class="mt-2 text-slate-600">VMs, containers and legacy VMware each end up with their own operating model.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 3. the three services ─────────────────────────────────────────────── -->
+<section class="bg-white">
+  <div class="mx-auto max-w-6xl px-6 py-20">
+    <p class="font-mono text-xs uppercase tracking-[0.18em] text-slate-500">Google Cloud services</p>
+    <h2 class="mt-4 text-3xl font-semibold">Three ways to run a workload.</h2>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+
+      <div id="compute-engine" class="flex flex-col rounded-xl border border-slate-200 p-7 transition-all hover:-translate-y-1 hover:shadow-lg">
+        <svg class="h-7 w-7 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4"/></svg>
+        <h3 class="mt-5 text-lg font-semibold">Compute Engine</h3>
+        <p class="mt-2 flex-1 text-slate-600">Customisable virtual machines with preset or custom machine types, for web servers, databases and AI workloads.</p>
+        <a href="../style-3-soc/gcp-compute-engine.html" class="mt-5 self-start font-mono text-sm font-semibold text-amber-600 hover:underline">Product page →</a>
+      </div>
+
+      <div id="kubernetes-engine" class="flex flex-col rounded-xl border border-slate-200 p-7 transition-all hover:-translate-y-1 hover:shadow-lg">
+        <svg class="h-7 w-7 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg>
+        <h3 class="mt-5 text-lg font-semibold">Kubernetes Engine (GKE)</h3>
+        <p class="mt-2 flex-1 text-slate-600">Managed Kubernetes for deploying and auto-scaling containerised applications, with the full Kubernetes API.</p>
+        <a href="https://cloud.google.com/kubernetes-engine" target="_blank" rel="noopener" class="mt-5 self-start font-mono text-sm font-semibold text-amber-600 hover:underline">Vendor page ↗</a>
+      </div>
+
+      <div id="vmware-engine" class="flex flex-col rounded-xl border border-slate-200 p-7 transition-all hover:-translate-y-1 hover:shadow-lg">
+        <svg class="h-7 w-7 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>
+        <h3 class="mt-5 text-lg font-semibold">VMware Engine</h3>
+        <p class="mt-2 flex-1 text-slate-600">Run native VMware workloads on Google Cloud without re-architecting, keeping your existing tools and processes.</p>
+        <a href="https://cloud.google.com/vmware-engine" target="_blank" rel="noopener" class="mt-5 self-start font-mono text-sm font-semibold text-amber-600 hover:underline">Vendor page ↗</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── 4. delivery as a sequence + outcomes, behind tabs ─────────────────── -->
+<section class="bg-slate-50 border-y border-slate-200">
+  <div class="mx-auto max-w-6xl px-6 py-20">
+    <p class="font-mono text-xs uppercase tracking-[0.18em] text-slate-500">Delivery</p>
+    <h2 class="mt-4 text-3xl font-semibold">What we build, and what changes.</h2>
+
+    <div class="mt-10 flex gap-2 border-b border-slate-300" role="tablist" aria-label="Delivery detail">
+      <button type="button" role="tab" id="tab-build" aria-controls="panel-build" aria-selected="true"
+              class="tabbtn min-h-11 rounded-t-lg px-5 py-3 text-sm font-semibold">What we build on it</button>
+      <button type="button" role="tab" id="tab-out" aria-controls="panel-out" aria-selected="false"
+              class="tabbtn min-h-11 rounded-t-lg px-5 py-3 text-sm font-semibold">What changes on day one</button>
+    </div>
+
+    <div id="panel-build" role="tabpanel" aria-labelledby="tab-build" tabindex="0" class="pt-9">
+      <ol class="flex flex-wrap items-stretch gap-3">
+        <li class="flex-1 min-w-[210px] rounded-xl border border-slate-300 bg-white p-6">
+          <span class="font-mono text-[11px] tracking-[0.16em] text-slate-500">01</span>
+          <h3 class="mt-2 font-semibold">Landing zone design</h3>
+          <p class="mt-2 text-sm text-slate-600">Projects, networks, IAM and quotas laid out before the first workload moves.</p></li>
+        <li class="flex items-center font-mono text-lg text-slate-400 max-md:w-full max-md:justify-center max-md:rotate-90" aria-hidden="true">→</li>
+        <li class="flex-1 min-w-[210px] rounded-xl border border-slate-300 bg-white p-6">
+          <span class="font-mono text-[11px] tracking-[0.16em] text-slate-500">02</span>
+          <h3 class="mt-2 font-semibold">Migration planning</h3>
+          <p class="mt-2 text-sm text-slate-600">Workloads assessed, sequenced and rehosted with a tested rollback at each step.</p></li>
+        <li class="flex items-center font-mono text-lg text-slate-400 max-md:w-full max-md:justify-center max-md:rotate-90" aria-hidden="true">→</li>
+        <li class="flex-1 min-w-[210px] rounded-xl border border-slate-300 bg-white p-6">
+          <span class="font-mono text-[11px] tracking-[0.16em] text-slate-500">03</span>
+          <h3 class="mt-2 font-semibold">Container platform</h3>
+          <p class="mt-2 text-sm text-slate-600">GKE clusters, pipelines and containerisation guidance for teams new to Kubernetes.</p></li>
+        <li class="flex items-center font-mono text-lg text-slate-400 max-md:w-full max-md:justify-center max-md:rotate-90" aria-hidden="true">→</li>
+        <li class="flex-1 min-w-[210px] rounded-xl border border-slate-300 bg-white p-6">
+          <span class="font-mono text-[11px] tracking-[0.16em] text-slate-500">04</span>
+          <h3 class="mt-2 font-semibold">Day-2 operations</h3>
+          <p class="mt-2 text-sm text-slate-600">Patching, scaling, monitoring and cost reviews handled as a running service.</p></li>
+      </ol>
+    </div>
+
+    <div id="panel-out" role="tabpanel" aria-labelledby="tab-out" tabindex="0" class="pt-9" hidden>
+      <dl class="overflow-hidden rounded-xl border border-slate-300 bg-white">
+        <div class="grid gap-4 p-6 sm:grid-cols-[48px_1fr]">
+          <span class="font-mono text-sm text-slate-500" aria-hidden="true">01</span>
+          <div><dt class="font-semibold">Right-sized from the start</dt>
+            <dd class="mt-1 text-slate-600">Machine types match the workload instead of the safest guess.</dd></div>
+        </div>
+        <div class="grid gap-4 border-t border-slate-300 p-6 sm:grid-cols-[48px_1fr]">
+          <span class="font-mono text-sm text-slate-500" aria-hidden="true">02</span>
+          <div><dt class="font-semibold">One operating model</dt>
+            <dd class="mt-1 text-slate-600">VMs, containers and VMware run under the same monitoring and change process.</dd></div>
+        </div>
+        <div class="grid gap-4 border-t border-slate-300 p-6 sm:grid-cols-[48px_1fr]">
+          <span class="font-mono text-sm text-slate-500" aria-hidden="true">03</span>
+          <div><dt class="font-semibold">Migration without a big bang</dt>
+            <dd class="mt-1 text-slate-600">Workloads move in sequenced waves, each reversible.</dd></div>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ── 5. why ────────────────────────────────────────────────────────────── -->
+<section class="bg-white">
+  <div class="mx-auto max-w-6xl px-6 py-20">
+    <p class="font-mono text-xs uppercase tracking-[0.18em] text-slate-500">Why build with Volcatech</p>
+    <h2 class="mt-4 text-3xl font-semibold">A platform is only as good as its operation.</h2>
+    <p class="mt-6 max-w-3xl text-slate-600">We size the environment against your actual workloads, move them in
+      reversible waves, and stay on for patching, scaling and cost review.
+      <span class="ml-1 rounded border border-dashed border-slate-400 px-2 py-0.5 font-mono text-xs text-slate-500">[TODO: local references &amp; delivery details]</span></p>
+    <p class="mt-8 font-mono text-sm text-slate-500">Vendor resources →
+      <a href="https://cloud.google.com/products/compute" target="_blank" rel="noopener" class="font-semibold text-amber-600 hover:underline">cloud.google.com/products/compute ↗</a> ·
+      <a href="https://cloud.google.com/kubernetes-engine" target="_blank" rel="noopener" class="font-semibold text-amber-600 hover:underline">cloud.google.com/kubernetes-engine ↗</a> ·
+      <a href="https://cloud.google.com/vmware-engine" target="_blank" rel="noopener" class="font-semibold text-amber-600 hover:underline">cloud.google.com/vmware-engine ↗</a></p>
+  </div>
+</section>
+</main>
+
+<footer class="bg-slate-900 text-white">
+  <div class="mx-auto max-w-6xl px-6 py-16 grid gap-8 sm:grid-cols-[2fr_1fr] sm:items-center">
+    <h2 class="text-2xl sm:text-3xl font-semibold leading-snug">Size your workloads for Google Cloud — book a scoping session.</h2>
+    <div class="sm:text-right">
+      <a href="../style-3-soc/index.html#contact"
+         class="inline-block rounded-md bg-amber-400 px-6 py-3 font-semibold text-slate-900 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:bg-amber-300">Contact us</a>
+    </div>
+  </div>
+  <div class="border-t border-slate-800">
+    <div class="mx-auto max-w-6xl px-6 py-6 font-mono text-xs text-slate-400 flex flex-wrap gap-x-5 gap-y-2">
+      <a href="index.html" class="hover:text-white">← lab index</a>
+      <a href="../style-3-soc/cloud-compute.html" class="hover:text-white">Live page</a>
+      <a href="inline-cloud-compute.html" class="hover:text-white">Rule-compliant proposal</a>
+      <a href="../index.html" class="hover:text-white">Demo hub</a>
+      <span class="ml-auto">Experiment page — not part of the demo site.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Tabs need real state, so this page has script. The rule-compliant proposal answers the
+// same requirement by laying both panels out flat — that difference is the thing to judge.
+(function () {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  var on = 'bg-white border border-b-white border-slate-300 -mb-px text-slate-900';
+  var off = 'text-slate-500 hover:text-slate-900';
+  function select(tab) {
+    tabs.forEach(function (t) {
+      var active = t === tab;
+      t.setAttribute('aria-selected', String(active));
+      t.setAttribute('tabindex', active ? '0' : '-1');
+      t.className = 'tabbtn min-h-11 rounded-t-lg px-5 py-3 text-sm font-semibold ' + (active ? on : off);
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !active;
+    });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(t); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      var next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      next.focus(); select(next);
+    });
+  });
+  select(tabs[0]);
+})();
+</script>
+</body>
+</html>
