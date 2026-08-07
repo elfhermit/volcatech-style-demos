@@ -201,6 +201,26 @@ a.node:hover{border-color:var(--accent)}
 .node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
 .flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
   font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+/* 0806 round 2 — decision-support blocks. .pick answers "which of the 19 do I need":
+   each row pairs a situation with the product to reach for. The recommendation reuses
+   the .node chip language from .stack (deep panel, --muted border, amber self), so
+   "this is a product" reads the same everywhere on the site. Arrow is a real character
+   marked aria-hidden, same as .steps. */
+.pick{list-style:none;margin-top:44px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.pick>li{background:var(--surface);display:grid;grid-template-columns:1fr 28px minmax(200px,max-content);
+  gap:16px;align-items:center;padding:18px 22px}
+.pick>li+li{border-top:1px solid var(--line)}
+.pick .when{font-size:14.5px}
+.pick .ar{color:var(--muted);font-family:var(--mono);font-size:16px;text-align:center}
+.pick .node{min-width:0;font-size:14.5px}
+/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
+   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
+   .spec so numbering reads as one system; questions carry the ink, answers the muted. */
+.faq{margin-top:44px;border-top:1px solid var(--line)}
+.faq>div{border-bottom:1px solid var(--line);padding:20px 2px}
+.faq h3{display:grid;grid-template-columns:42px 1fr;gap:16px;font-size:16px}
+.faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
+.faq p{margin:8px 0 0 58px;font-size:14.5px;color:var(--muted)}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
@@ -215,6 +235,9 @@ a.node:hover{border-color:var(--accent)}
   .steps{flex-direction:column}
   .steps>li.ar{justify-content:center;transform:rotate(90deg)}
   .layer{grid-template-columns:1fr;gap:10px}
+  .pick>li{grid-template-columns:1fr}
+  .pick .ar{transform:rotate(90deg);justify-self:center}
+  .faq p{margin-left:0}
 }
 @media (prefers-reduced-motion: reduce){
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
@@ -378,6 +401,18 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </div>
 
+  <section id="pain">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>The problem</p>
+      <h2 class="sec">What teams run into without it.</h2>
+      <div class="probs">
+        <div><h3>Endless patching cycles</h3><p>Self-hosted database servers demand recurring patch windows, engine upgrades and OS maintenance. Every window needs scheduling, testing and a rollback plan — and each one competes with feature work.</p></div>
+        <div><h3>Failover on paper</h3><p>Replication and failover exist in the architecture diagram but are rarely rehearsed. The first genuine test happens mid-incident, the most expensive possible moment to find a gap.</p></div>
+        <div><h3>Untested restore paths</h3><p>Backup jobs run nightly and nobody looks at them again. Whether a restore actually works — and how long it takes — is discovered only after data has been lost.</p></div>
+      </div>
+    </div>
+  </section>
+
   <section id="value">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why teams choose it</p>
@@ -398,6 +433,8 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">01</span><div><h3>Storage autoscaling</h3><p>Disk capacity grows as the data does, so a full volume is not the thing that stops the database.</p></div></div>
         <div><span class="n" aria-hidden="true">02</span><div><h3>Read replicas</h3><p>Reporting and read-heavy traffic are directed to replicas so they do not contend with writes on the primary.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Encryption at rest</h3><p>Data and backups are encrypted without a key management step being added to the deployment.</p></div></div>
+        <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>With high availability enabled, Cloud SQL carries a monthly uptime SLA of 99.95% on Enterprise edition and 99.99% on Enterprise Plus.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Engine coverage</h3><p>One managed service covers three engines: MySQL, PostgreSQL and SQL Server.</p></div></div>
       </div>
     </div>
   </section>
@@ -411,6 +448,19 @@ a.node:hover{border-color:var(--accent)}
         <div><h3>Content management</h3><p>WordPress, Drupal and similar platforms that expect a stock MySQL or PostgreSQL endpoint.</p></div>
         <div><h3>ERP and CRM</h3><p>Packaged systems certified against a specific engine version, where the vendor decides what is supported.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">When Cloud SQL is the right call — and when it is not.</h2>
+      <ul class="pick">
+        <li><p class="when">Standard MySQL, PostgreSQL or SQL Server applications</p><span class="ar" aria-hidden="true">→</span><span class="node self">Cloud SQL</span></li>
+        <li><p class="when">PostgreSQL under heavy transactional load or mixed analytics</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-alloydb.html">AlloyDB</a></li>
+        <li><p class="when">Warehouse-scale analytical queries</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-bigquery.html">BigQuery</a></li>
+        <li><p class="when">Document-model data with offline mobile clients</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-firestore.html">Firestore</a></li>
+      </ul>
     </div>
   </section>
 
@@ -440,6 +490,20 @@ a.node:hover{border-color:var(--accent)}
         </div>
       </div>
       <p class="lead" style="margin-top:26px">Volcatech designs the layout, deploys it and keeps it under monitoring. <span class="todo">[TODO: delivery model and response times]</span></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>When should we choose AlloyDB instead of Cloud SQL?</span></h3><p>Cloud SQL covers most relational workloads across three engines. Consider AlloyDB when a PostgreSQL system needs more headroom than a managed instance provides, or when analytics against live data starts to hurt transaction performance.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>Can our data stay in EU regions?</span></h3><p>Yes. Each instance is created in a region you choose and primary data remains there. Cross-region replicas are something you configure deliberately, never a default.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>What availability commitment does Cloud SQL carry?</span></h3><p>With high availability enabled, Google commits to 99.95% monthly uptime on Enterprise edition and 99.99% on Enterprise Plus. Single-zone and shared-core instances sit outside the SLA — a configuration detail worth checking early.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>How do we migrate from self-hosted databases?</span></h3><p>Replication-based migration keeps the source system live while data synchronises, so cutover shrinks to a short validation window. Google's Database Migration Service supports minimal-downtime migration for all three engines.</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>How is Cloud SQL priced?</span></h3><p>Costs track provisioned compute, storage, networking and the edition you run. The right answer depends on sizing and availability requirements — contact us and we will size and optimise the configuration against your actual workload.</p></div>
+      </div>
     </div>
   </section>
 

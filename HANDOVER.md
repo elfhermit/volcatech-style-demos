@@ -245,6 +245,37 @@ Nav B 刪兩個 `li.sub` flyout 區塊，全 23 檔每檔恰好命中一次）�
 22／8／3／6 個錨點 id 全在；軸 2 五句 2/2 ＋ 核心句 1；每頁 icon 無重複。
 14 個 subagent 分 6 組施工並交叉驗收，**0 blocker**，6 項 advisory 已逐項處理或登記。
 
+### 本輪完成的事（2026-08-06 晚，GCP 產品頁「吸引閱讀」改版）
+
+前置：19 個 GCP 產品頁補齊＋產品卡雙出口＋`cloud.html` 產品索引已先 commit（`4037efc`），
+讓軸 3 基準前進，本輪改動可獨立驗證。
+
+1. **19 個 `gcp-*.html` 各加三段**（grilling 定案；研究底稿
+   `docs/reports/gcp官網解剖_20260806.md`）：`#pain` 痛點（沿用 `probs`）→
+   `#pick` 選型指引（新元件 `.pick`：情境 → `.node` 晶片，自身用 `.node.self`）→
+   `#faq` 平鋪問答（新元件 `.faq`，mono 編號同 `.spec` 系統）。骨架順序：
+   Hero → pain → value → features → usecases → pick → stack → faq → vendor → CTA。
+2. **文案生產線**：6 組產文 agent 從 Google docs overview 頁改寫（19 產品 × 痛點 2–3／
+   選型 2–4 列／FAQ 3–5 題／規格事實 0–2 條），6 組**獨立稽核**（抄襲 6 連詞比對、
+   虛構、金額、英式拼寫、技術事實）——抓到 **10 處文字缺陷**（8 連字照抄、
+   「single console」與官方支援矩陣矛盾、儲存級別取捨寫反、OpenAPI 版本過時、
+   Cloud Armor 24/7 應變寫成 Enterprise 全含[實為 Annual 限定]、「prompts 不訓練」
+   引錯來源頁等）全數修正、另補正 4 處來源，才整合進 `PAGES`。
+3. **ADR 0004**：全站不放金額資訊，計價一律導向 Contact us；非金額規格事實
+   （SLA %、容量上限）可寫進 `spec` 面板，來源 URL 以 `# src:` 註解存於 `PAGES` 條目旁。
+4. **`.pick`／`.faq` 進 `BLOCK_CSS` 正本**（36 檔同步注入）；icon 規則放寬為
+   「優先從 ICONS 挑，缺了以同風格自繪補進正本」（本輪 35 個夠用，未新增）。
+5. 選型只比 19 個產品之間，**不與他雲比較**（競品座標句已否決）。
+
+**已驗**：`check_nav`／`check_links` PASS；`check_copy` **少了=0**、多了=613
+（全部是三個新段落的刻意新增，commit 後歸零）；三段齊備 19/19；stack 主角 19/19
+（檢查已改為只掃 `#stack` 區——`.pick` 的自指列也用 `.node.self`，全檔數會多算）；
+金額掃描（`[$€£]`/per month/free tier）全站零命中；CLAUDE.md 內容檢查組全綠。
+
+踩過的坑（勿重犯）：整合腳本判斷「條目已整合」不能用寬鬆的 `"pains"` 字串——
+最後一個條目的 region 延伸到檔尾，會把 `build_main()` 裡的 `p.get("pains")` 誤判成已整合，
+要用插入時的精確樣式 `"pains": [`。
+
 ### V1 首頁（改它之前必讀）
 
 **V1 不要手改。**它由 `docs/reports/build_v1_20260806.py` 從 `index.html` 產生：
@@ -258,7 +289,7 @@ hero / Built / Why / Trust / CTA 五個共用區塊直接**切片**取得，所�
 （V2/V3 已封存。它們留下的兩個教訓仍然有效：圖層標題不能單獨叫 `Operations` / `Platform`，
 會撞到「舊選單術語不得殘留」的機械檢查而永遠誤報，連註解裡都不能出現該字串樣式。）
 
-分層圖（`.stack`）的三條硬約束，現由 3 個 GCP 產品頁沿用，勿違反：
+分層圖（`.stack`）的三條硬約束，現由 19 個 GCP 產品頁沿用，勿違反：
 不得用 `position:absolute`（768/390px 會崩）；承載語意的線條用 `--muted` 不用 `--line`
 （`--line #27344A` 在 `--bg` 上只有 **1.47:1**，不到 WCAG 1.4.11 的 3:1）；
 箭頭用帶 `aria-hidden` 的真字元，不放 `::before content`，
@@ -282,9 +313,8 @@ hero / Built / Why / Trust / CTA 五個共用區塊直接**切片**取得，所�
 
 各下拉內容（首行皆為 mono 白話對照）：
 
-- `Google Cloud`：Overview（`cloud.html`）＋六組 18 項。
-  **Compute Engine → `gcp-compute-engine.html`、Cloud Run → `gcp-cloud-run.html`、
-  BigQuery → `gcp-bigquery.html`** 已是獨立頁；其餘 15 項仍是 `分類頁#產品錨點`（過渡狀態）。
+- `Google Cloud`：Overview（`cloud.html`）＋六組 18 項，
+  **18 項全部連各自的 `gcp-*.html` 產品頁**（0806 補齊，不再有 `分類頁#錨點` 的過渡狀態）。
   第二層群組父項指向分類頁本身（`cloud-compute.html` 等）。
 - `CyberSecurity`：Overview（`cybersecurity.html`）＋三組，
   head 白話行「CyberSecurity — EDR · SIEM & WDR · Built in-house」——

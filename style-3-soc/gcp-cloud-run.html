@@ -201,6 +201,26 @@ a.node:hover{border-color:var(--accent)}
 .node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
 .flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
   font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+/* 0806 round 2 — decision-support blocks. .pick answers "which of the 19 do I need":
+   each row pairs a situation with the product to reach for. The recommendation reuses
+   the .node chip language from .stack (deep panel, --muted border, amber self), so
+   "this is a product" reads the same everywhere on the site. Arrow is a real character
+   marked aria-hidden, same as .steps. */
+.pick{list-style:none;margin-top:44px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.pick>li{background:var(--surface);display:grid;grid-template-columns:1fr 28px minmax(200px,max-content);
+  gap:16px;align-items:center;padding:18px 22px}
+.pick>li+li{border-top:1px solid var(--line)}
+.pick .when{font-size:14.5px}
+.pick .ar{color:var(--muted);font-family:var(--mono);font-size:16px;text-align:center}
+.pick .node{min-width:0;font-size:14.5px}
+/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
+   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
+   .spec so numbering reads as one system; questions carry the ink, answers the muted. */
+.faq{margin-top:44px;border-top:1px solid var(--line)}
+.faq>div{border-bottom:1px solid var(--line);padding:20px 2px}
+.faq h3{display:grid;grid-template-columns:42px 1fr;gap:16px;font-size:16px}
+.faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
+.faq p{margin:8px 0 0 58px;font-size:14.5px;color:var(--muted)}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
@@ -215,6 +235,9 @@ a.node:hover{border-color:var(--accent)}
   .steps{flex-direction:column}
   .steps>li.ar{justify-content:center;transform:rotate(90deg)}
   .layer{grid-template-columns:1fr;gap:10px}
+  .pick>li{grid-template-columns:1fr}
+  .pick .ar{transform:rotate(90deg);justify-self:center}
+  .faq p{margin-left:0}
 }
 @media (prefers-reduced-motion: reduce){
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
@@ -378,6 +401,18 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </div>
 
+  <section id="pain">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>The problem</p>
+      <h2 class="sec">What teams run into without it.</h2>
+      <div class="probs">
+        <div><h3>Idle capacity costs</h3><p>Container workloads with uneven traffic still occupy servers around the clock. Teams keep paying for compute that sits unused between peaks, because the platform cannot release it.</p></div>
+        <div><h3>Cluster overhead for small services</h3><p>Running a handful of containerised services should not require a full Kubernetes cluster. Provisioning, patching and upgrading nodes consumes engineering time out of proportion to the workload.</p></div>
+        <div><h3>Repeated per-service plumbing</h3><p>Every new service repeats the same setup: load balancing, certificates, autoscaling rules and deployment pipelines. Each copy is another thing to maintain and another place to make mistakes.</p></div>
+      </div>
+    </div>
+  </section>
+
   <section id="value">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why teams choose it</p>
@@ -398,6 +433,8 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">01</span><div><h3>Scale to zero</h3><p>With no traffic the service holds no instances, and starts again on the next request.</p></div></div>
         <div><span class="n" aria-hidden="true">02</span><div><h3>HTTPS endpoint on deploy</h3><p>Each service gets a TLS endpoint when it is created — no load balancer or certificate step in between.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Fast autoscaling</h3><p>Instance count follows concurrent requests closely enough that traffic spikes do not need to be predicted in advance.</p></div></div>
+        <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Cloud Run services (non-GPU) carry a 99.95% monthly uptime service level objective in most cloud regions.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Availability commitment</h3><p>A single service can scale out to as many as one thousand instances under default quota, with higher ceilings available on request.</p></div></div>
       </div>
     </div>
   </section>
@@ -411,6 +448,19 @@ a.node:hover{border-color:var(--accent)}
         <div><h3>Web application back ends</h3><p>The server-side half of an application, deployed from the same image the team already builds in CI.</p></div>
         <div><h3>Internal automation</h3><p>Webhook receivers, scheduled jobs and bot services that run rarely and should not carry a permanent host.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">When Cloud Run is the right call — and when it is not.</h2>
+      <ul class="pick">
+        <li><p class="when">Stateless HTTP services or event-driven containers with spiky traffic</p><span class="ar" aria-hidden="true">→</span><span class="node self">Cloud Run</span></li>
+        <li><p class="when">You need full cluster control: custom operators, node tuning, service mesh</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-kubernetes-engine.html">Kubernetes Engine</a></li>
+        <li><p class="when">Long-lived stateful workloads or licensed software tied to a VM</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-compute-engine.html">Compute Engine</a></li>
+        <li><p class="when">An existing App Engine estate that works and needs no migration</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-app-engine.html">App Engine</a></li>
+      </ul>
     </div>
   </section>
 
@@ -446,6 +496,20 @@ a.node:hover{border-color:var(--accent)}
         </div>
       </div>
       <p class="lead" style="margin-top:26px">Volcatech designs the layout, deploys it and keeps it under monitoring. <span class="todo">[TODO: delivery model and response times]</span></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>Cloud Run or App Engine — which should we choose for a new build?</span></h3><p>For new workloads, Google's own documentation points to Cloud Run as the current serverless direction. App Engine remains fully supported, so existing estates need not move. We assess this per application rather than by default.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>Do we need Kubernetes skills to run it?</span></h3><p>No. Cloud Run accepts a container image and handles scheduling, scaling and TLS itself. Many organisations adopt it with no Kubernetes expertise in-house; Kubernetes Engine is for when you want cluster-level control, not a prerequisite.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>What happens when traffic drops to zero?</span></h3><p>Services scale down to no running instances by default, then scale back out when requests arrive. If cold starts matter on latency-sensitive paths, a minimum instance count can be configured.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>Are we locked into specific languages?</span></h3><p>No. Anything that can be containerised and serve HTTP will run, whatever the language or framework. For common runtimes, source-based deployment can build the container for you.</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>How is Cloud Run priced?</span></h3><p>Billing follows actual usage — CPU, memory and request volume — so cost depends on traffic shape and configuration. Contact us and we will model it against your expected workload.</p></div>
+      </div>
     </div>
   </section>
 

@@ -75,17 +75,18 @@
   `--bg #0E141F` 上只有 **1.47:1**,不到 WCAG 1.4.11 的 3:1;③箭頭用帶 `aria-hidden="true"`
   的真字元,不放進 `::before content`,也不用 `role="img"` 包整張圖(會把裡面的連結對輔助科技隱藏)。
   圖層標題不能單獨叫 `Operations` / `Platform`——會誤觸「舊選單術語不得殘留」的檢查。
-- **GCP 產品頁不複製 `sentinelone.html`**:那個模板需要「痛點 3 組＋成效 3 組＋沃凱交付 4 卡」,
-  而 GCP 產品的沃凱觀點目前完全無素材。改用 Hero →`trio` 3 卡 →`spec` 深色面板 →`uses`
-  琥珀左邊界 →`stack` 分層圖 → CTA 的骨架。**不做頁籤**——兩塊平鋪成 section,
-  可深連結、Ctrl+F 找得到、與全站線性 section 結構同源。
+- **GCP 產品頁不複製 `sentinelone.html`**:那個模板需要「成效 3 組＋沃凱交付 4 卡」,
+  而 GCP 產品的沃凱觀點目前無素材。骨架(0806 三輪後)是 Hero →`#pain` 痛點(`probs`)→
+  `trio` 3 卡 →`spec` 深色面板(尾列為帶來源註記的規格事實)→`uses` 琥珀左邊界 →
+  `#pick` 選型指引 →`stack` 分層圖 →`#faq` 平鋪問答 → CTA。**不做頁籤**——全部平鋪成 section,
+  可深連結、Ctrl+F 找得到。痛點/選型/FAQ 的素材取自 Google docs overview 頁改寫。
   `cards2` 必須偶數張(產品數為奇數時把清單改走 `loglist`)。
 - **動 nav = 改 MENU 後重跑腳本**(36 檔一次同步);**動 footer = 36 檔都要改**
   (footer 沒有產生器,靠「17 個內容頁與 `sentinelone.html` 逐字節相同」把關)。
   頁尾三個欄標題都是連到對應總覽頁的連結。改完跑
   `check_nav_20260806.py`、`check_copy_20260806.py` 與 `check_links_20260806.py`,三支都要 PASS。
 - 全 36 檔的 `main [id]` 都有 `scroll-margin-top:80px`,新增頁面要一併帶上;
-  3 個 GCP 產品頁另需 `.stack a{scroll-margin-top:80px}`。
+  19 個 GCP 產品頁另需 `.stack a{scroll-margin-top:80px}`。
 - `ess.html` 是方案頁:ESS(Enterprise Security Service)為沃凱打包方案
   (CyberEyes WDR + 多品牌 EDR + 自有 7x24 SOC),**方案層、非 19 項 SKU**;
   **全頁禁任何外部連結**。此規則只適用 `ess.html` 與 `services.html`——
@@ -100,9 +101,12 @@
   保留封存、不對齊、不上站;現行 Cloud 線用頁面層代碼 `CI` / `CI-01`〜`CI-07`。
   GCP 產品頁沿用**父分類的代碼**(例 Compute Engine 是 `CI-01 · COMPUTE · COMPUTE ENGINE`),
   不新編 SKU 序號。
-- **文案來源**:GCP 產品事實出自 `docs/GCP_Introduce.md` 與 `docs/GCP_Introduce_v2.md`。
-  改寫三原則:英式拼寫(-ise)、**刪原廠量化宣稱**(「快 4 倍」「11 個 9」之類)、
+- **文案來源**:GCP 產品事實出自 `docs/GCP_Introduce.md` 與 `docs/GCP_Introduce_v2.md`;
+  0806 三輪新增的痛點/選型/FAQ 取自 Google docs overview 頁改寫。
+  改寫三原則:英式拼寫(-ise)、**刪原廠行銷倍數宣稱**(「快 4 倍」之類)、
   刪 `autonomous` / `AI-ready` / `unified` 這類自我定位形容詞。原廠描述必須改寫,不得複製。
+  **金額一律不上站**(ADR 0004):單價/免費額度/促銷不寫,計價問題導向 Contact us;
+  非金額的可查證規格事實(SLA 百分比、容量上限)可寫,來源 URL 註記在 `PAGES` 條目旁。
 - 純靜態、單檔自足:HTML + inline CSS,禁止外部 CDN(含 Google Fonts)、禁止框架與建置步驟。
   **不得新增 `<script>` 標籤**——全站僅有的 JS 是各頁 header 的兩個行內 handler
   (navbtn 的 `onclick`、`<header>` 的 `onkeydown`;後者是按 Esc 關閉下拉,補 WCAG SC 1.4.13)。

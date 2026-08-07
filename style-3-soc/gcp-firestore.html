@@ -201,6 +201,26 @@ a.node:hover{border-color:var(--accent)}
 .node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
 .flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
   font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+/* 0806 round 2 — decision-support blocks. .pick answers "which of the 19 do I need":
+   each row pairs a situation with the product to reach for. The recommendation reuses
+   the .node chip language from .stack (deep panel, --muted border, amber self), so
+   "this is a product" reads the same everywhere on the site. Arrow is a real character
+   marked aria-hidden, same as .steps. */
+.pick{list-style:none;margin-top:44px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.pick>li{background:var(--surface);display:grid;grid-template-columns:1fr 28px minmax(200px,max-content);
+  gap:16px;align-items:center;padding:18px 22px}
+.pick>li+li{border-top:1px solid var(--line)}
+.pick .when{font-size:14.5px}
+.pick .ar{color:var(--muted);font-family:var(--mono);font-size:16px;text-align:center}
+.pick .node{min-width:0;font-size:14.5px}
+/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
+   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
+   .spec so numbering reads as one system; questions carry the ink, answers the muted. */
+.faq{margin-top:44px;border-top:1px solid var(--line)}
+.faq>div{border-bottom:1px solid var(--line);padding:20px 2px}
+.faq h3{display:grid;grid-template-columns:42px 1fr;gap:16px;font-size:16px}
+.faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
+.faq p{margin:8px 0 0 58px;font-size:14.5px;color:var(--muted)}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
@@ -215,6 +235,9 @@ a.node:hover{border-color:var(--accent)}
   .steps{flex-direction:column}
   .steps>li.ar{justify-content:center;transform:rotate(90deg)}
   .layer{grid-template-columns:1fr;gap:10px}
+  .pick>li{grid-template-columns:1fr}
+  .pick .ar{transform:rotate(90deg);justify-self:center}
+  .faq p{margin-left:0}
 }
 @media (prefers-reduced-motion: reduce){
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
@@ -378,6 +401,18 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </div>
 
+  <section id="pain">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>The problem</p>
+      <h2 class="sec">What teams run into without it.</h2>
+      <div class="probs">
+        <div><h3>Hand-built sync layers</h3><p>Keeping mobile, web and backend state consistent means writing and operating polling, push and conflict-resolution code — a synchronisation layer the product team then maintains for the life of the app.</p></div>
+        <div><h3>Offline as an afterthought</h3><p>Field and consumer apps stop working the moment connectivity drops, unless local caching and re-sync are engineered in — work that rarely survives the first release plan.</p></div>
+        <div><h3>Capacity planning at launch</h3><p>Provisioning a database before real traffic exists forces a guess. Under-size it and launch suffers; over-size it and the organisation pays for idle capacity from day one.</p></div>
+      </div>
+    </div>
+  </section>
+
   <section id="value">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why teams choose it</p>
@@ -398,6 +433,8 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">01</span><div><h3>Client SDKs</h3><p>Native libraries for iOS, Android and the web connect to the database without a back- end service in between.</p></div></div>
         <div><span class="n" aria-hidden="true">02</span><div><h3>Security rules</h3><p>Read and write permissions are declared per collection, document and field, and evaluated on every request.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Multi-region transactions</h3><p>Transactions commit or roll back across replicas in more than one region, without a queue to reconcile afterwards.</p></div></div>
+        <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Multi-region Firestore carries a 99.999% monthly uptime SLA; regional deployments carry 99.99% in most Google Cloud regions.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Indexing default</h3><p>Queries are indexed by default, and performance tracks the size of the result set rather than the dataset.</p></div></div>
       </div>
     </div>
   </section>
@@ -411,6 +448,19 @@ a.node:hover{border-color:var(--accent)}
         <div><h3>Collaboration tools</h3><p>Chat and shared editing, where two people looking at the same document should see the same thing.</p></div>
         <div><h3>Game state</h3><p>Session and player state shared between devices in a match, updated as the state changes.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">When Firestore is the right call — and when it is not.</h2>
+      <ul class="pick">
+        <li><p class="when">New document-database builds, especially with mobile or web clients</p><span class="ar" aria-hidden="true">→</span><span class="node self">Firestore</span></li>
+        <li><p class="when">Server-side systems already on the Datastore API</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-datastore.html">Datastore</a></li>
+        <li><p class="when">Relational transactions and SQL reporting</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-cloud-sql.html">Cloud SQL</a></li>
+        <li><p class="when">Event analytics at warehouse scale</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-bigquery.html">BigQuery</a></li>
+      </ul>
     </div>
   </section>
 
@@ -439,6 +489,20 @@ a.node:hover{border-color:var(--accent)}
         </div>
       </div>
       <p class="lead" style="margin-top:26px">Volcatech designs the layout, deploys it and keeps it under monitoring. <span class="todo">[TODO: delivery model and response times]</span></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>How does Firestore relate to Datastore?</span></h3><p>Firestore is the successor — the current generation of Google's document database. A separate Datastore mode preserves the older API for existing systems, while Native mode, the recommended choice for new builds, adds real-time sync and offline support.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>Does Firestore work offline?</span></h3><p>Yes. Client SDKs keep a local copy of active data, so apps read, write and query while disconnected and reconcile changes automatically once the device is back online.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>Can we meet EU data residency requirements?</span></h3><p>Firestore databases are created in a specific location, which can be an EU region; document data is stored there. Multi-region configurations replicate within the selected geography, not across it.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>How reliable is Firestore in production?</span></h3><p>Google commits to 99.999% monthly uptime for multi-region deployments and 99.99% for regional ones in most regions. Replication and scaling are handled by the service rather than by your team.</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>What drives Firestore costs?</span></h3><p>Charges follow document reads, writes, deletes, storage and network egress, so cost tracks how the application actually behaves. Model your access patterns first — contact us and we will analyse them with you.</p></div>
+      </div>
     </div>
   </section>
 

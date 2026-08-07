@@ -196,6 +196,26 @@ a.node:hover{border-color:var(--accent)}
 .node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
 .flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
   font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+/* 0806 round 2 — decision-support blocks. .pick answers "which of the 19 do I need":
+   each row pairs a situation with the product to reach for. The recommendation reuses
+   the .node chip language from .stack (deep panel, --muted border, amber self), so
+   "this is a product" reads the same everywhere on the site. Arrow is a real character
+   marked aria-hidden, same as .steps. */
+.pick{list-style:none;margin-top:44px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.pick>li{background:var(--surface);display:grid;grid-template-columns:1fr 28px minmax(200px,max-content);
+  gap:16px;align-items:center;padding:18px 22px}
+.pick>li+li{border-top:1px solid var(--line)}
+.pick .when{font-size:14.5px}
+.pick .ar{color:var(--muted);font-family:var(--mono);font-size:16px;text-align:center}
+.pick .node{min-width:0;font-size:14.5px}
+/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
+   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
+   .spec so numbering reads as one system; questions carry the ink, answers the muted. */
+.faq{margin-top:44px;border-top:1px solid var(--line)}
+.faq>div{border-bottom:1px solid var(--line);padding:20px 2px}
+.faq h3{display:grid;grid-template-columns:42px 1fr;gap:16px;font-size:16px}
+.faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
+.faq p{margin:8px 0 0 58px;font-size:14.5px;color:var(--muted)}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
@@ -210,6 +230,9 @@ a.node:hover{border-color:var(--accent)}
   .steps{flex-direction:column}
   .steps>li.ar{justify-content:center;transform:rotate(90deg)}
   .layer{grid-template-columns:1fr;gap:10px}
+  .pick>li{grid-template-columns:1fr}
+  .pick .ar{transform:rotate(90deg);justify-self:center}
+  .faq p{margin-left:0}
 }
 @media (prefers-reduced-motion: reduce){
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}

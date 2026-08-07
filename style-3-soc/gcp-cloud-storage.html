@@ -201,6 +201,26 @@ a.node:hover{border-color:var(--accent)}
 .node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
 .flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
   font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+/* 0806 round 2 — decision-support blocks. .pick answers "which of the 19 do I need":
+   each row pairs a situation with the product to reach for. The recommendation reuses
+   the .node chip language from .stack (deep panel, --muted border, amber self), so
+   "this is a product" reads the same everywhere on the site. Arrow is a real character
+   marked aria-hidden, same as .steps. */
+.pick{list-style:none;margin-top:44px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.pick>li{background:var(--surface);display:grid;grid-template-columns:1fr 28px minmax(200px,max-content);
+  gap:16px;align-items:center;padding:18px 22px}
+.pick>li+li{border-top:1px solid var(--line)}
+.pick .when{font-size:14.5px}
+.pick .ar{color:var(--muted);font-family:var(--mono);font-size:16px;text-align:center}
+.pick .node{min-width:0;font-size:14.5px}
+/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
+   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
+   .spec so numbering reads as one system; questions carry the ink, answers the muted. */
+.faq{margin-top:44px;border-top:1px solid var(--line)}
+.faq>div{border-bottom:1px solid var(--line);padding:20px 2px}
+.faq h3{display:grid;grid-template-columns:42px 1fr;gap:16px;font-size:16px}
+.faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
+.faq p{margin:8px 0 0 58px;font-size:14.5px;color:var(--muted)}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
@@ -215,6 +235,9 @@ a.node:hover{border-color:var(--accent)}
   .steps{flex-direction:column}
   .steps>li.ar{justify-content:center;transform:rotate(90deg)}
   .layer{grid-template-columns:1fr;gap:10px}
+  .pick>li{grid-template-columns:1fr}
+  .pick .ar{transform:rotate(90deg);justify-self:center}
+  .faq p{margin-left:0}
 }
 @media (prefers-reduced-motion: reduce){
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
@@ -378,6 +401,18 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </div>
 
+  <section id="pain">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>The problem</p>
+      <h2 class="sec">What teams run into without it.</h2>
+      <div class="probs">
+        <div><h3>Unstructured data sprawl</h3><p>Backups, media, logs and exports accumulate across file servers, drives and departmental shares, with no common policy for retention or access. Nobody can say where the authoritative copy of anything lives.</p></div>
+        <div><h3>Capacity planning guesswork</h3><p>On-premises arrays force you to buy capacity years ahead of demand. Under-provision and projects stall; over-provision and the budget sits idle in a server room.</p></div>
+        <div><h3>Archives on fragile media</h3><p>Long-term records sit on tape or an ageing NAS, where restores take days and integrity is rarely verified until the day it matters.</p></div>
+      </div>
+    </div>
+  </section>
+
   <section id="value">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why teams choose it</p>
@@ -398,6 +433,7 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">01</span><div><h3>Storage classes</h3><p>Standard, Nearline, Coldline and Archive sit behind one API; the class sets the storage and retrieval cost.</p></div></div>
         <div><span class="n" aria-hidden="true">02</span><div><h3>Autoclass lifecycle</h3><p>Objects move between classes on their own access history, without a lifecycle rule written per bucket.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Redundancy options</h3><p>Each bucket is created with the redundancy it needs, so not every dataset has to be replicated the same way.</p></div></div>
+        <div><span class="n" aria-hidden="true">04</span><div><h3>Durability design target</h3><p>Engineered to a 99.999999999% (eleven nines) annual durability design target, applying to every storage class and location type.</p></div></div>
       </div>
     </div>
   </section>
@@ -411,6 +447,19 @@ a.node:hover{border-color:var(--accent)}
         <div><h3>Analytics data lake</h3><p>Raw events and exports landed in one place and read by query engines without a prior load step.</p></div>
         <div><h3>Long-term retention</h3><p>Backups and media archives kept for years on a class priced for storage rather than for reads.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">When Cloud Storage is the right call — and when it is not.</h2>
+      <ul class="pick">
+        <li><p class="when">Object data at any scale — backups, media, exports, data lake files</p><span class="ar" aria-hidden="true">→</span><span class="node self">Cloud Storage</span></li>
+        <li><p class="when">Applications expect a mounted POSIX file system over NFS</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-filestore.html">Filestore</a></li>
+        <li><p class="when">You need scheduled, immutable, application-consistent protection for VMs and databases</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-backup-dr.html">Backup and DR</a></li>
+        <li><p class="when">The data will be analysed with SQL for reporting</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-bigquery.html">BigQuery</a></li>
+      </ul>
     </div>
   </section>
 
@@ -440,6 +489,19 @@ a.node:hover{border-color:var(--accent)}
         </div>
       </div>
       <p class="lead" style="margin-top:26px">Volcatech designs the layout, deploys it and keeps it under monitoring. <span class="todo">[TODO: delivery model and response times]</span></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>Can we keep our data inside the EU?</span></h3><p>Yes. You choose the bucket location at creation — a single EU region, an EU dual-region or the EU multi-region — and object data is stored only within that boundary, which supports data-residency planning under GDPR.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>When should we use Filestore instead of Cloud Storage?</span></h3><p>Cloud Storage holds immutable objects behind an API; it does not offer POSIX file semantics such as locking or hard links. When applications expect a mounted NFS share, Filestore is the better fit.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>How do storage classes affect cost?</span></h3><p>Standard, Nearline, Coldline and Archive trade lower storage cost against retrieval charges and minimum storage durations; access remains low-latency in every class. The right mix depends on how often each dataset is read and how long it is kept. Contact us and we will map lifecycle rules to optimise placement.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>How durable is data held in Cloud Storage?</span></h3><p>The service is designed for eleven nines of annual durability across every storage class, using redundant storage and checksum validation. Availability is defined separately and varies by storage class and location type.</p></div>
+      </div>
     </div>
   </section>
 

@@ -201,6 +201,26 @@ a.node:hover{border-color:var(--accent)}
 .node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
 .flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
   font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+/* 0806 round 2 — decision-support blocks. .pick answers "which of the 19 do I need":
+   each row pairs a situation with the product to reach for. The recommendation reuses
+   the .node chip language from .stack (deep panel, --muted border, amber self), so
+   "this is a product" reads the same everywhere on the site. Arrow is a real character
+   marked aria-hidden, same as .steps. */
+.pick{list-style:none;margin-top:44px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.pick>li{background:var(--surface);display:grid;grid-template-columns:1fr 28px minmax(200px,max-content);
+  gap:16px;align-items:center;padding:18px 22px}
+.pick>li+li{border-top:1px solid var(--line)}
+.pick .when{font-size:14.5px}
+.pick .ar{color:var(--muted);font-family:var(--mono);font-size:16px;text-align:center}
+.pick .node{min-width:0;font-size:14.5px}
+/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
+   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
+   .spec so numbering reads as one system; questions carry the ink, answers the muted. */
+.faq{margin-top:44px;border-top:1px solid var(--line)}
+.faq>div{border-bottom:1px solid var(--line);padding:20px 2px}
+.faq h3{display:grid;grid-template-columns:42px 1fr;gap:16px;font-size:16px}
+.faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
+.faq p{margin:8px 0 0 58px;font-size:14.5px;color:var(--muted)}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
@@ -215,6 +235,9 @@ a.node:hover{border-color:var(--accent)}
   .steps{flex-direction:column}
   .steps>li.ar{justify-content:center;transform:rotate(90deg)}
   .layer{grid-template-columns:1fr;gap:10px}
+  .pick>li{grid-template-columns:1fr}
+  .pick .ar{transform:rotate(90deg);justify-self:center}
+  .faq p{margin-left:0}
 }
 @media (prefers-reduced-motion: reduce){
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
@@ -378,6 +401,18 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </div>
 
+  <section id="pain">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>The problem</p>
+      <h2 class="sec">What teams run into without it.</h2>
+      <div class="probs">
+        <div><h3>Schema migrations at scale</h3><p>Rigid relational schemas turn every product iteration into a migration exercise. Altering large tables means locks, downtime windows and deployments that have to be coordinated across teams.</p></div>
+        <div><h3>Scaling as a project</h3><p>Growth in a self-run key-value or document store means capacity planning, sharding and rebalancing — infrastructure work that lands on developers instead of the product.</p></div>
+        <div><h3>Integrity in app code</h3><p>Many horizontally scaling stores give up transactional guarantees, pushing consistency checks into application code where they are duplicated, drift apart and eventually get something wrong.</p></div>
+      </div>
+    </div>
+  </section>
+
   <section id="value">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why teams choose it</p>
@@ -398,6 +433,8 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">01</span><div><h3>Multi-region replication</h3><p>Data is copied across regions, so the loss of one does not take the database with it.</p></div></div>
         <div><span class="n" aria-hidden="true">02</span><div><h3>Automatic indexing</h3><p>Single-property indexes are maintained as entities are written; composite indexes are declared where a query needs them.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Query engine</h3><p>Filters, ordering and pagination run against the index rather than scanning the entity set.</p></div></div>
+        <div><span class="n" aria-hidden="true">04</span><div><h3>Query scaling model</h3><p>Query cost is designed to track the result set you ask for, not the volume of data stored, so response times stay stable as datasets grow.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Availability commitment</h3><p>Datastore mode runs on Firestore's storage layer and shares its availability and scaling characteristics.</p></div></div>
       </div>
     </div>
   </section>
@@ -411,6 +448,19 @@ a.node:hover{border-color:var(--accent)}
         <div><h3>User directories</h3><p>Profile and account records looked up by key, where the record shape differs between user types.</p></div>
         <div><h3>Product catalogues</h3><p>Item data with attributes that vary by category, read far more often than it is written.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">When Datastore is the right call — and when it is not.</h2>
+      <ul class="pick">
+        <li><p class="when">New document-database projects</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-firestore.html">Firestore</a></li>
+        <li><p class="when">Existing systems built on the Datastore API</p><span class="ar" aria-hidden="true">→</span><span class="node self">Datastore</span></li>
+        <li><p class="when">Relational queries, joins and SQL reporting</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-cloud-sql.html">Cloud SQL</a></li>
+        <li><p class="when">Analytics across stored entities</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-bigquery.html">BigQuery</a></li>
+      </ul>
     </div>
   </section>
 
@@ -446,6 +496,20 @@ a.node:hover{border-color:var(--accent)}
         </div>
       </div>
       <p class="lead" style="margin-top:26px">Volcatech designs the layout, deploys it and keeps it under monitoring. <span class="todo">[TODO: delivery model and response times]</span></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>What is the relationship between Datastore and Firestore?</span></h3><p>Firestore is the next generation of Datastore. The service now runs as Firestore in Datastore mode, on Firestore's storage layer, so it inherits the same availability and scaling while keeping the original Datastore API.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>Should a new project start on Datastore?</span></h3><p>Usually not. Google steers all new builds towards Firestore in Native mode. Datastore mode remains the right choice where existing code depends on the Datastore API or a server-side entity model.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>Does Datastore support transactions?</span></h3><p>Yes — atomic transactions with strong consistency across queries, which is unusual among horizontally scaling NoSQL stores. Integrity rules can stay in the database rather than migrating into application code.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>Can we change modes later?</span></h3><p>Only an empty database can switch between Native and Datastore modes, so the decision should be made deliberately at project start rather than deferred.</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>Where does the data live?</span></h3><p>Each database is provisioned in a location you choose, including EU regions, and entity data is stored there. Settle residency constraints before creation — the location of an existing database cannot be changed.</p></div>
+      </div>
     </div>
   </section>
 

@@ -34,6 +34,23 @@
    內嵌 giscus/utterances 要載外部 script 與第三方 cookie,會賠掉整個 demo 的 GDPR 前提。
    本輪選擇維持現況(會議記錄 ＋ 口頭)。要做的話只能開在 `lab/`,不得進 `style-3-soc/`。
 
+**2026-08-06 第三輪(產品頁吸引閱讀改版)**又定案五件事(grilling 兩輪問答;研究底稿
+`docs/reports/gcp官網解剖_20260806.md`——抽樣 5 個 Google 官網產品頁的結論:
+吸引企業買家的是「決策支援」內容,不是規格):
+
+1. **19 個 GCP 產品頁各加三段**:`#pain`(痛點,用 `probs`)、`#pick`(選型指引,新元件)、
+   `#faq`(平鋪問答,新元件)。素材取自 Google docs overview 頁改寫,每組草稿都過
+   獨立稽核(抄襲 6 連詞比對/虛構/金額/英式拼寫)。**競品座標句不做**——
+   不與 AWS/Azure 等他雲比較,比較只限 19 個產品之間。
+2. **全站不放金額資訊**(ADR 0004):單價、免費額度、促銷一律不寫,
+   計價問題一律導向 Contact us。
+3. **數字邊界放寬,僅限非金額**:可查證的規格事實(SLA 百分比、容量上限)可寫,
+   放在 `spec` 面板;每個數字的來源 URL 以 `# src:` 註解記在
+   `build_gcp_pages_20260806.py` 的 `PAGES` 條目旁,不渲染上頁。
+4. **icon 規則放寬**:優先從 `ICONS` 挑,不夠用時以同風格自繪補進正本再用;
+   區塊級 SVG 示意圖已授權但本輪未用到。
+5. 適用面只動 `gcp-*` 19 頁;`.pick`/`.faq` 是通用元件,資安線日後跟進零改造。
+
 **首頁兩案**
 
 | 方案 | 檔名 | hero 之後第一眼 |
@@ -49,9 +66,12 @@ V1 專屬區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(
 - **GCP 產品頁 19 頁**(2026-08-06 補齊,選單第三層):18 個 GCP 產品各一頁,
   ＋ `gcp-cloud-armor.html`(孤兒頁,見下)。由 `docs/reports/build_gcp_pages_20260806.py`
   以 `cloud-compute.html` 為底檔產生(head / tokens / header / footer 全部沿用,只換 `<main>`)。
-  **骨架與資安產品頁不同**:Hero →核心優勢 3 卡(`trio`,自繪 SVG icon)→關鍵特色(`spec` 深色面板
-  ＋mono 編號)→適用場景(`uses`,琥珀左邊界)→ Works with(`stack`＋`flowmark` 真箭頭)→ CTA。
-  刻意**不含**「痛點／成效／沃凱交付 4 卡」——那三區需要沃凱觀點素材,目前完全沒有。
+  **骨架與資安產品頁不同**(0806 三輪後的現況):Hero → `#pain` 痛點(`probs`)→
+  核心優勢 3 卡(`trio`,自繪 SVG icon)→關鍵特色(`spec` 深色面板＋mono 編號,
+  尾列是帶來源註記的規格事實)→適用場景(`uses`,琥珀左邊界)→ `#pick` 選型指引(`.pick`)→
+  Works with(`stack`＋`flowmark` 真箭頭)→ `#faq`(`.faq`)→ CTA。
+  刻意**不含**「成效／沃凱交付 4 卡」——那兩區需要沃凱觀點素材,目前沒有;
+  痛點段的素材是 Google docs overview 的工程觀點(0806 三輪),不是沃凱觀點,素材到位後可再校。
   **不做頁籤**(0805 決策):Key features 與 Use cases 平鋪成兩個 section,可深連結、Ctrl+F 找得到。
   檔名用 `gcp-` 前綴,避免與分類頁的 `cloud-*` 撞前綴、也避開錨點檢查的 `cloud*.html` glob。
   文案正本 `docs/GCP_Introduce_v2.md`(**19 個產品全部有素材**,每產品 7 欄位;
@@ -163,6 +183,8 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
    語意化 HTML、每頁唯一 `<h1>`、RWD(390 / 768 / 1024 / 1440px、無水平捲軸)。
 7. **文案**:歐洲 B2B 直述語氣(做什麼、給誰、成果),禁「最先進/領導品牌」等 hype;
    日期用 `30 Jul 2026` 或 ISO 8601、24 小時制、電話 +886 國際格式、不放 LINE。
+   **全站不放金額資訊**(單價/免費額度/促銷;ADR 0004)——計價問題一律導向 Contact us;
+   非金額的可查證規格事實(SLA 百分比、容量上限)可寫,來源 URL 註記在產生器 `PAGES` 條目旁。
 8. **原廠產品描述必須改寫**,不得複製原廠官網文案;外連原廠網站用 `target="_blank" rel="noopener"`。
 
 ## 現行風格 tokens 速查(style-3-soc)
@@ -193,6 +215,8 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 | `.stack`＋`.layer`＋`.node`＋`.flowmark` | 分層架構圖(目前只在 `gcp-*.html`) | 分層方塊 ＋ 真箭頭 |
 | `.loglist` | 緊湊索引(目前只在 `cloud.html#products`) | 帶邊框的單欄列表 ＋ 狀態圓點 |
 | `.goes` | 一張卡有兩個出口時的連結列 | 把兩個 `.go` 併成一列,不讓它們各佔一行 |
+| `.pick` | 選型指引:「情境 → 建議產品」(0806 三輪,目前只在 `gcp-*.html`) | `--surface` 列 ＋ 真箭頭 ＋ `.node` 晶片(建議是本頁自己時用 `.node.self`) |
+| `.faq` | 平鋪問答(0806 三輪,目前只在 `gcp-*.html`) | `--line` 分隔 ＋ mono 兩位數編號(與 `.spec` 同一套系統);刻意不用 disclosure widget |
 
 **唯一正本是 `docs/reports/restyle_content_20260806.py` 的 `BLOCK_CSS`**(含 35 個自繪 icon 的
 `ICONS` 常數)。改元件樣式 = 改那個常數後重跑腳本,36 檔一次同步;**手改單頁的 CSS 會讓軸 1 立刻紅**。
@@ -205,7 +229,8 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 3. `stack` 的三條沿用 V3:①不得用 `position:absolute`(768/390px 會崩);②承載語意的線條用
    `--muted` 不用 `--line`(`--line` 對 `--bg` 只有 **1.47:1**,不到 1.4.11 的 3:1);
    ③箭頭用帶 `aria-hidden="true"` 的真字元,不放進 `::before content`。
-4. icon 一律**從 `ICONS` 挑**,不自繪新的、不引外部 icon 套件、不用 `<img>`;同一頁不得重複。
+4. icon **優先從 `ICONS` 挑**;不夠用時以同風格自繪**補進正本**再用(0806 三輪放寬),
+   仍禁外部 icon 套件、禁 `<img>`;同一頁不得重複。
 
 hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-reduced-motion` 下關閉。
 
@@ -335,6 +360,8 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
   再跑一次 `rebuild_nav_20260806.py`(新頁的 header 才會拿到正確的 `aria-current` 與 `.on`)。
   並記得把 `MENU` 裡該產品的 href 從 `分類頁#錨點` 改成新頁檔名。
   文案正本 `docs/GCP_Introduce_v2.md`;**不得自行擴充未查證的產品事實**。
+  0806 三輪起每筆條目還要含 `pains`/`picks`/`faqs` 欄位(格式照現有條目);
+  規格數字必附 `# src:` 來源註解,金額一律不寫(ADR 0004)。
 - **補資安產品頁**:複製 `style-3-soc/sentinelone.html` → 改 `<title>`、meta description、
   eyebrow 索引碼、內容區塊;素材見 `docs/product/`(內部,先讀產品簡介總覽.md)。
   完成後跑 `rebuild_nav_20260806.py`(header 自動處理),並把 `MENU` 裡該項改成真連結。
@@ -445,8 +472,13 @@ for f in *.html; do awk '/<header/,/<\/header>/' $f; done \
 # 19 張產品卡都有兩個出口 → 兩行皆應輸出 19
 grep -oh 'Product page →' cloud-*.html | wc -l
 grep -oh 'Vendor page ↗' cloud-*.html | wc -l
-# 每個產品頁的架構圖都要標出主角 → 19 個 gcp 頁各 1(輸出應為空)
-grep -c 'node self' gcp-*.html | grep -v ':1$'
+# 每個產品頁的架構圖都要標出主角 → 應輸出 0
+# ⚠ 0806 三輪後不能再對全檔數 'node self'——.pick 的自指列也用 .node.self,會多算
+for f in gcp-*.html; do awk '/<section id="stack">/,/<\/section>/' $f | grep -c 'node self'; done | grep -vc '^1$'
+# 0806 三輪:19 個 gcp 頁各有 痛點/選型/FAQ 三段(pick 允許個別頁省略,目前 19 頁全有)
+for s in pain pick faq; do grep -c "section id=\"$s\"" gcp-*.html | grep -vc ':1$'; done   # 三行各應輸出 0
+# 金額禁令(ADR 0004):單價/免費額度/促銷不上站 → 應為空
+grep -nE '[$€£]|per month|free tier|free of charge' *.html
 # cloud.html 的產品索引 19 列
 grep -c 'Product page →' cloud.html
 # 0805 移除的 6 項:選單裡應為 0,但頁面區塊必須還在(所以只能掃 header 區,不能掃全檔)
@@ -457,7 +489,8 @@ grep -c '#security-list\|#managed-list' *.html
 # title 與 meta description 全站唯一 → 兩行皆應無輸出(註解宣稱兩項,指令就有兩條)
 grep -h '<title>' *.html | sort | uniq -d
 grep -h 'name="description"' *.html | sort | uniq -d
-# aria-current 每檔=3(1 個 markup + 2 個 CSS 選擇器);cloud-services.html=2(登記在案的孤兒頁)
+# aria-current 每檔=3(1 個 markup + 2 個 CSS 選擇器);cloud-services.html 與 gcp-cloud-armor.html
+# =2(兩個登記在案的孤兒頁,選單沒有連結指向它們,故無 markup 那 1 個)
 grep -c 'aria-current="page"' *.html
 # ess.html 與 services.html 零外部連結 → 皆應輸出 0
 grep -c 'https\?://' ess.html services.html

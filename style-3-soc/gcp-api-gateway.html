@@ -201,6 +201,26 @@ a.node:hover{border-color:var(--accent)}
 .node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
 .flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
   font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+/* 0806 round 2 — decision-support blocks. .pick answers "which of the 19 do I need":
+   each row pairs a situation with the product to reach for. The recommendation reuses
+   the .node chip language from .stack (deep panel, --muted border, amber self), so
+   "this is a product" reads the same everywhere on the site. Arrow is a real character
+   marked aria-hidden, same as .steps. */
+.pick{list-style:none;margin-top:44px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.pick>li{background:var(--surface);display:grid;grid-template-columns:1fr 28px minmax(200px,max-content);
+  gap:16px;align-items:center;padding:18px 22px}
+.pick>li+li{border-top:1px solid var(--line)}
+.pick .when{font-size:14.5px}
+.pick .ar{color:var(--muted);font-family:var(--mono);font-size:16px;text-align:center}
+.pick .node{min-width:0;font-size:14.5px}
+/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
+   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
+   .spec so numbering reads as one system; questions carry the ink, answers the muted. */
+.faq{margin-top:44px;border-top:1px solid var(--line)}
+.faq>div{border-bottom:1px solid var(--line);padding:20px 2px}
+.faq h3{display:grid;grid-template-columns:42px 1fr;gap:16px;font-size:16px}
+.faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
+.faq p{margin:8px 0 0 58px;font-size:14.5px;color:var(--muted)}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
@@ -215,6 +235,9 @@ a.node:hover{border-color:var(--accent)}
   .steps{flex-direction:column}
   .steps>li.ar{justify-content:center;transform:rotate(90deg)}
   .layer{grid-template-columns:1fr;gap:10px}
+  .pick>li{grid-template-columns:1fr}
+  .pick .ar{transform:rotate(90deg);justify-self:center}
+  .faq p{margin-left:0}
 }
 @media (prefers-reduced-motion: reduce){
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
@@ -378,6 +401,18 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </div>
 
+  <section id="pain">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>The problem</p>
+      <h2 class="sec">What teams run into without it.</h2>
+      <div class="probs">
+        <div><h3>Per-service auth sprawl</h3><p>Each backend team implements its own API keys, token checks and access rules. Security posture varies service by service, and every audit has to cover every implementation.</p></div>
+        <div><h3>No single front door</h3><p>Consumers integrate against whichever backend happens to serve them, and implementation changes leak straight into published contracts. There is no stable surface to version, document or deprecate against.</p></div>
+        <div><h3>Blind spots in API traffic</h3><p>Without a common entry point, nobody can say which consumers call what, how often, or with what error rates. Usage questions turn into log archaeology across services.</p></div>
+      </div>
+    </div>
+  </section>
+
   <section id="value">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why teams choose it</p>
@@ -398,6 +433,7 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">01</span><div><h3>OpenAPI configuration</h3><p>The gateway is defined by an OpenAPI 2.0 document, so routes and policies live in version control.</p></div></div>
         <div><span class="n" aria-hidden="true">02</span><div><h3>IAM integration</h3><p>Access decisions use Google Cloud IAM identities rather than a separate credential store maintained beside it.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Rate limiting</h3><p>Per-key quotas cap how often a caller can reach the back end, applied before the request is forwarded.</p></div></div>
+        <div><span class="n" aria-hidden="true">04</span><div><h3>API contract format</h3><p>APIs are defined with OpenAPI specification documents — 2.0 or 3.0.x — which drive routing, validation and the contract consumers see.</p></div></div>
       </div>
     </div>
   </section>
@@ -411,6 +447,19 @@ a.node:hover{border-color:var(--accent)}
         <div><h3>Serverless integration</h3><p>Cloud Run, App Engine and Cloud Functions services presented to callers as one coherent API.</p></div>
         <div><h3>Client back ends</h3><p>A stable endpoint for mobile or partner applications while the services behind it are rewritten or replaced.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">When API Gateway is the right call — and when it is not.</h2>
+      <ul class="pick">
+        <li><p class="when">Publishing serverless backends to partners with keys, quotas and auth</p><span class="ar" aria-hidden="true">→</span><span class="node self">API Gateway</span></li>
+        <li><p class="when">Building the backend services themselves, packaged as containers</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-cloud-run.html">Cloud Run</a></li>
+        <li><p class="when">Filtering DDoS and web attacks at the network edge</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-cloud-armor.html">Cloud Armor</a></li>
+        <li><p class="when">Asynchronous messaging between internal services, not consumer-facing APIs</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-pubsub.html">Pub/Sub</a></li>
+      </ul>
     </div>
   </section>
 
@@ -440,6 +489,20 @@ a.node:hover{border-color:var(--accent)}
         </div>
       </div>
       <p class="lead" style="margin-top:26px">Volcatech designs the layout, deploys it and keeps it under monitoring. <span class="todo">[TODO: delivery model and response times]</span></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>Does API Gateway replace authentication in our backend services?</span></h3><p>It centralises consumer-facing checks — API keys, JWT validation and third-party identity providers — declared once in the API definition. Backend services still authorise business operations; they simply stop reimplementing edge security one by one.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>Which backends can sit behind it?</span></h3><p>It is built to front serverless backends: Cloud Run, Cloud Functions and App Engine. The API surface is declared in an OpenAPI document (2.0 or 3.0.x), which becomes the stable contract consumers integrate against.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>How does this relate to Cloud Run — do we need both?</span></h3><p>They occupy different layers: Cloud Run executes your services, while API Gateway governs how consumers reach them. Public or partner-facing APIs usually warrant both; purely internal service-to-service traffic often does not need a gateway.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>What visibility do we get over API usage?</span></h3><p>Traffic through the gateway is logged and measured in one place: request volumes, latency and error rates per API. Usage questions get answered from gateway metrics instead of stitched-together backend logs.</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>What does it cost to put a gateway in front of an API?</span></h3><p>Charges scale with the volume of API calls processed, so cost tracks real consumption rather than reserved capacity. The practical answer depends on traffic and architecture — contact us and we will estimate it against your usage.</p></div>
+      </div>
     </div>
   </section>
 

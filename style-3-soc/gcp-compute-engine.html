@@ -201,6 +201,26 @@ a.node:hover{border-color:var(--accent)}
 .node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
 .flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
   font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+/* 0806 round 2 — decision-support blocks. .pick answers "which of the 19 do I need":
+   each row pairs a situation with the product to reach for. The recommendation reuses
+   the .node chip language from .stack (deep panel, --muted border, amber self), so
+   "this is a product" reads the same everywhere on the site. Arrow is a real character
+   marked aria-hidden, same as .steps. */
+.pick{list-style:none;margin-top:44px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.pick>li{background:var(--surface);display:grid;grid-template-columns:1fr 28px minmax(200px,max-content);
+  gap:16px;align-items:center;padding:18px 22px}
+.pick>li+li{border-top:1px solid var(--line)}
+.pick .when{font-size:14.5px}
+.pick .ar{color:var(--muted);font-family:var(--mono);font-size:16px;text-align:center}
+.pick .node{min-width:0;font-size:14.5px}
+/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
+   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
+   .spec so numbering reads as one system; questions carry the ink, answers the muted. */
+.faq{margin-top:44px;border-top:1px solid var(--line)}
+.faq>div{border-bottom:1px solid var(--line);padding:20px 2px}
+.faq h3{display:grid;grid-template-columns:42px 1fr;gap:16px;font-size:16px}
+.faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
+.faq p{margin:8px 0 0 58px;font-size:14.5px;color:var(--muted)}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
@@ -215,6 +235,9 @@ a.node:hover{border-color:var(--accent)}
   .steps{flex-direction:column}
   .steps>li.ar{justify-content:center;transform:rotate(90deg)}
   .layer{grid-template-columns:1fr;gap:10px}
+  .pick>li{grid-template-columns:1fr}
+  .pick .ar{transform:rotate(90deg);justify-self:center}
+  .faq p{margin-left:0}
 }
 @media (prefers-reduced-motion: reduce){
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
@@ -378,6 +401,18 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </div>
 
+  <section id="pain">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>The problem</p>
+      <h2 class="sec">What teams run into without it.</h2>
+      <div class="probs">
+        <div><h3>Hardware refresh cycles</h3><p>Physical estates age on a procurement clock. Every refresh round ties up capital and engineering time in servers that begin depreciating before workloads see any benefit.</p></div>
+        <div><h3>Capacity planning by guesswork</h3><p>Sizing for peak demand leaves machines idle most of the year; sizing for the average means outages or emergency purchases when load actually arrives.</p></div>
+        <div><h3>Slow environment provisioning</h3><p>Standing up a new environment waits on ordering, racking and cabling. Projects that need infrastructure this week are quoted lead times in weeks or months.</p></div>
+      </div>
+    </div>
+  </section>
+
   <section id="value">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why teams choose it</p>
@@ -398,6 +433,8 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">01</span><div><h3>Custom machine types</h3><p>Set vCPU count and memory independently, rather than picking the nearest preset and paying for the gap.</p></div></div>
         <div><span class="n" aria-hidden="true">02</span><div><h3>GPU accelerators</h3><p>NVIDIA GPUs attach to an instance for training, inference and other workloads that will not run acceptably on CPU alone.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Live migration</h3><p>Running instances move between hosts during maintenance events without being stopped and restarted.</p></div></div>
+        <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Instances deployed across multiple zones carry a monthly uptime SLA of at least 99.99% in Premium Tier regions (most regions; a small number are covered at 99.95%).</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Availability commitment</h3><p>A single instance carries a monthly uptime SLA of at least 99.9%, rising to at least 99.95% for the memory-optimised machine family.</p></div></div>
       </div>
     </div>
   </section>
@@ -411,6 +448,19 @@ a.node:hover{border-color:var(--accent)}
         <div><h3>High-performance computing</h3><p>Simulation, rendering and batch analysis on machine shapes and accelerators picked for the job.</p></div>
         <div><h3>Self-managed databases</h3><p>Database engines and bespoke web services that need control of the host, not a managed abstraction over it.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">When Compute Engine is the right call — and when it is not.</h2>
+      <ul class="pick">
+        <li><p class="when">Full control of the operating system, kernel modules or licensing</p><span class="ar" aria-hidden="true">→</span><span class="node self">Compute Engine</span></li>
+        <li><p class="when">Many containerised services needing orchestration and shared platform tooling</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-kubernetes-engine.html">Kubernetes Engine</a></li>
+        <li><p class="when">A stateless container with no infrastructure team attached</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-cloud-run.html">Cloud Run</a></li>
+        <li><p class="when">An existing vSphere estate moving with minimal change</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-vmware-engine.html">VMware Engine</a></li>
+      </ul>
     </div>
   </section>
 
@@ -443,6 +493,20 @@ a.node:hover{border-color:var(--accent)}
         </div>
       </div>
       <p class="lead" style="margin-top:26px">Volcatech designs the layout, deploys it and keeps it under monitoring. <span class="todo">[TODO: delivery model and response times]</span></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>How does Compute Engine differ from Kubernetes Engine or Cloud Run?</span></h3><p>Compute Engine gives you the whole machine: operating system, kernel and installed software are yours to control. Kubernetes Engine orchestrates containers across managed nodes, and Cloud Run removes the infrastructure layer entirely for stateless services.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>Can we bring our existing software licences?</span></h3><p>Some vendor licences can be brought across, typically on sole-tenant nodes that dedicate physical hosts to your organisation. Eligibility depends on each vendor's terms, so we review them during scoping.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>What happens if a zone fails?</span></h3><p>Instances live in a single zone, so resilience is an architecture decision: run instances across several zones behind load balancing. That is the deployment pattern the strongest availability commitments assume.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>Can we keep workloads and data in Europe?</span></h3><p>You choose the regions where instances run, including several in Europe, and workloads stay where you place them. Residency and sovereignty constraints are treated as design inputs from the start.</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>How is Compute Engine priced?</span></h3><p>Charges follow what you allocate — machine type, disk and network — and vary with region and usage pattern. There is no meaningful single number; contact us and we will size it against your actual workloads.</p></div>
+      </div>
     </div>
   </section>
 

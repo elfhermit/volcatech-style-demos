@@ -201,6 +201,26 @@ a.node:hover{border-color:var(--accent)}
 .node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
 .flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
   font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+/* 0806 round 2 — decision-support blocks. .pick answers "which of the 19 do I need":
+   each row pairs a situation with the product to reach for. The recommendation reuses
+   the .node chip language from .stack (deep panel, --muted border, amber self), so
+   "this is a product" reads the same everywhere on the site. Arrow is a real character
+   marked aria-hidden, same as .steps. */
+.pick{list-style:none;margin-top:44px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.pick>li{background:var(--surface);display:grid;grid-template-columns:1fr 28px minmax(200px,max-content);
+  gap:16px;align-items:center;padding:18px 22px}
+.pick>li+li{border-top:1px solid var(--line)}
+.pick .when{font-size:14.5px}
+.pick .ar{color:var(--muted);font-family:var(--mono);font-size:16px;text-align:center}
+.pick .node{min-width:0;font-size:14.5px}
+/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
+   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
+   .spec so numbering reads as one system; questions carry the ink, answers the muted. */
+.faq{margin-top:44px;border-top:1px solid var(--line)}
+.faq>div{border-bottom:1px solid var(--line);padding:20px 2px}
+.faq h3{display:grid;grid-template-columns:42px 1fr;gap:16px;font-size:16px}
+.faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
+.faq p{margin:8px 0 0 58px;font-size:14.5px;color:var(--muted)}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
@@ -215,6 +235,9 @@ a.node:hover{border-color:var(--accent)}
   .steps{flex-direction:column}
   .steps>li.ar{justify-content:center;transform:rotate(90deg)}
   .layer{grid-template-columns:1fr;gap:10px}
+  .pick>li{grid-template-columns:1fr}
+  .pick .ar{transform:rotate(90deg);justify-self:center}
+  .faq p{margin-left:0}
 }
 @media (prefers-reduced-motion: reduce){
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
@@ -378,6 +401,18 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </div>
 
+  <section id="pain">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>The problem</p>
+      <h2 class="sec">What teams run into without it.</h2>
+      <div class="probs">
+        <div><h3>Data centre commitments</h3><p>Leases, power contracts and refresh cycles anchor a vSphere estate on-premises, and every renewal locks in another multi-year term whether the capacity is needed or not.</p></div>
+        <div><h3>Rebuild-heavy migration paths</h3><p>Replatforming every VM into cloud-native services takes years and retraining. Teams need a route that keeps current tooling, runbooks and operational skills valid.</p></div>
+        <div><h3>Idle disaster recovery estate</h3><p>A second physical site doubles hardware and licence overhead yet sits unused for most of its life, while still needing patching and periodic testing.</p></div>
+      </div>
+    </div>
+  </section>
+
   <section id="value">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why teams choose it</p>
@@ -398,6 +433,8 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">01</span><div><h3>Native VMware stack</h3><p>Compute, networking and storage run on the same vSphere, NSX and vSAN components used on premises.</p></div></div>
         <div><span class="n" aria-hidden="true">02</span><div><h3>Single-tenant nodes</h3><p>Hosts are allocated to one environment only, and are not shared with workloads belonging to anyone else.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Service interconnect</h3><p>The environment reaches Google Cloud services over Google's network rather than across the public internet.</p></div></div>
+        <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Clusters of 5 to 32 nodes in a single zone, configured with FTT=2 or higher, carry a monthly uptime SLA of at least 99.99%; 3-to-4-node clusters with FTT=1 carry at least 99.9%.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Included VMware stack</h3><p>The service bundles the VMware stack — vSphere, vCenter, vSAN and NSX — with HCX for workload migration.</p></div></div>
       </div>
     </div>
   </section>
@@ -411,6 +448,18 @@ a.node:hover{border-color:var(--accent)}
         <div><h3>Disaster recovery</h3><p>A recovery site in Google Cloud that runs the same hypervisor as production, so failover procedures stay the same.</p></div>
         <div><h3>Capacity expansion</h3><p>Extra hosts added in Google Cloud when the existing estate runs short, without a second operating model.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">When VMware Engine is the right call — and when it is not.</h2>
+      <ul class="pick">
+        <li><p class="when">A vSphere estate that must move largely as-is</p><span class="ar" aria-hidden="true">→</span><span class="node self">VMware Engine</span></li>
+        <li><p class="when">New builds with no VMware dependency</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-compute-engine.html">Compute Engine</a></li>
+        <li><p class="when">Modernising migrated workloads into containers</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-kubernetes-engine.html">Kubernetes Engine</a></li>
+      </ul>
     </div>
   </section>
 
@@ -441,6 +490,19 @@ a.node:hover{border-color:var(--accent)}
         </div>
       </div>
       <p class="lead" style="margin-top:26px">Volcatech designs the layout, deploys it and keeps it under monitoring. <span class="todo">[TODO: delivery model and response times]</span></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>Do our VMware tools and skills still apply?</span></h3><p>Yes. The service runs the vSphere, vSAN and NSX stack, administered through vCenter as on-premises. Existing runbooks, scripts and team experience carry over, and HCX handles moving workloads across.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>How is this different from rebuilding on Compute Engine?</span></h3><p>Rehosting on Compute Engine means recreating each VM and adapting images, agents and networking. VMware Engine moves the environment largely unchanged, so timelines are set by migration waves rather than rebuild effort. Modernisation can follow at your own pace.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>What does VMware licensing look like?</span></h3><p>The VMware software stack is licensed as part of the service, so no separate vSphere licence purchase is needed for the private cloud. Guest operating systems and third-party software are assessed separately.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>How quickly can capacity be added?</span></h3><p>Nodes join an existing private cloud on demand, without a procurement cycle, and clusters expand while workloads keep running. That elasticity is what makes phased data centre exits and standby disaster recovery viable.</p></div>
+      </div>
     </div>
   </section>
 

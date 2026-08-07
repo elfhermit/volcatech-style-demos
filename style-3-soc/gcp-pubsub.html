@@ -201,6 +201,26 @@ a.node:hover{border-color:var(--accent)}
 .node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
 .flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
   font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+/* 0806 round 2 — decision-support blocks. .pick answers "which of the 19 do I need":
+   each row pairs a situation with the product to reach for. The recommendation reuses
+   the .node chip language from .stack (deep panel, --muted border, amber self), so
+   "this is a product" reads the same everywhere on the site. Arrow is a real character
+   marked aria-hidden, same as .steps. */
+.pick{list-style:none;margin-top:44px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.pick>li{background:var(--surface);display:grid;grid-template-columns:1fr 28px minmax(200px,max-content);
+  gap:16px;align-items:center;padding:18px 22px}
+.pick>li+li{border-top:1px solid var(--line)}
+.pick .when{font-size:14.5px}
+.pick .ar{color:var(--muted);font-family:var(--mono);font-size:16px;text-align:center}
+.pick .node{min-width:0;font-size:14.5px}
+/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
+   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
+   .spec so numbering reads as one system; questions carry the ink, answers the muted. */
+.faq{margin-top:44px;border-top:1px solid var(--line)}
+.faq>div{border-bottom:1px solid var(--line);padding:20px 2px}
+.faq h3{display:grid;grid-template-columns:42px 1fr;gap:16px;font-size:16px}
+.faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
+.faq p{margin:8px 0 0 58px;font-size:14.5px;color:var(--muted)}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
@@ -215,6 +235,9 @@ a.node:hover{border-color:var(--accent)}
   .steps{flex-direction:column}
   .steps>li.ar{justify-content:center;transform:rotate(90deg)}
   .layer{grid-template-columns:1fr;gap:10px}
+  .pick>li{grid-template-columns:1fr}
+  .pick .ar{transform:rotate(90deg);justify-self:center}
+  .faq p{margin-left:0}
 }
 @media (prefers-reduced-motion: reduce){
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
@@ -378,6 +401,18 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </div>
 
+  <section id="pain">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>The problem</p>
+      <h2 class="sec">What teams run into without it.</h2>
+      <div class="probs">
+        <div><h3>Point-to-point integrations</h3><p>Every system talks directly to every other system it needs. Each new consumer means another bespoke connection, and one slow endpoint can stall the producers that call it.</p></div>
+        <div><h3>Tight release coupling</h3><p>Producers and consumers must change in lockstep because they share interfaces and availability. A deployment on one side forces coordination meetings on the other.</p></div>
+        <div><h3>Event loss under load</h3><p>Traffic spikes overwhelm downstream services with no buffer between them. Events are dropped or retried ad hoc, and nobody can say afterwards what was actually processed.</p></div>
+      </div>
+    </div>
+  </section>
+
   <section id="value">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why teams choose it</p>
@@ -398,6 +433,8 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">01</span><div><h3>Global endpoint</h3><p>A single addressable endpoint serves publishers and subscribers in any region, with no per-region topic to route between.</p></div></div>
         <div><span class="n" aria-hidden="true">02</span><div><h3>At-least-once delivery</h3><p>Every message is delivered at least once, so subscribers must be written to handle a repeat.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Dataflow integration</h3><p>Topics connect directly to Dataflow pipelines, so streaming transformation does not need a bridging component of its own.</p></div></div>
+        <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Google's SLA for Pub/Sub commits to a monthly uptime percentage of at least 99.95%.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Scale and limits</h3><p>A single Pub/Sub message can carry up to 10 MB of payload data.</p></div></div>
       </div>
     </div>
   </section>
@@ -411,6 +448,19 @@ a.node:hover{border-color:var(--accent)}
         <div><h3>Log pipelines</h3><p>Application and infrastructure logs collected from many sources and forwarded into analysis without each source knowing the destination.</p></div>
         <div><h3>Event notification</h3><p>State changes in one service announced once and consumed by whichever other services currently care about them.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">When Pub/Sub is the right call — and when it is not.</h2>
+      <ul class="pick">
+        <li><p class="when">Decoupling services with asynchronous event delivery</p><span class="ar" aria-hidden="true">→</span><span class="node self">Pub/Sub</span></li>
+        <li><p class="when">Transforming or aggregating streams before they land</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-dataflow.html">Dataflow</a></li>
+        <li><p class="when">Querying events after they have landed</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-bigquery.html">BigQuery</a></li>
+        <li><p class="when">Exposing synchronous request-response APIs to consumers</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-api-gateway.html">API Gateway</a></li>
+      </ul>
     </div>
   </section>
 
@@ -446,6 +496,20 @@ a.node:hover{border-color:var(--accent)}
         </div>
       </div>
       <p class="lead" style="margin-top:26px">Volcatech designs the layout, deploys it and keeps it under monitoring. <span class="todo">[TODO: delivery model and response times]</span></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>Can messages be kept within European regions?</span></h3><p>Yes. Message storage policies restrict where Pub/Sub stores message data to the regions you list, such as EU regions, and the platform enforces the policy rather than relying on client configuration.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>What delivery guarantees does Pub/Sub provide?</span></h3><p>Delivery is at-least-once by default, so consumers must handle occasional duplicates. Exactly-once delivery can be enabled on subscriptions within a region, and dead-letter topics catch messages that repeatedly fail.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>Does Pub/Sub preserve message order?</span></h3><p>Not by default: subscribers may receive messages out of order. Publishing with an ordering key delivers messages for that key in the order they were sent, within a region.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>Do we need Dataflow as well as Pub/Sub?</span></h3><p>Not always. Pub/Sub moves events; Dataflow processes them. If subscribers only need each message as it is, Pub/Sub alone is enough. Add Dataflow when streams need transformation, enrichment or windowed aggregation.</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>What drives Pub/Sub costs?</span></h3><p>Throughput — the volume of data published and delivered — plus retained message storage and traffic between regions. Actual cost depends on message volumes and architecture; contact us for an estimate based on your workloads.</p></div>
+      </div>
     </div>
   </section>
 

@@ -201,6 +201,26 @@ a.node:hover{border-color:var(--accent)}
 .node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
 .flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
   font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+/* 0806 round 2 — decision-support blocks. .pick answers "which of the 19 do I need":
+   each row pairs a situation with the product to reach for. The recommendation reuses
+   the .node chip language from .stack (deep panel, --muted border, amber self), so
+   "this is a product" reads the same everywhere on the site. Arrow is a real character
+   marked aria-hidden, same as .steps. */
+.pick{list-style:none;margin-top:44px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.pick>li{background:var(--surface);display:grid;grid-template-columns:1fr 28px minmax(200px,max-content);
+  gap:16px;align-items:center;padding:18px 22px}
+.pick>li+li{border-top:1px solid var(--line)}
+.pick .when{font-size:14.5px}
+.pick .ar{color:var(--muted);font-family:var(--mono);font-size:16px;text-align:center}
+.pick .node{min-width:0;font-size:14.5px}
+/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
+   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
+   .spec so numbering reads as one system; questions carry the ink, answers the muted. */
+.faq{margin-top:44px;border-top:1px solid var(--line)}
+.faq>div{border-bottom:1px solid var(--line);padding:20px 2px}
+.faq h3{display:grid;grid-template-columns:42px 1fr;gap:16px;font-size:16px}
+.faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
+.faq p{margin:8px 0 0 58px;font-size:14.5px;color:var(--muted)}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
@@ -215,6 +235,9 @@ a.node:hover{border-color:var(--accent)}
   .steps{flex-direction:column}
   .steps>li.ar{justify-content:center;transform:rotate(90deg)}
   .layer{grid-template-columns:1fr;gap:10px}
+  .pick>li{grid-template-columns:1fr}
+  .pick .ar{transform:rotate(90deg);justify-self:center}
+  .faq p{margin-left:0}
 }
 @media (prefers-reduced-motion: reduce){
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
@@ -378,6 +401,18 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </div>
 
+  <section id="pain">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>The problem</p>
+      <h2 class="sec">What teams run into without it.</h2>
+      <div class="probs">
+        <div><h3>Server upkeep for web apps</h3><p>Hosting a web application traditionally means owning the servers underneath it: capacity planning, OS patching and scaling rules, all for code that just needs somewhere to run.</p></div>
+        <div><h3>Traffic spikes outrunning capacity</h3><p>Campaign launches and seasonal peaks arrive faster than fixed infrastructure can grow. Teams either over-provision for the worst case or accept outages at exactly the wrong moment.</p></div>
+        <div><h3>Fixed capacity, cyclical demand</h3><p>Internal tools and customer portals sit near idle outside business hours, yet conventional hosting keeps full capacity reserved around the clock.</p></div>
+      </div>
+    </div>
+  </section>
+
   <section id="value">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why teams choose it</p>
@@ -398,6 +433,8 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">01</span><div><h3>Language runtimes</h3><p>Python, Java, Node.js, Go and other mainstream runtimes are supported directly, without a container image step.</p></div></div>
         <div><span class="n" aria-hidden="true">02</span><div><h3>Traffic splitting</h3><p>Requests are divided between versions in set proportions, which is what makes A/B tests and staged rollouts possible.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Managed scaling</h3><p>Instance count and load balancing follow demand, so capacity planning is not part of the deployment.</p></div></div>
+        <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>App Engine carries a 99.95% monthly uptime service level objective under its SLA.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Scale and limits</h3><p>Standard environment instances start within seconds and can scale to zero; flexible environment instances run in Docker containers on Compute Engine VMs with a minimum of one instance.</p></div></div>
       </div>
     </div>
   </section>
@@ -411,6 +448,18 @@ a.node:hover{border-color:var(--accent)}
         <div><h3>Mobile back ends</h3><p>The API layer behind a mobile client, where request volume follows usage rather than a schedule.</p></div>
         <div><h3>MVP validation</h3><p>Early product work that has to reach real users quickly and may be discarded before it is worth building a platform for.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">When App Engine is the right call — and when it is not.</h2>
+      <ul class="pick">
+        <li><p class="when">Web applications on supported runtimes with minimal operations involvement</p><span class="ar" aria-hidden="true">→</span><span class="node self">App Engine</span></li>
+        <li><p class="when">Starting a new build on containers</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-cloud-run.html">Cloud Run</a></li>
+        <li><p class="when">Workloads needing GPUs, custom images or full VM control</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-compute-engine.html">Compute Engine</a></li>
+      </ul>
     </div>
   </section>
 
@@ -446,6 +495,20 @@ a.node:hover{border-color:var(--accent)}
         </div>
       </div>
       <p class="lead" style="margin-top:26px">Volcatech designs the layout, deploys it and keeps it under monitoring. <span class="todo">[TODO: delivery model and response times]</span></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>App Engine vs Cloud Run — is App Engine still a sound choice?</span></h3><p>For existing estates, yes: it is fully supported and carries a published SLA. For new development, Google's documentation recommends Cloud Run, so we typically propose that first and treat App Engine as the continuity option.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>What is the difference between the standard and flexible environments?</span></h3><p>Standard runs sandboxed language runtimes, starts instances in seconds and can scale to zero. Flexible runs Docker containers on Compute Engine VMs, keeps at least one instance running, and suits steadier traffic with custom dependencies.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>Does it scale down when nobody is using the application?</span></h3><p>In the standard environment, yes — instance numbers can drop to zero between requests. The flexible environment always keeps at least one instance running, which matters for low-traffic services.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>How should we think about cost?</span></h3><p>Charges track the instance hours and resources your traffic actually consumes, so the shape of demand matters more than headline rates. Contact us for a sizing conversation grounded in your usage patterns.</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>Can we move an App Engine application to Cloud Run later?</span></h3><p>Usually, yes. Both platforms serve stateless HTTP workloads, so the work is containerising the application and mapping its configuration and services. We plan such moves incrementally rather than as a single cutover.</p></div>
+      </div>
     </div>
   </section>
 

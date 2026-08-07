@@ -201,6 +201,26 @@ a.node:hover{border-color:var(--accent)}
 .node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
 .flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
   font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+/* 0806 round 2 — decision-support blocks. .pick answers "which of the 19 do I need":
+   each row pairs a situation with the product to reach for. The recommendation reuses
+   the .node chip language from .stack (deep panel, --muted border, amber self), so
+   "this is a product" reads the same everywhere on the site. Arrow is a real character
+   marked aria-hidden, same as .steps. */
+.pick{list-style:none;margin-top:44px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.pick>li{background:var(--surface);display:grid;grid-template-columns:1fr 28px minmax(200px,max-content);
+  gap:16px;align-items:center;padding:18px 22px}
+.pick>li+li{border-top:1px solid var(--line)}
+.pick .when{font-size:14.5px}
+.pick .ar{color:var(--muted);font-family:var(--mono);font-size:16px;text-align:center}
+.pick .node{min-width:0;font-size:14.5px}
+/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
+   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
+   .spec so numbering reads as one system; questions carry the ink, answers the muted. */
+.faq{margin-top:44px;border-top:1px solid var(--line)}
+.faq>div{border-bottom:1px solid var(--line);padding:20px 2px}
+.faq h3{display:grid;grid-template-columns:42px 1fr;gap:16px;font-size:16px}
+.faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
+.faq p{margin:8px 0 0 58px;font-size:14.5px;color:var(--muted)}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
@@ -215,6 +235,9 @@ a.node:hover{border-color:var(--accent)}
   .steps{flex-direction:column}
   .steps>li.ar{justify-content:center;transform:rotate(90deg)}
   .layer{grid-template-columns:1fr;gap:10px}
+  .pick>li{grid-template-columns:1fr}
+  .pick .ar{transform:rotate(90deg);justify-self:center}
+  .faq p{margin-left:0}
 }
 @media (prefers-reduced-motion: reduce){
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
@@ -378,6 +401,18 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </div>
 
+  <section id="pain">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>The problem</p>
+      <h2 class="sec">What teams run into without it.</h2>
+      <div class="probs">
+        <div><h3>Control plane upkeep</h3><p>Self-managed Kubernetes puts etcd health, API server patching and version upgrades on the platform team — recurring work that competes directly with product delivery.</p></div>
+        <div><h3>Unattended node failures</h3><p>When a node degrades, someone has to notice, cordon, drain and replace it. Without automation that work lands on the on-call rota at the worst hours.</p></div>
+        <div><h3>Version and patch lag</h3><p>Kubernetes releases arrive on a fast cadence. Clusters that fall behind accumulate unpatched vulnerabilities and eventually lose their supported upgrade path.</p></div>
+      </div>
+    </div>
+  </section>
+
   <section id="value">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why teams choose it</p>
@@ -398,6 +433,8 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">01</span><div><h3>Autopilot mode</h3><p>Google provisions and manages the node layer, leaving the cluster defined by workloads rather than by machine types.</p></div></div>
         <div><span class="n" aria-hidden="true">02</span><div><h3>Pod autoscaling</h3><p>Replica counts follow measured load, so a traffic pattern does not have to be predicted before it happens.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Anthos integration</h3><p>Clusters running elsewhere register alongside the Google Cloud ones and are managed through the same interface.</p></div></div>
+        <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Regional and Autopilot cluster control planes carry a 99.95% monthly uptime SLA in most regions; zonal cluster control planes carry 99.5%.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Availability commitment</h3><p>Autopilot Pods deployed across multiple zones carry a 99.9% monthly uptime SLA in most regions.</p></div></div>
       </div>
     </div>
   </section>
@@ -411,6 +448,18 @@ a.node:hover{border-color:var(--accent)}
         <div><h3>CI/CD pipelines</h3><p>Build output goes to a cluster the pipeline can address directly, with rollout and rollback as ordinary steps.</p></div>
         <div><h3>Multi-cluster estates</h3><p>Workloads spread across several clusters — by region, by tenant or by environment — under one management surface.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">When Kubernetes Engine (GKE) is the right call — and when it is not.</h2>
+      <ul class="pick">
+        <li><p class="when">Container workloads that need the full Kubernetes API</p><span class="ar" aria-hidden="true">→</span><span class="node self">Kubernetes Engine</span></li>
+        <li><p class="when">A few stateless services that do not justify a cluster</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-cloud-run.html">Cloud Run</a></li>
+        <li><p class="when">Workloads that must remain plain virtual machines</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-compute-engine.html">Compute Engine</a></li>
+      </ul>
     </div>
   </section>
 
@@ -446,6 +495,20 @@ a.node:hover{border-color:var(--accent)}
         </div>
       </div>
       <p class="lead" style="margin-top:26px">Volcatech designs the layout, deploys it and keeps it under monitoring. <span class="todo">[TODO: delivery model and response times]</span></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>Autopilot or Standard — which mode should we run?</span></h3><p>Autopilot hands node management to Google and bills by what workloads request; Standard keeps node pools under your control. We default to Autopilot and move to Standard only when workloads need specific node configuration.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>When is Cloud Run a better fit than Kubernetes Engine?</span></h3><p>If services are stateless and request-driven, Cloud Run removes cluster operations entirely and is the simpler choice. Kubernetes Engine earns its place when you need the full Kubernetes API — custom controllers, DaemonSets, GPUs or fine-grained networking.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>Who handles Kubernetes upgrades?</span></h3><p>The control plane is patched and upgraded by Google. Node upgrades run automatically inside maintenance windows you define, and release channels set how quickly new Kubernetes versions reach the cluster.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>What operational work remains with us?</span></h3><p>Cluster infrastructure is managed, but workloads are not: deployment manifests, resource requests, access control and application monitoring still need owners. That operational layer is where a managed service partner fits.</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>How is Kubernetes Engine priced?</span></h3><p>Standard bills the nodes you provision; Autopilot bills the resources workloads request. Which model costs less depends on utilisation and sizing, so we compare both against your workload profile — contact us.</p></div>
+      </div>
     </div>
   </section>
 
