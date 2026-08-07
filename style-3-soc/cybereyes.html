@@ -438,6 +438,19 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </section>
 
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">When CyberEyes is the right call — and when it is not.</h2>
+      <ul class="pick">
+        <li><p class="when">Web-layer investigation, not just blocking at the edge</p><span class="ar" aria-hidden="true">→</span><span class="node self">CyberEyes</span></li>
+        <li><p class="when">The gap to close is on servers and workstations</p><span class="ar" aria-hidden="true">→</span><a class="node" href="sentinelone.html">SentinelOne</a></li>
+        <li><p class="when">Web findings alongside endpoint, network and cloud logs</p><span class="ar" aria-hidden="true">→</span><a class="node" href="google-secops.html">Google SecOps</a></li>
+        <li><p class="when">Web-layer alerts watched and acted on around the clock</p><span class="ar" aria-hidden="true">→</span><a class="node" href="ess.html">ESS</a></li>
+      </ul>
+    </div>
+  </section>
+
   <section id="why">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why deploy with Volcatech</p>
@@ -446,6 +459,19 @@ a.node:hover{border-color:var(--accent)}
         into your SIEM and our 24/7 SOC (X-01), and run the web-layer investigation
         when an alert turns out to be real.
         <span class="todo">[TODO: local references &amp; delivery details]</span></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>Does CyberEyes replace our WAF?</span></h3><p>No. It observes traffic downstream of the WAF, load balancer or reverse proxy and does not block by default, so the WAF stays as your enforcement point. CyberEyes covers what happens once a request has been let through — the part no rule set was watching.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>Is it a SIEM?</span></h3><p>No, and it is not meant to be. It is a detection and response layer for the web tier, and its alerts are built to be forwarded onward: Google Security Operations, for instance, brings them together with endpoint, network and cloud logs. Where a SIEM is already in place, CyberEyes becomes another source for it.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>Can it run on our own infrastructure?</span></h3><p>Yes. It is delivered as a software subscription and runs either on-premises or as a hosted service; the hosted option is multi-tenant and holds a rolling retention window that can be extended. Which model fits usually comes down to where the traffic records are allowed to live.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>How is CyberEyes licensed?</span></h3><p>It is a subscription, scoped by the web estate you place under monitoring and by whether it runs on-premises or hosted. Contact us with the sites you want covered and we will scope it.</p></div>
+      </div>
     </div>
   </section>
 

@@ -438,6 +438,19 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </section>
 
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">When Google SecOps is the right call — and when it is not.</h2>
+      <ul class="pick">
+        <li><p class="when">Your own team operating the console, with playbooks and intelligence built in</p><span class="ar" aria-hidden="true">→</span><span class="node self">Google SecOps</span></li>
+        <li><p class="when">Web-layer detection to feed it, beyond WAF records</p><span class="ar" aria-hidden="true">→</span><a class="node" href="cybereyes.html">CyberEyes</a></li>
+        <li><p class="when">Endpoint detections as a source, not just system logs</p><span class="ar" aria-hidden="true">→</span><a class="node" href="sentinelone.html">SentinelOne</a></li>
+        <li><p class="when">Detection, endpoints and monitoring run for you under one contract</p><span class="ar" aria-hidden="true">→</span><a class="node" href="ess.html">ESS</a></li>
+      </ul>
+    </div>
+  </section>
+
   <section id="why">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why deploy with Volcatech</p>
@@ -446,6 +459,20 @@ a.node:hover{border-color:var(--accent)}
         build the detection rules and playbooks your operation actually needs, and keep the console under 24/7 SOC coverage (X-01).
         If Volcatech already runs your Google Cloud environment, the same team carries both.
         <span class="todo">[TODO: local references &amp; delivery details]</span></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>If we run this, do we still need web-layer detection (WDR) and EDR products?</span></h3><p>Yes. The platform correlates, investigates and automates on the telemetry it receives; something still has to produce that telemetry at the endpoint and at the web layer. CyberEyes and an EDR agent are those sources, and Google Security Operations is where their findings meet the rest of your logs.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>How much of the onboarding is parser work?</span></h3><p>Less than with an on-premises SIEM. Parsing for common sources — on-premises systems, the major public clouds, endpoint agents and Google Cloud's own protections — comes with the platform, so most sources are a mapping and validation exercise rather than a development one. In-house applications with unusual log formats still take work. [TODO: confirm onboarding effort for your sources]</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>Can we keep logs beyond the platform's default retention?</span></h3><p>Yes. Logs can be exported to cloud storage and held for as long as your own policy requires, which is the usual route for obligations that outlast the default window in the platform.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>Does the platform remove the need for analysts?</span></h3><p>No. Playbooks collect evidence and carry out routine steps, and Gemini shortens the search work, but decisions about containment and communication stay with people. Where there is nobody to staff the console, our SOC can operate it for you.</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>How is Google Security Operations charged?</span></h3><p>Charges follow the volume of data you ingest rather than the number of users or nodes, so how you design log collection matters more than headcount does. Contact us and we will model it against the sources you actually need.</p></div>
+      </div>
     </div>
   </section>
 

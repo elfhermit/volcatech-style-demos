@@ -442,6 +442,19 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </section>
 
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">When SentinelOne is the right call — and when it is not.</h2>
+      <ul class="pick">
+        <li><p class="when">Immediate, unattended containment on every endpoint</p><span class="ar" aria-hidden="true">→</span><span class="node self">SentinelOne</span></li>
+        <li><p class="when">A suspected intrusion needs hunting and forensics first</p><span class="ar" aria-hidden="true">→</span><a class="node" href="threatsonar.html">ThreatSonar</a></li>
+        <li><p class="when">The exposure sits on the public website, not the workstations</p><span class="ar" aria-hidden="true">→</span><a class="node" href="cybereyes.html">CyberEyes</a></li>
+        <li><p class="when">Endpoint tooling and round-the-clock monitoring under one contract</p><span class="ar" aria-hidden="true">→</span><a class="node" href="ess.html">ESS</a></li>
+      </ul>
+    </div>
+  </section>
+
   <section id="why">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why deploy with Volcatech</p>
@@ -449,6 +462,20 @@ a.node:hover{border-color:var(--accent)}
       <p style="margin-top:24px;color:var(--muted);max-width:66ch">We connect SentinelOne to our 24/7 SOC (X-01),
         tune detections for your environment, and handle rollout across your fleet.
         <span class="todo">[TODO: local references &amp; delivery details]</span></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>How does SentinelOne compare with ThreatSonar?</span></h3><p>Both cover endpoints, but they are built for different jobs. SentinelOne is oriented towards continuous prevention and automatic containment as part of daily operations; ThreatSonar opens with an agentless assessment and is built for investigation depth, drawing on TeamT5's research into Asia-Pacific intrusion groups. The right choice follows whether your priority is stopping attacks without an analyst present, or establishing what is already inside.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>What happens on a device that is off the corporate network?</span></h3><p>Judgements are made on the endpoint itself rather than in a cloud queue, so files are assessed before they run even with no connection available. That matters for laptop fleets and for sites where connectivity is intermittent.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>Can its detections feed the SIEM we already run?</span></h3><p>Yes. The platform exposes an API for integration, and Google Security Operations takes endpoint telemetry as one of its standard sources, so endpoint detections can sit alongside web and cloud logs in one console. Under our ESS programme the same feed also reaches the Volcatech SOC.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>How much work is a mixed Windows, macOS and Linux estate?</span></h3><p>A single agent covers Windows, macOS, Linux and Kubernetes, so there is no separate product per platform to buy, tune and report on. Rollout is normally staged by asset group. [TODO: confirm rollout effort and timeline]</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>How is SentinelOne licensed?</span></h3><p>Licensing depends on how many endpoints you protect and the capability set each group needs, so the shape of your estate decides the scope. Contact us and we will size it against your real fleet.</p></div>
+      </div>
     </div>
   </section>
 

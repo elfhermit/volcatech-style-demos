@@ -438,6 +438,19 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </section>
 
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">When ThreatSonar is the right call — and when it is not.</h2>
+      <ul class="pick">
+        <li><p class="when">Establishing what is already inside, before any rollout</p><span class="ar" aria-hidden="true">→</span><span class="node self">ThreatSonar</span></li>
+        <li><p class="when">Day-to-day prevention matters more than investigation depth</p><span class="ar" aria-hidden="true">→</span><a class="node" href="sentinelone.html">SentinelOne</a></li>
+        <li><p class="when">Endpoint findings correlated with network, cloud and web logs</p><span class="ar" aria-hidden="true">→</span><a class="node" href="google-secops.html">Google SecOps</a></li>
+        <li><p class="when">Nobody available to watch what the assessment turns up</p><span class="ar" aria-hidden="true">→</span><a class="node" href="ess.html">ESS</a></li>
+      </ul>
+    </div>
+  </section>
+
   <section id="why">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why deploy with Volcatech</p>
@@ -446,6 +459,19 @@ a.node:hover{border-color:var(--accent)}
         — on-premises or cloud, pushed through your AD — act as your first line for monitoring and notification,
         and escalate to TeamT5's threat experts when an investigation needs to go deeper.
         <span class="todo">[TODO: local references &amp; delivery details]</span></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>How does ThreatSonar compare with SentinelOne?</span></h3><p>ThreatSonar opens with an agentless health check and is built for hunting and forensics, with detection rules drawn from TeamT5's research into Asia-Pacific intrusion groups. SentinelOne is built for continuous prevention and automatic containment on every endpoint, every day. ThreatSonar coexists with an endpoint product you already own, so it can serve as the investigation layer rather than a replacement.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>Can it be used where endpoints have no internet access?</span></h3><p>Yes. Offline mode scans a disconnected machine and the report is uploaded afterwards, which is how air-gapped segments get covered. The agentless health check and offline mode run on Windows, Linux and macOS.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>What does the agentless health check look for?</span></h3><p>It sweeps running memory as well as disk without installing anything, hunting for the kinds of trace signature scanning tends to walk past — backdoors, web shells, fileless command activity and hacking tools. The output is a scoped picture of which machines need resident coverage and which are clean.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>How is ThreatSonar licensed?</span></h3><p>Licensing follows the endpoints you place under protection, and a one-off compromise assessment is scoped separately from ongoing resident coverage. Those are two different commitments, so we scope them with you — contact us.</p></div>
+      </div>
     </div>
   </section>
 
