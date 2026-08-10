@@ -422,6 +422,41 @@ a.node:hover{border-color:var(--accent)}
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><h3>SQL over large tables</h3><p>Analytical queries run across tables large enough that a preparatory aggregation step would normally be required first, which keeps exploratory work interactive.</p></div>
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2 2-6z"/></svg><h3>Models where the data already is</h3><p>BigQuery ML trains and serves models from SQL, so the data does not have to leave the warehouse for a separate feature pipeline.</p></div>
       </div>
+      <figure style="margin:26px auto 0;max-width:640px">
+        <svg viewBox="0 0 640 500" role="img" style="width:100%;height:auto;display:block">
+          <title>How BigQuery runs a query: compute slots are allocated to the query automatically, read only the columns the query needs from columnar storage, and are released when the query finishes. Storage and compute scale independently.</title>
+          <!-- query box -->
+          <rect x="40" y="12" width="280" height="52" rx="8" fill="#111A26" stroke="var(--muted)"/>
+          <text x="180" y="45" text-anchor="middle" font-size="24" fill="var(--muted)">SQL query</text>
+          <!-- arrow: query to compute -->
+          <line x1="110" y1="64" x2="110" y2="100" stroke="var(--muted)" stroke-width="2"/>
+          <path d="M110 112l-8-12h16z" fill="#FFB224"/>
+          <text x="140" y="96" font-size="23" fill="var(--muted)">slots allocated automatically</text>
+          <!-- compute layer -->
+          <rect x="40" y="120" width="560" height="150" rx="10" fill="var(--surface)" stroke="var(--muted)"/>
+          <text x="64" y="152" font-size="24" fill="var(--muted)">Compute — query slots</text>
+          <rect x="64" y="170" width="48" height="44" rx="6" fill="#111A26" stroke="var(--muted)"/>
+          <rect x="124" y="170" width="48" height="44" rx="6" fill="#111A26" stroke="var(--muted)"/>
+          <rect x="184" y="170" width="48" height="44" rx="6" fill="#111A26" stroke="var(--muted)"/>
+          <rect x="244" y="170" width="48" height="44" rx="6" fill="none" stroke="var(--muted)" stroke-dasharray="5 5"/>
+          <text x="64" y="252" font-size="23" fill="var(--muted)">sized per query, then released</text>
+          <!-- two-way arrow: compute and storage -->
+          <path d="M110 270l-8 12h16z" fill="#FFB224"/>
+          <line x1="110" y1="282" x2="110" y2="318" stroke="var(--muted)" stroke-width="2"/>
+          <path d="M110 330l-8-12h16z" fill="#FFB224"/>
+          <text x="140" y="306" font-size="23" fill="var(--muted)">reads only the columns the query touches</text>
+          <!-- storage layer -->
+          <rect x="40" y="338" width="560" height="150" rx="10" fill="var(--surface)" stroke="var(--muted)"/>
+          <text x="64" y="370" font-size="24" fill="var(--muted)">Storage — columnar tables</text>
+          <rect x="64" y="388" width="26" height="52" rx="4" fill="#111A26" stroke="var(--muted)"/>
+          <rect x="98" y="388" width="26" height="52" rx="4" fill="#111A26" stroke="#FFB224"/>
+          <rect x="132" y="388" width="26" height="52" rx="4" fill="#111A26" stroke="#FFB224"/>
+          <rect x="166" y="388" width="26" height="52" rx="4" fill="#111A26" stroke="var(--muted)"/>
+          <rect x="200" y="388" width="26" height="52" rx="4" fill="#111A26" stroke="var(--muted)"/>
+          <text x="240" y="422" font-size="23" fill="var(--muted)">grows with the data, on its own</text>
+        </svg>
+        <figcaption style="margin-top:10px;color:var(--muted);font-size:14px">Storage and compute are separate layers: each scales on its own, and a query only reads the columns it needs.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -434,6 +469,8 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">02</span><div><h3>Geospatial analysis</h3><p>Geography types and functions are part of the query language, so location data does not need a separate system.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Vertex AI integration</h3><p>Tables register as sources for Vertex AI, so a warehouse column can become a training feature without an export step.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Google's SLA for BigQuery commits to a monthly uptime percentage of at least 99.99% (Standard edition: 99.9%).</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Time travel and fail-safe</h3><p>Tables can be queried as they stood at an earlier point and restored within a window of two to seven days, with a further seven-day fail-safe held by Google.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>External and federated queries</h3><p>Queries can read files that remain in Cloud Storage and reach Cloud SQL, AlloyDB and Spanner directly, so not every question needs a load job.</p></div></div>
       </div>
     </div>
   </section>
@@ -443,7 +480,7 @@ a.node:hover{border-color:var(--accent)}
       <p class="status"><span class="dot" aria-hidden="true"></span>Where it fits</p>
       <h2 class="sec">Three situations it is built for.</h2>
       <div class="uses">
-        <div><h3>Business intelligence</h3><p>Reporting layers where the underlying tables keep growing and the query patterns keep changing.</p></div>
+        <div><h3>Business intelligence</h3><p>Reporting layers where the underlying tables keep growing and the query patterns keep changing. Compute is rebalanced across queries automatically, so a busy month-end does not need its own hardware plan.</p></div>
         <div><h3>Customer data platforms</h3><p>Behavioural and transactional events landed continuously and queried against each other.</p></div>
         <div><h3>Feature preparation</h3><p>The aggregation and join work that sits between raw events and a model training set.</p></div>
       </div>
@@ -502,6 +539,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>Do we need to manage servers or clusters?</span></h3><p>No. BigQuery is serverless: storage and compute scale independently without provisioning. Your team writes SQL and manages datasets, permissions and cost controls rather than infrastructure.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>Can BigQuery handle streaming data?</span></h3><p>Yes. Streaming ingestion makes new records available for queries shortly after they arrive, alongside conventional batch loads. Pub/Sub and Dataflow are the usual feeds.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>How is BigQuery charged?</span></h3><p>Charges follow the data you store and the compute your queries consume, with on-demand and capacity-based models. The right choice depends on workload patterns — contact us and we will model it against your usage.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>What happens if someone deletes a table by mistake?</span></h3><p>Time travel lets you query a table as it stood at an earlier point and restore data changed or deleted within a window you set between two and seven days — seven by default. After that window closes, deleted data sits in a seven-day fail-safe from which Google support can recover it.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>Do we have to load data before we can query it?</span></h3><p>No. External tables let queries read files that stay in Cloud Storage, and federated queries send SQL to Cloud SQL, AlloyDB or Spanner and bring the results back into the warehouse. Loading remains the better route for tables you query often; a one-off question does not need a pipeline.</p></div>
+        <div><h3><span class="n" aria-hidden="true">08</span><span>Why do queries stay responsive as usage grows?</span></h3><p>Compute is allocated in slots — units of query capacity. BigQuery works out how many slots each query needs from its size and complexity, rebalances them between running queries as demand shifts, and releases them when the work finishes. Capacity can also be reserved so critical reporting is never crowded out.</p></div>
       </div>
     </div>
   </section>

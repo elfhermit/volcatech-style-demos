@@ -435,7 +435,47 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">03</span><div><h3>Fast autoscaling</h3><p>Instance count follows concurrent requests closely enough that traffic spikes do not need to be predicted in advance.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Cloud Run services (non-GPU) carry a 99.95% monthly uptime service level objective in most cloud regions.</p></div></div>
         <div><span class="n" aria-hidden="true">05</span><div><h3>Availability commitment</h3><p>A single service can scale out to as many as one thousand instances under default quota, with higher ceilings available on request.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Long-running requests</h3><p>A single request may run for up to 60 minutes when the timeout is raised; the default cut-off is five minutes.</p></div></div>
+        <div><span class="n" aria-hidden="true">07</span><div><h3>Per-instance concurrency</h3><p>One instance can serve up to 1,000 concurrent requests, with the ceiling configurable per service revision.</p></div></div>
       </div>
+      <svg viewBox="0 0 360 264" role="img"
+           style="width:100%;max-width:520px;height:auto;display:block;margin:22px auto 0">
+        <title>How Cloud Run scales: an idle service holds zero instances, steady traffic is served by one instance, and a burst fans out to many.</title>
+        <rect x="30" y="8" width="300" height="34" rx="6" fill="#111A26" stroke="var(--muted)"/>
+        <text x="180" y="30" text-anchor="middle" font-size="13" fill="currentColor">Requests arrive at the HTTPS endpoint</text>
+        <line x1="180" y1="42" x2="180" y2="60" stroke="var(--muted)" stroke-width="1.5"/>
+        <polygon points="175,60 185,60 180,68" fill="var(--muted)"/>
+        <rect x="30" y="70" width="300" height="34" rx="6" fill="#111A26" stroke="var(--muted)"/>
+        <text x="180" y="92" text-anchor="middle" font-size="13" fill="currentColor">Autoscaler matches instances to load</text>
+        <line x1="62" y1="104" x2="62" y2="124" stroke="var(--muted)" stroke-width="1.5"/>
+        <polygon points="57,124 67,124 62,132" fill="var(--muted)"/>
+        <line x1="180" y1="104" x2="180" y2="124" stroke="var(--muted)" stroke-width="1.5"/>
+        <polygon points="175,124 185,124 180,132" fill="var(--muted)"/>
+        <line x1="298" y1="104" x2="298" y2="124" stroke="var(--muted)" stroke-width="1.5"/>
+        <polygon points="293,124 303,124 298,132" fill="var(--muted)"/>
+        <text x="62" y="150" text-anchor="middle" font-size="13" fill="currentColor">Idle</text>
+        <text x="180" y="150" text-anchor="middle" font-size="13" fill="currentColor">Steady</text>
+        <text x="298" y="150" text-anchor="middle" font-size="13" fill="currentColor">Burst</text>
+        <rect x="14" y="160" width="96" height="40" rx="6" fill="none" stroke="var(--muted)" stroke-dasharray="5 4"/>
+        <text x="62" y="184" text-anchor="middle" font-size="13" fill="currentColor">0 instances</text>
+        <text x="62" y="222" text-anchor="middle" font-size="13" fill="var(--muted)">scales to zero</text>
+        <rect x="132" y="160" width="96" height="40" rx="6" fill="#111A26" stroke="#FFB224"/>
+        <circle cx="144" cy="170" r="3" fill="#3ECF8E"/>
+        <text x="180" y="184" text-anchor="middle" font-size="13" fill="currentColor">1 instance</text>
+        <text x="180" y="222" text-anchor="middle" font-size="13" fill="var(--muted)">follows demand</text>
+        <rect x="250" y="158" width="28" height="20" rx="4" fill="#111A26" stroke="#FFB224"/>
+        <circle cx="264" cy="168" r="3" fill="#3ECF8E"/>
+        <rect x="284" y="158" width="28" height="20" rx="4" fill="#111A26" stroke="#FFB224"/>
+        <circle cx="298" cy="168" r="3" fill="#3ECF8E"/>
+        <rect x="318" y="158" width="28" height="20" rx="4" fill="#111A26" stroke="#FFB224"/>
+        <circle cx="332" cy="168" r="3" fill="#3ECF8E"/>
+        <rect x="267" y="184" width="28" height="20" rx="4" fill="#111A26" stroke="#FFB224"/>
+        <circle cx="281" cy="194" r="3" fill="#3ECF8E"/>
+        <rect x="301" y="184" width="28" height="20" rx="4" fill="#111A26" stroke="#FFB224"/>
+        <circle cx="315" cy="194" r="3" fill="#3ECF8E"/>
+        <text x="298" y="222" text-anchor="middle" font-size="13" fill="var(--muted)">up to 1,000</text>
+        <text x="180" y="252" text-anchor="middle" font-size="13" fill="var(--muted)">No capacity planning, no idle servers</text>
+      </svg>
     </div>
   </section>
 
@@ -446,7 +486,7 @@ a.node:hover{border-color:var(--accent)}
       <div class="uses">
         <div><h3>RESTful APIs</h3><p>Request-response services whose load is uneven, where paying for idle capacity overnight is the main waste.</p></div>
         <div><h3>Web application back ends</h3><p>The server-side half of an application, deployed from the same image the team already builds in CI.</p></div>
-        <div><h3>Internal automation</h3><p>Webhook receivers, scheduled jobs and bot services that run rarely and should not carry a permanent host.</p></div>
+        <div><h3>Internal automation</h3><p>Webhook receivers, scheduled jobs and bot services that run rarely and should not carry a permanent host. Work that must run to completion rather than serve requests fits Cloud Run jobs, triggered on demand or on a schedule.</p></div>
       </div>
     </div>
   </section>
@@ -509,6 +549,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>What happens when traffic drops to zero?</span></h3><p>Services scale down to no running instances by default, then scale back out when requests arrive. If cold starts matter on latency-sensitive paths, a minimum instance count can be configured.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>Are we locked into specific languages?</span></h3><p>No. Anything that can be containerised and serve HTTP will run, whatever the language or framework. For common runtimes, source-based deployment can build the container for you.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>How is Cloud Run priced?</span></h3><p>Billing follows actual usage — CPU, memory and request volume — so cost depends on traffic shape and configuration. Contact us and we will model it against your expected workload.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>Can we release gradually and roll back quickly?</span></h3><p>Yes. Each deployment creates a new revision, and traffic is split between revisions by percentage — a new version can take a small share first, then more as monitoring stays clean. Rolling back means pointing traffic at the previous revision again.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>Is Cloud Run only for request-and-response services?</span></h3><p>No. Cloud Run jobs run a container to completion for batch-style work, on demand or scheduled, and worker pools handle always-on consumers that pull from queues or message brokers. Services, jobs and worker pools share the same image format and operating model.</p></div>
+        <div><h3><span class="n" aria-hidden="true">08</span><span>Do WebSockets, gRPC or streaming responses work?</span></h3><p>Yes. Connections are served over TLS that the platform manages, with HTTP/2 and gRPC supported end to end and WebSockets available for long-lived connections — subject to the configured request timeout.</p></div>
       </div>
     </div>
   </section>

@@ -435,7 +435,40 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">03</span><div><h3>Live migration</h3><p>Running instances move between hosts during maintenance events without being stopped and restarted.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Instances deployed across multiple zones carry a monthly uptime SLA of at least 99.99% in Premium Tier regions (most regions; a small number are covered at 99.95%).</p></div></div>
         <div><span class="n" aria-hidden="true">05</span><div><h3>Availability commitment</h3><p>A single instance carries a monthly uptime SLA of at least 99.9%, rising to at least 99.95% for the memory-optimised machine family.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Machine families</h3><p>Six families before any custom sizing — general-purpose, compute-optimised, memory-optimised, storage-optimised, network-optimised and accelerator-optimised.</p></div></div>
+        <div><span class="n" aria-hidden="true">07</span><div><h3>Upper bound of scale</h3><p>The largest memory-optimised instances reach 1,920 vCPUs and 32 TB of memory on a single machine, sized for in-memory workloads such as SAP HANA.</p></div></div>
       </div>
+      <figure style="max-width:460px;margin:28px auto 0">
+        <svg viewBox="0 0 380 440" style="width:100%;height:auto" role="img">
+          <title>Live migration: a running instance moves from one host to another with a pause that is typically under a second</title>
+          <!-- Source host -->
+          <rect x="20" y="18" width="340" height="118" rx="8" fill="#111A26" stroke="var(--muted)"/>
+          <text x="36" y="44" font-family="var(--mono)" font-size="14" fill="var(--muted)">Source host</text>
+          <rect x="36" y="62" width="200" height="48" rx="6" fill="var(--surface)" stroke="#FFB224" stroke-width="1.5"/>
+          <circle cx="54" cy="86" r="4" fill="#3ECF8E"/>
+          <text x="66" y="91" font-family="var(--sans)" font-size="15" fill="currentColor">VM — serving traffic</text>
+          <!-- Stage 1: pre-copy -->
+          <line x1="52" y1="136" x2="52" y2="188" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="46,186 58,186 52,196" fill="var(--muted)"/>
+          <text x="76" y="160" font-family="var(--mono)" font-size="14" fill="var(--muted)">01 · Pre-copy</text>
+          <text x="76" y="180" font-family="var(--sans)" font-size="14" fill="var(--muted)">Memory copied; VM keeps serving</text>
+          <!-- Stage 2: cut-over pause -->
+          <rect x="20" y="204" width="340" height="44" rx="6" fill="none" stroke="#FFB224" stroke-dasharray="4 4"/>
+          <text x="36" y="231" font-family="var(--mono)" font-size="14" fill="var(--muted)">02 · Cut-over pause — typically under a second</text>
+          <!-- Stage 3: resume -->
+          <line x1="52" y1="248" x2="52" y2="292" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="46,290 58,290 52,300" fill="var(--muted)"/>
+          <text x="76" y="272" font-family="var(--mono)" font-size="14" fill="var(--muted)">03 · Resume</text>
+          <text x="76" y="292" font-family="var(--sans)" font-size="14" fill="var(--muted)">Same address, disks and state</text>
+          <!-- Target host -->
+          <rect x="20" y="308" width="340" height="118" rx="8" fill="#111A26" stroke="var(--muted)"/>
+          <text x="36" y="334" font-family="var(--mono)" font-size="14" fill="var(--muted)">Target host</text>
+          <rect x="36" y="352" width="200" height="48" rx="6" fill="var(--surface)" stroke="#FFB224" stroke-width="1.5"/>
+          <circle cx="54" cy="376" r="4" fill="#3ECF8E"/>
+          <text x="66" y="381" font-family="var(--sans)" font-size="15" fill="currentColor">VM — serving traffic</text>
+        </svg>
+        <figcaption style="margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--muted)">During host maintenance the instance is copied to a new host while it runs; the pause at cut-over is typically under a second.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -506,6 +539,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>What happens if a zone fails?</span></h3><p>Instances live in a single zone, so resilience is an architecture decision: run instances across several zones behind load balancing. That is the deployment pattern the strongest availability commitments assume.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>Can we keep workloads and data in Europe?</span></h3><p>You choose the regions where instances run, including several in Europe, and workloads stay where you place them. Residency and sovereignty constraints are treated as design inputs from the start.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>How is Compute Engine priced?</span></h3><p>Charges follow what you allocate — machine type, disk and network — and vary with region and usage pattern. There is no meaningful single number; contact us and we will size it against your actual workloads.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>Which operating systems can we run?</span></h3><p>Google-provided public images cover the common Linux families — Debian, Ubuntu, Red Hat Enterprise Linux, SUSE Linux Enterprise and Rocky Linux — alongside Windows Server. Anything else runs from a custom image: virtual disks can be imported from your existing estate, and licence terms for commercial distributions are checked as part of scoping.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>Who patches the operating system once instances are running?</span></h3><p>The guest OS is yours to manage, and the tooling for that ships with the platform: VM Manager pushes patches out on demand or against a schedule, reports which instances are compliant, keeps an inventory of installed software and enforces OS policies across Windows and Linux fleets. Patching becomes configuration rather than a script you maintain.</p></div>
+        <div><h3><span class="n" aria-hidden="true">08</span><span>What actually happens during host maintenance?</span></h3><p>For most machine types the instance moves to another host while it runs: memory is copied across in the background, then a very brief cut-over completes the move, and the instance carries on with the same address, disks and state. Instances with GPUs attached are the main exception: they do not live-migrate and instead receive advance notice of the maintenance window.</p></div>
       </div>
     </div>
   </section>

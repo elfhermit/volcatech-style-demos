@@ -417,11 +417,11 @@ a.node:hover{border-color:var(--accent)}
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.5"/></svg><h3>Full HTTP visibility</h3>
           <p>Every request is recorded with its context, building a continuous picture of how each website actually behaves.</p></div>
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><h3>Machine-learned baselines</h3>
-          <p>Models of normal business behavior expose the anomalies that hide inside legitimate-looking traffic.</p></div>
+          <p>Models of normal business behavior expose the anomalies that hide inside legitimate-looking traffic. Because detection follows the learned baseline rather than a signature list, abuse the model has never seen before still stands out.</p></div>
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h5l4 10h9"/><path d="M18 14l3 3-3 3"/></svg><h3>Attack-chain alerts</h3>
           <p>Related events collapse into one root-cause alert with a complete timeline — fewer false positives, faster triage.</p></div>
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5L6.5 17M12 11.5L17.5 17"/></svg><h3>Non-intrusive deployment</h3>
-          <p>Port Mirror, Agent or vTAP feeds a passive copy of traffic — nothing sits inline — and your web assets and attack surface are inventoried along the way.</p></div>
+          <p>Port Mirror, Agent or vTAP feeds a passive copy of traffic — nothing sits inline — and your web assets and attack surface are inventoried along the way. That inventory covers the places attackers probe first: upload forms, login pages and files reachable without the access they should require.</p></div>
       </div>
     </div>
   </section>
@@ -434,6 +434,7 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">01</span><div><h3>Fewer, better alerts</h3><p>Analysts open one attack chain instead of dozens of disconnected events.</p></div></div>
         <div><span class="n" aria-hidden="true">02</span><div><h3>A sharper SIEM</h3><p>Web-layer findings flow into your SIEM with context it cannot reconstruct on its own.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Zero downtime to deploy</h3><p>A passive traffic copy means no maintenance window and no new point of failure.</p></div></div>
+        <div><span class="n" aria-hidden="true">04</span><div><h3>The full path, not the last step</h3><p>When an attacker inventories your upload pages, confirms a reachable path, then signs in with leaked credentials and plants a file, you read it as one sequence — not four unrelated alerts.</p></div></div>
       </div>
     </div>
   </section>
@@ -471,6 +472,8 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">02</span><span>Is it a SIEM?</span></h3><p>No, and it is not meant to be. It is a detection and response layer for the web tier, and its alerts are built to be forwarded onward: Google Security Operations, for instance, brings them together with endpoint, network and cloud logs. Where a SIEM is already in place, CyberEyes becomes another source for it.</p></div>
         <div><h3><span class="n" aria-hidden="true">03</span><span>Can it run on our own infrastructure?</span></h3><p>Yes. It is delivered as a software subscription and runs either on-premises or as a hosted service; the hosted option is multi-tenant and holds a rolling retention window that can be extended. Which model fits usually comes down to where the traffic records are allowed to live.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>How is CyberEyes licensed?</span></h3><p>It is a subscription, scoped by the web estate you place under monitoring and by whether it runs on-premises or hosted. Contact us with the sites you want covered and we will scope it.</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>We already run an NDR — is this the same thing?</span></h3><p>No. An NDR reads flows across the whole network; CyberEyes reads the HTTP conversation itself — parameters, sessions and the sequence of requests against each website. Deployed behind the WAF or reverse proxy, it works at the application layer on north-south web traffic, adding a level of judgement about how your sites are being used that flow analysis does not attempt. The two overlap far less than the category names suggest.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>Our EDR already covers the web servers — what does this add?</span></h3><p>An EDR watches what runs on the host: processes, files and memory. Much web abuse never gets that far — a sign-in with stolen credentials, a download through an authorised path or a probe of your upload forms looks like ordinary application use and leaves an endpoint agent little to flag. CyberEyes reads that traffic before anything lands on the machine, so the two tools see different halves of the same attack.</p></div>
       </div>
     </div>
   </section>
