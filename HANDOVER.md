@@ -276,6 +276,39 @@ Nav B 刪兩個 `li.sub` flyout 區塊，全 23 檔每檔恰好命中一次）�
 最後一個條目的 region 延伸到檔尾，會把 `build_main()` 裡的 `p.get("pains")` 誤判成已整合，
 要用插入時的精確樣式 `"pains": [`。
 
+### 本輪完成的事（2026-08-07，資安線跟進三段 ＋ 會議材料 ＋ 素材需求單）
+
+前置：0806 晚的 613 處新增已 commit＋push（`b18ca2c`，連同 `4037efc` 一起上線），
+check_copy 基準前進歸零。**首頁二選一使用者裁決「兩案並存，留待會議」**——收斂程序暫不執行，
+軸 2 與 `build_v1` 維持現役。當日 grilling 七題裁決：資安線跟進（A）、Services 線等素材（A）、
+需求單先行（A）、`lab/` 留到會議後（B）、會議對照材料要做（A）、制度精簡＋備份升格同意提案。
+
+1. **資安線 5 頁補 `#pick`／`#faq` 兩段**（`sentinelone`／`threatsonar`／`cybereyes`／
+   `google-secops`／`ess`；`#pain` 0806 區塊化時已有）。CSS 零改造，渲染與 GCP 頁逐字同構；
+   `#pick` 插於 `#why` 前、`#faq` 插於 vendor 區前（ess 無外連區，插 CTA band 前）。
+   這 5 頁是**手維護頁**，整合腳本在 scratchpad（一次性），素材 JSON 同處。
+2. **工序**：1 產文 agent（讀 `docs/product/` 內部 md）→ 1 獨立稽核 agent →
+   修正 33 處 → 稽核員複驗 → 補修 2 處 → 整合。稽核抓到 **6 阻斷＋6 中度＋2 小項**：
+   ThreatSonar 常駐模式 OS 宣稱建立在素材自相矛盾行上（整句移除）、SecOps 答案與同頁
+   24/7 宣告打架、SentinelOne 離線處置與授權模式無素材依據、**AWS/Azure 具名打破全站
+   不變式**（改 the major public clouds）、CyberEyes 自指列重述同頁痛點卡、
+   picks 平均 14.2 詞 vs GCP house style 8.0（全面壓短至 8.7）。
+3. **選型互連軸**：SentinelOne↔ThreatSonar（日常防護 vs 獵捕鑑識）、
+   CyberEyes↔Google SecOps（託管 WDR vs 自建 SIEM）、每個單品頁一列指向 ESS、
+   ESS 反向指回三單品。每頁 4 列、恰 1 列自指（`.node.self`）。
+4. **FAQ 內 `[TODO]` 慣例**：純文字不包 span（`gcp-vertex-ai.html:506` 先例）、
+   一律指名缺什麼（禁「to be confirmed」）。本輪留 3 個（rollout 工時、SecOps 接源工時、
+   ESS onboarding 時程）。
+5. **兩份文件**：`docs/reports/首頁兩案對照_20260807.md`（會議用一頁式，兩案結構
+   對照＋取捨並列）；`docs/素材需求單_20260807.md`（全站 212 處 `[TODO]` 歸納成
+   4 組 14 題，按「誰能答」分組供公司填答）。
+
+**已驗**：`check_nav`／`check_links` PASS；`check_copy` 少了=0、多了=104（全落 5 個
+資安頁，commit 後歸零）；三段齊備 5/5、`#pick` 區自指恰 1（5/5）；金額掃描零命中；
+`ess.html` 外部連結仍為 0（零外連鐵則）；ESS 頁維持不指名方案內含品牌（`ess_product.md`
+紅線）。政策觀察（未改，供裁決）：SentinelOne FAQ 提及該偵測流可進 ESS/SOC＋ESS 頁
+picks 具名三單品，讀者可能對號入座——紅線技術上未踩，維持單品→方案的導流寫法。
+
 ### V1 首頁（改它之前必讀）
 
 **V1 不要手改。**它由 `docs/reports/build_v1_20260806.py` 從 `index.html` 產生：
@@ -381,6 +414,8 @@ AI-PTaaS、SecPurple、ISMS / PIMS、Penetration Testing、Cloud FinOps、Digita
       入口在根 `index.html`。0805 已先淘汰 V2／V3。定稿後把勝出方案的內容搬進 `index.html`，
       另一個移入 `archive/`，首頁收斂為 1 檔，一致性鐵則的軸 2 與
       `build_v1_20260806.py` 一併退場。
+      **2026-08-07 裁決：兩案暫時並存，留待後續會議討論——勿催選、勿先行收斂**；
+      會議用一頁式對照已備妥（`docs/reports/首頁兩案對照_20260807.md`）。
 - [x] **任務 1f：內容頁視覺方向定案——已完成（2026-08-06）**：選**守硬性規則的 inline CSS 版**，
       Tailwind 版不採用（代價是外部 CDN、色系解凍與建置步驟，三項都與硬性規則衝突）。
       元件已套到全部 36 頁，`lab/` 留檔備查、隨時可刪。

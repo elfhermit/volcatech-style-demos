@@ -76,13 +76,14 @@
   的真字元,不放進 `::before content`,也不用 `role="img"` 包整張圖(會把裡面的連結對輔助科技隱藏)。
   圖層標題不能單獨叫 `Operations` / `Platform`——會誤觸「舊選單術語不得殘留」的檢查。
 - **GCP 產品頁不複製 `sentinelone.html`**:那個模板需要「成效 3 組＋沃凱交付 4 卡」,
-  而 GCP 產品的沃凱觀點目前無素材。骨架(0806 三輪後)是 Hero →`#pain` 痛點(`probs`)→
+  而 GCP 產品的沃凱觀點目前無素材。(0807 起資安 4 產品頁與 `ess.html` 也各有
+  `#pick` 選型指引與 `#faq`——手維護,非產生器產出;FAQ 內 `[TODO]` 用純文字並指名缺什麼。)骨架(0806 三輪後)是 Hero →`#pain` 痛點(`probs`)→
   `trio` 3 卡 →`spec` 深色面板(尾列為帶來源註記的規格事實)→`uses` 琥珀左邊界 →
   `#pick` 選型指引 →`stack` 分層圖 →`#faq` 平鋪問答 → CTA。**不做頁籤**——全部平鋪成 section,
   可深連結、Ctrl+F 找得到。痛點/選型/FAQ 的素材取自 Google docs overview 頁改寫。
   `cards2` 必須偶數張(產品數為奇數時把清單改走 `loglist`)。
 - **動 nav = 改 MENU 後重跑腳本**(36 檔一次同步);**動 footer = 36 檔都要改**
-  (footer 沒有產生器,靠「17 個內容頁與 `sentinelone.html` 逐字節相同」把關)。
+  (footer 沒有產生器,靠「33 個內容頁與 `sentinelone.html` 逐字節相同」把關)。
   頁尾三個欄標題都是連到對應總覽頁的連結。改完跑
   `check_nav_20260806.py`、`check_copy_20260806.py` 與 `check_links_20260806.py`,三支都要 PASS。
 - 全 36 檔的 `main [id]` 都有 `scroll-margin-top:80px`,新增頁面要一併帶上;
