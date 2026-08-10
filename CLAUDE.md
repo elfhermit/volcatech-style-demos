@@ -49,7 +49,13 @@
    `build_gcp_pages_20260806.py` 的 `PAGES` 條目旁,不渲染上頁。
 4. **icon 規則放寬**:優先從 `ICONS` 挑,不夠用時以同風格自繪補進正本再用;
    區塊級 SVG 示意圖已授權但本輪未用到。
-5. 適用面只動 `gcp-*` 19 頁;`.pick`/`.faq` 是通用元件,資安線日後跟進零改造。
+5. 適用面只動 `gcp-*` 19 頁;`.pick`/`.faq` 是通用元件——**資安線已於 2026-08-07 跟進**
+   (4 產品頁＋`ess.html` 各補 `#pick`/`#faq` 兩段,CSS 零改造;痛點段 0806 區塊化時已有)。
+
+**2026-08-10(會議延期,會前指示)**:①`ess.html` 移除 `#coverage`(時間軸)與
+`#scenarios`(場景)兩區(業務指示;`#pick`/`#faq` 保留);②根 hub 新增
+「待做事項與產品清單」區(JS 排序破例見硬性規則 1;正本= `docs/reports/build_updates_20260810.py`);
+③內容充實三線與其餘決議見 `docs/meeting_0810.md` 附錄。
 
 **首頁兩案**
 
@@ -83,6 +89,11 @@ V1 專屬區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(
 - 資安產品頁:`sentinelone.html`、`threatsonar.html`、`cybereyes.html`、
   `google-secops.html`(2026-08-03 依 `docs/product/` 內部素材新建);另有方案頁 `ess.html`
   (ESS=沃凱打包方案 WDR+EDR+7x24 SOC,非 19 項 SKU;**全頁零外部連結**,入口在 Services 下拉)。
+  2026-08-07 五頁各補 `#pick`(插於 `#why` 前)與 `#faq`(4 產品頁插於 vendor 區前、ess 插於
+  CTA band 前)。**這 5 頁是手維護頁**(非產生器產出),素材經產文＋獨立稽核兩道 agent 工序;
+  選型互連軸:SentinelOne↔ThreatSonar(日常防護 vs 獵捕鑑識)、CyberEyes↔Google SecOps
+  (託管 WDR vs 自建 SIEM)、單品↔ESS。FAQ 內的 `[TODO]` 照 `gcp-vertex-ai.html:506` 先例
+  用純文字不包 span,且一律指名缺什麼(禁「to be confirmed」這種同義反覆)。
 - **Cloud 線 8 頁**(2026-08-04 新建,內容正本= `docs/Cloud線_內容規劃_20260804.md`):
   `cloud.html`(總覽,CI)＋六個 GCP 分類頁 `cloud-compute` / `cloud-storage` / `cloud-analytics` /
   `cloud-serverless` / `cloud-databases` / `cloud-ai`(CI-01〜CI-06)＋
@@ -164,6 +175,8 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 
 1. **純靜態、單檔自足**:demo 頁為 HTML + inline CSS(+極少量原生 JS,僅限手機選單/下拉);
    禁止外部 CDN(含 Google Fonts,GDPR)、禁止前端框架、禁止建置步驟。
+   2026-08-10 破例:專案根 Demo hub(根 index.html)的「待做事項與產品清單」區允許
+   約 15–20 行行內原生 JS 做表格排序;破例僅限 hub 一頁,style-3-soc/ 各頁仍禁止新增 script。
 2. **相對路徑**:所有連結與資源用相對路徑(需相容 GitHub Pages 子路徑 `/repo名稱/`)。
 3. **首屏鐵則**:首頁首屏必須有 H1 一句話 + 明列**三條業務板塊**
    (Cloud Infrastructure / Cybersecurity / Managed Services)各附入口連結。
@@ -215,8 +228,8 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 | `.stack`＋`.layer`＋`.node`＋`.flowmark` | 分層架構圖(目前只在 `gcp-*.html`) | 分層方塊 ＋ 真箭頭 |
 | `.loglist` | 緊湊索引(目前只在 `cloud.html#products`) | 帶邊框的單欄列表 ＋ 狀態圓點 |
 | `.goes` | 一張卡有兩個出口時的連結列 | 把兩個 `.go` 併成一列,不讓它們各佔一行 |
-| `.pick` | 選型指引:「情境 → 建議產品」(0806 三輪,目前只在 `gcp-*.html`) | `--surface` 列 ＋ 真箭頭 ＋ `.node` 晶片(建議是本頁自己時用 `.node.self`) |
-| `.faq` | 平鋪問答(0806 三輪,目前只在 `gcp-*.html`) | `--line` 分隔 ＋ mono 兩位數編號(與 `.spec` 同一套系統);刻意不用 disclosure widget |
+| `.pick` | 選型指引:「情境 → 建議產品」(0806 三輪;`gcp-*.html` ＋ 0807 起資安線 5 頁) | `--surface` 列 ＋ 真箭頭 ＋ `.node` 晶片(建議是本頁自己時用 `.node.self`) |
+| `.faq` | 平鋪問答(0806 三輪;`gcp-*.html` ＋ 0807 起資安線 5 頁) | `--line` 分隔 ＋ mono 兩位數編號(與 `.spec` 同一套系統);刻意不用 disclosure widget |
 
 **唯一正本是 `docs/reports/restyle_content_20260806.py` 的 `BLOCK_CSS`**(含 35 個自繪 icon 的
 `ICONS` 常數)。改元件樣式 = 改那個常數後重跑腳本,36 檔一次同步;**手改單頁的 CSS 會讓軸 1 立刻紅**。
@@ -392,6 +405,7 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 | `build_v1_20260806.py` | 從 `index.html` 產生 `index-v1-proof.html`(0804 那支改造而來) |
 | `build_gcp_pages_20260806.py` | 產生 19 個 GCP 產品頁(以 `cloud-compute.html` 為底檔)。**產品文案的唯一正本** |
 | `link_products_20260806.py` | 分類頁 19 張產品卡的雙出口連結 ＋ `cloud.html#products` 索引。可重複執行 |
+| `build_updates_20260810.py` | 產生根 hub「待做事項與產品清單」區(日期取 git log;備注 dict 手維護,更新前須經 Shiro 確認)。可重複執行 |
 | `build_lab_20260806.py` | 產生 `lab/inline-cloud-compute.html`(**已完成階段任務**,`lab/` 刪掉後可一併移除) |
 | `archive_homepage_variants_20260806.py` | 封存 6 檔後的相對路徑修正 |
 | ~~`sync_nav_20260804.py`~~ / ~~`remove_gcp_groups_20260805.py`~~ | **已封印**,檔頭 `sys.exit` 擋住。功能被 `rebuild_nav` 取代 |
@@ -477,6 +491,8 @@ grep -oh 'Vendor page ↗' cloud-*.html | wc -l
 for f in gcp-*.html; do awk '/<section id="stack">/,/<\/section>/' $f | grep -c 'node self'; done | grep -vc '^1$'
 # 0806 三輪:19 個 gcp 頁各有 痛點/選型/FAQ 三段(pick 允許個別頁省略,目前 19 頁全有)
 for s in pain pick faq; do grep -c "section id=\"$s\"" gcp-*.html | grep -vc ':1$'; done   # 三行各應輸出 0
+# 0807 資安線跟進:5 頁各有 痛點/選型/FAQ 三段(pain 是 0806 區塊化帶入,pick/faq 是 0807 補)
+for s in pain pick faq; do grep -c "section id=\"$s\"" sentinelone.html threatsonar.html cybereyes.html google-secops.html ess.html | grep -vc ':1$'; done   # 三行各應輸出 0
 # 金額禁令(ADR 0004):單價/免費額度/促銷不上站 → 應為空
 grep -nE '[$€£]|per month|free tier|free of charge' *.html
 # cloud.html 的產品索引 19 列

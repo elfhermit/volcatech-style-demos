@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Volcatech 官網 Demo — 三層選單與內容頁改版比對</title>
-<meta name="description" content="Volcatech 新官網 demo 入口:0805 會議後全站改為三層 Nav B 選單、首頁收斂為現行版與 V1 兩案;內容頁改版有守規則版與 Tailwind 實驗版兩份提案可對看。">
+<title>Volcatech 官網 Demo — 進度儀表板與頁面索引</title>
+<meta name="description" content="Volcatech 新官網 demo 入口:待做事項與產品清單、首頁兩案(現行版/V1)、style-3-soc 全部頁面與歷史存檔索引。">
 <style>
 :root{--bg:#111418;--surface:#1B2026;--ink:#F2F4F6;--muted:#9AA4AE;--line:#2A313A;--max:1100px}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -56,50 +56,106 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
 <div class="wrap">
   <div class="head">
     <p class="kicker">Volcatech — Website Demo Hub</p>
-    <h1>0805 會後改版:三層選單、首頁兩案並存、內容頁全面區塊化</h1>
-    <p>色系與版型已於 2026-07-31 定案為 <b>Style 3(SOC Console 深色)× 原版直落</b>,不再變動;
-      首頁版面已於 2026-08-05 收斂為<b>現行版與 V1 兩案</b>,V2／V3 封存。
-      這一輪落地的是<b>選單結構</b>、<b>內容頁的區塊化改版</b>,
-      以及 19 個 GCP 產品頁的<b>決策支援內容</b>(痛點／選型指引／FAQ)。</p>
+    <h1>進度儀表板:首頁兩案待定稿,產品內容充實中</h1>
+    <p>色系與版型已於 0731 凍結(<b>Style 3 SOC Console × 原版直落</b>);
+      三層選單與內容頁區塊化已於 0805–0806 全站落地(沿革見專案 docs/ 與 git log)。
+      目前專注的點:</p>
     <div class="note">
-      <b>本輪已落地(全站 36 頁):</b>
       <ul>
-        <li><b>選單改成三層,第一層不可點</b>——<code>Google Cloud</code> / <code>CyberSecurity</code> /
-          <code>Services</code> 改為 hover 展開的 <code>&lt;button&gt;</code>,不再點進總覽頁(入口改由下拉第一列的
-          Overview 提供);第二層是分類頁,第三層是產品。全站統一 <b>Nav B(二層 flyout)</b>,不再有 Nav A。</li>
-        <li><b>選單精簡</b>——CyberSecurity 移除 AI-PTaaS／SecPurple,Services 移除 ISMS、Pentest、FinOps、DX。
-          <b>只動選單</b>:頁面上這六項的區塊與頁尾清單全部保留,只是不出現在下拉裡。</li>
-        <li><b>第三層補齊為 19 頁</b>——每個 Google Cloud 產品都有自己的產品頁,
-          不再有「這個點得進去、那個點不進去」的落差。骨架一致:Hero →核心優勢 3 卡 →關鍵特色 →
-          適用場景 → Works with 架構圖 → CTA。分類頁的每張產品卡現在有兩個出口:
-          站內<b>產品頁</b>在前、離站<b>原廠頁</b>在後。</li>
-        <li><b>產品頁再加三段「決策支援」內容(08-06 晚)</b>——參考 Google 官網產品頁的解剖結論
-          (吸引企業買家的是「該選哪個、適不適用、疑慮怎麼收」,不是規格),每頁新增:
-          <b>痛點</b>(導入前的問題狀態)、<b>選型指引</b>(什麼情境 → 選哪個產品,含誠實指向
-          隔壁產品的列)、<b>FAQ</b>(平鋪問答,可 Ctrl+F)。文案取自 Google 技術文件改寫並經
-          獨立稽核;<b>全站不放金額資訊</b>,計價問題一律 Contact us。</li>
-        <li><b>Cloud 總覽攤開全部產品</b>——<code>cloud.html</code> 原本只有六個「領域」卡,
-          而 Cybersecurity 總覽卻是 8 個產品逐一列出,三個總覽頁的粒度不一致。
-          現在六領域卡留著當導覽,下面再攤開 19 個產品的索引;索引的描述句直接取自分類頁,
-          不另外寫一份會各自漂移的文案。</li>
-        <li>FortiEDR 與新增的 <b>GCP Managed Services</b> 尚無內頁,選單上做成<b>不可點的灰字</b>,標 Coming soon。</li>
+        <li><b>首頁兩案二選一</b>——現行版(對照組)與 V1(信任前置)並存待會議裁決;36 個內容頁兩案共用。</li>
+        <li><b>產品內容充實</b>——CyberEyes／Google SecOps 擴充、19 個 GCP 產品頁充實(先 3 頁試點)、
+          S1／T5 依原廠參考頁微調。</li>
+        <li><b>0810 已落地</b>——ESS 頁瘦身(移除時間軸與場景兩區);本頁新增下方「待做事項與產品清單」。</li>
+        <li><b>版型試點</b>——動到的頁面加自繪 SVG 示意與關聯圖,緩解純文字的視覺疲勞。</li>
       </ul>
-    </div>
-    <div class="note">
-      <b>內容頁區塊化(2026-08-06 定案並落地):走守硬性規則的 inline CSS 版,Tailwind 版不採用。</b>
-      舊問題是同一個 <code>loglist</code> 元件在一頁裡出現三次(痛點／產品／成效),連續九列長得一模一樣,
-      唯一的區分手段是 9px 圓點的顏色。現在每一段各有自己的處理:
-      <ul>
-        <li><b>痛點與場景</b>用琥珀左邊界的區塊,<b>產品與服務</b>用附自繪 icon、可點進子頁的卡片,
-          <b>有順序的交付流程</b>用帶真箭頭的步驟列,<b>成效與規格</b>用深一階的編號面板。</li>
-        <li><b>沒有新增任何色票</b>——區分靠三層表面深度、一道琥珀邊界與一列真箭頭,0731 的色系凍結仍然成立。
-          卡片加了 2px 的 hover 浮起(不加陰影,專案禁 glow),並在 <code>prefers-reduced-motion</code> 下關閉。</li>
-        <li><b>文案逐字未動。</b>這輪只改版型;<code>docs/reports/check_copy_20260806.py</code>
-          會逐句比對改版前後,少一句或多一句都擋下來。</li>
-      </ul>
-      下方 <b>lab/</b> 那一區保留當初的兩案對照,供回看「為什麼沒選 Tailwind」。
     </div>
   </div>
+
+  <!-- UPDATES:START -->
+  <style>
+  #updates{margin-bottom:44px}
+  #updates .tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;margin-top:18px}
+  #updates table{width:100%;border-collapse:collapse;font-size:14px;min-width:860px}
+  #updates th,#updates td{padding:8px 12px;text-align:left;border-top:1px solid var(--line);vertical-align:top}
+  #updates thead th{border-top:0;background:var(--surface);color:var(--muted);font-size:13px;
+    letter-spacing:.06em;cursor:pointer;user-select:none;white-space:nowrap}
+  #updates tbody tr:hover{background:var(--surface)}
+  #updates td.dt{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:nowrap}
+  #updates td a{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;text-decoration:underline}
+  </style>
+  <section id="updates">
+  <h2 class="sect">待做事項與產品清單<span class="tag">0810 會議</span>
+    <small>備注欄為草稿待確認；更新日期取自 git 最後 commit；本區由 build_updates_20260810.py 產生，勿手改。
+      點「更新日期」或「產品名稱」表頭可排序（升冪／降冪切換，「—」列固定排最後）。</small></h2>
+  <div class="note">
+    <b>待做事項：</b>
+    <ul>
+      <li>首頁兩案二選一（會議裁決）</li>
+      <li>CyberEyes、Google SecOps 內容充實（規劃中）</li>
+      <li>19 個 GCP 產品頁內容充實（先 3 頁試點：Compute Engine／BigQuery／Cloud Run）</li>
+      <li>S1、T5 依原廠參考頁微調（規劃中）</li>
+      <li>版型試點：動到的頁面加 SVG 示意與關聯圖</li>
+      <li>cloud-services.html 沃凱服務 3 段內文待素材</li>
+      <li>各 gcp 頁 [TODO: delivery model and response times] 待素材</li>
+      <li>Services 線其餘服務頁待素材</li>
+      <li>頁面標 [TODO] 的公司素材：合作夥伴等級、ISO 27001、EU region 位置、交付模式與 SLA、FortiEDR 產品描述</li>
+      <li>全站頁尾法定資訊（統編／VAT／地址／Email／電話）待公司提供</li>
+    </ul>
+  </div>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>更新日期</th><th>產品類別</th><th>產品名稱</th><th>網址</th><th>備注</th></tr></thead>
+      <tbody>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>Compute Engine</td><td><a href="style-3-soc/gcp-compute-engine.html">style-3-soc/gcp-compute-engine.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>Kubernetes Engine</td><td><a href="style-3-soc/gcp-kubernetes-engine.html">style-3-soc/gcp-kubernetes-engine.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>VMware Engine</td><td><a href="style-3-soc/gcp-vmware-engine.html">style-3-soc/gcp-vmware-engine.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>Cloud Storage</td><td><a href="style-3-soc/gcp-cloud-storage.html">style-3-soc/gcp-cloud-storage.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>Filestore</td><td><a href="style-3-soc/gcp-filestore.html">style-3-soc/gcp-filestore.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>Backup and DR</td><td><a href="style-3-soc/gcp-backup-dr.html">style-3-soc/gcp-backup-dr.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>BigQuery</td><td><a href="style-3-soc/gcp-bigquery.html">style-3-soc/gcp-bigquery.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>Pub/Sub</td><td><a href="style-3-soc/gcp-pubsub.html">style-3-soc/gcp-pubsub.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>Dataflow</td><td><a href="style-3-soc/gcp-dataflow.html">style-3-soc/gcp-dataflow.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>Cloud Run</td><td><a href="style-3-soc/gcp-cloud-run.html">style-3-soc/gcp-cloud-run.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>App Engine</td><td><a href="style-3-soc/gcp-app-engine.html">style-3-soc/gcp-app-engine.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>API Gateway</td><td><a href="style-3-soc/gcp-api-gateway.html">style-3-soc/gcp-api-gateway.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>AlloyDB for PostgreSQL</td><td><a href="style-3-soc/gcp-alloydb.html">style-3-soc/gcp-alloydb.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>Cloud SQL</td><td><a href="style-3-soc/gcp-cloud-sql.html">style-3-soc/gcp-cloud-sql.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>Datastore</td><td><a href="style-3-soc/gcp-datastore.html">style-3-soc/gcp-datastore.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>Firestore</td><td><a href="style-3-soc/gcp-firestore.html">style-3-soc/gcp-firestore.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>Vertex AI</td><td><a href="style-3-soc/gcp-vertex-ai.html">style-3-soc/gcp-vertex-ai.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>Model Garden</td><td><a href="style-3-soc/gcp-model-garden.html">style-3-soc/gcp-model-garden.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Google Cloud</td><td>Cloud Armor</td><td><a href="style-3-soc/gcp-cloud-armor.html">style-3-soc/gcp-cloud-armor.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；選單未列（孤兒頁）</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>CyberSecurity</td><td>SentinelOne</td><td><a href="style-3-soc/sentinelone.html">style-3-soc/sentinelone.html</a></td><td>0730 評選期建頁；0806 區塊化；0807 補選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>CyberSecurity</td><td>ThreatSonar</td><td><a href="style-3-soc/threatsonar.html">style-3-soc/threatsonar.html</a></td><td>0803 建頁；0806 區塊化；0807 補選型/FAQ</td></tr>
+        <tr><td class="dt">—</td><td>CyberSecurity</td><td>FortiEDR</td><td>—</td><td>待產品資料</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>CyberSecurity</td><td>CyberEyes</td><td><a href="style-3-soc/cybereyes.html">style-3-soc/cybereyes.html</a></td><td>0803 建頁；0806 區塊化；0807 補選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>CyberSecurity</td><td>Google SecOps</td><td><a href="style-3-soc/google-secops.html">style-3-soc/google-secops.html</a></td><td>0803 建頁；0806 區塊化；0807 補選型/FAQ</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>CyberSecurity</td><td>CE-BAS</td><td><a href="style-3-soc/cybersecurity.html#ce-bas">style-3-soc/cybersecurity.html#ce-bas</a></td><td>0804 建總覽頁；尚無獨立產品頁，連至總覽錨點</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Services</td><td>Enterprise Security Service (ESS)</td><td><a href="style-3-soc/ess.html">style-3-soc/ess.html</a></td><td>0803 建頁；0807 補選型/FAQ；0810 移除時間軸/場景（未 commit）</td></tr>
+        <tr><td class="dt">2026-08-07</td><td>Services</td><td>24/7 SOC &amp; Incident Response</td><td><a href="style-3-soc/services.html#soc">style-3-soc/services.html#soc</a></td><td>0804 建總覽頁；連至總覽錨點；服務內文待素材</td></tr>
+        <tr><td class="dt">—</td><td>Services</td><td>GCP Managed Services</td><td>—</td><td>選單灰字，內頁待素材</td></tr>
+      </tbody>
+    </table>
+  </div>
+  </section>
+  <script>
+  (function(){
+    var tb=document.querySelector('#updates tbody'),ths=document.querySelectorAll('#updates thead th');
+    ths.forEach(function(th,i){th.addEventListener('click',function(){
+      var asc=th.dataset.o!=='a';
+      ths.forEach(function(t){delete t.dataset.o;});
+      th.dataset.o=asc?'a':'d';
+      Array.prototype.slice.call(tb.rows).sort(function(r1,r2){
+        var a=r1.cells[i].textContent.trim(),b=r2.cells[i].textContent.trim();
+        if(a==='—'&&b==='—')return 0;
+        if(a==='—')return 1;
+        if(b==='—')return -1;
+        return asc?a.localeCompare(b):b.localeCompare(a);
+      }).forEach(function(r){tb.appendChild(r);});
+    });});
+  })();
+  </script>
+  <!-- UPDATES:END -->
 
   <h2 class="sect">兩個首頁方案<span class="tag">0805 保留</span>
     <small>hero(狀態列／H1／副標／兩顆 CTA／三張 console 卡)兩案<b>完全相同</b>,差異從第二區塊開始。
@@ -140,21 +196,6 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="note" style="margin-bottom:44px">
-    <b>選單怎麼測:</b>
-    <ol>
-      <li>把滑鼠移到 <code>Google Cloud</code> 上——它<b>不應該</b>可以點,只會展開下拉。</li>
-      <li>從第一層斜著移進第二層的 flyout,中途不要掉層;再試 <b>純鍵盤 Tab</b> 能不能走完三層。</li>
-      <li>下拉開著時按 <b>Esc</b>,面板應該關閉(焦點會回到左上角 logo)。</li>
-      <li>點 Compute → Compute Engine,確認進的是<b>獨立產品頁</b>而不是分類頁的錨點。</li>
-      <li>把視窗拉到約 1000px 寬,再開一次 Google Cloud:第二層應該改成在面板內就地展開,不會跑出畫面。</li>
-      <li>390px 手機寬:選單三層應該全部攤開成縮排清單,沒有水平捲軸。</li>
-    </ol>
-    <b style="display:block;margin-top:14px">還沒有素材、頁面上一律標 [TODO] 的項目:</b>
-    合作夥伴等級、ISO 27001、EU region 具體位置、交付模式(是否部署在客戶自有租戶)、事件回應時間承諾(SLA)、
-    Managed Services 五項服務內文、FortiEDR 產品描述、公司法定資訊(統編／VAT／地址／Email／電話)。
   </div>
 
   <h2 class="sect">新增的兩個總覽頁<span class="tag">動線修復</span>
