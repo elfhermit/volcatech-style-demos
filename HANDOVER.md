@@ -38,6 +38,12 @@ inline CSS 版**（`lab/` 的 Tailwind 版落選），16 個內容頁與首頁�
   ＋ **`argushack`（2026-08-10 新建**，BAS；原廠 Leukocyte-Lab，沃凱代理）；＋方案頁 `ess.html`。
 - **全 37 頁選單統一為三層 Nav B**，不再有 Nav A。
 
+**內容充實狀態（2026-08-11）**：19 個 GCP 產品頁**全部完成**（每頁 FAQ +2～3、規格 +2，
+其中 12 頁有 SVG 示意圖、4 頁依「誠實優先」判定不做圖）；5 個資安產品頁與 ESS 皆有
+`#pain`／`#pick`／`#faq` 三段決策支援內容。**根 `index.html` 已改造成進度儀表板**
+（待做事項 ＋ 28 列產品表，正本 `docs/reports/build_updates_20260810.py`，
+帶全專案唯一的行內 JS 破例）。
+
 另有 `lab/` 4 個檔（當初的兩案對照，**已定案走 inline 版**，留檔備查、隨時可刪）。
 落選的 3 個風格、4 個版型變體、GPT 參考包，以及 0805 封存的 6 個首頁變體檔
 （`archive/style-3-homepage-variants/`）都在 `archive/`（凍結）；
@@ -320,6 +326,37 @@ check_copy 基準前進歸零。**首頁二選一使用者裁決「兩案並存�
 紅線）。政策觀察（未改，供裁決）：SentinelOne FAQ 提及該偵測流可進 ESS/SOC＋ESS 頁
 picks 具名三單品，讀者可能對號入座——紅線技術上未踩，維持單品→方案的導流寫法。
 
+### 本輪完成的事（2026-08-10 第一輪，ESS 瘦身 ＋ hub 儀表板 ＋ 七頁內容充實）
+
+起因：業務對 demo 的回饋（`docs/meeting_0810.md` 原文），經 grilling 收斂為 15 項決議
+（決議 1–15，正本在該檔附錄一）。commit：`242412d`（0807 文件同步）、`5646ddc`、
+`2b763e2`、`d4a7570`。
+
+1. **ESS 頁瘦身**：`ess.html` 移除 `#coverage`（時間軸）與 `#scenarios`（四個攻擊場景）
+   兩區共 25 行——業務認為寫太細。`#pick`／`#faq` **保留**（那兩段是 0807 才加的決策支援
+   元件，砍掉會讓 ESS 成為唯一沒有選型指引的方案頁）。
+2. **根 Demo hub 改造成進度儀表板**：說明文字從兩大段沿革敘事改成四條「目前專注的點」，
+   移除過時的「選單怎麼測」段；新增**待做事項清單 ＋ 28 列產品表**
+   （欄位：更新日期｜產品類別｜產品名稱｜網址｜備注），日期由 `git log` 自動取。
+   正本 `docs/reports/build_updates_20260810.py`，**手改 hub 的標記區會被下次執行覆蓋**。
+   ⚠ **硬性規則破例**：hub 這一頁獲准使用約 15–20 行行內原生 JS 做表格排序，
+   **僅限這一頁**，`style-3-soc/` 各頁仍禁止新增 `<script>`。已寫進 CLAUDE.md 硬性規則 1。
+3. **七頁內容充實**（`2b763e2`）：GCP 試點 3 頁（Compute Engine／BigQuery／Cloud Run）
+   各補 FAQ×3、規格事實×2、區塊級 SVG 示意圖×1；SentinelOne 補資料主權 FAQ 與
+   telemetry 保留句；ThreatSonar 補情資匯入 FAQ 與遠端應變句；CyberEyes 補 vs NDR／
+   vs EDR 兩題與攻擊鏈成效列；Google SecOps 補 300+ 整合成效列與 UEBA／Gemini FAQ。
+   全部走**只加不改**：8 筆「少了」的句子都是原句＋句尾追加的逐字前綴。
+4. **產生器新增四個選填欄位**（`build_gcp_pages_20260806.py`）：`extra_faqs`／`extra_specs`／
+   `uses_extra`／`figures`（後者只能插 `value` 或 `features` 兩個 section）。
+   **沒填欄位的條目輸出逐字節不變**，已用基線比對驗證——這是 16 頁鋪開的基礎。
+
+**一個差點做錯的誤讀（記下來給未來的人）**：會議文件寫「index 頁面修改：調整該主頁內容呈現，
+僅保留目前專注的點」。我原本解讀成 **`style-3-soc/` 的官網首頁要瘦身**，並據此問了兩輪問題；
+使用者反問「這個我有說到要處理嗎」才發現——他指的是**根目錄的 Demo hub**。
+兩個官網首頁最終**完全沒動**（對照組前提在這一輪仍然成立，是 0810 第二輪才終結的）。
+教訓已寫進 `docs/CONTEXT.md` 新增的〈頁面身分〉詞條：**Hub（根 index.html）與
+Homepage（style-3-soc 的兩個首頁）是兩個東西，講的時候一律指明是哪一個。**
+
 ### 本輪完成的事（2026-08-10 第二輪，ArgusHack 重定位 ＋ 兩品移除）
 
 起因：查證確認掛在「Built in-house — Volcatech AI Security」底下的 `CE-BAS`
@@ -369,6 +406,33 @@ CLAUDE.md 驗證區 26 條指令逐條實跑、輸出與註解相符（footer �
 `grep -l 'CE-BAS\|AI-PTaaS\|SecPurple' style-3-soc/*.html` 全空。
 `check_copy` **預期會報「少了」**——本輪是**刻意的文案變更**，逐句核對過每一句
 都對應到決議 16–24（CE-BAS／AI-PTaaS／SecPurple／自研宣稱），無誤刪。
+
+### 本輪完成的事（2026-08-11，其餘 16 個 GCP 產品頁充實；`d9bc995`）
+
+0810 第一輪已用 3 頁試點驗證模式，本輪把剩下 16 頁（含孤兒頁 `gcp-cloud-armor.html`）一次鋪完。
+**至此 19 個 GCP 產品頁全部完成充實。**
+
+- **每頁 +2～3 題 FAQ、+2 列規格事實**（各附 `# src:` 來源 URL，只寫在產生器註解、不上頁）。
+- **12 頁新增 SVG 示意圖；4 頁刻意不做**（API Gateway／Datastore／Filestore／Model Garden）。
+  這是使用者裁定的**「誠實優先」原則**：SVG 只給真的有流程或架構可畫的頁，
+  沒有機制可畫就不畫——**裝飾圖比不畫更糟**，跟「`.steps` 不得假造推進關係」同一個道理。
+  稽核複核過不做圖的判斷，例如 Filestore 的效能／容量兩軸圖：官方文件根本沒有 IOPS 與
+  吞吐量數字，沒有數字的軸線圖等於憑感覺畫。
+- **一律改產生器再重跑**，沒有手改任何 HTML；三個試點頁重產後逐字節不變，
+  這同時證明了選填欄位對未填條目零影響。
+
+**獨立稽核擋下的兩個關鍵錯誤**（值得記住的類型）：
+
+1. **Kubernetes Engine 的可用性宣稱寫反了**。原稿寫「zonal cluster 那一區出事時工作負載繼續跑」，
+   但官方把那個保證綁在 **multi-zonal**；zonal 明文寫「該區出事時所有工作負載都不可用」。
+   這種錯誤最經不起客戶查證。
+2. **VMware Engine 的「單節點私有雲 60 天後刪除」整句拿掉**——兩份 Google 官方文件互相矛盾
+   （一份寫 60 天刪除，一份寫單節點無時間限制）。依「說不準就不寫」移除，
+   改用查得到的三項限制，換來的資訊反而更有決策價值（從「時間到會被刪」變成「留著會掉資料」）。
+
+**已驗**：`check_nav`／`check_links` PASS；`check_copy` 192 項差異全落在這 16 頁，
+15 筆「少了」逐句核對皆為原句＋句尾追加的逐字前綴；金額／他雲具名／hype 詞／美式拼寫零命中；
+19 頁 `pain`／`pick`／`faq` 各恰 1、`stack` 區 `node self` 各恰 1、mono 編號連續不跳號。
 
 ### V1 首頁（改它之前必讀）
 
@@ -508,7 +572,17 @@ ISMS / PIMS、Penetration Testing、Cloud FinOps、Digital Transformation，
 - [ ] **待辦：`cloud-services.html` 的沃凱自有服務 3 項補內文**（Cloud Migration & Kubernetes／
       Hybrid Cloud & Backup／Data & AI Engineering），現為 `[TODO: service description]`；
       需使用者提供素材（本次指示不參考 `docs/公司_104.md`）。
-- [ ] **待辦：部分內容頁補詳細資訊**（範圍待使用者指定）。
+- [x] ~~**待辦：部分內容頁補詳細資訊**~~ **2026-08-10／08-11 完成**：19 個 GCP 產品頁
+      （FAQ +2～3、規格事實 +2、12 頁 SVG）、S1／T5 小幅補強、CyberEyes／Google SecOps 擴充。
+      素材依 Google 官方文件與 `docs/product/` 內部檔，每組都過獨立稽核
+      （6 連詞抄襲比對、虛構、金額、英式拼寫、他雲具名）。
+- [ ] **待辦：`argushack.html` 的沃凱交付素材**（交付主體、導入時程、回應承諾），
+      現為單一 `[TODO]`。它是代理產品，**原廠 Leukocyte-Lab 的資格與量化宣稱一律不可搬**
+      （金管會指定、APAC CIO Outlook 前五名、縮短 80% 報告時間等，研究報告已逐項標記）。
+- [ ] **待辦：`AI-PTaaS`／`SecPurple` 素材**——0810 因素材不足全站移除，
+      **非否定它們是自研**；`docs/product/` 對這兩品只有一句定位、零功能素材。
+      素材到位可加回（首頁第 4 區、`cybersecurity.html`、全站頁尾清單、V1 catalogue）。
+- [ ] **待辦：網站內容修改意見**——2026-08-11 使用者表示「晚點再給」，尚未收到。
 - [ ] **任務 3：向公司取得法定資訊並替換 `[TODO`**：
       註冊地址、統一編號、VAT／稅籍編號、對外聯絡 Email、電話（+886 國際格式）。
       另外 **ISO 27001 等認證狀態**與 **Google Cloud 合作等級**未經確認**絕不可寫上去**。
@@ -650,6 +724,7 @@ python3 -m http.server 8000
 # 產品頁 ThreatSonar：      http://localhost:8000/style-3-soc/threatsonar.html
 # 產品頁 CyberEyes：        http://localhost:8000/style-3-soc/cybereyes.html
 # 產品頁 Google SecOps：    http://localhost:8000/style-3-soc/google-secops.html
+# 產品頁 ArgusHack：        http://localhost:8000/style-3-soc/argushack.html
 # 方案頁 ESS：              http://localhost:8000/style-3-soc/ess.html
 # 舊評選總覽（已凍結）：    http://localhost:8000/archive/index.html
 ```
