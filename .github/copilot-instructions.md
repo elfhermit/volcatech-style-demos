@@ -21,7 +21,7 @@
 - **內容頁區塊元件(0806)**:`.probs`/`.uses`(琥珀左邊界)、`.trio`/`.quad`/`.duo`(icon 卡)、
   `.steps`(**只用於真的有先後順序**的流程,帶真箭頭)、`.spec`(深色編號面板)、`.stack`(分層圖)。
   **CSS 與 35 個 icon 的唯一正本是 `docs/reports/restyle_content_20260806.py`**——改元件樣式
-  = 改 `BLOCK_CSS` 後重跑,36 檔一次同步;手改單頁 CSS 會讓 `check_nav` 立刻紅。
+  = 改 `BLOCK_CSS` 後重跑,37 檔一次同步;手改單頁 CSS 會讓 `check_nav` 立刻紅。
   **不得新增色票**(色系 0731 凍結),不得自繪新 icon 或引外部 icon 套件。
 - **改內容頁版型時文案逐字不得變動**,跑 `python3 docs/reports/check_copy_20260806.py` 把關
   (拿 git 基準逐句比對 `<main>`;只放行 `.go` 標籤、箭頭、兩位數編號三類新增)。
@@ -34,7 +34,7 @@
   它自帶的 `CLAUDE.md` / `README.md` / `HANDOVER.md` 只描述它自己,**不適用本專案**,
   規則衝突時一律以根目錄 `CLAUDE.md` 為準。
 - **一致性鐵則是雙軸**(軸 1 已於 2026-08-06 換人):
-  **軸 1** = 全站 36 檔的 `<header>` 與三段 nav CSS,正規化掉 5 個逐檔參數後**逐字節相同**
+  **軸 1** = 全站 37 檔的 `<header>` 與三段 nav CSS,正規化掉 5 個逐檔參數後**逐字節相同**
   (`python3 docs/reports/check_nav_20260806.py` 必須 PASS)。
   舊的「Nav A ↔ Nav B 自 `<main>` 起逐字節相同」隨 Nav A 退場而失效。
   **軸 2** = 兩個首頁凍結共用文案——H1、副標、Why H2、CTA 橫幅 H2、footer 品牌句這五句
@@ -49,7 +49,9 @@
     `.dd>a::after` 也必須寫成 `.dd>a::after,.dd>button::after`,否則下拉三角形全消失。
   - `Google Cloud` = Overview(`cloud.html`)＋六組 18 項,**18 項全部連各自的產品頁**。
   - `CyberSecurity` = Overview ＋ Endpoint — EDR / Detection — SIEM & WDR /
-    Built in-house — Volcatech AI Security(只剩 CE-BAS)。
+    **Validation — breach & attack simulation**(ArgusHack → `argushack.html`)。
+    ⚠ 第三組 0810 由「Built in-house — Volcatech AI Security(CE-BAS)」改名:
+    查證確認該產品的原廠是盧氪賽忒(Leukocyte-Lab)、沃凱是代理商,自研宣稱不成立。
   - `Services`(扁平)= Overview ＋ ESS ＋ 24/7 SOC & IR ＋ GCP Managed Services。
   - **FortiEDR 與 GCP Managed Services 是不可點灰字**(`<span class="off">`＋mono 的
     Coming soon,用 `--muted` 上色)。**絕不可寫成 `<a href="#">`**——會踩到
@@ -60,12 +62,14 @@
   「選單裡 href 等於本檔名的那個 `<a>`」(通常在第二層);第一層 button 的視覺高亮用
   非 ARIA 的 `class="on"`。⚠ 第一層從 `<a>` 換成 `<button>` 時,`.menu a[aria-current]`
   會匹配不到,**黃底線會靜默消失而 `grep -c` 仍回報正常**。
-  選單裡沒有連結指向的頁面(目前只有 `cloud-services.html`)必須**明文登記**在
-  `check_nav_20260806.py` 的 `ORPHANS`。
+  選單裡沒有連結指向的頁面(目前有 `cloud-services.html` 與 `gcp-cloud-armor.html` 兩個)
+  必須**明文登記**在 `check_nav_20260806.py` 的 `ORPHANS`。
 - **0805 從選單移除、但頁面區塊全部保留的項目**(只動選單是使用者明確裁決,不要「順手清乾淨」):
-  AI-PTaaS、SecPurple、ISMS / PIMS、Penetration Testing、Cloud FinOps、Digital Transformation,
+  ISMS / PIMS、Penetration Testing、Cloud FinOps、Digital Transformation,
   以及更早移除的 Edge security(Cloud Armor)與 Volcatech cloud services 3 項。
-  ⚠ 首頁 **Built by Volcatech 仍須列 CE-BAS / AI-PTaaS / SecPurple 三品**(硬性規則)。
+  ⚠ **例外**:同批的 AI-PTaaS、SecPurple 已於 **0810 全站移除**(頁面區塊也不留),
+  驗法相反——`grep -l 'AI-PTaaS\|SecPurple\|CE-BAS' style-3-soc/*.html` 應為空。
+  理由是素材不足,不是否定它們是自研,素材到位可加回。
 - **選單 CSS 的三個坑,勿「順手統一」**:①`.dd ul` **絕不可加 overflow**(會變成 clip
   container 裁掉二層 flyout);②`.sub` 的四條規則一律 scope 成 `.menu .sub`(footer 有內文用的
   `<p class="sub">`);③901–1100px 這一段,二層改成在面板內就地展開(`position:static`),
@@ -82,11 +86,13 @@
   `#pick` 選型指引 →`stack` 分層圖 →`#faq` 平鋪問答 → CTA。**不做頁籤**——全部平鋪成 section,
   可深連結、Ctrl+F 找得到。痛點/選型/FAQ 的素材取自 Google docs overview 頁改寫。
   `cards2` 必須偶數張(產品數為奇數時把清單改走 `loglist`)。
-- **動 nav = 改 MENU 後重跑腳本**(36 檔一次同步);**動 footer = 36 檔都要改**
-  (footer 沒有產生器,靠「33 個內容頁與 `sentinelone.html` 逐字節相同」把關)。
+- **動 nav = 改 MENU 後重跑腳本**(37 檔一次同步);**動 footer = 37 檔都要改**
+  (footer 沒有產生器,靠「34 個內容頁與 `sentinelone.html` 逐字節相同」把關)。
+  ⚠ 兩者都要順手重跑 `build_lab_20260806.py`——`lab/inline-cloud-compute.html` 的
+  header/footer 取自 `cloud-compute.html`,而 `lab/` 在 `check_links` 掃描範圍內。
   頁尾三個欄標題都是連到對應總覽頁的連結。改完跑
   `check_nav_20260806.py`、`check_copy_20260806.py` 與 `check_links_20260806.py`,三支都要 PASS。
-- 全 36 檔的 `main [id]` 都有 `scroll-margin-top:80px`,新增頁面要一併帶上;
+- 全 37 檔的 `main [id]` 都有 `scroll-margin-top:80px`,新增頁面要一併帶上;
   19 個 GCP 產品頁另需 `.stack a{scroll-margin-top:80px}`。
 - `ess.html` 是方案頁:ESS(Enterprise Security Service)為沃凱打包方案
   (CyberEyes WDR + 多品牌 EDR + 自有 7x24 SOC),**方案層、非 19 項 SKU**;
@@ -116,8 +122,12 @@
   (Cloud Infrastructure / Cybersecurity / Managed Services)各附入口。
   H1 定稿(不得改寫):
   `Cloud infrastructure, cybersecurity and managed services — from one turn-key partner.`
-- 首頁必備 **Built by Volcatech** 區塊(自研 CE-BAS / AI-PTaaS / SecPurple);
-  它不是第 4 條產品線,**不進頂層導覽**。
+- 首頁必備第 4 區(id `#built`):現行定位是**「我們自己維運、自己驗證」**——
+  標題 `Tooling we operate, and evidence that it works.`,內容為 ArgusHack
+  (BAS,原廠 Leukocyte-Lab)。它不是第 4 條產品線,**不進頂層導覽**。
+  ⚠ **2026-08-10 變更**:本條原本要求列「自研 CE-BAS / AI-PTaaS / SecPurple」,
+  查證確認 CE-BAS 非自研(沃凱是代理商)後由使用者裁決改寫。
+  **這一區不得再宣稱 self-developed / built in-house / not resold**,除非取得經查證的自研素材。
 - 公司事實(統編、地址、認證、案例)一律 `[TODO: 說明]` 佔位,不得虛構;
   **全案只用這一種佔位語法**(不得用 `{{TODO}}`)。公司事實來源為 `docs/公司_104.md`,
   但該檔只可用於服務範圍與願景,不可用來填統編/VAT/地址。

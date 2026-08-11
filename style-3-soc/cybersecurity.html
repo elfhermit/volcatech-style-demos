@@ -344,7 +344,7 @@ a.node:hover{border-color:var(--accent)}
       </li>
       <li class="dd"><button type="button" class="on" aria-haspopup="true">CyberSecurity</button>
         <ul>
-          <li class="head"><span class="dot" aria-hidden="true"></span>CyberSecurity — EDR · SIEM &amp; WDR · Built in-house</li>
+          <li class="head"><span class="dot" aria-hidden="true"></span>CyberSecurity — EDR · SIEM &amp; WDR · BAS</li>
           <li><a href="cybersecurity.html" aria-current="page">Overview — all security products</a></li>
           <li class="sub"><a href="cybersecurity.html#edr" aria-haspopup="true">Endpoint — EDR</a>
             <ul>
@@ -359,9 +359,9 @@ a.node:hover{border-color:var(--accent)}
               <li><a href="google-secops.html">Google SecOps</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cybersecurity.html#in-house" aria-haspopup="true">Built in-house — Volcatech AI Security</a>
+          <li class="sub"><a href="cybersecurity.html#validation" aria-haspopup="true">Validation — breach &amp; attack simulation</a>
             <ul>
-              <li><a href="cybersecurity.html#ce-bas">CE-BAS</a></li>
+              <li><a href="argushack.html">ArgusHack</a></li>
             </ul>
           </li>
         </ul>
@@ -392,8 +392,8 @@ a.node:hover{border-color:var(--accent)}
       <p class="status"><span class="dot" aria-hidden="true"></span>CS / OVERVIEW — Cybersecurity practice</p>
       <p class="code" style="margin-top:26px">CS · CYBERSECURITY · OVERVIEW</p>
       <h1>Cybersecurity</h1>
-      <p class="vendor">Vendors: SentinelOne · TeamT5 · Fortinet · CyberEyes · Google Cloud · Built in-house</p>
-      <p class="tag">Endpoint EDR, web-layer WDR and SIEM from vendors we select — plus three testing services we build ourselves. All of it watched by our own 24/7 SOC.</p>
+      <p class="vendor">Vendors: SentinelOne · TeamT5 · Fortinet · CyberEyes · Google Cloud · Leukocyte-Lab</p>
+      <p class="tag">Endpoint EDR, web-layer WDR and SIEM from vendors we select — plus breach and attack simulation to check that they hold. All of it watched by our own 24/7 SOC.</p>
       <div class="cta">
         <a class="btn" href="index.html#contact">Contact us</a>
         <a class="btn btn-ghost" href="index.html#contact">Talk to our team</a>
@@ -445,17 +445,14 @@ a.node:hover{border-color:var(--accent)}
     </div>
   </section>
 
-  <section id="in-house">
+  <section id="validation">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Built in-house — Volcatech AI Security</p>
-      <h2 class="sec">Three services we build, not resell.</h2>
-      <div class="trio">
-        <div id="ce-bas"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg><h3>CE-BAS — Continuous External Breach and Attack Simulation <span class="vsrc">Volcatech</span></h3>
-          <p>Continuously probes your internet-facing assets the way an external attacker would, and reports which exposures are actually exploitable.</p></div>
-        <div id="ai-ptaas"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="8" height="10" rx="4"/><path d="M8 11H4M20 11h-4M8 15H4.5M19.5 15H16M9 6l1.5 2M15 6l-1.5 2"/></svg><h3>AI-PTaaS — Smart Automated Penetration Testing as a Service <span class="vsrc">Volcatech</span></h3>
-          <p>Automated, repeatable penetration testing delivered as a subscription, so findings arrive between annual audits instead of once a year.</p></div>
-        <div id="secpurple"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5.5a3 3 0 0 1 0 5.8"/><path d="M17.5 20a6 6 0 0 0-3-5.2"/></svg><h3>SecPurple — Professional Purple Team Support <span class="vsrc">Volcatech</span></h3>
-          <p>Runs attack-and-defence exercises with your team, then turns each finding into a detection rule your SOC keeps.</p></div>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Validation — breach &amp; attack simulation</p>
+      <h2 class="sec">The layer that tests the other layers.</h2>
+      <div class="duo">
+        <div id="argushack"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg><h3>ArgusHack <span class="vsrc">Leukocyte-Lab</span></h3>
+          <p>A breach and attack simulation platform that replays attacker techniques against your live environment, so the controls you already own are measured on what they stop rather than on what they were bought to stop.</p>
+          <a class="go" href="argushack.html">Product page →</a></div>
       </div>
     </div>
   </section>
@@ -492,7 +489,7 @@ a.node:hover{border-color:var(--accent)}
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why secure with Volcatech</p>
       <h2 class="sec">We operate what we sell, and we build what we cannot buy.</h2>
-      <p style="margin-top:24px;color:var(--muted);max-width:66ch">Our SOC watches the tools we deploy, and our own CE-BAS, AI-PTaaS and SecPurple services test whether those tools actually catch what they should. Selection, deployment, monitoring and response sit with the same team and the same contract.
+      <p style="margin-top:24px;color:var(--muted);max-width:66ch">Our SOC watches the tools we deploy, and breach and attack simulation exercises test whether those tools actually catch what they should. Selection, deployment, monitoring and response sit with the same team and the same contract.
         <span class="todo">[TODO: partner tier and certifications]</span></p>
     </div>
   </section>
@@ -544,11 +541,9 @@ a.node:hover{border-color:var(--accent)}
         <li><a href="cybereyes.html">CyberEyes</a></li>
         <li><a href="google-secops.html">Google SecOps</a></li>
       </ul>
-      <p class="sub">Built in-house</p>
+      <p class="sub">Validation — breach &amp; attack simulation</p>
       <ul>
-        <li><a href="cybersecurity.html#ce-bas">CE-BAS</a></li>
-        <li><a href="cybersecurity.html#ai-ptaas">AI-PTaaS</a></li>
-        <li><a href="cybersecurity.html#secpurple">SecPurple</a></li>
+        <li><a href="argushack.html">ArgusHack</a></li>
       </ul>
     </div>
     <div>

@@ -1,6 +1,6 @@
 # Volcatech 官網風格 Demo 接手指引 (Handover)
 
-> **最後更新**：2026-08-06
+> **最後更新**：2026-08-10
 > **本檔定位**：進度速查與接手指令集。
 > **規格正本是 `docs/Volcatech_多風格_Build_Prompts.md`**——本檔與它衝突時，一律以它為準。
 > 唯一例外：該檔 §B 的 style-3 選單定義（`Platform / Arsenal / Operations`）是**評選期歷史**，
@@ -17,10 +17,15 @@
 **2026-08-05 會議又定案三件事**（結算正本：`docs/meeting_0805_end.md`）：①首頁收斂為兩案；
 ②選單改三層、第一層不可點、全站統一 Nav B；③內容頁改版——**0806 定案走守硬性規則的
 inline CSS 版**（`lab/` 的 Tailwind 版落選），16 個內容頁與首頁已全數改用區塊元件。
+**2026-08-10 第二輪**再定案 ArgusHack 重定位（決議 16–24，正本 `docs/meeting_0810.md` 附錄二）：
+原 `CE-BAS` 經查證**不是沃凱自研**（原廠盧氪賽忒 Leukocyte-Lab，沃凱代理）→ 更名 **ArgusHack**、
+升格獨立產品頁、選單第三組改為 `Validation — breach & attack simulation`、
+首頁第 4 區改「我們自己維運」定位；`AI-PTaaS`／`SecPurple` 因素材不足全站移除。
+細節見下方〈本輪完成的事（2026-08-10 第二輪）〉。
 
-現行維護對象 `style-3-soc/`，**共 36 頁**：
+現行維護對象 `style-3-soc/`，**共 37 頁**（0810 新增 `argushack.html`）：
 
-- **2 個首頁**：`index.html`（現行版，對照組）、`index-v1-proof.html`（V1 信任前置，
+- **2 個首頁**：`index.html`（現行版）、`index-v1-proof.html`（V1 信任前置，
   由 `docs/reports/build_v1_20260806.py` 產生，**不得手改**）。
 - **3 個總覽頁**：`cloud.html`（CI）、`cybersecurity.html`（CS）、`services.html`（MS）。
 - **7 個 GCP 分類頁**：`cloud-compute` / `cloud-storage` / `cloud-analytics` /
@@ -29,8 +34,9 @@ inline CSS 版**（`lab/` 的 Tailwind 版落選），16 個內容頁與首頁�
   ＋ `gcp-cloud-armor.html`（**孤兒頁**：它所屬的 Edge security 那組已於 0805 移出選單，
   入口在 `cloud-services.html#cloud-armor` 與 `cloud.html` 的產品索引）。
   全部由 `build_gcp_pages_20260806.py` 的 `PAGES` 產生，**不要手改頁面**。
-- **4 個資安產品頁**：`sentinelone` / `threatsonar` / `cybereyes` / `google-secops`；＋方案頁 `ess.html`。
-- **全 36 頁選單統一為三層 Nav B**，不再有 Nav A。
+- **5 個資安產品頁**：`sentinelone` / `threatsonar` / `cybereyes` / `google-secops`
+  ＋ **`argushack`（2026-08-10 新建**，BAS；原廠 Leukocyte-Lab，沃凱代理）；＋方案頁 `ess.html`。
+- **全 37 頁選單統一為三層 Nav B**，不再有 Nav A。
 
 另有 `lab/` 4 個檔（當初的兩案對照，**已定案走 inline 版**，留檔備查、隨時可刪）。
 落選的 3 個風格、4 個版型變體、GPT 參考包，以及 0805 封存的 6 個首頁變體檔
@@ -44,8 +50,13 @@ inline CSS 版**（`lab/` 的 Tailwind 版落選），16 個內容頁與首頁�
   **註（2026-08-04 定案）**：§A 的 SKU 代碼體系（`C-01`〜`C-06` 等）為 **pre-0731 歷史體系**，
   保留封存、不對齊、不上站；現行採**頁面層代碼**（Cloud 線＝`CI`／`CI-01`〜`CI-07`）。
   Cloud 線已由這 8 頁涵蓋，不再依 §A 的 Cloud 6 個 slug 逐項建頁。
-- 自研 **CE-BAS / AI-PTaaS / SecPurple** 屬 Cybersecurity 底下的第三個群組，
-  但首頁另有專屬的 **Built by Volcatech** 區塊——它不是第 4 條產品線，**不進頂層導覽**
+- Cybersecurity 底下的第三個群組是 **Validation — breach & attack simulation**（ArgusHack）。
+  ⚠ **2026-08-10 變更**：這一組原本叫「Built in-house — Volcatech AI Security」、掛
+  CE-BAS / AI-PTaaS / SecPurple。查證確認 CE-BAS 的原廠是**盧氪賽忒（Leukocyte-Lab）**、
+  沃凱是**代理商**，自研宣稱不成立 → 更名 **ArgusHack** 並升格獨立頁；
+  AI-PTaaS / SecPurple 因**素材不足**（非否定其自研）全站移除，素材到位可加回。
+  首頁仍有專屬的第 4 區（id `#built`）——現在的定位是「我們自己維運、自己驗證」，
+  不再宣稱自研；它不是第 4 條產品線，**不進頂層導覽**
 - H1 逐字定稿不變：`Cloud infrastructure, cybersecurity and managed services — from one turn-key partner.`
 - **section 順序不變**：`top` → `offer` → `built` → `why` → `trust` → `vendors` → `contact` → `legal`
 
@@ -309,6 +320,56 @@ check_copy 基準前進歸零。**首頁二選一使用者裁決「兩案並存�
 紅線）。政策觀察（未改，供裁決）：SentinelOne FAQ 提及該偵測流可進 ESS/SOC＋ESS 頁
 picks 具名三單品，讀者可能對號入座——紅線技術上未踩，維持單品→方案的導流寫法。
 
+### 本輪完成的事（2026-08-10 第二輪，ArgusHack 重定位 ＋ 兩品移除）
+
+起因：查證確認掛在「Built in-house — Volcatech AI Security」底下的 `CE-BAS`
+**不是沃凱自研**——原廠是台灣**盧氪賽忒股份有限公司（Leukocyte-Lab / LKC）**，
+沃凱是**代理商**（使用者已確認）。研究底稿 `docs/reports/argushack_歸屬與功能研究_20260810.md`，
+九項裁決（決議 16–24）記在 `docs/meeting_0810.md` 附錄二。這是**硬性規則等級的變更**
+（原硬性規則 3 明文要求首頁列「自研 CE-BAS / AI-PTaaS / SecPurple」），使用者已裁決同意。
+
+1. **產品更名 `ArgusHack`** 並**升格獨立產品頁** `style-3-soc/argushack.html`
+   （骨架照資安產品頁，`#pain`／`#pick`／`#faq` 建頁時就帶齊；頁面標明原廠 by Leukocyte-Lab）。
+   站上頁數 36 → **37**。
+2. **選單 CyberSecurity 第三組改名**：`Built in-house — Volcatech AI Security`
+   → **`Validation — breach & attack simulation`**，深連結目標由 `#in-house` 改為
+   `#validation`，底下掛 `argushack.html`；下拉 head 白話行改
+   `CyberSecurity — EDR · SIEM & WDR · BAS`。改的是 `rebuild_nav_20260806.py` 的 `MENU`
+   （唯一正本）後重跑，全站 37 檔一次同步。
+3. **`cybersecurity.html`** 的 `#in-house` 區改為 `#validation`（H2
+   `The layer that tests the other layers.`），產品 id 由 8 個變 6 個
+   （少 `ce-bas`／`ai-ptaas`／`secpurple`，多 `argushack`）。
+4. **兩個首頁的第 4 區（`#built`）改寫**：不再宣稱自研——
+   標題 `Tooling we operate, and evidence that it works.`，`.cols3` 改 `.duo`，
+   只放有產品頁的 ArgusHack。V1 另改 partners 區（`Five vendors…三 services we build ourselves`
+   → `Six vendors…`、浮水印 `Volcatech AI` → `Leukocyte-Lab`、tier 改 `[TODO: partner tier]`）
+   與 catalogue（Cybersecurity `8 products` → `6 products`）。
+   ⚠ **`index.html`「未經內容改動的對照組」前提就此終結**——本輪含兩個首頁一起改。
+5. **`AI-PTaaS`／`SecPurple` 全站移除**（首頁、`cybersecurity.html` 區塊、全站頁尾清單、
+   V1 catalogue 與網絡圖）。**理由是素材不足，不是否定它們是自研**；已列進 hub 待做事項，
+   素材到位可加回。這一點與 0805 那批「只動選單、頁面保留」的處理**方向相反**，別搞混。
+6. **`lab/inline-cloud-compute.html` 重跑 `build_lab_20260806.py`**——它的 header／footer
+   取自 `cloud-compute.html`，第 4 步只換了 `style-3-soc/` 的頁尾，`lab/` 沒跟上，
+   `check_links` 因此報 5 個死錨點（`#in-house`／`#ce-bas`×2／`#ai-ptaas`／`#secpurple`）。
+   重跑後一併補上它從 0806 起就缺的區塊元件 CSS。**教訓：改選單或頁尾要順手重跑這支。**
+7. **驗收時補修 3 處漏網的自研宣稱**：前四步改了區塊，但 `index.html` hero `#offer`
+   的 Cybersecurity 卡與 `cybersecurity.html` hero 的 vendor／tag 兩行**摘要句**仍寫
+   「three testing services we build ourselves」「· Built in-house」。這直接牴觸硬性規則 4，
+   已改為「…plus breach and attack simulation to check that they hold.」與「· Leukocyte-Lab」，
+   V1 重跑 `build_v1_20260806.py` 跟上。**教訓：改區塊時要一併搜同頁的摘要句／hero 標語**，
+   它們常在別的區塊裡重述同一個宣稱。
+8. **制度檔同步**：`CLAUDE.md`（硬性規則 3 改寫＋加日期註記、選單結構、頁數 36→37、
+   驗證區指令與期望值、軸 2 理由換一套）、`HANDOVER.md`、`README.md`、
+   `.github/copilot-instructions.md`；`build_updates_20260810.py` 的 `NOTES` key
+   `CE-BAS` → `ArgusHack`，重跑後根 hub 產品表已含 ArgusHack、無 CE-BAS。
+
+**已驗**：`check_nav` PASS（37 檔）、`check_links` PASS（42 檔，死錨點歸零）；
+CLAUDE.md 驗證區 26 條指令逐條實跑、輸出與註解相符（footer 逐字節 34/34 OK、
+`aria-current` 除兩個登記孤兒外皆 3、cybersecurity 6 產品＋3 區塊、金額掃描零命中）；
+`grep -l 'CE-BAS\|AI-PTaaS\|SecPurple' style-3-soc/*.html` 全空。
+`check_copy` **預期會報「少了」**——本輪是**刻意的文案變更**，逐句核對過每一句
+都對應到決議 16–24（CE-BAS／AI-PTaaS／SecPurple／自研宣稱），無誤刪。
+
 ### V1 首頁（改它之前必讀）
 
 **V1 不要手改。**它由 `docs/reports/build_v1_20260806.py` 從 `index.html` 產生：
@@ -333,7 +394,7 @@ hero / Built / Why / Trust / CTA 五個共用區塊直接**切片**取得，所�
 ## 2. 現行導覽結構速查（style-3-soc）
 
 > **選單的唯一正本是 `docs/reports/rebuild_nav_20260806.py` 的 `MENU` 常數**，不是任何 HTML 檔。
-> 改它 → 重跑腳本（36 檔一次同步）→ 跑 `check_nav_20260806.py`。手改必定漏。
+> 改它 → 重跑腳本（37 檔一次同步）→ 跑 `check_nav_20260806.py`。手改必定漏。
 
 2026-08-06 起全站統一**三層 Nav B**，不再有 Nav A：
 
@@ -350,19 +411,25 @@ hero / Built / Why / Trust / CTA 五個共用區塊直接**切片**取得，所�
   **18 項全部連各自的 `gcp-*.html` 產品頁**（0806 補齊，不再有 `分類頁#錨點` 的過渡狀態）。
   第二層群組父項指向分類頁本身（`cloud-compute.html` 等）。
 - `CyberSecurity`：Overview（`cybersecurity.html`）＋三組，
-  head 白話行「CyberSecurity — EDR · SIEM & WDR · Built in-house」——
+  head 白話行「CyberSecurity — EDR · SIEM & WDR · BAS」（0810 改，原為 `· Built in-house`）——
   Endpoint — EDR（SentinelOne／ThreatSonar 連真頁；**FortiEDR 是不可點灰字**）／
   **Detection — SIEM & WDR**（CyberEyes／Google SecOps 連真頁；CyberEyes 實為 WDR，故群組改名）／
-  **Built in-house — Volcatech AI Security**（只剩 CE-BAS → `cybersecurity.html#ce-bas`）。
-  第二層群組父項是深連結（`cybersecurity.html#edr` / `#detection` / `#in-house`）。
+  **Validation — breach & attack simulation**（ArgusHack → `argushack.html`；
+  0810 由「Built in-house — Volcatech AI Security」改名，理由見上方資訊架構節）。
+  第二層群組父項是深連結（`cybersecurity.html#edr` / `#detection` / `#validation`）。
 - `Services`（**扁平，無第二層**）：Overview（`services.html`）＋ ESS（`ess.html`）＋
   24/7 SOC & Incident Response（`services.html#soc`）＋ **GCP Managed Services（不可點灰字）**。
 
 **0805 從選單移除、但頁面區塊全部保留的項目**（只動選單，不要「順手清乾淨」）：
-AI-PTaaS、SecPurple、ISMS / PIMS、Penetration Testing、Cloud FinOps、Digital Transformation，
+ISMS / PIMS、Penetration Testing、Cloud FinOps、Digital Transformation，
 以及更早移除的 Edge security（Cloud Armor）與 Volcatech cloud services 3 項。
-它們在 `cybersecurity.html` / `services.html` / `cloud-services.html` 的區塊、
-以及頁尾清單一律照舊。⚠ **首頁 Built by Volcatech 仍須列 CE-BAS / AI-PTaaS / SecPurple 三品**（硬性規則）。
+它們在 `services.html` / `cloud-services.html` 的區塊、以及頁尾清單一律照舊。
+
+⚠ **例外（2026-08-10）**：同批被 0805 移出選單的 **AI-PTaaS、SecPurple 已全站移除**——
+頁面區塊、頁尾清單、首頁第 4 區都不再有，不屬於「只動選單」那一類。
+理由是**素材不足**，不是否定它們是自研；素材到位後可加回（已列進 hub 待做事項）。
+首頁第 4 區（`#built`）現在的內容是 ArgusHack ＋「我們自己維運、自己驗證」的定位，
+**不得再宣稱自研 / not resold**。
 
 ### 現行注意事項（改 style-3-soc 前必讀）
 
@@ -372,7 +439,7 @@ AI-PTaaS、SecPurple、ISMS / PIMS、Penetration Testing、Cloud FinOps、Digita
    - **軸 1**＝全站 header 同源。舊的「Nav A ↔ Nav B 自 `<main>` 起逐字節相同」隨 Nav A 退場而失效，
      接手的是：
      ```bash
-     python3 docs/reports/check_nav_20260806.py     # 36 檔 header 正規化後逐字節相同
+     python3 docs/reports/check_nav_20260806.py     # 37 檔 header 正規化後逐字節相同
      python3 docs/reports/check_links_20260806.py   # 標籤配對 / 唯一 h1 / 連結與錨點
      ```
      ⚠ 這條檢查的存在意義：它是全站**唯一**能自動抓到「手改漏一檔」的東西。舊軸 1 死掉時
@@ -386,7 +453,7 @@ AI-PTaaS、SecPurple、ISMS / PIMS、Penetration Testing、Cloud FinOps、Digita
 4. **孤兒頁**（選單裡沒有連結指向它，因此 header 內沒有 `aria-current`）目前只有
    `cloud-services.html`。孤兒必須**明文登記**在 `check_nav_20260806.py` 的 `ORPHANS`，
    不能默默出現——腳本會擋。
-5. **動 nav ＝ 改 `MENU` 後重跑腳本**（36 檔一次同步）；**動 footer 清單 ＝ 36 檔都要改**
+5. **動 nav ＝ 改 `MENU` 後重跑腳本**（37 檔一次同步）；**動 footer 清單 ＝ 37 檔都要改**
    （footer 目前沒有產生器，靠「17 個內容頁 footer 與 sentinelone 逐字節相同」把關）。
    `ess.html` 與 `services.html` **禁任何外部連結**；`cloud-services.html` 有 1 條
    Cloud Armor 官方連結、`cybersecurity.html` 有 5 條原廠連結，皆合法。
@@ -395,7 +462,7 @@ AI-PTaaS、SecPurple、ISMS / PIMS、Penetration Testing、Cloud FinOps、Digita
    **`.sub` 的四條規則一律 scope 成 `.menu .sub`**——footer 有內文用的 `<p class="sub">`。
 7. **901–1100px 這一段，二層改成在面板內就地展開**（`position:static`），不是側開 flyout——
    該區間視窗放不下側開的 flyout，窄端會跑出左緣。
-8. 全 36 檔的 `main [id]` 都有 `scroll-margin-top:80px`，深連結錨點才不會被 sticky header 遮住；
+8. 全 37 檔的 `main [id]` 都有 `scroll-margin-top:80px`，深連結錨點才不會被 sticky header 遮住；
    新增頁面時一併帶上。3 個 GCP 產品頁另需 `.stack a{scroll-margin-top:80px}`（圖中連結的鍵盤焦點）。
 9. **`lab/` 的規則與 `style-3-soc/` 不同，而且只在 `lab/` 內有效**：那兩個 Tailwind 頁
    刻意違反禁外部 CDN / 禁框架 / 色系凍結。不得擴散；定案後整個資料夾刪掉。
@@ -410,7 +477,7 @@ AI-PTaaS、SecPurple、ISMS / PIMS、Penetration Testing、Cloud FinOps、Digita
       落選風格與版型已歸檔至 `archive/`。會議紀錄見 `docs/meeting_0731.md`。
 - [x] **任務 1d：選單變體定稿——已完成（2026-08-05 決議、08-06 實作）**：選 Nav B，
       並升級為三層、第一層不可點。全站 36 檔已統一，Nav A 退場。
-- [ ] **任務 1e（進行中）：首頁兩案擇一定稿**：現行版（對照組）vs V1 信任前置，
+- [ ] **任務 1e（進行中）：首頁兩案擇一定稿**：現行版 vs V1 信任前置，
       入口在根 `index.html`。0805 已先淘汰 V2／V3。定稿後把勝出方案的內容搬進 `index.html`，
       另一個移入 `archive/`，首頁收斂為 1 檔，一致性鐵則的軸 2 與
       `build_v1_20260806.py` 一併退場。
@@ -464,10 +531,10 @@ AI-PTaaS、SecPurple、ISMS / PIMS、Penetration Testing、Cloud FinOps、Digita
 ```text
 請讀取根目錄的 HANDOVER.md 與 CLAUDE.md。
 先跑兩支檢查腳本，兩支都必須 PASS：
-  python3 docs/reports/check_nav_20260806.py     # 軸1：36 檔 header 正規化後逐字節相同
+  python3 docs/reports/check_nav_20260806.py     # 軸1：37 檔 header 正規化後逐字節相同
   python3 docs/reports/check_links_20260806.py   # 標籤配對 / 唯一 h1 / 相對連結與錨點
 
-再用 python3 -m http.server 8000 啟動本機伺服器，對 style-3-soc 的全部 36 頁做檢查
+再用 python3 -m http.server 8000 啟動本機伺服器，對 style-3-soc 的全部 37 頁做檢查
 （用 ls style-3-soc/*.html 取得清單，不要用寫死的檔名）：
 ① 軸2：五句定稿文案在 2 個 index*.html 各命中 2 次、核心句
    「We operate what we sell, and we build what we cannot buy.」恰 1 次
@@ -486,12 +553,15 @@ AI-PTaaS、SecPurple、ISMS / PIMS、Penetration Testing、Cloud FinOps、Digita
    ⚠ grep -c 數的是行數不是語意——第一層換成 button 之後就算樣式壞了它仍回報正常。
 ⑤ 無任何外部資源請求、無新增 <script> 標籤；ess.html 與 services.html 全頁零外部連結
 　（cloud-services.html 允許 1 條 Cloud Armor 官方連結、cybersecurity.html 允許 5 條原廠連結）
-⑥ 三個下拉的深連結目標錨點都存在（Cloud 22 個、cybersecurity 11 個、services 6 個），
+⑥ 三個下拉的深連結目標錨點都存在（Cloud 22 個、cybersecurity 9 個＝6 產品＋3 區塊、services 6 個），
    跳轉後標題不被 sticky header 遮住。首頁的同頁錨點（#offer / #built）是合法的，
    判準是「該 id 在同一頁存在」而非「有沒有 # 開頭」。
-⑦ 0805 從選單移除的 6 項（AI-PTaaS／SecPurple／ISMS／Pentest／FinOps／DX）：
+⑦ 0805 從選單移除的 4 項（ISMS／Pentest／FinOps／DX）：
    **header 區內應為 0，但頁面區塊與頁尾清單必須還在**——只動選單是使用者的明確裁決，
-   不要當成殘留清掉。首頁 Built by Volcatech 仍須列三品。
+   不要當成殘留清掉。
+   ⚠ 同批的 AI-PTaaS／SecPurple 已於 0810 **全站移除**（頁面區塊也不留），
+   驗法相反：`grep -l 'AI-PTaaS\|SecPurple' *.html` 應為空；
+   `grep -l 'CE-BAS' *.html` 同樣應為空（產品一律叫 ArgusHack）。
 ⑧ 內容真實性：合作等級、認證、SLA、客戶數一律 [TODO] 佔位，
    且不得出現「Google SecOps 認證經銷商 / Cloud Security MSSP / Premier Partner」
    （那是蓋亞的資格，不是沃凱的）
@@ -520,7 +590,7 @@ lab/ 的兩個 Tailwind 頁刻意違反禁 CDN／禁框架／色系凍結，那�
 - header **不要手寫**：新頁建好後跑 docs/reports/rebuild_nav_20260806.py，
   aria-current 與第一層的 class="on" 會自動落到正確位置；
   並把該項在 MENU 常數裡的 href 從錨點改成新頁檔名
-- 動 nav ＝ 改 MENU 後重跑腳本（36 檔一次同步）；動 footer ＝ 36 檔都要改
+- 動 nav ＝ 改 MENU 後重跑腳本（37 檔一次同步）；動 footer ＝ 37 檔都要改
   （footer 沒有產生器，靠「與 sentinelone.html 逐字節相同」把關）
 - 改完跑 docs/reports/check_nav_20260806.py 與 check_links_20260806.py，兩支都要 PASS
 - 新頁的動線落點：現在 Cybersecurity 與 Managed Services 各項在

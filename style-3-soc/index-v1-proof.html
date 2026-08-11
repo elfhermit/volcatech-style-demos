@@ -408,7 +408,7 @@ a.node:hover{border-color:var(--accent)}
       </li>
       <li class="dd"><button type="button" aria-haspopup="true">CyberSecurity</button>
         <ul>
-          <li class="head"><span class="dot" aria-hidden="true"></span>CyberSecurity — EDR · SIEM &amp; WDR · Built in-house</li>
+          <li class="head"><span class="dot" aria-hidden="true"></span>CyberSecurity — EDR · SIEM &amp; WDR · BAS</li>
           <li><a href="cybersecurity.html">Overview — all security products</a></li>
           <li class="sub"><a href="cybersecurity.html#edr" aria-haspopup="true">Endpoint — EDR</a>
             <ul>
@@ -423,9 +423,9 @@ a.node:hover{border-color:var(--accent)}
               <li><a href="google-secops.html">Google SecOps</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cybersecurity.html#in-house" aria-haspopup="true">Built in-house — Volcatech AI Security</a>
+          <li class="sub"><a href="cybersecurity.html#validation" aria-haspopup="true">Validation — breach &amp; attack simulation</a>
             <ul>
-              <li><a href="cybersecurity.html#ce-bas">CE-BAS</a></li>
+              <li><a href="argushack.html">ArgusHack</a></li>
             </ul>
           </li>
         </ul>
@@ -472,7 +472,7 @@ a.node:hover{border-color:var(--accent)}
         <div class="card">
           <div class="head"><span class="lbl">E·S·A-Series — CyberSecurity</span><span class="cdot" aria-hidden="true"></span></div>
           <h2>Cybersecurity</h2>
-          <p>EDR, SIEM and WDR from SentinelOne, TeamT5, Fortinet, CyberEyes and Google — selected, deployed and tuned — plus three AI-driven testing services we build ourselves.</p>
+          <p>EDR, SIEM and WDR from SentinelOne, TeamT5, Fortinet, CyberEyes and Google — selected, deployed and tuned — plus breach and attack simulation to check that they hold.</p>
           <a href="cybersecurity.html">Explore Cybersecurity <span class="arr" aria-hidden="true">→</span></a>
         </div>
         <div class="card">
@@ -565,7 +565,7 @@ a.node:hover{border-color:var(--accent)}
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Technology partners</p>
       <h2 class="sec">We operate what we sell, and we build what we cannot buy.</h2>
-      <p class="lead">Five vendors we selected and now run for our customers — and three services we build ourselves, because nobody sells them the way our customers need them.</p>
+      <p class="lead">Six vendors we selected and now run for our customers — chosen against the estate in front of us, deployed into your own tenancy, then tuned and monitored by the same team.</p>
       <div class="pcards">
         <div>
           <p class="wm">Google Cloud</p>
@@ -613,13 +613,13 @@ a.node:hover{border-color:var(--accent)}
           <span class="todo tier">[TODO: partner tier]</span>
         </div>
         <div>
-          <p class="wm">Volcatech AI</p>
+          <p class="wm">Leukocyte-Lab</p>
           <dl>
-            <dt>What it is</dt><dd>CE-BAS, AI-PTaaS and SecPurple — built in-house, not resold</dd>
-            <dt>What we do with it</dt><dd>We develop and operate all three. They exist to test whether the tools above actually catch what they should.</dd>
+            <dt>What it is</dt><dd>ArgusHack — breach and attack simulation (BAS)</dd>
+            <dt>What we do with it</dt><dd>Run controlled exercises against your live environment, so the tools above are measured on what they actually stop.</dd>
           </dl>
-          <a class="go" href="#built">Built by Volcatech →</a>
-          <span class="tier">Developed and operated by Volcatech</span>
+          <a class="go" href="argushack.html">ArgusHack →</a>
+          <span class="todo tier">[TODO: partner tier]</span>
         </div>
       </div>
     </div>
@@ -644,16 +644,14 @@ a.node:hover{border-color:var(--accent)}
           <a class="go" href="cloud.html">All Google Cloud services →</a>
         </div>
         <div>
-          <h3>Cybersecurity<span class="n">8 products</span></h3>
+          <h3>Cybersecurity<span class="n">6 products</span></h3>
           <ul>
             <li><a href="sentinelone.html">SentinelOne</a></li>
             <li><a href="threatsonar.html">ThreatSonar</a></li>
             <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
             <li><a href="cybereyes.html">CyberEyes</a></li>
             <li><a href="google-secops.html">Google SecOps</a></li>
-            <li><a href="cybersecurity.html#ce-bas">CE-BAS</a></li>
-            <li><a href="cybersecurity.html#ai-ptaas">AI-PTaaS</a></li>
-            <li><a href="cybersecurity.html#secpurple">SecPurple</a></li>
+            <li><a href="argushack.html">ArgusHack</a></li>
           </ul>
           <a class="go" href="cybersecurity.html">All security products →</a>
         </div>
@@ -675,25 +673,13 @@ a.node:hover{border-color:var(--accent)}
 
   <section class="built" id="built">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Built in-house — Volcatech AI Security</p>
-      <h2 class="sec">Built by Volcatech</h2>
-      <p class="lead">Three security services we develop and operate ourselves — not resold.</p>
-      <div class="cols3">
-        <div>
-          <div class="head"><span class="lbl">A-01</span><span class="cdot" aria-hidden="true"></span></div>
-          <h3>CE-BAS<span class="full">Continuous External Breach and Attack Simulation</span></h3>
-          <p>Continuously probes your internet-facing assets the way an external attacker would, and reports which exposures are actually exploitable.</p>
-        </div>
-        <div>
-          <div class="head"><span class="lbl">A-02</span><span class="cdot" aria-hidden="true"></span></div>
-          <h3>AI-PTaaS<span class="full">Smart Automated Penetration Testing as a Service</span></h3>
-          <p>Automated, repeatable penetration testing delivered as a subscription, so findings arrive between annual audits instead of once a year.</p>
-        </div>
-        <div>
-          <div class="head"><span class="lbl">A-03</span><span class="cdot" aria-hidden="true"></span></div>
-          <h3>SecPurple<span class="full">Professional Purple Team Support</span></h3>
-          <p>Runs attack-and-defence exercises with your team, then turns each finding into a detection rule your SOC keeps.</p>
-        </div>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Operated by Volcatech — security validation</p>
+      <h2 class="sec">Tooling we operate, and evidence that it works.</h2>
+      <p class="lead">We do not stop at supplying security tooling — our team also runs the exercises that show whether it holds.</p>
+      <div class="duo">
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg><h3>ArgusHack<span class="full">Breach and attack simulation · by Leukocyte-Lab</span></h3>
+          <p>A breach and attack simulation platform that replays attacker techniques against your live environment, so the controls you already own are measured on what they stop rather than on what they were bought to stop.</p>
+          <a class="go" href="argushack.html">Product page →</a></div>
       </div>
       <p class="note">Reference deployments and delivery model: <span class="todo">[TODO: to be confirmed]</span></p>
     </div>
@@ -707,7 +693,7 @@ a.node:hover{border-color:var(--accent)}
       <div class="trio">
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5L6.5 17M12 11.5L17.5 17"/></svg><h3>One partner for the whole stack</h3><p>Cloud, security products and 24/7 operations under one contract — fewer suppliers, and fewer gaps between them.</p></div>
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h9.5a4.5 4.5 0 0 0 .3-9A6 6 0 0 0 5.6 10.4 4 4 0 0 0 7 18z"/></svg><h3>Google Cloud engineering</h3><p>Architecture, migration, cost governance and training, delivered by the same team that operates the platform afterwards. <span class="todo">[TODO: partner tier and certifications]</span></p></div>
-        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.6-3.2 8.4-8 9.6C7.2 20.4 4 16.6 4 12V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><h3>Security we operate, not just resell</h3><p>Our SOC watches the tools we deploy, and our own CE-BAS / AI-PTaaS / SecPurple services test them.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.6-3.2 8.4-8 9.6C7.2 20.4 4 16.6 4 12V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><h3>Security we operate, not just resell</h3><p>Our SOC watches the tools we deploy, and we run breach and attack simulation against them to check that they hold.</p></div>
       </div>
     </div>
   </section>
@@ -758,11 +744,9 @@ a.node:hover{border-color:var(--accent)}
         <li><a href="cybereyes.html">CyberEyes</a></li>
         <li><a href="google-secops.html">Google SecOps</a></li>
       </ul>
-      <p class="sub">Built in-house</p>
+      <p class="sub">Validation — breach &amp; attack simulation</p>
       <ul>
-        <li><a href="cybersecurity.html#ce-bas">CE-BAS</a></li>
-        <li><a href="cybersecurity.html#ai-ptaas">AI-PTaaS</a></li>
-        <li><a href="cybersecurity.html#secpurple">SecPurple</a></li>
+        <li><a href="argushack.html">ArgusHack</a></li>
       </ul>
     </div>
     <div id="managed-list">

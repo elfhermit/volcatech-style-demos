@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-<title>Filestore — managed NFS file storage on Google Cloud | Volcatech</title>
-<meta name="description" content="Filestore provides managed NFS shares on Google Cloud, so software that expects a mounted path keeps working without a rewrite to an object API. Designed, deployed and operated by Volcatech.">
+<title>ArgusHack (BAS) — Volcatech</title>
+<meta name="description" content="Breach and attack simulation from Leukocyte-Lab: controlled exercises that replay attacker techniques against your live environment, so the controls you already own are measured on what they stop. Supplied by Volcatech as a Leukocyte-Lab partner.">
 <style>
 :root{
   --bg:#0E141F; --surface:#16202E; --ink:#E9EEF5; --muted:#9AA8BA;
@@ -98,11 +98,6 @@ h2.sec{font-weight:600;font-size:clamp(24px,3.2vw,34px);line-height:1.15;margin-
 .loglist p{font-size:15px}
 .loglist small{display:block;color:var(--muted);margin-top:2px;font-size:14px}
 .todo{font-family:var(--mono);color:var(--muted);font-size:12px;border:1px dashed var(--line);padding:2px 8px;border-radius:4px}
-.vsrc{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--muted);margin-left:10px;vertical-align:1px}
-.cards2 .go{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:12.5px;
-  color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:2px}
-.cards2 .go:hover{border-color:var(--accent)}
 .ext{border-top:1px solid var(--line)}
 .ext .wrap{padding:26px 24px;font-family:var(--mono);font-size:13px;color:var(--muted)}
 .ext a{color:var(--accent);font-weight:600}
@@ -294,7 +289,7 @@ a.node:hover{border-color:var(--accent)}
     <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
     <ul class="menu" id="menu">
       <li><a href="index.html">Home</a></li>
-      <li class="dd"><button type="button" class="on" aria-haspopup="true">Google Cloud</button>
+      <li class="dd"><button type="button" aria-haspopup="true">Google Cloud</button>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
           <li><a href="cloud.html">Overview — all Google Cloud services</a></li>
@@ -308,7 +303,7 @@ a.node:hover{border-color:var(--accent)}
           <li class="sub"><a href="cloud-storage.html" aria-haspopup="true">Storage</a>
             <ul>
               <li><a href="gcp-cloud-storage.html">Cloud Storage</a></li>
-              <li><a href="gcp-filestore.html" aria-current="page">Filestore</a></li>
+              <li><a href="gcp-filestore.html">Filestore</a></li>
               <li><a href="gcp-backup-dr.html">Backup and DR</a></li>
             </ul>
           </li>
@@ -342,7 +337,7 @@ a.node:hover{border-color:var(--accent)}
           </li>
         </ul>
       </li>
-      <li class="dd"><button type="button" aria-haspopup="true">CyberSecurity</button>
+      <li class="dd"><button type="button" class="on" aria-haspopup="true">CyberSecurity</button>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>CyberSecurity — EDR · SIEM &amp; WDR · BAS</li>
           <li><a href="cybersecurity.html">Overview — all security products</a></li>
@@ -361,7 +356,7 @@ a.node:hover{border-color:var(--accent)}
           </li>
           <li class="sub"><a href="cybersecurity.html#validation" aria-haspopup="true">Validation — breach &amp; attack simulation</a>
             <ul>
-              <li><a href="argushack.html">ArgusHack</a></li>
+              <li><a href="argushack.html" aria-current="page">ArgusHack</a></li>
             </ul>
           </li>
         </ul>
@@ -379,7 +374,7 @@ a.node:hover{border-color:var(--accent)}
       <li><a class="btn" style="padding:9px 18px" href="index.html#contact">Contact us</a></li>
       <li>
         <nav class="lang" aria-label="Language">
-          <a href="gcp-filestore.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+          <a href="argushack.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
         </nav>
       </li>
     </ul>
@@ -389,132 +384,101 @@ a.node:hover{border-color:var(--accent)}
 <main>
   <div class="phero">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>CI-02 / Storage — Google Cloud service</p>
-      <p class="code" style="margin-top:26px">CI-02 · STORAGE · FILESTORE</p>
-      <h1>Filestore</h1>
-      <p class="vendor">Google Cloud · Managed file storage</p>
-      <p class="tag">Managed NFS file shares that mount the way applications already expect. It suits software written against a file system, where rewriting for object storage is not on the table.</p>
+      <p class="status"><span class="dot" aria-hidden="true"></span>V-01 / BAS — Active vendor</p>
+      <p class="code" style="margin-top:26px">V-01 · CYBERSECURITY · BAS</p>
+      <h1>ArgusHack</h1>
+      <p class="vendor">Vendor: Leukocyte-Lab · Breach and Attack Simulation (BAS)</p>
+      <p class="tag">A breach and attack simulation platform that replays attacker techniques against your live
+        environment, so the controls you already own are measured on what they stop rather than on what they
+        were bought to stop.</p>
       <div class="cta">
-        <a class="btn" href="index.html#contact">Contact us</a>
-        <a class="btn btn-ghost" href="cloud-storage.html">All storage services</a>
+        <a class="btn" href="index.html#contact">Request a demo</a>
+        <a class="btn btn-ghost" href="index.html#contact">Talk to our team</a>
       </div>
     </div>
   </div>
-
   <section id="pain">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>The problem</p>
-      <h2 class="sec">What teams run into without it.</h2>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Pain points — before deployment</p>
+      <h2 class="sec">The problems this takes off your board.</h2>
       <div class="probs">
-        <div><h3>NAS capacity ceilings</h3><p>The office file server fills on its own schedule. Expansion means procurement cycles, downtime windows and another round of array sizing, while render and build jobs queue behind full volumes.</p></div>
-        <div><h3>Single-writer file bottlenecks</h3><p>Block volumes attach to a single writer, so teams funnel shared data through one VM that becomes both bottleneck and single point of failure.</p></div>
-        <div><h3>Unmanaged NFS servers</h3><p>Self-run NFS servers need patching, monitoring and failover drills that rarely happen. When the host fails, every client that mounts it fails with it.</p></div>
+        <div><h3>Controls bought, never proven</h3><p>The licences are in place, but nobody has shown that the tooling stops the techniques it was bought to stop.</p></div>
+        <div><h3>Testing that arrives too rarely</h3><p>A set-piece exercise leaves the months in between untested, while the estate keeps changing underneath it.</p></div>
+        <div><h3>Exposure nobody has mapped</h3><p>Internet-facing assets accumulate faster than anyone lists them, so nobody can say which of them matter.</p></div>
       </div>
     </div>
   </section>
-
-  <section id="value">
+  <section id="capabilities">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Why teams choose it</p>
-      <h2 class="sec">What Filestore is good at.</h2>
-      <div class="trio">
-        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg><h3>Standard file system semantics</h3><p>Applications open, lock and seek files as they do on a local mount. Code written before the move does not need a storage layer rewrite.</p></div>
-        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/></svg><h3>Latency close to local</h3><p>Reads and writes stay in the range interactive work tolerates, so editing and build jobs run against the share rather than a copy.</p></div>
-        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5L6.5 17M12 11.5L17.5 17"/></svg><h3>One share, many clients</h3><p>Several instances mount the same volume at once and see the same files. Coordination happens in the file system instead of in application code.</p></div>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Key capabilities</p>
+      <h2 class="sec">Three modules, and the evidence they leave behind.</h2>
+      <div class="quad">
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.4 4 5.5 4 9s-1.5 6.6-4 9c-2.5-2.4-4-5.5-4-9s1.5-6.6 4-9z"/></svg><h3>External exposure assessment (AS360)</h3>
+          <p>Internet-facing assets are discovered and scored, and technical findings are expressed as business impact, so remediation can be prioritised by management as well as by engineers.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg><h3>Control validation (AI BAS)</h3>
+          <p>Attacker techniques are replayed end to end and every step is recorded as blocked, detected, or passed unnoticed. The distance between those three is the finding.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h3.5l2-5 3.5 11 3-9 2.2 3H22"/></svg><h3>Availability pressure (APT-DDoS)</h3>
+          <p>Denial-of-service pressure is simulated from the network layer up to the application layer, so resilience is measured rather than assumed.</p></div>
+        <!-- src: vendor material via authorised distributor, verified 2026-08-10 (APT-DDoS spans the network layer up to the application layer) -->
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8.5h18"/><path d="M7.5 12.5l2.5 2.5-2.5 2.5M13 17.5h4"/></svg><h3>Exercises you can reproduce</h3>
+          <p>The platform discloses the commands and the steps behind each result, so a team can repeat a finding, apply the fix and run the same exercise again to confirm it held.</p></div>
       </div>
     </div>
   </section>
-
-  <section id="features">
+  <section id="outcomes">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Key features</p>
-      <h2 class="sec">What you get, specifically.</h2>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Business benefits — after deployment</p>
+      <h2 class="sec">What changes once exercises are running.</h2>
       <div class="spec">
-        <div><span class="n" aria-hidden="true">01</span><div><h3>NFSv3 protocol</h3><p>Instances mount the share with the standard client, so no agent or driver is added to the host.</p></div></div>
-        <div><span class="n" aria-hidden="true">02</span><div><h3>Capacity growth</h3><p>A share can be scaled up as the dataset grows, without moving clients to a new mount point.</p></div></div>
-        <div><span class="n" aria-hidden="true">03</span><div><h3>Snapshots and backups</h3><p>Point-in-time copies are taken by the service itself, rather than by a job running inside the file system.</p></div></div>
-        <div><span class="n" aria-hidden="true">04</span><div><h3>Scale and limits</h3><p>Large zonal and regional instances can be provisioned from 10 TiB up to 100 TiB of capacity per instance.</p></div></div>
-        <div><span class="n" aria-hidden="true">05</span><div><h3>Performance sized separately</h3><p>On the zonal and regional tiers performance is a configurable setting in its own right; on the basic tiers it comes fixed with the tier instead.</p></div></div>
-        <div><span class="n" aria-hidden="true">06</span><div><h3>Snapshot ceiling</h3><p>An instance can hold as many as 240 snapshots at once, and they occupy space only as the data they reference changes.</p></div></div>
+        <div><span class="n" aria-hidden="true">01</span><div><h3>Evidence instead of assumption</h3><p>Each exercise ends with a list: techniques that were stopped, techniques that were only detected, and techniques that ran unnoticed.</p></div></div>
+        <div><span class="n" aria-hidden="true">02</span><div><h3>Findings in the language of your audits</h3><p>Exercises are mapped to MITRE ATT&amp;CK and aligned to NIST guidance, so results can be read against the control catalogues your auditors already use.</p></div></div>
+        <!-- src: vendor material via authorised distributor, verified 2026-08-10 (exercises aligned to MITRE ATT&CK and NIST) -->
+        <div><span class="n" aria-hidden="true">03</span><div><h3>A baseline you can re-run</h3><p>The same exercise repeated after remediation shows whether the fix held, which gives security work a before and an after.</p></div></div>
       </div>
     </div>
   </section>
-
-  <section id="usecases">
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Where it fits</p>
-      <h2 class="sec">Three situations it is built for.</h2>
-      <div class="uses">
-        <div><h3>Content management</h3><p>A CMS whose media library and uploads live on a shared volume rather than in one server's disk.</p></div>
-        <div><h3>Media production</h3><p>Editing and rendering workstations working on the same project files without copying them between hosts. An editor who overwrites the wrong take can copy the earlier version back out of a snapshot directory, without raising a restore request.</p></div>
-        <div><h3>Legacy applications</h3><p>Systems that expect a mounted path and were never designed to talk to an object store.</p></div>
-      </div>
-    </div>
-  </section>
-
   <section id="pick">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
-      <h2 class="sec">When Filestore is the right call — and when it is not.</h2>
+      <h2 class="sec">When ArgusHack is the right call — and when it is not.</h2>
       <ul class="pick">
-        <li><p class="when">Many clients must read and write the same NFS share</p><span class="ar" aria-hidden="true">→</span><span class="node self">Filestore</span></li>
-        <li><p class="when">Data is accessed as objects through an API, not mounted</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-cloud-storage.html">Cloud Storage</a></li>
-        <li><p class="when">The share itself needs scheduled, immutable protection</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-backup-dr.html">Backup and DR</a></li>
-        <li><p class="when">The records are structured and queried with SQL</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-cloud-sql.html">Cloud SQL</a></li>
+        <li><p class="when">Proving whether the controls you own actually work</p><span class="ar" aria-hidden="true">→</span><span class="node self">ArgusHack</span></li>
+        <li><p class="when">Finding out whether an intrusion is already inside</p><span class="ar" aria-hidden="true">→</span><a class="node" href="threatsonar.html">ThreatSonar</a></li>
+        <li><p class="when">Blocking and containing attacks on the endpoints themselves</p><span class="ar" aria-hidden="true">→</span><a class="node" href="sentinelone.html">SentinelOne</a></li>
+        <li><p class="when">Nobody free to act on the exercise findings</p><span class="ar" aria-hidden="true">→</span><a class="node" href="ess.html">ESS</a></li>
       </ul>
     </div>
   </section>
-
-  <section id="stack">
+  <section id="why">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Works with</p>
-      <h2 class="sec">Where Filestore sits.</h2>
-      <div class="stack">
-        <div class="layer"><h3>Clients</h3>
-          <ul class="nodes">
-            <li><a class="node" href="gcp-compute-engine.html">Compute Engine</a></li>
-            <li><a class="node" href="gcp-kubernetes-engine.html">Kubernetes Engine</a></li>
-          </ul>
-        </div>
-        <p class="flowmark"><span aria-hidden="true">↓</span> mounts the share</p>
-        <div class="layer"><h3>File storage</h3>
-          <ul class="nodes">
-            <li><span class="node self">Filestore</span></li>
-          </ul>
-        </div>
-        <p class="flowmark"><span aria-hidden="true">↓</span> backed up by</p>
-        <div class="layer"><h3>Protection</h3>
-          <ul class="nodes">
-            <li><a class="node" href="gcp-backup-dr.html">Backup and DR</a></li>
-          </ul>
-        </div>
-      </div>
-      <p class="lead" style="margin-top:26px">Volcatech designs the layout, deploys it and keeps it under monitoring. <span class="todo">[TODO: delivery model and response times]</span></p>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Why deploy with Volcatech</p>
+      <h2 class="sec">A product is only as good as its operation.</h2>
+      <p style="margin-top:24px;color:var(--muted);max-width:66ch">ArgusHack is developed by Leukocyte-Lab in
+        Taiwan; Volcatech supplies it as a partner rather than as its manufacturer.
+        <span class="todo">[TODO: delivery model, onboarding timeline and response commitments for this platform]</span></p>
     </div>
   </section>
-
   <section id="faq">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
       <h2 class="sec">What evaluators ask.</h2>
       <div class="faq">
-        <div><h3><span class="n" aria-hidden="true">01</span><span>Cloud Storage or Filestore for shared data?</span></h3><p>Choose by access model. Filestore presents a POSIX file system over NFS, with locking and hard links; Cloud Storage exposes immutable objects through an API. Applications that expect a mounted share need Filestore.</p></div>
-        <div><h3><span class="n" aria-hidden="true">02</span><span>Which NFS versions are supported?</span></h3><p>NFSv3 is supported on every tier. NFSv4.1, which adds Kerberos-based authentication, integrity checking and in-transit encryption, is available on the zonal, regional and enterprise tiers.</p></div>
-        <div><h3><span class="n" aria-hidden="true">03</span><span>What happens if a zone fails?</span></h3><p>A zonal instance lives in a single zone and goes offline if that zone fails. Regional instances replicate across zones and fail over transparently, so mission-critical shares belong on the regional tier.</p></div>
-        <div><h3><span class="n" aria-hidden="true">04</span><span>Can instances stay within the EU?</span></h3><p>Yes. An instance lives in the region you choose and its data stays there. Select an EU region to meet residency requirements, and the regional tier if you also need cross-zone resilience.</p></div>
-        <div><h3><span class="n" aria-hidden="true">05</span><span>How is capacity sized and charged?</span></h3><p>You provision capacity per instance and can grow it as workloads demand. Cost follows provisioned capacity, service tier and region rather than usage alone — contact us to size a share against your throughput and growth expectations.</p></div>
-        <div><h3><span class="n" aria-hidden="true">06</span><span>Can Kubernetes workloads share one volume?</span></h3><p>Yes, and this is one of the common reasons to choose Filestore. The Filestore CSI driver presents a share to a cluster as a persistent volume that many nodes mount for reading and writing at the same time, which is what stateful workloads spread across nodes need. For Kubernetes workloads on the zonal and regional tiers, the performance setting can also be raised or lowered while the cluster keeps serving.</p></div>
-        <div><h3><span class="n" aria-hidden="true">07</span><span>What is the practical difference between a snapshot and a backup?</span></h3><p>Reach. A snapshot belongs to the instance it was taken on, and it is what you use to put back a file someone overwrote this morning. A backup is an independent differential copy that is addressable from anywhere, so it can rebuild the share in whichever region you choose. The difference that shows up on a bad day is lifecycle: deleting the instance takes its snapshots with it, while a backup carries on and has to be deleted in its own right.</p></div>
-        <div><h3><span class="n" aria-hidden="true">08</span><span>What is the plan if we lose a whole region?</span></h3><p>An instance can be paired with a standby elsewhere, and for protection against a regional outage that means a second region rather than a second zone. Changes are copied across asynchronously — usually at intervals of five to ten minutes, against a recovery point objective that targets about 30 minutes, which is quoted for a defined rate of change rather than for every share. If the first region goes down, the standby is promoted and starts accepting writes. Two things to design for: whatever was written since the last copy is not on the standby, which is what that recovery point objective describes, and the return to the original region is not automatic — applications have to be pointed back deliberately.</p></div>
+        <div><h3><span class="n" aria-hidden="true">01</span><span>Whose product is ArgusHack, and what is Volcatech's role?</span></h3><p>ArgusHack is developed by Leukocyte-Lab, a security software company based in Taipei. The platform, its exercise content and its roadmap belong to the vendor. Volcatech supplies it as a partner, so the product you buy is theirs and the commercial relationship is with us. [TODO: scope of the partnership — supply only, or supply plus delivery]</p></div>
+        <!-- src: lkc-lab.com/about (developer: Leukocyte-Lab Co., Ltd., Taipei) -->
+        <div><h3><span class="n" aria-hidden="true">02</span><span>How is this different from a penetration test?</span></h3><p>A penetration test is a human engagement with a start and an end date, scoped to find a way in. ArgusHack runs defined techniques repeatedly and reports how each of your controls responded, so it answers a narrower question far more often. They complement each other: the exercises keep the answer current between engagements.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>Can it run where the network has no internet access?</span></h3><p>Yes. It deploys on premises, in cloud environments, or fully offline for isolated and regulated networks. Testing runs in agent-based or agentless mode, so a first exercise does not require software on every host.</p></div>
+        <!-- src: lkc-lab.com/en (deployment: on-premises / cloud / fully offline; agent and agentless testing) -->
+        <div><h3><span class="n" aria-hidden="true">04</span><span>Will running exercises disrupt production systems?</span></h3><p>Exercises run against a scope you define, and the platform records the exact commands it issued, so anything it did can be reviewed afterwards. Scheduling, blast radius and the stop conditions still have to be agreed before the first run. [TODO: vendor guidance on production impact and scheduling controls]</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>How is ArgusHack licensed?</span></h3><p>It is licensed on a subscription basis. Contact us and we will size it against your environment. [TODO: what the subscription is scoped by — assets under assessment, modules run, or exercise volume]</p></div>
+        <!-- src: lkc-lab.com/en/about (subscription-based commercial model) -->
       </div>
     </div>
   </section>
-
-  <div class="ext"><div class="wrap">Vendor resources → <a href="https://cloud.google.com/filestore" target="_blank" rel="noopener">cloud.google.com/filestore ↗</a></div></div>
+  <div class="ext"><div class="wrap">Vendor resources → <a href="https://lkc-lab.com" target="_blank" rel="noopener">lkc-lab.com ↗</a></div></div>
   <div class="band">
     <div class="wrap">
-      <h2>Size your workloads for Google Cloud — book a scoping session.</h2>
-      <div><a class="btn" href="index.html#contact">Contact us</a></div>
+      <h2>Find out what your controls actually stop — request a demonstration.</h2>
+      <div><a class="btn" href="index.html#contact">Request a demo</a></div>
     </div>
   </div>
 </main>

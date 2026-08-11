@@ -19,8 +19,8 @@
    inline CSS 版**(`lab/` 的 Tailwind 版落選),16 個內容頁與首頁已全數改用區塊元件,
    詳見下方〈內容頁區塊元件〉與〈軸 3〉。
 
-現行 `style-3-soc/` 共 **36 頁**:2 首頁 ＋ 3 總覽 ＋ 7 Cloud 分類 ＋ 4 資安產品 ＋ 1 方案(ESS)
-＋ **19 GCP 產品頁**(0806 補齊,選單第三層)。
+現行 `style-3-soc/` 共 **37 頁**:2 首頁 ＋ 3 總覽 ＋ 7 Cloud 分類 ＋ **5 資安產品**(0810 新增
+`argushack.html`)＋ 1 方案(ESS)＋ **19 GCP 產品頁**(0806 補齊,選單第三層)。
 
 **2026-08-06 第二輪**又定案四件事(來源:對 `docs/meeting_0805_end.md` 的逐條盤點,
 決策記錄在 `docs/adr/`,術語正本在 `docs/CONTEXT.md`):
@@ -57,18 +57,40 @@
 「待做事項與產品清單」區(JS 排序破例見硬性規則 1;正本= `docs/reports/build_updates_20260810.py`);
 ③內容充實三線與其餘決議見 `docs/meeting_0810.md` 附錄。
 
+**2026-08-10 第二輪(ArgusHack 重定位)**——決議 16–24,正本 `docs/meeting_0810.md` 附錄二;
+查證底稿 `docs/reports/argushack_歸屬與功能研究_20260810.md`。起因是查證確認
+**原 `CE-BAS` 的「沃凱自研」宣稱有誤**:該 BAS 平台的原廠是台灣**盧氪賽忒(Leukocyte-Lab)**,
+沃凱是**代理商**(使用者已確認)。因此:
+
+1. **產品更名 `ArgusHack`**(不是 CE-BAS,也不是曾提過的 BAS-ArgusHack),頁面標明
+   原廠 by Leukocyte-Lab。
+2. **升格獨立產品頁** `argushack.html`(骨架照資安產品頁,含 `#pain`/`#pick`/`#faq`)。
+3. **選單 CyberSecurity 第三組由「Built in-house — Volcatech AI Security」改為
+   `Validation — breach & attack simulation`**,指向 `cybersecurity.html#validation`,
+   底下掛 ArgusHack。下拉 head 白話行同步改為 `CyberSecurity — EDR · SIEM & WDR · BAS`。
+4. **首頁 Built by Volcatech 區改寫成「我們自己維運」定位**——不再宣稱自研,
+   只放有產品頁的 ArgusHack(區塊 id `#built` 不變;`.cols3` 改 `.duo`)。
+5. **`AI-PTaaS` 與 `SecPurple` 全站移除**(首頁、`cybersecurity.html` 區塊、全站頁尾清單、
+   V1 的 catalogue 與網絡圖)。⚠ 理由是**素材不足,不是否定它們是自研**;
+   素材到位後可加回(已列進 hub 的待做事項)。
+6. **`index.html`「內容未經改動的對照組」前提正式終結**——本輪一次改到底、含兩個首頁。
+   軸 2 的凍結清單仍然有效(那些句子本輪沒動),但「對照組不得為了湊一致而修改」的
+   理由已不再成立,詳見〈軸 2〉。
+
 **首頁兩案**
 
 | 方案 | 檔名 | hero 之後第一眼 |
 |---|---|---|
-| 現行(對照組) | `index.html` | Built → Why → Trust → Vendors(六個純文字) |
+| 現行 | `index.html` | Built → Why → Trust → Vendors(六個純文字) |
 | V1 信任前置 | `index-v1-proof.html` | **How we work** 三步驟 → Trust 四項(資料主權/存取控制) → Partners 六張能力卡 |
 
 V1 **不得手改**——由 `docs/reports/build_v1_20260806.py` 從 `index.html` 切片產生
 (共用區塊 hero / Built / Why / Trust / CTA 直接取自現行首頁,確保逐字節相同)。
 V1 專屬區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(服務索引)。
 核心句 `We operate what we sell, and we build what we cannot buy.` 只在 V1 出現
-(**對照組刻意不含**,它代表「今天線上的樣子」,不得為了湊一致而修改)。
+(**`index.html` 刻意不含**——0810 之前的理由是「它是未經內容改動的對照組」,那個前提已終結;
+現在的理由是**這句話本身**:沃凱並非什麼都自建,ArgusHack 就是代理的,
+兩案的差異點保留在 V1 才不會讓現行版跟著做出過強的宣稱)。
 - **GCP 產品頁 19 頁**(2026-08-06 補齊,選單第三層):18 個 GCP 產品各一頁,
   ＋ `gcp-cloud-armor.html`(孤兒頁,見下)。由 `docs/reports/build_gcp_pages_20260806.py`
   以 `cloud-compute.html` 為底檔產生(head / tokens / header / footer 全部沿用,只換 `<main>`)。
@@ -87,12 +109,16 @@ V1 專屬區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(
   每頁的 `stack` 都必須有一個**沒有 href 的自我節點**(渲染成 `.node.self`),否則圖裡看不出主角是誰。
   `stack` 的節點一律連 `gcp-*.html`,不再連「分類頁#錨點」。
 - 資安產品頁:`sentinelone.html`、`threatsonar.html`、`cybereyes.html`、
-  `google-secops.html`(2026-08-03 依 `docs/product/` 內部素材新建);另有方案頁 `ess.html`
+  `google-secops.html`(2026-08-03 依 `docs/product/` 內部素材新建)＋
+  **`argushack.html`(2026-08-10 新建**,BAS;原廠 Leukocyte-Lab,沃凱代理);
+  另有方案頁 `ess.html`
   (ESS=沃凱打包方案 WDR+EDR+7x24 SOC,非 19 項 SKU;**全頁零外部連結**,入口在 Services 下拉)。
   2026-08-07 五頁各補 `#pick`(插於 `#why` 前)與 `#faq`(4 產品頁插於 vendor 區前、ess 插於
-  CTA band 前)。**這 5 頁是手維護頁**(非產生器產出),素材經產文＋獨立稽核兩道 agent 工序;
+  CTA band 前);`argushack.html` 建頁時就帶 `#pain`/`#pick`/`#faq`。
+  **這 6 頁是手維護頁**(非產生器產出),素材經產文＋獨立稽核兩道 agent 工序;
   選型互連軸:SentinelOne↔ThreatSonar(日常防護 vs 獵捕鑑識)、CyberEyes↔Google SecOps
-  (託管 WDR vs 自建 SIEM)、單品↔ESS。FAQ 內的 `[TODO]` 照 `gcp-vertex-ai.html:506` 先例
+  (託管 WDR vs 自建 SIEM)、單品↔ESS、**ArgusHack↔各防護產品(驗證 vs 防護)**。
+  FAQ 內的 `[TODO]` 照 `gcp-vertex-ai.html:506` 先例
   用純文字不包 span,且一律指名缺什麼(禁「to be confirmed」這種同義反覆)。
 - **Cloud 線 8 頁**(2026-08-04 新建,內容正本= `docs/Cloud線_內容規劃_20260804.md`):
   `cloud.html`(總覽,CI)＋六個 GCP 分類頁 `cloud-compute` / `cloud-storage` / `cloud-analytics` /
@@ -127,7 +153,10 @@ V1 專屬區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(
   產品資料正本 `docs/GCP_Introduce.md`(2026-08-04 補第 7 節 Cloud Armor)。
 - CyberSecurity:Overview ＋ Endpoint—EDR(SentinelOne / ThreatSonar / **FortiEDR 灰字**)、
   Detection—SIEM & WDR(CyberEyes / Google SecOps)、
-  Built in-house—Volcatech AI Security(CE-BAS)。WDR 併記是因 CyberEyes 實為 WDR。
+  **Validation—breach & attack simulation(ArgusHack → `argushack.html`)**。
+  WDR 併記是因 CyberEyes 實為 WDR;第三組原為「Built in-house—Volcatech AI Security(CE-BAS)」,
+  0810 查證確認非自研後改為能力分類(見上方 0810 第二輪)。
+  下拉 head 白話行:`CyberSecurity — EDR · SIEM &amp; WDR · BAS`。
 - Services(扁平,無第二層):Overview ＋ ESS ＋ 24/7 SOC & IR ＋ **GCP Managed Services 灰字**。
 - **灰字項**(`<span class="off">`,附 mono 的 Coming soon)= 尚無內頁的項目,刻意不可 focus。
   用 `--muted` 上色(對 `--surface` 6.79:1,過 AA)。**絕不可寫成 `<a href="#">`**——
@@ -139,13 +168,16 @@ V1 專屬區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(
 - ⚠️ 901–1100px 這一段,二層改成**在面板內就地展開**(`position:static`),不是側開 flyout:
   該區間視窗放不下側開的 flyout,窄端會跑出左緣。
 
-**0805 從選單移除的 6 項(只動選單,頁面區塊全部保留)**
+**0805 從選單移除的 4 項(只動選單,頁面區塊全部保留)**
 
-CyberSecurity 的 `AI-PTaaS`、`SecPurple`;Services 的 `ISMS / PIMS`、`Penetration Testing`、
-`Cloud FinOps`、`Digital Transformation`。這六項在 `cybersecurity.html` / `services.html` 的
-區塊與頁尾清單一律照舊,只是不出現在下拉裡。同理 0805 移除的 `Edge security`(Cloud Armor)與
-`Volcatech cloud services` 兩組——`cloud-services.html` 頁面與頁尾那列都還在。
-**首頁的 Built by Volcatech 仍須列出 CE-BAS / AI-PTaaS / SecPurple 三品**(硬性規則),不受選單影響。
+Services 的 `ISMS / PIMS`、`Penetration Testing`、`Cloud FinOps`、`Digital Transformation`。
+這四項在 `services.html` 的區塊與頁尾清單一律照舊,只是不出現在下拉裡。
+同理 0805 移除的 `Edge security`(Cloud Armor)與 `Volcatech cloud services` 兩組——
+`cloud-services.html` 頁面與頁尾那列都還在。
+
+⚠ 0805 一併移出選單的 CyberSecurity 兩項 `AI-PTaaS`、`SecPurple` **已於 0810 全站移除**
+(頁面區塊、頁尾清單、首頁 Built 區都不再有),不再屬於「只動選單」那一類——
+理由是素材不足,不是否定它們是自研,素材到位後可加回。
 
 評選期的 4 個色系風格(style-1/2/4)、4 個版型變體(layout-1〜4)、外部 AI 參考組,
 以及 0805 封存的 6 個首頁變體檔(`archive/style-3-homepage-variants/`)
@@ -186,8 +218,16 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
    - 副標定稿:`We design and run Google Cloud environments for European organisations, deploy and tune
      EDR and SIEM, and keep both under 24/7 monitoring. One team, one contract, one point of accountability.`
    - hero 文案(status 行 / H1 / 副標 / CTA)為**置中**呈現(0731 決議),下方 console 卡片維持靠左。
-   - 首頁必備第 4 區 **Built by Volcatech**(自研 CE-BAS / AI-PTaaS / SecPurple):
+   - 首頁必備第 4 區(區塊 id 仍是 `#built`):**「我們自己維運」的安全驗證定位**——
+     現行標題 `Tooling we operate, and evidence that it works.`,內容是 ArgusHack
+     (BAS,原廠 Leukocyte-Lab)＋沃凱自己跑驗證演練這件事。
      它是首頁區塊,**不是**第 4 條產品線,**不進頂層導覽**。
+     ⚠ **2026-08-10 變更**:本條原文為「首頁必備第 4 區 **Built by Volcatech**
+     (自研 CE-BAS / AI-PTaaS / SecPurple)」。查證確認 CE-BAS 的原廠是盧氪賽忒
+     (Leukocyte-Lab)、沃凱只是**代理商**,「自研」宣稱不成立(牴觸硬性規則 4 不虛構公司事實),
+     故本條由使用者裁決改寫;AI-PTaaS / SecPurple 因素材不足一併移除(非否定其自研)。
+     **這一區從此不得再宣稱「self-developed / built in-house / not resold」**,
+     除非拿到經查證的自研產品素材。
 4. **不虛構公司事實**:統編、地址、認證(ISO 等)、客戶案例、合作等級一律 `[TODO: 說明]` 佔位,待確認才填。
    **全案只用 `[TODO: 說明]` 一種佔位語法**(不得用 `{{TODO}}`);建置參數用 `[VAR: 名稱]`。
 5. **現行頁面只有 `style-3-soc/`**(design tokens 在各頁 `:root`);`archive/` 內所有頁面
@@ -214,7 +254,7 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 (mono 微標籤如 `li.head`/`.off .soon`/status 行不在此限)。
 歷史四風格的 tokens 對照見 `archive/index.html` 或 `docs/Volcatech_多風格_Build_Prompts.md` §B。
 
-### 內容頁區塊元件(2026-08-06,全站 36 頁共用)
+### 內容頁區塊元件(2026-08-06,全站 37 頁共用)
 
 0805 的意見是「每頁都是同一個 `loglist` 重複三四次,讀起來是一整欄沒分別的文字」。
 現在每一段各有自己的處理,眼睛在讀字之前就分得出它是哪一類:
@@ -232,7 +272,7 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 | `.faq` | 平鋪問答(0806 三輪;`gcp-*.html` ＋ 0807 起資安線 5 頁) | `--line` 分隔 ＋ mono 兩位數編號(與 `.spec` 同一套系統);刻意不用 disclosure widget |
 
 **唯一正本是 `docs/reports/restyle_content_20260806.py` 的 `BLOCK_CSS`**(含 35 個自繪 icon 的
-`ICONS` 常數)。改元件樣式 = 改那個常數後重跑腳本,36 檔一次同步;**手改單頁的 CSS 會讓軸 1 立刻紅**。
+`ICONS` 常數)。改元件樣式 = 改那個常數後重跑腳本,37 檔一次同步;**手改單頁的 CSS 會讓軸 1 立刻紅**。
 
 四條硬約束:
 1. **不得新增色票**——區分只靠三層表面深度(`--bg` / `--surface` / `#111A26`)、一道琥珀邊界、
@@ -253,14 +293,14 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 全站統一 Nav B 之後,A/B 對照物理上不存在了。它曾是全站**唯一**能自動抓到「手改漏一檔」的檢查,
 所以必須有東西接手,新軸 1 就是那個接手的東西。
 
-### 軸 1|全站 header 同源:正規化後 36 檔逐字節相同
+### 軸 1|全站 header 同源:正規化後 37 檔逐字節相同
 
 `python3 docs/reports/check_nav_20260806.py` → 必須 PASS。
 
 它把每檔的 `<header>` 與**四段 CSS**(三段 nav ＋ 0806 的區塊元件)取出,
 正規化掉 5 個本來就該逐檔不同的參數
 (EN 自指 href、logo/Home 目標、About/Contact 的錨點前綴、`aria-current` 落點、`class="on"` 落點)
-之後,要求 **36 檔逐字節相同**;另外檢查結構數量(`li.sub`=9、`li.head`=3、button=3、
+之後,要求 **37 檔逐字節相同**;另外檢查結構數量(`li.sub`=9、`li.head`=3、button=3、
 `.off`=2、`li.grp`=0)、`aria-current` 落點、Esc handler、以及 `.dd ul` 沒有 overflow。
 
 - **`aria-current="page"` 掛「選單裡 href 等於本檔名的那個 `<a>`」**,通常在第二層。
@@ -288,9 +328,13 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 | `Cloud, security and managed operations for European organisations.`(footer 品牌句) | 2 |
 | `We operate what we sell, and we build what we cannot buy.`(核心句) | **1**(僅 V1) |
 
-最後一句刻意只在 V1 出現——`index.html` 是**未經內容改動的對照組**,
-代表「今天線上的樣子」,不得為了湊一致而修改它。
-(0806 的區塊化只改版型,`index.html` 的**文案**仍未經改動,對照組的意義成立。)
+最後一句刻意只在 V1 出現。⚠ **2026-08-10 起理由換了一套**:
+原本的理由是「`index.html` 是未經內容改動的對照組,代表今天線上的樣子」——
+0810 的 ArgusHack 重定位一次改到底、含兩個首頁,那個前提已經終結,
+不要再用「它是對照組」當作不改 `index.html` 的依據。
+現在的理由是**這句話本身的真確性**:沃凱並非什麼都自建(ArgusHack 就是代理的),
+這句自我定位放在 V1 當差異點可以,讓兩案都講就變成全站宣稱、與硬性規則 4 相牴觸。
+前五句仍逐字凍結(本輪沒動到它們),改任一句都要兩案一起改。
 
 ### 軸 3|內容頁改版型時文案零漂移
 
@@ -311,15 +355,26 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 ### 共同規則
 
 - 兩個方案的 **hero 區塊(`#top` 含 `#offer` 三張卡)完全相同**,差異一律從第二區塊開始。
+  ⚠ 「完全相同」指的是**兩案彼此逐字節相同**(驗法:`diff <(awk '/<section id="top"/,/<\/section>/' index.html)
+  <(awk '/<section id="top"/,/<\/section>/' index-v1-proof.html)` 應無輸出),
+  **不是**「與 git 某個歷史版本相同」——hero 文案本身可以改,只要兩案一起改。
+  0810 就改過一次:Cybersecurity 卡的 `plus three AI-driven testing services we build ourselves.`
+  改為 `plus breach and attack simulation to check that they hold.`,因為那三項自研測試服務
+  兩項已全站移除、剩下一項確認是代理品,原句留著就是硬性規則 4 禁止的虛構事實。
+  改 hero 一律改 `index.html` 再重跑 `build_v1_20260806.py`,不要手改 V1。
 - 改任何共用內容(hero、Built、Why、Trust、footer)→ 改 `index.html` 後
   **重跑 `docs/reports/build_v1_20260806.py`**,V1 會自動跟上。
-- 動到 nav 項目 → 改 `rebuild_nav_20260806.py` 的 `MENU` 後重跑,**全站 36 檔一次同步**;
-  動到 footer 清單 → 36 檔都要改(footer 目前沒有產生器,靠逐字節比對把關)。
+- 動到 nav 項目 → 改 `rebuild_nav_20260806.py` 的 `MENU` 後重跑,**全站 37 檔一次同步**;
+  動到 footer 清單 → 37 檔都要改(footer 目前沒有產生器,靠逐字節比對把關)。
+  ⚠ 兩者都要**順手重跑 `build_lab_20260806.py`**——`lab/inline-cloud-compute.html` 的
+  header/footer 是從 `cloud-compute.html` 取的,它在 `check_links` 掃描範圍內。
+  該腳本**刻意把底檔的區塊元件 CSS 整段剝掉**(0810 加的,`lab/` 那一頁自帶一份提案版),
+  否則每跑一次就把全站元件搬進這個「留檔備查」的檔案——不要把那段剝除邏輯拿掉。
   子頁的錨點連結帶 `index.html` 前綴、同資料夾頁面用相對檔名。
 
 ## 實驗區:`lab/`(已定案,留檔備查)
 
-2026-08-06 新增,同日定案。**結果:選 inline CSS 版**,元件已搬進 `style-3-soc/` 全部 36 頁
+2026-08-06 新增,同日定案。**結果:選 inline CSS 版**,元件已搬進 `style-3-soc/` 全部 37 頁
 (正本 `docs/reports/restyle_content_20260806.py`)。這個資料夾自此只剩紀錄價值——
 它保存了「當初為什麼沒選 Tailwind」的實際對照,**隨時可整個刪掉**,刪除時機由專案負責人決定。
 目前四個檔:
@@ -384,10 +439,10 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
   每個產品在名冊 `loglist` 佔一列且**必須帶 `id`**(nav 深連結的落點),
   新頁必含 `main [id]{scroll-margin-top:80px}`,否則 66px sticky header 會蓋住落點。
 - **改內容頁的版型**:元件樣式改 `restyle_content_20260806.py` 的 `BLOCK_CSS` 後重跑
-  (36 檔一次同步);某一頁的 markup 則直接改該檔的 `<main>`。改完必跑
+  (37 檔一次同步);某一頁的 markup 則直接改該檔的 `<main>`。改完必跑
   `check_copy_20260806.py` 確認沒有把文案一起改掉。
   ⚠️ `.steps` 只能用在真的有先後順序的內容;判不出順序就用 `.quad`,不要為了版型假造推進關係。
-- **版面定稿後**:勝出方案的內容搬進 `index.html`(對照組位置),另一個移入 `archive/`;
+- **版面定稿後**:勝出方案的內容搬進 `index.html`(現行版位置),另一個移入 `archive/`;
   首頁收斂為 1 檔,一致性鐵則的軸 2 隨之退場,`build_v1_20260806.py` 一併退役。
 - **產生正式 Astro 版**:不要改造本 demo;在新資料夾/新 repo 依
   `docs/Volcatech_多風格_Build_Prompts.md`(基底 + style-3 模組,選單以 0805 決議覆蓋)執行,
@@ -398,15 +453,15 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 | 腳本 | 做什麼 |
 |---|---|
 | `rebuild_nav_20260806.py` | **選單唯一正本**。整段抽換 header ＋ 三段 nav CSS,可重複執行 |
-| `restyle_content_20260806.py` | **區塊元件 CSS ＋ 35 個 icon 的唯一正本**。注入 36 檔,可重複執行 |
-| `check_nav_20260806.py` | 軸 1 檢查:36 檔 header ＋ 四段 CSS 逐字節相同 ＋ 結構數量 ＋ 孤兒登記 |
+| `restyle_content_20260806.py` | **區塊元件 CSS ＋ 35 個 icon 的唯一正本**。注入 37 檔,可重複執行 |
+| `check_nav_20260806.py` | 軸 1 檢查:37 檔 header ＋ 四段 CSS 逐字節相同 ＋ 結構數量 ＋ 孤兒登記 |
 | `check_copy_20260806.py` | 軸 3 檢查:對 git 基準逐句比對 `<main>`,文案零漂移 |
 | `check_links_20260806.py` | 標籤配對、唯一 h1、id 不重複、相對連結與錨點有效 |
 | `build_v1_20260806.py` | 從 `index.html` 產生 `index-v1-proof.html`(0804 那支改造而來) |
 | `build_gcp_pages_20260806.py` | 產生 19 個 GCP 產品頁(以 `cloud-compute.html` 為底檔)。**產品文案的唯一正本** |
 | `link_products_20260806.py` | 分類頁 19 張產品卡的雙出口連結 ＋ `cloud.html#products` 索引。可重複執行 |
 | `build_updates_20260810.py` | 產生根 hub「待做事項與產品清單」區(日期取 git log;備注 dict 手維護,更新前須經 Shiro 確認)。可重複執行 |
-| `build_lab_20260806.py` | 產生 `lab/inline-cloud-compute.html`(**已完成階段任務**,`lab/` 刪掉後可一併移除) |
+| `build_lab_20260806.py` | 產生 `lab/inline-cloud-compute.html`(**已完成階段任務**,`lab/` 刪掉後可一併移除)。⚠ 它從 `cloud-compute.html` 取 header/footer/CSS,所以**改完選單或頁尾要重跑它**——`lab/` 在 `check_links` 掃描範圍內,漏跑就會出現死錨點(0810 實際踩到) |
 | `archive_homepage_variants_20260806.py` | 封存 6 檔後的相對路徑修正 |
 | ~~`sync_nav_20260804.py`~~ / ~~`remove_gcp_groups_20260805.py`~~ | **已封印**,檔頭 `sys.exit` 擋住。功能被 `rebuild_nav` 取代 |
 
@@ -449,7 +504,7 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 ### 三支腳本先跑,都必須 PASS
 
 ```bash
-python3 docs/reports/check_nav_20260806.py     # 軸 1:36 檔 header ＋ 四段 CSS 同源、結構數量、孤兒登記
+python3 docs/reports/check_nav_20260806.py     # 軸 1:37 檔 header ＋ 四段 CSS 同源、結構數量、孤兒登記
 python3 docs/reports/check_copy_20260806.py    # 軸 3:改版型沒把文案一起改掉(基準預設 HEAD)
 python3 docs/reports/check_links_20260806.py   # 標籤配對、唯一 h1、id 不重複、相對連結與錨點
 ```
@@ -466,7 +521,7 @@ One partner accountable for the whole stack.
 we will map the path to cloud, security and operations.
 Cloud, security and managed operations for European organisations.
 EOF
-# 核心句只在 V1 → 應輸出 1(對照組 index.html 刻意不含)
+# 核心句只在 V1 → 應輸出 1(index.html 刻意不含,理由見〈軸 2〉)
 grep -Fl 'We operate what we sell, and we build what we cannot buy.' index*.html | wc -l
 # 無外部資源請求 → 應為空(全站唯一 JS 是各頁 navbtn 的行內 onclick;不得新增 <script> 標籤)
 grep -nE '<img |<script|@import|<link ' *.html
@@ -491,15 +546,22 @@ grep -oh 'Vendor page ↗' cloud-*.html | wc -l
 for f in gcp-*.html; do awk '/<section id="stack">/,/<\/section>/' $f | grep -c 'node self'; done | grep -vc '^1$'
 # 0806 三輪:19 個 gcp 頁各有 痛點/選型/FAQ 三段(pick 允許個別頁省略,目前 19 頁全有)
 for s in pain pick faq; do grep -c "section id=\"$s\"" gcp-*.html | grep -vc ':1$'; done   # 三行各應輸出 0
-# 0807 資安線跟進:5 頁各有 痛點/選型/FAQ 三段(pain 是 0806 區塊化帶入,pick/faq 是 0807 補)
-for s in pain pick faq; do grep -c "section id=\"$s\"" sentinelone.html threatsonar.html cybereyes.html google-secops.html ess.html | grep -vc ':1$'; done   # 三行各應輸出 0
+# 資安線 6 頁各有 痛點/選型/FAQ 三段(0807 跟進 5 頁;argushack.html 0810 建頁時就帶三段)
+for s in pain pick faq; do grep -c "section id=\"$s\"" sentinelone.html threatsonar.html cybereyes.html google-secops.html ess.html argushack.html | grep -vc ':1$'; done   # 三行各應輸出 0
 # 金額禁令(ADR 0004):單價/免費額度/促銷不上站 → 應為空
 grep -nE '[$€£]|per month|free tier|free of charge' *.html
 # cloud.html 的產品索引 19 列
 grep -c 'Product page →' cloud.html
-# 0805 移除的 6 項:選單裡應為 0,但頁面區塊必須還在(所以只能掃 header 區,不能掃全檔)
+# 0805 移除的 4 項:選單裡應為 0,但 services.html 的頁面區塊必須還在(所以只能掃 header 區)
 for f in *.html; do awk '/<header/,/<\/header>/' $f; done \
-  | grep -c 'AI-PTaaS\|SecPurple\|ISMS\|Penetration Testing\|Cloud FinOps\|Digital Transformation'
+  | grep -c 'ISMS\|Penetration Testing\|Cloud FinOps\|Digital Transformation'
+# 0810 全站移除的 2 項(素材不足,非否定自研):選單與頁面都不該有 → 應為空
+grep -l 'AI-PTaaS\|SecPurple' *.html
+# 0810 更名:CE-BAS 不得殘留在任何頁面(產品一律叫 ArgusHack)→ 應為空
+# ⚠ 必須大小寫敏感,不可加 -i —— 「source-based」內含 ce-bas,加了 -i 會誤報 gcp-cloud-run.html
+grep -l 'CE-BAS' *.html
+# 自研宣稱不得殘留(0810:ArgusHack 是代理產品,沃凱沒有自研品在站上)→ 應為空
+grep -in 'built in-house\|not resold\|we build ourselves\|self-developed' *.html
 # 佔位連結歸零 → 每檔應輸出 0
 grep -c '#security-list\|#managed-list' *.html
 # title 與 meta description 全站唯一 → 兩行皆應無輸出(註解宣稱兩項,指令就有兩條)
@@ -512,16 +574,17 @@ grep -c 'aria-current="page"' *.html
 grep -c 'https\?://' ess.html services.html
 # 錨點偏移:每檔應 ≥1(缺了的話 sticky header 會蓋住 #錨點 落點)
 grep -c 'scroll-margin-top' *.html
-# 分層圖中連結的鍵盤焦點不被遮蔽 → 三個 GCP 產品頁應各為 1
+# 分層圖中連結的鍵盤焦點不被遮蔽 → 19 個 GCP 產品頁應各為 1(舊註解寫「三個」是 0806 補齊前的狀態)
 grep -c '\.stack a{scroll-margin-top' gcp-*.html
 # Cloud 深連結落點:22 個錨點 id 必須存在(18 GCP 產品 + Cloud Armor + 沃凱服務 3 項)
 grep -ohE 'id="(compute-engine|kubernetes-engine|vmware-engine|cloud-storage|filestore|backup-dr|bigquery|pubsub|dataflow|cloud-run|app-engine|api-gateway|alloydb|cloud-sql|datastore|firestore|vertex-ai|model-garden|cloud-armor|cloud-migration|hybrid-cloud-backup|data-ai-engineering)"' \
   cloud*.html | sort -u | wc -l   # 應為 22
-# 兩個總覽頁的落點:cybersecurity 8 產品 + 3 區塊、services 6 服務
-grep -ohE 'id="(sentinelone|threatsonar|fortiedr|cybereyes|google-secops|ce-bas|ai-ptaas|secpurple)"' cybersecurity.html | sort -u | wc -l  # 應為 8
-grep -ohE 'id="(edr|detection|in-house)"' cybersecurity.html | sort -u | wc -l   # 應為 3
+# 兩個總覽頁的落點:cybersecurity 6 產品 + 3 區塊、services 6 服務
+# ⚠ 0810 起產品少了 ce-bas/ai-ptaas/secpurple、多了 argushack;第三個區塊 id 由 in-house 改為 validation
+grep -ohE 'id="(sentinelone|threatsonar|fortiedr|cybereyes|google-secops|argushack)"' cybersecurity.html | sort -u | wc -l  # 應為 6
+grep -ohE 'id="(edr|detection|validation)"' cybersecurity.html | sort -u | wc -l   # 應為 3
 grep -ohE 'id="(ess|soc|isms|pentest|finops|dx)"' services.html | sort -u | wc -l # 應為 6
-# 33 個內容頁 footer 與 sentinelone 逐字節相同 → 應輸出 33 行 OK(排除 2 個 index*.html 與 sentinelone 自己)
+# 34 個內容頁 footer 與 sentinelone 逐字節相同 → 應輸出 34 行 OK(排除 2 個 index*.html 與 sentinelone 自己)
 for f in $(ls *.html | grep -vE '^(sentinelone|index.*)\.html$'); do
   diff <(awk '/<footer/,/<\/footer>/' sentinelone.html) \
        <(awk '/<footer/,/<\/footer>/' $f) >/dev/null && echo "$f OK" || echo "$f DIFF"; done
