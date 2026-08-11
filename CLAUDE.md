@@ -586,6 +586,14 @@ grep -l 'AI-PTaaS\|SecPurple' *.html
 grep -l 'CE-BAS' *.html
 # 自研宣稱不得殘留(0810:ArgusHack 是代理產品,沃凱沒有自研品在站上)→ 應為空
 grep -in 'built in-house\|not resold\|we build ourselves\|self-developed' *.html
+# 0811:沃凱不得出現在自己的技術夥伴清單裡(0810 撤自研宣稱時 index.html 的 partners 那列漏網,
+# 上面那條 grep 掃不到「Volcatech AI」這種寫法)→ 兩行皆應為空
+# ⚠ 第二條只能掃夥伴區(index 的 .vendors 那列與 V1 的 .wm 浮水印)——`<span class="vsrc">Volcatech</span>`
+#   是「這項服務由沃凱提供」的合法標記,掃全檔的 >Volcatech< 會誤報 cloud/cloud-services/services 三頁
+grep -n 'Volcatech AI' *.html
+awk '/class="vendors"/,/<\/div>/' index.html | grep -n 'Volcatech'; grep -n 'class="wm">Volcatech' index-v1-proof.html
+# 0811:佔位一律指名缺什麼(禁同義反覆的 to be confirmed;先例見 gcp-vertex-ai.html)→ 應為空
+grep -n 'TODO: to be confirmed' *.html
 # 佔位連結歸零 → 每檔應輸出 0
 grep -c '#security-list\|#managed-list' *.html
 # title 與 meta description 全站唯一 → 兩行皆應無輸出(註解宣稱兩項,指令就有兩條)

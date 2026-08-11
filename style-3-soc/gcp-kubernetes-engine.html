@@ -457,8 +457,8 @@ a.node:hover{border-color:var(--accent)}
       <div class="spec">
         <div><span class="n" aria-hidden="true">02</span><div><h3>Pod autoscaling</h3><p>Replica counts follow measured load, so a traffic pattern does not have to be predicted before it happens.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Anthos integration</h3><p>Clusters running elsewhere register alongside the Google Cloud ones and are managed through the same interface.</p></div></div>
-        <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Regional and Autopilot cluster control planes carry a 99.95% monthly uptime SLA in most regions; zonal cluster control planes carry 99.5%.</p></div></div>
-        <div><span class="n" aria-hidden="true">05</span><div><h3>Availability commitment</h3><p>Autopilot Pods deployed across multiple zones carry a 99.9% monthly uptime SLA in most regions.</p></div></div>
+        <div><span class="n" aria-hidden="true">04</span><div><h3>Control plane availability commitment</h3><p>Regional and Autopilot cluster control planes carry a 99.95% monthly uptime SLA in most regions; zonal cluster control planes carry 99.5%.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Pod availability commitment</h3><p>Autopilot Pods deployed across multiple zones carry a 99.9% monthly uptime SLA in most regions.</p></div></div>
         <div><span class="n" aria-hidden="true">06</span><div><h3>Node auto-repair</h3><p>A node that stops reporting as ready for about ten minutes is drained and rebuilt under the same name, without anyone being paged; the behaviour is always on in Autopilot clusters and on by default for new Standard node pools.</p></div></div>
         <div><span class="n" aria-hidden="true">07</span><div><h3>Release channels</h3><p>A cluster subscribes to Rapid, Regular, Stable or Extended, and that choice decides both how proven a version is when it arrives and how long the cluster may stay on it: Extended allows up to 24 months on a single minor version.</p></div></div>
       </div>
