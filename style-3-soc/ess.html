@@ -176,13 +176,15 @@ footer{border-top:1px solid var(--line)}
 .steps h3{font-size:16px;margin-top:10px}
 .steps>li>h3:first-child{margin-top:0}
 .steps p{margin-top:7px;font-size:14px;color:var(--muted)}
-/* Facts as a spec sheet: deeper panel, mono index, one continuous surface. */
+/* Facts as a spec sheet: deeper panel, mono index, one continuous surface.
+   0811: rows tightened (padding 20/22 -> 15/20, index 42 -> 36) — the audit put #features
+   second only to #faq by text weight, and a spec sheet reads fine at ledger density. */
 .spec{margin-top:40px;background:#111A26;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.spec>div{display:grid;grid-template-columns:42px 1fr;gap:16px;padding:20px 22px;align-items:start}
+.spec>div{display:grid;grid-template-columns:36px 1fr;gap:14px;padding:15px 20px;align-items:start}
 .spec>div+div{border-top:1px solid var(--line)}
 .spec .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px}
 .spec h3{font-size:16px}
-.spec p{margin-top:6px;font-size:14.5px;color:var(--muted)}
+.spec p{margin-top:5px;font-size:14px;color:var(--muted)}
 /* Where a thing sits relative to the rest. Normal flow only — absolute positioning
    breaks this layout at 768 and 390px. */
 .stack{margin-top:40px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
@@ -210,12 +212,34 @@ a.node:hover{border-color:var(--accent)}
 .pick .node{min-width:0;font-size:14.5px}
 /* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
    (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
-   .spec so numbering reads as one system; questions carry the ink, answers the muted. */
-.faq{margin-top:44px;border-top:1px solid var(--line)}
-.faq>div{border-bottom:1px solid var(--line);padding:20px 2px}
-.faq h3{display:grid;grid-template-columns:42px 1fr;gap:16px;font-size:16px}
+   .spec so numbering reads as one system; questions carry the ink, answers the muted.
+   0811: the density audit measured #faq at 36-44% of page text — the tallest wall on every
+   product page — so the flat list packs into two newspaper columns of cards. Still fully
+   expanded, still Ctrl+F-findable, about half the height. Single column at 640px and down
+   (640 keeps clear of the 1100/1024 queries the nav checker slices on). */
+.faq{margin-top:44px;columns:2;column-gap:18px}
+.faq>div{break-inside:avoid;background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  padding:20px 22px;margin-bottom:18px}
+.faq h3{display:grid;grid-template-columns:36px 1fr;gap:14px;font-size:16px}
 .faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
-.faq p{margin:8px 0 0 58px;font-size:14.5px;color:var(--muted)}
+.faq p{margin:8px 0 0 50px;font-size:14.5px;color:var(--muted)}
+/* 0811 layout pass (docs/reports/版型改版規劃_20260811.md). No new colour token.
+   Hero fact row: one spec line per product promoted into the hero — moved, not copied,
+   so the copy checker's multiset is unchanged; the chip reuses the .node.self language
+   ("this is the product") and carries the spec line's title, never the product name.
+   Rhythm: content pages only — the two homepages have no .phero, so .phero~section
+   leaves them untouched by construction. */
+.phero .fact{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-top:24px}
+.phero .fact .n{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--muted)}
+.phero .fact .node{display:inline-block;min-width:0;padding:8px 12px;font-size:14px}
+.phero .fact .fx{flex:1 1 320px;max-width:640px;font-size:14.5px;color:var(--muted)}
+.phero~section .wrap{padding:64px 24px}
+.phero~section .probs,.phero~section .uses,.phero~section .trio,.phero~section .quad,
+.phero~section .duo,.phero~section .steps,.phero~section .pick,.phero~section .faq{margin-top:36px}
+.phero~section .spec,.phero~section .stack{margin-top:34px}
+@media (max-width:640px){
+  .faq{columns:1}
+}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}

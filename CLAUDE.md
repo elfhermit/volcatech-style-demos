@@ -269,10 +269,18 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 | `.loglist` | 緊湊索引(目前只在 `cloud.html#products`) | 帶邊框的單欄列表 ＋ 狀態圓點 |
 | `.goes` | 一張卡有兩個出口時的連結列 | 把兩個 `.go` 併成一列,不讓它們各佔一行 |
 | `.pick` | 選型指引:「情境 → 建議產品」(0806 三輪;`gcp-*.html` ＋ 0807 起資安線 5 頁) | `--surface` 列 ＋ 真箭頭 ＋ `.node` 晶片(建議是本頁自己時用 `.node.self`) |
-| `.faq` | 平鋪問答(0806 三輪;`gcp-*.html` ＋ 0807 起資安線 5 頁) | `--line` 分隔 ＋ mono 兩位數編號(與 `.spec` 同一套系統);刻意不用 disclosure widget |
+| `.faq` | 平鋪問答(0806 三輪;`gcp-*.html` ＋ 0807 起資安線 5 頁) | **0811 起雙欄卡片**(CSS `columns:2`＋`--surface` 卡):FAQ 曾佔全頁 36–44% 是最大文字牆,雙欄後牆高砍半;640px 退單欄。仍全展開、Ctrl+F 找得到,刻意不用 disclosure widget |
+| `.fact` | **hero 代表事實列**(0811;產品頁 24 頁,`ess.html` 豁免) | mono 編號 ＋ 琥珀 `.node.self` 晶片(列標題)＋ 事實內文。內容是從該頁 `.spec` **搬上來**的既有一列(面板該列不再渲染、編號留空缺),不是新寫的句子 |
 
 **唯一正本是 `docs/reports/restyle_content_20260806.py` 的 `BLOCK_CSS`**(含 35 個自繪 icon 的
 `ICONS` 常數)。改元件樣式 = 改那個常數後重跑腳本,37 檔一次同步;**手改單頁的 CSS 會讓軸 1 立刻紅**。
+
+**0811 版型改版**(決議 25–34,`docs/meeting_0810.md` 附錄三;施工正本
+`docs/reports/版型改版規劃_20260811.md`、數據 `docs/reports/內容頁密度體檢_20260811.md`):
+0810 決議 11 的「不做全站系統性重排」已由使用者正式重開(**字體仍留 Astro 正式版**)。
+本輪動了四件事——`.faq` 雙欄、`.spec` 緊湊化、`.fact` 新元件、節奏收斂
+(`.phero~section .wrap` 直向 padding 80→64px)。⚠ **節奏規則靠 `.phero~section` 把兩個首頁
+排除在外**——首頁沒有 `.phero` 所以天然免疫;哪天首頁用上 `.phero`/`.faq`/`.spec`,這個免疫就失效。
 
 四條硬約束:
 1. **不得新增色票**——區分只靠三層表面深度(`--bg` / `--surface` / `#111A26`)、一道琥珀邊界、
@@ -284,6 +292,10 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
    ③箭頭用帶 `aria-hidden="true"` 的真字元,不放進 `::before content`。
 4. icon **優先從 `ICONS` 挑**;不夠用時以同風格自繪**補進正本**再用(0806 三輪放寬),
    仍禁外部 icon 套件、禁 `<img>`;同一頁不得重複。
+5. (0811)**抽象節奏元素只准是抽象的**。四個無圖頁(API Gateway／Datastore／Filestore／
+   Model Garden)用 `build_gcp_pages_20260806.py` 的 `fig_motif()` 補視覺喘息:放大的該頁 icon
+   ＋兩側點狀虛線,`aria-hidden`、**無 `<title>`、無 figcaption、無箭頭、不成流程**。
+   它不是機制圖——0810 決議 16「誠實優先:沒機制可畫就不畫」仍然成立,想加說明文字就會撞軸 3。
 
 hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-reduced-motion` 下關閉。
 
@@ -430,6 +442,10 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
   文案正本 `docs/GCP_Introduce_v2.md`;**不得自行擴充未查證的產品事實**。
   0806 三輪起每筆條目還要含 `pains`/`picks`/`faqs` 欄位(格式照現有條目);
   規格數字必附 `# src:` 來源註解,金額一律不寫(ADR 0004)。
+  0811 起還要挑一筆 `hero_fact`(1-based,指 `spec`＋`extra_specs` 合併清單的第 k 列)——
+  **挑該頁獨有、內文 ≤26 詞的那列**;⚠ 別挑 `Availability commitment`(它出現在 17 頁,
+  挑它會讓一票頁的 hero 長一樣,正好毀掉這個欄位存在的理由)。
+  沒有機制可畫的頁再加 `"figures": {"features": fig_motif(ICONS["<未用過的 icon>"])}`。
 - **補資安產品頁**:複製 `style-3-soc/sentinelone.html` → 改 `<title>`、meta description、
   eyebrow 索引碼、內容區塊;素材見 `docs/product/`(內部,先讀產品簡介總覽.md)。
   完成後跑 `rebuild_nav_20260806.py`(header 自動處理),並把 `MENU` 裡該項改成真連結。
@@ -458,7 +474,7 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 | `check_copy_20260806.py` | 軸 3 檢查:對 git 基準逐句比對 `<main>`,文案零漂移 |
 | `check_links_20260806.py` | 標籤配對、唯一 h1、id 不重複、相對連結與錨點有效 |
 | `build_v1_20260806.py` | 從 `index.html` 產生 `index-v1-proof.html`(0804 那支改造而來) |
-| `build_gcp_pages_20260806.py` | 產生 19 個 GCP 產品頁(以 `cloud-compute.html` 為底檔)。**產品文案的唯一正本** |
+| `build_gcp_pages_20260806.py` | 產生 19 個 GCP 產品頁(以 `cloud-compute.html` 為底檔)。**產品文案的唯一正本**;0811 起含 `hero_fact` 欄位與 `fig_motif()` |
 | `link_products_20260806.py` | 分類頁 19 張產品卡的雙出口連結 ＋ `cloud.html#products` 索引。可重複執行 |
 | `build_updates_20260810.py` | 產生根 hub「待做事項與產品清單」區(日期取 git log;備注 dict 手維護,更新前須經 Shiro 確認)。可重複執行 |
 | `build_lab_20260806.py` | 產生 `lab/inline-cloud-compute.html`(**已完成階段任務**,`lab/` 刪掉後可一併移除)。⚠ 它從 `cloud-compute.html` 取 header/footer/CSS,所以**改完選單或頁尾要重跑它**——`lab/` 在 `check_links` 掃描範圍內,漏跑就會出現死錨點(0810 實際踩到) |
@@ -548,6 +564,14 @@ for f in gcp-*.html; do awk '/<section id="stack">/,/<\/section>/' $f | grep -c 
 for s in pain pick faq; do grep -c "section id=\"$s\"" gcp-*.html | grep -vc ':1$'; done   # 三行各應輸出 0
 # 資安線 6 頁各有 痛點/選型/FAQ 三段(0807 跟進 5 頁;argushack.html 0810 建頁時就帶三段)
 for s in pain pick faq; do grep -c "section id=\"$s\"" sentinelone.html threatsonar.html cybereyes.html google-secops.html ess.html argushack.html | grep -vc ':1$'; done   # 三行各應輸出 0
+# 0811:hero 代表事實列。24 頁各恰一列(19 GCP ＋ 5 資安;ess.html 是方案頁,已裁決豁免)
+grep -l 'class="fact"' *.html | wc -l          # 應為 24
+grep -c 'class="fact"' *.html | grep -vc ':[01]$'   # 應為 0(每檔 0 或 1,不得有 2)
+# 0811:hero 晶片不得放產品名(H1 已有一次,重複會讓軸 3 判 FAIL) → 應為空
+# ⚠ 只能掃 .fact 那一行——`.stack` 的自我節點本來就叫產品名,掃全檔會全數誤報
+for f in gcp-*.html sentinelone.html threatsonar.html cybereyes.html google-secops.html argushack.html; do
+  n=$(grep -o '<h1>[^<]*</h1>' $f | sed 's/<[^>]*>//g')
+  grep 'class="fact"' $f | grep -q "node self\">$n<" && echo "$f 晶片=產品名"; done
 # 金額禁令(ADR 0004):單價/免費額度/促銷不上站 → 應為空
 grep -nE '[$€£]|per month|free tier|free of charge' *.html
 # cloud.html 的產品索引 19 列
