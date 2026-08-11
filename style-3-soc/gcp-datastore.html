@@ -435,6 +435,8 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">03</span><div><h3>Query engine</h3><p>Filters, ordering and pagination run against the index rather than scanning the entity set.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>Query scaling model</h3><p>Query cost is designed to track the result set you ask for, not the volume of data stored, so response times stay stable as datasets grow.</p></div></div>
         <div><span class="n" aria-hidden="true">05</span><div><h3>Availability commitment</h3><p>Datastore mode runs on Firestore's storage layer and shares its availability and scaling characteristics.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Entity size ceiling</h3><p>A single entity is capped at 1,048,572 bytes — a mebibyte less four bytes — so large files belong in object storage with the entity holding the reference.</p></div></div>
+        <div><span class="n" aria-hidden="true">07</span><div><h3>Indexed string limit</h3><p>An indexed string property is limited to 1,500 bytes of UTF-8, so longer text is kept unindexed and what is searchable is decided when the model is designed.</p></div></div>
       </div>
     </div>
   </section>
@@ -446,7 +448,7 @@ a.node:hover{border-color:var(--accent)}
       <div class="uses">
         <div><h3>Server-side data</h3><p>Back-end services whose read volume is high and whose access pattern is known in advance.</p></div>
         <div><h3>User directories</h3><p>Profile and account records looked up by key, where the record shape differs between user types.</p></div>
-        <div><h3>Product catalogues</h3><p>Item data with attributes that vary by category, read far more often than it is written.</p></div>
+        <div><h3>Product catalogues</h3><p>Item data with attributes that vary by category, read far more often than it is written. Attributes that are only ever displayed, never filtered on, can be kept unindexed, which holds the index set down to the queries that exist.</p></div>
       </div>
     </div>
   </section>
@@ -509,6 +511,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>Does Datastore support transactions?</span></h3><p>Yes — atomic transactions with strong consistency across queries, which is unusual among horizontally scaling NoSQL stores. Integrity rules can stay in the database rather than migrating into application code.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>Can we change modes later?</span></h3><p>Only an empty database can switch between Native and Datastore modes, so the decision should be made deliberately at project start rather than deferred.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>Where does the data live?</span></h3><p>Each database is provisioned in a location you choose, including EU regions, and entity data is stored there. Settle residency constraints before creation — the location of an existing database cannot be changed.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>Do the original Datastore limits still apply?</span></h3><p>Several of them no longer do. Now that the service runs on the Firestore storage layer, the old ceiling of one write per second to an entity group has gone, transactions are no longer confined to a fixed number of entity groups, and strong consistency no longer depends on writing ancestor queries. Designs carried over from the original Datastore are usually holding constraints that were lifted underneath them.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>Which query patterns does Datastore mode not cover?</span></h3><p>There are no joins, and no filtering on the result of a subquery; every query is answered from an index that already exists when it runs. Access patterns therefore have to be settled while the model is being designed rather than discovered later, and reporting that depends on relational queries is better answered from a system built for it.</p></div>
+        <div><h3><span class="n" aria-hidden="true">08</span><span>How do we get entities out for backup or analysis?</span></h3><p>A managed export writes entities to a Cloud Storage bucket and can be put on a schedule; an export that names the kinds it covers can then be loaded into BigQuery. One caveat belongs in the plan: the export reads eventually rather than freezing the database, so an entity written while the job is running may or may not appear. Anything that needs a single consistent instant has to come from elsewhere.</p></div>
       </div>
     </div>
   </section>

@@ -434,6 +434,8 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">02</span><div><h3>IAM integration</h3><p>Access decisions use Google Cloud IAM identities rather than a separate credential store maintained beside it.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Rate limiting</h3><p>Per-key quotas cap how often a caller can reach the back end, applied before the request is forwarded.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>API contract format</h3><p>APIs are defined with OpenAPI specification documents — 2.0 or 3.0.x — which drive routing, validation and the contract consumers see.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Deployment objects</h3><p>The definition inside a config is fixed once created — only its labels and display name can be changed afterwards — so an amended OpenAPI document produces a new config, which is then deployed to the gateway. A gateway carries one config at a time, and swapping it does not take the API offline, although for a short period during the change some requests may still be answered by the outgoing config.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Project-level limits</h3><p>A project can hold as many as 50 APIs, each with up to 100 configs, and up to 50 gateways in a region.</p></div></div>
       </div>
     </div>
   </section>
@@ -445,7 +447,7 @@ a.node:hover{border-color:var(--accent)}
       <div class="uses">
         <div><h3>Public APIs</h3><p>Interfaces published to partners or customers, where each caller needs its own key and its own limit.</p></div>
         <div><h3>Serverless integration</h3><p>Cloud Run, App Engine and Cloud Functions services presented to callers as one coherent API.</p></div>
-        <div><h3>Client back ends</h3><p>A stable endpoint for mobile or partner applications while the services behind it are rewritten or replaced.</p></div>
+        <div><h3>Client back ends</h3><p>A stable endpoint for mobile or partner applications while the services behind it are rewritten or replaced. Because the definition inside a config is fixed once created, the contract a client integrated against stays exactly as deployed until a new config replaces it.</p></div>
       </div>
     </div>
   </section>
@@ -502,6 +504,8 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>How does this relate to Cloud Run — do we need both?</span></h3><p>They occupy different layers: Cloud Run executes your services, while API Gateway governs how consumers reach them. Public or partner-facing APIs usually warrant both; purely internal service-to-service traffic often does not need a gateway.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>What visibility do we get over API usage?</span></h3><p>Traffic through the gateway is logged and measured in one place: request volumes, latency and error rates per API. Usage questions get answered from gateway metrics instead of stitched-together backend logs.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>What does it cost to put a gateway in front of an API?</span></h3><p>Charges scale with the volume of API calls processed, so cost tracks real consumption rather than reserved capacity. The practical answer depends on traffic and architecture — contact us and we will estimate it against your usage.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>Are there size limits we should design around?</span></h3><p>Yes, and they are worth settling before the contract is published. A request and a response are each capped at 32 MB, request headers at 60 kB, and streaming is not carried through a gateway. Bulk file transfer is therefore designed alongside the API rather than through it, with the gateway handling the control path.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>Where does a gateway actually run?</span></h3><p>In a region you pick. A gateway is a regional resource, so the place where consumer requests are terminated is a deployment decision — which matters when residency is part of the requirement rather than an afterthought.</p></div>
       </div>
     </div>
   </section>

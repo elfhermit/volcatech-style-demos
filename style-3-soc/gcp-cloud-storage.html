@@ -434,7 +434,36 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">02</span><div><h3>Autoclass lifecycle</h3><p>Objects move between classes on their own access history, without a lifecycle rule written per bucket.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Redundancy options</h3><p>Each bucket is created with the redundancy it needs, so not every dataset has to be replicated the same way.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>Durability design target</h3><p>Engineered to a 99.999999999% (eleven nines) annual durability design target, applying to every storage class and location type.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Availability commitment</h3><p>Standard storage carries an availability service level agreement of 99.95% in a multi-region or dual-region and 99.9% within a single region; Nearline, Coldline and Archive are set at 99.9% and 99.0% for the same two cases.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Object size ceiling</h3><p>A single object can reach 5 TiB whichever upload method is used, so datasets beyond that are held as several objects rather than one.</p></div></div>
       </div>
+      <figure style="max-width:460px;margin:28px auto 0">
+        <svg viewBox="0 0 380 440" style="width:100%;height:auto" role="img">
+          <title>Autoclass moves an object to a colder storage class after 30, 90 and 365 days without access, and returns it to Standard as soon as it is read again.</title>
+          <text x="14" y="22" font-family="var(--mono)" font-size="14" fill="var(--muted)">A read returns the object to Standard</text>
+          <rect x="70" y="40" width="250" height="48" rx="6" fill="#111A26" stroke="#FFB224" stroke-width="1.5"/>
+          <text x="195" y="70" text-anchor="middle" font-family="var(--sans)" font-size="16" fill="currentColor">Standard</text>
+          <line x1="110" y1="88" x2="110" y2="128" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="104,128 116,128 110,138" fill="#FFB224"/>
+          <text x="128" y="116" font-family="var(--sans)" font-size="14" fill="var(--muted)">30 days since the last read</text>
+          <rect x="70" y="140" width="250" height="48" rx="6" fill="#111A26" stroke="var(--muted)"/>
+          <text x="195" y="170" text-anchor="middle" font-family="var(--sans)" font-size="16" fill="currentColor">Nearline</text>
+          <line x1="110" y1="188" x2="110" y2="228" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="104,228 116,228 110,238" fill="#FFB224"/>
+          <text x="128" y="216" font-family="var(--sans)" font-size="14" fill="var(--muted)">90 days since the last read</text>
+          <rect x="70" y="240" width="250" height="48" rx="6" fill="#111A26" stroke="var(--muted)"/>
+          <text x="195" y="270" text-anchor="middle" font-family="var(--sans)" font-size="16" fill="currentColor">Coldline</text>
+          <line x1="110" y1="288" x2="110" y2="328" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="104,328 116,328 110,338" fill="#FFB224"/>
+          <text x="128" y="316" font-family="var(--sans)" font-size="14" fill="var(--muted)">365 days since the last read</text>
+          <rect x="70" y="340" width="250" height="48" rx="6" fill="#111A26" stroke="var(--muted)"/>
+          <text x="195" y="370" text-anchor="middle" font-family="var(--sans)" font-size="16" fill="currentColor">Archive</text>
+          <path d="M70 364 H26 V64 H62" fill="none" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="62,58 62,70 70,64" fill="#FFB224"/>
+          <text x="14" y="420" font-family="var(--sans)" font-size="14" fill="var(--muted)">Objects under 128 KiB stay in Standard</text>
+        </svg>
+        <figcaption style="margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--muted)">Autoclass moves each object on its own access history — colder after 30, 90 and 365 days without a read, and back to Standard the moment it is read again.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -501,6 +530,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">02</span><span>When should we use Filestore instead of Cloud Storage?</span></h3><p>Cloud Storage holds immutable objects behind an API; it does not offer POSIX file semantics such as locking or hard links. When applications expect a mounted NFS share, Filestore is the better fit.</p></div>
         <div><h3><span class="n" aria-hidden="true">03</span><span>How do storage classes affect cost?</span></h3><p>Standard, Nearline, Coldline and Archive trade lower storage cost against retrieval charges and minimum storage durations; access remains low-latency in every class. The right mix depends on how often each dataset is read and how long it is kept. Contact us and we will map lifecycle rules to optimise placement.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>How durable is data held in Cloud Storage?</span></h3><p>The service is designed for eleven nines of annual durability across every storage class, using redundant storage and checksum validation. Availability is defined separately and varies by storage class and location type.</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>What happens if someone deletes objects by mistake — or on purpose?</span></h3><p>Deleted objects are kept rather than discarded: on every bucket type that supports it, soft delete is on by default, holds a deleted object for seven days, and the window can be set anywhere between seven and 90 days. A restored object comes back as a live object in the same bucket, written to the Standard class whichever class it sat in before. Object versioning is a separate setting you switch on per bucket, which keeps the earlier generation each time an object is replaced or deleted; the two can run together, and we normally do.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>Can we stop records being deleted before a retention period is up?</span></h3><p>Yes. A retention policy on the bucket blocks deletion or replacement of any object that has not yet reached the required age, and the policy can then be locked. Locking is one-way: afterwards the period can be extended but never shortened, and the policy cannot be removed at all. That is what makes it usable as evidence of a retention obligation rather than as an internal convention.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>Who holds the encryption keys?</span></h3><p>Every object is encrypted on the server before it reaches disk, and that layer cannot be switched off. Where you need to hold the keys yourself, customer-managed keys in Cloud Key Management Service put rotation and revocation under your control, including keys held in a hardware security module or in an external key manager. Keys supplied with each request are also possible where a key must not be held in Google Cloud at all: the key is purged once the operation finishes and only a hash of it is kept to validate later requests, so keeping those keys safe is entirely your side of the arrangement.</p></div>
       </div>
     </div>
   </section>

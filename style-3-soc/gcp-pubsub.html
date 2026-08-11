@@ -435,7 +435,41 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">03</span><div><h3>Dataflow integration</h3><p>Topics connect directly to Dataflow pipelines, so streaming transformation does not need a bridging component of its own.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Google's SLA for Pub/Sub commits to a monthly uptime percentage of at least 99.95%.</p></div></div>
         <div><span class="n" aria-hidden="true">05</span><div><h3>Scale and limits</h3><p>A single Pub/Sub message can carry up to 10 MB of payload data.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Message retention</h3><p>Unacknowledged messages are held in a subscription for seven days by default, and the window can be set anywhere from 10 minutes to 31 days.</p></div></div>
+        <div><span class="n" aria-hidden="true">07</span><div><h3>Schema on the topic</h3><p>A topic can carry an Avro or protocol buffer schema, and a message that does not match it is refused at publish rather than at the subscriber.</p></div></div>
       </div>
+      <figure style="max-width:520px;margin:24px auto 0">
+        <svg viewBox="0 0 360 268" role="img" style="width:100%;height:auto;display:block">
+          <title>How a topic fans out: one publish call reaches every subscription attached to the topic, each subscription delivers in its own way — a client that pulls, an endpoint that is pushed to, or a direct export — and each keeps its own backlog and acknowledgements.</title>
+          <rect x="100" y="8" width="160" height="36" rx="6" fill="#111A26" stroke="var(--muted)"/>
+          <text x="180" y="31" text-anchor="middle" font-size="13" fill="currentColor">Publisher</text>
+          <line x1="180" y1="44" x2="180" y2="62" stroke="var(--muted)" stroke-width="1.5"/>
+          <polygon points="175,62 185,62 180,70" fill="var(--muted)"/>
+          <text x="192" y="60" font-size="13" fill="var(--muted)">publishes once</text>
+          <rect x="60" y="76" width="240" height="40" rx="6" fill="var(--surface)" stroke="#FFB224" stroke-width="1.5"/>
+          <text x="180" y="101" text-anchor="middle" font-size="14" fill="currentColor">Topic</text>
+          <line x1="180" y1="116" x2="180" y2="126" stroke="var(--muted)" stroke-width="1.5"/>
+          <line x1="64" y1="126" x2="296" y2="126" stroke="var(--muted)" stroke-width="1.5"/>
+          <line x1="64" y1="126" x2="64" y2="140" stroke="var(--muted)" stroke-width="1.5"/>
+          <line x1="180" y1="126" x2="180" y2="140" stroke="var(--muted)" stroke-width="1.5"/>
+          <line x1="296" y1="126" x2="296" y2="140" stroke="var(--muted)" stroke-width="1.5"/>
+          <polygon points="59,140 69,140 64,148" fill="var(--muted)"/>
+          <polygon points="175,140 185,140 180,148" fill="var(--muted)"/>
+          <polygon points="291,140 301,140 296,148" fill="var(--muted)"/>
+          <rect x="10" y="152" width="108" height="60" rx="6" fill="#111A26" stroke="var(--muted)"/>
+          <rect x="126" y="152" width="108" height="60" rx="6" fill="#111A26" stroke="var(--muted)"/>
+          <rect x="242" y="152" width="108" height="60" rx="6" fill="#111A26" stroke="var(--muted)"/>
+          <text x="64" y="176" text-anchor="middle" font-size="13" fill="currentColor">Pull</text>
+          <text x="180" y="176" text-anchor="middle" font-size="13" fill="currentColor">Push</text>
+          <text x="296" y="176" text-anchor="middle" font-size="13" fill="currentColor">Export</text>
+          <text x="64" y="196" text-anchor="middle" font-size="13" fill="var(--muted)">client pulls</text>
+          <text x="180" y="196" text-anchor="middle" font-size="13" fill="var(--muted)">sent to a URL</text>
+          <text x="296" y="196" text-anchor="middle" font-size="13" fill="var(--muted)">into BigQuery</text>
+          <text x="180" y="238" text-anchor="middle" font-size="13" fill="var(--muted)">Each subscription keeps its own backlog</text>
+          <text x="180" y="258" text-anchor="middle" font-size="13" fill="var(--muted)">and acknowledges on its own</text>
+        </svg>
+        <figcaption style="margin-top:12px;color:var(--muted);font-size:14px">One publish call reaches every subscription on the topic. Each subscription delivers in its own way and holds its own backlog, so a consumer can be added, paused or slowed without the publisher or the other subscriptions noticing.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -444,7 +478,7 @@ a.node:hover{border-color:var(--accent)}
       <p class="status"><span class="dot" aria-hidden="true"></span>Where it fits</p>
       <h2 class="sec">Three situations it is built for.</h2>
       <div class="uses">
-        <div><h3>IoT telemetry</h3><p>Readings from devices in the field arrive continuously and are buffered until a pipeline is ready to process them.</p></div>
+        <div><h3>IoT telemetry</h3><p>Readings from devices in the field arrive continuously and are buffered until a pipeline is ready to process them. Retention keeps that buffer available for a set window, so a consumer taken down for maintenance catches up afterwards instead of losing readings.</p></div>
         <div><h3>Log pipelines</h3><p>Application and infrastructure logs collected from many sources and forwarded into analysis without each source knowing the destination.</p></div>
         <div><h3>Event notification</h3><p>State changes in one service announced once and consumed by whichever other services currently care about them.</p></div>
       </div>
@@ -509,6 +543,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>Does Pub/Sub preserve message order?</span></h3><p>Not by default: subscribers may receive messages out of order. Publishing with an ordering key delivers messages for that key in the order they were sent, within a region.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>Do we need Dataflow as well as Pub/Sub?</span></h3><p>Not always. Pub/Sub moves events; Dataflow processes them. If subscribers only need each message as it is, Pub/Sub alone is enough. Add Dataflow when streams need transformation, enrichment or windowed aggregation.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>What drives Pub/Sub costs?</span></h3><p>Throughput — the volume of data published and delivered — plus retained message storage and traffic between regions. Actual cost depends on message volumes and architecture; contact us for an estimate based on your workloads.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>How do subscribers actually receive messages?</span></h3><p>Three ways, chosen per subscription. A pull subscription has your client ask for messages when it is ready; a push subscription has Pub/Sub post them to an HTTPS endpoint you expose; and an export subscription writes them straight into BigQuery or Cloud Storage with no consumer of your own in between. One topic can carry several subscriptions at once, so a service that pulls and an export that lands the same events in the warehouse are not alternatives — they run side by side.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>Can we replay messages after a bad release?</span></h3><p>Yes, within the retention window. Seeking a subscription back to a timestamp makes everything published after that moment eligible for delivery again, so a consumer that processed events incorrectly can reprocess them once it is fixed. A snapshot captures the acknowledgement state of a subscription before a risky change and can be returned to later; snapshots last at most seven days, and a seek can take up to a minute to take effect.</p></div>
+        <div><h3><span class="n" aria-hidden="true">08</span><span>Can one consumer take only part of a topic?</span></h3><p>Yes. A subscription can carry a filter over message attributes, and only the messages matching it are delivered; the rest are acknowledged by the service itself and never reach your subscriber. Filters are fixed when the subscription is created, so changing the rule means creating a replacement subscription rather than editing the existing one.</p></div>
       </div>
     </div>
   </section>

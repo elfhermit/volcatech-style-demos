@@ -422,6 +422,38 @@ a.node:hover{border-color:var(--accent)}
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l4-5"/></svg><h3>Workers that follow the workload</h3><p>Worker count moves with the volume in the pipeline rather than being fixed when the job is submitted. Uneven input does not have to be provisioned for in advance.</p></div>
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg><h3>No cluster to operate</h3><p>The runner, its workers and their scaling are managed by Google. What the team maintains is the pipeline, not the machines it runs on.</p></div>
       </div>
+      <figure style="max-width:520px;margin:24px auto 0">
+        <svg viewBox="0 0 360 260" role="img" style="width:100%;height:auto;display:block">
+          <title>One pipeline serves both modes: bounded input such as files and unbounded input such as an event stream run through the same read, transform, aggregate and write steps. Only the grouping differs — bounded input is aggregated over the whole dataset, unbounded input is aggregated per event-time window.</title>
+          <rect x="8" y="8" width="164" height="52" rx="6" fill="#111A26" stroke="var(--muted)"/>
+          <text x="90" y="30" text-anchor="middle" font-size="13" fill="currentColor">Bounded input</text>
+          <text x="90" y="48" text-anchor="middle" font-size="13" fill="var(--muted)">files or tables</text>
+          <rect x="188" y="8" width="164" height="52" rx="6" fill="#111A26" stroke="var(--muted)"/>
+          <text x="270" y="30" text-anchor="middle" font-size="13" fill="currentColor">Unbounded input</text>
+          <text x="270" y="48" text-anchor="middle" font-size="13" fill="var(--muted)">a live event stream</text>
+          <line x1="90" y1="60" x2="90" y2="76" stroke="var(--muted)" stroke-width="1.5"/>
+          <polygon points="85,76 95,76 90,84" fill="var(--muted)"/>
+          <line x1="270" y1="60" x2="270" y2="76" stroke="var(--muted)" stroke-width="1.5"/>
+          <polygon points="265,76 275,76 270,84" fill="var(--muted)"/>
+          <rect x="8" y="88" width="344" height="130" rx="8" fill="var(--surface)" stroke="#FFB224" stroke-width="1.5"/>
+          <text x="24" y="110" font-size="13" fill="currentColor">One pipeline, written once</text>
+          <rect x="24" y="122" width="70" height="34" rx="5" fill="#111A26" stroke="var(--muted)"/>
+          <rect x="102" y="122" width="70" height="34" rx="5" fill="#111A26" stroke="var(--muted)"/>
+          <rect x="180" y="122" width="70" height="34" rx="5" fill="#111A26" stroke="var(--muted)"/>
+          <rect x="258" y="122" width="70" height="34" rx="5" fill="#111A26" stroke="var(--muted)"/>
+          <text x="59" y="144" text-anchor="middle" font-size="13" fill="currentColor">Read</text>
+          <text x="137" y="144" text-anchor="middle" font-size="13" fill="currentColor">Transform</text>
+          <text x="215" y="144" text-anchor="middle" font-size="13" fill="currentColor">Aggregate</text>
+          <text x="293" y="144" text-anchor="middle" font-size="13" fill="currentColor">Write</text>
+          <polygon points="95,134 101,139 95,144" fill="var(--muted)"/>
+          <polygon points="173,134 179,139 173,144" fill="var(--muted)"/>
+          <polygon points="251,134 257,139 251,144" fill="var(--muted)"/>
+          <text x="24" y="182" font-size="13" fill="var(--muted)">Bounded: aggregate over the whole input</text>
+          <text x="24" y="202" font-size="13" fill="var(--muted)">Unbounded: aggregate per event-time window</text>
+          <text x="180" y="242" text-anchor="middle" font-size="13" fill="var(--muted)">Only the grouping differs, not the transforms</text>
+        </svg>
+        <figcaption style="margin-top:12px;color:var(--muted);font-size:14px">The same pipeline runs over a finite dataset or a continuous stream. What changes between the two is how records are grouped for aggregation — the whole input in one case, windows of event time in the other.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -435,6 +467,8 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">03</span><div><h3>Apache Beam SDK</h3><p>Pipelines are written in the open Beam SDK, so the code is not tied to this runner alone.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Google's SLA for Dataflow commits to a monthly uptime percentage of at least 99.9%.</p></div></div>
         <div><span class="n" aria-hidden="true">05</span><div><h3>Processing guarantee</h3><p>Streaming pipelines run with exactly-once processing by default.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Streaming Engine</h3><p>Execution of a streaming job sits in the Dataflow backend rather than on the worker VMs, so worker count moves in smaller steps and each worker needs little more than a boot disk.</p></div></div>
+        <div><span class="n" aria-hidden="true">07</span><div><h3>Templates</h3><p>A pipeline can be packaged with parameters and launched from the console, the command line or the API, so whoever runs it needs neither a development environment nor the pipeline dependencies on their own machine.</p></div></div>
       </div>
     </div>
   </section>
@@ -444,7 +478,7 @@ a.node:hover{border-color:var(--accent)}
       <p class="status"><span class="dot" aria-hidden="true"></span>Where it fits</p>
       <h2 class="sec">Three situations it is built for.</h2>
       <div class="uses">
-        <div><h3>Streaming ETL</h3><p>Events are cleaned, joined and reshaped on the way into the warehouse instead of after they land.</p></div>
+        <div><h3>Streaming ETL</h3><p>Events are cleaned, joined and reshaped on the way into the warehouse instead of after they land. Where the movement is a standard one, a published template can be launched with parameters instead of writing the pipeline from scratch.</p></div>
         <div><h3>Fraud detection</h3><p>Transaction streams are scored against rules or a model while the transaction is still in progress.</p></div>
         <div><h3>Log analysis</h3><p>Application logs are aggregated and summarised continuously, rather than collected and processed as an overnight batch.</p></div>
       </div>
@@ -508,6 +542,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>How does Dataflow relate to BigQuery and Pub/Sub?</span></h3><p>They are complementary: Pub/Sub carries events, Dataflow transforms and enriches them, and BigQuery stores the results for analysis. Dataflow is the processing stage, not a queue and not a warehouse.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>Is streaming data processed reliably?</span></h3><p>Dataflow applies exactly-once processing by default, so records are neither lost nor double-counted inside the pipeline even when workers fail or scale. End-to-end behaviour also depends on how sources and sinks are configured.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>What determines the cost of a pipeline?</span></h3><p>The compute, memory and storage a job consumes while it runs, which in turn depend on data volume and pipeline design. Contact us and we will size it against your workloads.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>Can we change a running streaming pipeline without losing data?</span></h3><p>Usually yes. A replacement job takes over from the running one and carries across its intermediate state and the records still in flight, after a compatibility check between the two versions; if transform names changed, a mapping tells the service which step replaces which. When Streaming Engine is in use, the scaling limits of a job can be adjusted without replacing it at all. To stop rather than change, draining stops new input and lets the pipeline finish what it has already read, whereas cancelling stops at once and can discard work in progress.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>What happens to data that arrives late or out of order?</span></h3><p>Streams are grouped by the time an event happened rather than the time the pipeline got to it, so a delayed record still counts towards the period it belongs to. Aggregations run over windows — fixed intervals, overlapping intervals, or bursts of activity separated by a gap — and a watermark marks the point at which the service considers a window complete. Records arriving after that are treated as late, and the pipeline decides through its triggers whether to emit a corrected result.</p></div>
+        <div><h3><span class="n" aria-hidden="true">08</span><span>How do we tell whether a pipeline is keeping up?</span></h3><p>The job appears as a graph of stages with throughput at each one, and two figures answer the question directly: data freshness — the gap between an event timestamp and the moment the pipeline finished with it — and system latency, the longest an item has been in processing or waiting to be processed. A backlog estimate shows how long the unprocessed input would take to clear, which is what tells you a streaming job is falling behind rather than merely busy.</p></div>
       </div>
     </div>
   </section>

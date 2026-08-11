@@ -435,7 +435,39 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">03</span><div><h3>Managed scaling</h3><p>Instance count and load balancing follow demand, so capacity planning is not part of the deployment.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>App Engine carries a 99.95% monthly uptime service level objective under its SLA.</p></div></div>
         <div><span class="n" aria-hidden="true">05</span><div><h3>Scale and limits</h3><p>Standard environment instances start within seconds and can scale to zero; flexible environment instances run in Docker containers on Compute Engine VMs with a minimum of one instance.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Scaling modes</h3><p>Automatic scaling adds and removes instances from request rate and latency; basic scaling starts an instance when a request arrives and stops it once the application goes quiet; manual scaling holds a fixed number of instances for work that keeps state in memory.</p></div></div>
+        <div><span class="n" aria-hidden="true">07</span><div><h3>Request duration</h3><p>Under automatic scaling a request is cut off after 10 minutes; basic and manual scaling allow up to 24 hours, and the flexible environment up to 60 minutes.</p></div></div>
       </div>
+      <figure style="max-width:480px;margin:28px auto 0">
+        <svg viewBox="0 0 360 302" role="img" style="width:100%;height:auto;display:block">
+          <title>How a release is steered on App Engine: requests to a single service address are divided between deployed versions in proportions you set, each version runs its own instances, and rolling back means moving the proportions back.</title>
+          <rect x="30" y="8" width="300" height="34" rx="6" fill="#111A26" stroke="var(--muted)"/>
+          <text x="180" y="30" text-anchor="middle" font-size="13" fill="currentColor">Requests to one service address</text>
+          <line x1="180" y1="42" x2="180" y2="58" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="174,58 186,58 180,66" fill="#FFB224"/>
+          <rect x="30" y="72" width="300" height="44" rx="6" fill="var(--surface)" stroke="var(--muted)"/>
+          <text x="180" y="92" text-anchor="middle" font-size="13" fill="currentColor">Traffic split by proportion</text>
+          <text x="180" y="109" text-anchor="middle" font-size="13" fill="var(--muted)">cookie or address hash, 0–999</text>
+          <line x1="105" y1="116" x2="105" y2="134" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="99,134 111,134 105,142" fill="#FFB224"/>
+          <line x1="255" y1="116" x2="255" y2="134" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="249,134 261,134 255,142" fill="#FFB224"/>
+          <rect x="26" y="148" width="148" height="40" rx="6" fill="#111A26" stroke="#FFB224"/>
+          <circle cx="40" cy="160" r="3" fill="#3ECF8E"/>
+          <text x="100" y="173" text-anchor="middle" font-size="13" fill="currentColor">Version 3 — 90%</text>
+          <rect x="186" y="148" width="148" height="40" rx="6" fill="#111A26" stroke="#FFB224"/>
+          <circle cx="200" cy="160" r="3" fill="#3ECF8E"/>
+          <text x="260" y="173" text-anchor="middle" font-size="13" fill="currentColor">Version 4 — 10%</text>
+          <rect x="34" y="198" width="30" height="20" rx="4" fill="var(--surface)" stroke="var(--muted)"/>
+          <rect x="70" y="198" width="30" height="20" rx="4" fill="var(--surface)" stroke="var(--muted)"/>
+          <rect x="106" y="198" width="30" height="20" rx="4" fill="var(--surface)" stroke="var(--muted)"/>
+          <rect x="194" y="198" width="30" height="20" rx="4" fill="var(--surface)" stroke="var(--muted)"/>
+          <text x="180" y="238" text-anchor="middle" font-size="13" fill="var(--muted)">Each version runs its own instances</text>
+          <rect x="26" y="254" width="308" height="38" rx="6" fill="none" stroke="#FFB224" stroke-dasharray="4 4"/>
+          <text x="180" y="278" text-anchor="middle" font-size="13" fill="var(--muted)">Rolling back moves the proportions back</text>
+        </svg>
+        <figcaption style="margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--muted)">Traffic to one service is divided between deployed versions — here 90% to the current one and 10% to a new one. Each version keeps its own instances.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -446,7 +478,7 @@ a.node:hover{border-color:var(--accent)}
       <div class="uses">
         <div><h3>Web applications</h3><p>Small and mid-sized web systems where the team is smaller than the operational surface a self-managed host would add.</p></div>
         <div><h3>Mobile back ends</h3><p>The API layer behind a mobile client, where request volume follows usage rather than a schedule.</p></div>
-        <div><h3>MVP validation</h3><p>Early product work that has to reach real users quickly and may be discarded before it is worth building a platform for.</p></div>
+        <div><h3>MVP validation</h3><p>Early product work that has to reach real users quickly and may be discarded before it is worth building a platform for. Early traffic is intermittent, which is what basic scaling is for — instances appear on demand and are not held between bursts of use.</p></div>
       </div>
     </div>
   </section>
@@ -508,6 +540,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>Does it scale down when nobody is using the application?</span></h3><p>In the standard environment, yes — instance numbers can drop to zero between requests. The flexible environment always keeps at least one instance running, which matters for low-traffic services.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>How should we think about cost?</span></h3><p>Charges track the instance hours and resources your traffic actually consumes, so the shape of demand matters more than headline rates. Contact us for a sizing conversation grounded in your usage patterns.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>Can we move an App Engine application to Cloud Run later?</span></h3><p>Usually, yes. Both platforms serve stateless HTTP workloads, so the work is containerising the application and mapping its configuration and services. We plan such moves incrementally rather than as a single cutover.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>How is an App Engine application organised once it is deployed?</span></h3><p>Not as a single unit. An application holds services, each service holds versions, and each version runs on its own instances. Services can be divided by function and can even run different language runtimes, and every deployed version keeps its own address, so a version can be reached directly for checking before it takes any share of live traffic.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>How does traffic splitting decide which version serves a request?</span></h3><p>By one of two rules that you choose. Address splitting hashes the caller into a bucket between 0 and 999 and routes on that number, which is simple but drifts when callers move between networks. Cookie splitting reads a cookie the platform sets for the purpose and tracks the target proportions far more closely. Traffic can be divided across more than two versions at once, so a staged rollout is not limited to a single candidate.</p></div>
+        <div><h3><span class="n" aria-hidden="true">08</span><span>Which languages run without building a container image?</span></h3><p>Six language families are supported directly in the standard environment — Go, Java, Node.js, Python, PHP and Ruby — with several versions of each available at any time. End-of-support dates for the versions already in service are published ahead of time, so a runtime upgrade is scheduled work rather than a surprise. Anything outside that list runs in the flexible environment from a Dockerfile, or on Cloud Run.</p></div>
       </div>
     </div>
   </section>

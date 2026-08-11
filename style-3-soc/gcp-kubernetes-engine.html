@@ -435,7 +435,54 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">03</span><div><h3>Anthos integration</h3><p>Clusters running elsewhere register alongside the Google Cloud ones and are managed through the same interface.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Regional and Autopilot cluster control planes carry a 99.95% monthly uptime SLA in most regions; zonal cluster control planes carry 99.5%.</p></div></div>
         <div><span class="n" aria-hidden="true">05</span><div><h3>Availability commitment</h3><p>Autopilot Pods deployed across multiple zones carry a 99.9% monthly uptime SLA in most regions.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Node auto-repair</h3><p>A node that stops reporting as ready for about ten minutes is drained and rebuilt under the same name, without anyone being paged; the behaviour is always on in Autopilot clusters and on by default for new Standard node pools.</p></div></div>
+        <div><span class="n" aria-hidden="true">07</span><div><h3>Release channels</h3><p>A cluster subscribes to Rapid, Regular, Stable or Extended, and that choice decides both how proven a version is when it arrives and how long the cluster may stay on it: Extended allows up to 24 months on a single minor version.</p></div></div>
       </div>
+      <figure style="max-width:460px;margin:28px auto 0">
+        <svg viewBox="0 0 380 400" style="width:100%;height:auto" role="img">
+          <title>Node auto-repair: a node that stops reporting as ready is drained and rebuilt under the same name, while the rest of the pool keeps serving.</title>
+          <!-- Before: one node in the pool has stopped reporting as ready -->
+          <rect x="20" y="14" width="340" height="100" rx="8" fill="#111A26" stroke="var(--muted)"/>
+          <text x="36" y="40" font-family="var(--mono)" font-size="14" fill="var(--muted)">Node pool</text>
+          <rect x="36" y="54" width="96" height="44" rx="6" fill="var(--surface)" stroke="var(--muted)"/>
+          <circle cx="50" cy="76" r="4" fill="#3ECF8E"/>
+          <text x="62" y="81" font-family="var(--sans)" font-size="14" fill="currentColor">Ready</text>
+          <rect x="142" y="54" width="96" height="44" rx="6" fill="var(--surface)" stroke="#FFB224" stroke-width="1.5"/>
+          <circle cx="156" cy="76" r="4" fill="#FFB224"/>
+          <text x="168" y="81" font-family="var(--sans)" font-size="14" fill="currentColor">NotReady</text>
+          <rect x="248" y="54" width="96" height="44" rx="6" fill="var(--surface)" stroke="var(--muted)"/>
+          <circle cx="262" cy="76" r="4" fill="#3ECF8E"/>
+          <text x="274" y="81" font-family="var(--sans)" font-size="14" fill="currentColor">Ready</text>
+          <!-- Stage 1: detect -->
+          <line x1="52" y1="114" x2="52" y2="156" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="46,154 58,154 52,164" fill="var(--muted)"/>
+          <text x="76" y="136" font-family="var(--mono)" font-size="14" fill="var(--muted)">01 · Detect</text>
+          <text x="76" y="158" font-family="var(--sans)" font-size="14" fill="var(--muted)">Not ready for about ten minutes</text>
+          <!-- Stage 2: drain -->
+          <line x1="52" y1="170" x2="52" y2="212" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="46,210 58,210 52,220" fill="var(--muted)"/>
+          <text x="76" y="192" font-family="var(--mono)" font-size="14" fill="var(--muted)">02 · Drain — up to one hour</text>
+          <text x="76" y="214" font-family="var(--sans)" font-size="14" fill="var(--muted)">Pods move onto healthy nodes</text>
+          <!-- Stage 3: rebuild -->
+          <line x1="52" y1="226" x2="52" y2="268" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="46,266 58,266 52,276" fill="var(--muted)"/>
+          <text x="76" y="248" font-family="var(--mono)" font-size="14" fill="var(--muted)">03 · Rebuild</text>
+          <text x="76" y="270" font-family="var(--sans)" font-size="14" fill="var(--muted)">Same node name rejoins the pool</text>
+          <!-- After: pool back to full strength -->
+          <rect x="20" y="286" width="340" height="100" rx="8" fill="#111A26" stroke="var(--muted)"/>
+          <text x="36" y="312" font-family="var(--mono)" font-size="14" fill="var(--muted)">Node pool</text>
+          <rect x="36" y="326" width="96" height="44" rx="6" fill="var(--surface)" stroke="var(--muted)"/>
+          <circle cx="50" cy="348" r="4" fill="#3ECF8E"/>
+          <text x="62" y="353" font-family="var(--sans)" font-size="14" fill="currentColor">Ready</text>
+          <rect x="142" y="326" width="96" height="44" rx="6" fill="var(--surface)" stroke="#FFB224" stroke-width="1.5"/>
+          <circle cx="156" cy="348" r="4" fill="#3ECF8E"/>
+          <text x="168" y="353" font-family="var(--sans)" font-size="14" fill="currentColor">Ready</text>
+          <rect x="248" y="326" width="96" height="44" rx="6" fill="var(--surface)" stroke="var(--muted)"/>
+          <circle cx="262" cy="348" r="4" fill="#3ECF8E"/>
+          <text x="274" y="353" font-family="var(--sans)" font-size="14" fill="currentColor">Ready</text>
+        </svg>
+        <figcaption style="margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--muted)">An unhealthy node is drained and rebuilt automatically under the same name; GKE allows up to an hour for its Pods to move first.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -446,7 +493,7 @@ a.node:hover{border-color:var(--accent)}
       <div class="uses">
         <div><h3>Microservices modernisation</h3><p>Applications split into services that are deployed, versioned and scaled independently of each other.</p></div>
         <div><h3>CI/CD pipelines</h3><p>Build output goes to a cluster the pipeline can address directly, with rollout and rollback as ordinary steps.</p></div>
-        <div><h3>Multi-cluster estates</h3><p>Workloads spread across several clusters — by region, by tenant or by environment — under one management surface.</p></div>
+        <div><h3>Multi-cluster estates</h3><p>Workloads spread across several clusters — by region, by tenant or by environment — under one management surface. Clusters are grouped into a fleet — including ones running on-premises or on another cloud — so configuration and policy are applied to the group instead of cluster by cluster.</p></div>
       </div>
     </div>
   </section>
@@ -508,6 +555,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>Who handles Kubernetes upgrades?</span></h3><p>The control plane is patched and upgraded by Google. Node upgrades run automatically inside maintenance windows you define, and release channels set how quickly new Kubernetes versions reach the cluster.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>What operational work remains with us?</span></h3><p>Cluster infrastructure is managed, but workloads are not: deployment manifests, resource requests, access control and application monitoring still need owners. That operational layer is where a managed service partner fits.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>How is Kubernetes Engine priced?</span></h3><p>Standard bills the nodes you provision; Autopilot bills the resources workloads request. Which model costs less depends on utilisation and sizing, so we compare both against your workload profile — contact us.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>Zonal or regional cluster — does the choice matter?</span></h3><p>It changes where the control plane lives, and that is the part you cannot rebuild yourself. A zonal cluster keeps its control plane in one zone: if that zone has trouble the cluster cannot be reconfigured until the control plane returns, and where the nodes sit in that same single zone the workloads go down with it. A regional cluster spreads control plane replicas across several zones in the region, and each node pool is placed in three zones by default. Autopilot always uses the regional shape; for Standard clusters we take regional as the starting point for anything carrying production traffic.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>What makes a cluster add or remove nodes?</span></h3><p>The autoscaler looks for Pods that cannot be placed on any existing node and grows the pool until they fit, within the maximum size set for that pool. Its arithmetic is based on what each Pod requests, not on what it measurably uses, so requests set far above real consumption grow the cluster faster than demand does — right-sizing requests is part of the work. Nodes come back out when they sit underused and their Pods can run elsewhere, and a PodDisruptionBudget can hold that removal back until it is safe.</p></div>
+        <div><h3><span class="n" aria-hidden="true">08</span><span>How do workloads authenticate to Google Cloud services without key files?</span></h3><p>Through Workload Identity Federation. A Pod presents its Kubernetes service account, the platform exchanges that for a short-lived credential, and IAM policy is written against the service account itself. Nothing is exported to a file, stored in a Secret or put on a rotation schedule, and each application can be granted only the access its own job needs.</p></div>
       </div>
     </div>
   </section>

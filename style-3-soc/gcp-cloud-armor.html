@@ -435,7 +435,41 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">03</span><div><h3>Rate limiting</h3><p>Request thresholds are set per client, per rule and per backend, with throttling or a ban as the outcome.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>WAF rule provenance</h3><p>Cloud Armor's preconfigured WAF rules are derived from the open-source OWASP Core Rule Set.</p></div></div>
         <div><span class="n" aria-hidden="true">05</span><div><h3>DDoS response support</h3><p>On the Enterprise tier's annual subscription, eligible customers gain access to 24/7 DDoS response support from the team that defends Google's own services.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Rule evaluation</h3><p>Each rule carries a priority number, and a policy is worked through from the lowest number upwards; the first of them whose conditions match is normally the one that settles the request. Numbering is usually left with gaps so later rules can be inserted without renumbering the policy.</p></div></div>
+        <div><span class="n" aria-hidden="true">07</span><div><h3>Body inspection limit</h3><p>Preconfigured WAF rules read only part of a large request body: inspection stops at 64 kB unless a smaller ceiling is configured, and the value is picked from a fixed set of sizes. Bodies sent as XML are not decoded. Both boundaries are worth settling before a policy is tuned.</p></div></div>
       </div>
+      <figure style="max-width:480px;margin:28px auto 0">
+        <svg viewBox="0 0 360 364" role="img" style="width:100%;height:auto;display:block">
+          <title>How Cloud Armor evaluates a request: the rules in a security policy are checked in priority order, lowest number first; the first of them whose conditions match is normally the one applied, and the default rule handles anything that matched nothing.</title>
+          <rect x="24" y="6" width="312" height="34" rx="6" fill="#111A26" stroke="var(--muted)"/>
+          <text x="180" y="28" text-anchor="middle" font-size="13" fill="currentColor">Request arrives at the load balancer</text>
+          <line x1="180" y1="40" x2="180" y2="52" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="174,52 186,52 180,60" fill="#FFB224"/>
+          <rect x="24" y="64" width="312" height="38" rx="6" fill="var(--surface)" stroke="var(--muted)"/>
+          <text x="38" y="88" font-family="var(--mono)" font-size="13" fill="var(--muted)">1000</text>
+          <text x="96" y="88" font-size="13" fill="currentColor">Deny — addresses on a blocklist</text>
+          <line x1="60" y1="102" x2="60" y2="116" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="54,116 66,116 60,124" fill="#FFB224"/>
+          <text x="78" y="120" font-size="13" fill="var(--muted)">no match</text>
+          <rect x="24" y="128" width="312" height="38" rx="6" fill="var(--surface)" stroke="var(--muted)"/>
+          <text x="38" y="152" font-family="var(--mono)" font-size="13" fill="var(--muted)">2000</text>
+          <text x="96" y="152" font-size="13" fill="currentColor">Throttle — a client over its limit</text>
+          <line x1="60" y1="166" x2="60" y2="180" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="54,180 66,180 60,188" fill="#FFB224"/>
+          <text x="78" y="184" font-size="13" fill="var(--muted)">no match</text>
+          <rect x="24" y="192" width="312" height="38" rx="6" fill="#111A26" stroke="#FFB224"/>
+          <rect x="24" y="192" width="5" height="38" rx="2" fill="#FFB224"/>
+          <text x="44" y="216" font-family="var(--mono)" font-size="13" fill="var(--muted)">3000</text>
+          <text x="96" y="216" font-size="13" fill="currentColor">Deny — preconfigured WAF match</text>
+          <text x="60" y="254" font-size="13" fill="var(--muted)">match — normally the rule applied</text>
+          <rect x="24" y="268" width="312" height="38" rx="6" fill="none" stroke="var(--muted)" stroke-dasharray="4 4"/>
+          <text x="38" y="292" font-family="var(--mono)" font-size="13" fill="var(--muted)">default</text>
+          <text x="96" y="292" font-size="13" fill="currentColor">The fallback action you set</text>
+          <text x="180" y="330" text-anchor="middle" font-size="13" fill="var(--muted)">Reached only if nothing above matched</text>
+          <text x="180" y="352" text-anchor="middle" font-size="13" fill="var(--muted)">Rules run in priority order, lowest number first</text>
+        </svg>
+        <figcaption style="margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--muted)">Rules are checked in priority order and the first match is normally the rule applied; the default rule only sees what nothing else claimed.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -445,7 +479,7 @@ a.node:hover{border-color:var(--accent)}
       <h2 class="sec">Three situations it is built for.</h2>
       <div class="uses">
         <div><h3>High-traffic websites</h3><p>Public sites whose availability is the product, where an attack and a launch look the same from the origin.</p></div>
-        <div><h3>Retail launches</h3><p>Flash sales and ticket releases where automated buyers arrive faster than customers and take the stock.</p></div>
+        <div><h3>Retail launches</h3><p>Flash sales and ticket releases where automated buyers arrive faster than customers and take the stock. Rate-based rules are the usual instrument here: count requests per client key and ban the ones that cross the threshold for a fixed period.</p></div>
         <div><h3>Financial services</h3><p>Banking and payment front ends, where the perimeter has to be policed separately from the application itself.</p></div>
       </div>
     </div>
@@ -502,6 +536,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>Does it cover OWASP Top 10 attacks?</span></h3><p>Preconfigured WAF rules derived from the OWASP Core Rule Set address injection, cross-site scripting and related classes. Rules are tunable per policy, and a custom rules language encodes application-specific conditions.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>What if our services sit behind other entry points?</span></h3><p>Cloud Armor policies attach to supported Google Cloud load balancers, including global application load balancers and several network load balancer types. Anything fronted elsewhere is outside its scope, so load-balancing design comes first.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>How is Cloud Armor priced?</span></h3><p>Costs scale with the policies and rules you run and the traffic they evaluate; the Enterprise tier is a subscription with annual and pay-as-you-go options. Contact us to assess which tier your exposure justifies.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>Can we try a rule before it starts blocking real users?</span></h3><p>Yes. A rule can be run in preview: it is evaluated against live traffic and whatever it would have done is recorded for monitoring, while the traffic itself passes through untouched. Policies are normally tuned this way — watch what a rule would have caught over a representative period, review the would-be blocks with the application owners, then enforce it.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>How do we slow down abusive clients without blocking everyone?</span></h3><p>With rate-based rules. Requests are counted per key — the client address, an HTTP header, a cookie, the URL path, the country the request came from, or a TLS fingerprint — and as many as three of those can be combined into one key. Crossing the threshold either throttles the caller or bans it for a set period, and both the counting interval and the ban length are chosen from a fixed list of values rather than typed in freely.</p></div>
+        <div><h3><span class="n" aria-hidden="true">08</span><span>How quickly does Adaptive Protection start to help?</span></h3><p>It needs traffic before it says anything: at least an hour to establish what ordinary load looks like for the application. After that, an alert carries a confidence score, a signature describing the attributes the suspect traffic shares — addresses, regions, user agents, headers — and a candidate rule with an estimate of how much ordinary traffic that rule would also catch. The full alert needs the Enterprise tier; without it only a basic alert is raised.</p></div>
       </div>
     </div>
   </section>

@@ -435,7 +435,46 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">03</span><div><h3>Grounding sources</h3><p>Model answers can be tied to your own corpus, so a response cites material the organisation actually holds.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Google's service level agreement for Vertex AI sets a monthly uptime objective of at least 99.9% for training, deployment and batch prediction, and at least 99.5% for custom-model online prediction served from two or more nodes.</p></div></div>
         <div><span class="n" aria-hidden="true">05</span><div><h3>European regions</h3><p>The Vertex AI locations list includes eleven European regions.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Model registry and versions</h3><p>Trained models are registered as numbered versions with aliases pointing at them, so the team can say which version is serving today and move back to an earlier one without rebuilding it.</p></div></div>
+        <div><span class="n" aria-hidden="true">07</span><div><h3>Skew and drift monitoring</h3><p>A deployed tabular model is watched on two axes: whether production input still resembles the training data, and whether it has moved away from what production itself looked like earlier. Either comparison can raise an alert on the features you nominate.</p></div></div>
       </div>
+      <figure style="max-width:520px;margin:28px auto 0">
+        <svg viewBox="0 0 360 500" style="width:100%;height:auto" role="img">
+          <title>How grounding works: your documents are split into chunks and embedded into a vector index; when a question arrives the matching passages are retrieved from that index and handed to the model as context.</title>
+          <!-- phase 1: indexing -->
+          <text x="30" y="20" font-family="var(--mono)" font-size="14" fill="var(--muted)">Indexing — before any question</text>
+          <rect x="30" y="30" width="300" height="40" rx="8" fill="#111A26" stroke="var(--muted)"/>
+          <text x="46" y="55" font-family="var(--sans)" font-size="15" fill="currentColor">Your own documents</text>
+          <line x1="60" y1="70" x2="60" y2="94" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="54,94 66,94 60,104" fill="var(--muted)"/>
+          <text x="80" y="92" font-family="var(--sans)" font-size="14" fill="var(--muted)">split into chunks</text>
+          <rect x="30" y="110" width="300" height="40" rx="8" fill="#111A26" stroke="var(--muted)"/>
+          <text x="46" y="135" font-family="var(--sans)" font-size="15" fill="currentColor">An embedding per chunk</text>
+          <line x1="60" y1="150" x2="60" y2="174" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="54,174 66,174 60,184" fill="var(--muted)"/>
+          <text x="80" y="172" font-family="var(--sans)" font-size="14" fill="var(--muted)">indexed for similarity search</text>
+          <rect x="30" y="190" width="300" height="54" rx="8" fill="var(--surface)" stroke="#FFB224" stroke-width="1.5"/>
+          <text x="46" y="214" font-family="var(--sans)" font-size="15" fill="currentColor">Vector index of your corpus</text>
+          <text x="46" y="234" font-family="var(--sans)" font-size="14" fill="var(--muted)">searched by meaning, not keywords</text>
+          <!-- phase 2: retrieval at question time -->
+          <text x="30" y="278" font-family="var(--mono)" font-size="14" fill="var(--muted)">At question time</text>
+          <rect x="30" y="288" width="300" height="40" rx="8" fill="#111A26" stroke="var(--muted)"/>
+          <text x="46" y="313" font-family="var(--sans)" font-size="15" fill="currentColor">A question arrives</text>
+          <line x1="60" y1="328" x2="60" y2="352" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="54,352 66,352 60,362" fill="var(--muted)"/>
+          <text x="80" y="350" font-family="var(--sans)" font-size="14" fill="var(--muted)">the index is searched</text>
+          <path d="M30 217 H14 V388 H22" fill="none" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="20,382 20,394 30,388" fill="var(--muted)"/>
+          <rect x="30" y="368" width="300" height="40" rx="8" fill="#111A26" stroke="var(--muted)"/>
+          <text x="46" y="393" font-family="var(--sans)" font-size="15" fill="currentColor">Matching passages retrieved</text>
+          <line x1="60" y1="408" x2="60" y2="432" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="54,432 66,432 60,442" fill="var(--muted)"/>
+          <text x="80" y="430" font-family="var(--sans)" font-size="14" fill="var(--muted)">passages added to the prompt</text>
+          <rect x="30" y="448" width="300" height="40" rx="8" fill="#111A26" stroke="var(--muted)"/>
+          <text x="46" y="473" font-family="var(--sans)" font-size="15" fill="currentColor">Model answers from those passages</text>
+        </svg>
+        <figcaption style="margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--muted)">Grounding is a pipeline rather than a setting: the corpus is indexed once and kept current, and every question is answered from the passages retrieved for it.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -445,7 +484,7 @@ a.node:hover{border-color:var(--accent)}
       <h2 class="sec">Three situations it is built for.</h2>
       <div class="uses">
         <div><h3>Internal agents</h3><p>Assistants built against the organisation's own systems and documents, rather than a general model answering from the open web.</p></div>
-        <div><h3>Model fine-tuning</h3><p>Adapting a base model to a domain's own vocabulary and task shape, where prompting alone stops being enough.</p></div>
+        <div><h3>Model fine-tuning</h3><p>Adapting a base model to a domain's own vocabulary and task shape, where prompting alone stops being enough. Supervised tuning, reinforcement learning and preference tuning are each offered for Gemini models, with the methods listed per model, so the approach can follow the task and the labelled material actually at hand.</p></div>
         <div><h3>AutoML builds</h3><p>A first working model produced from labelled data without a team writing the training loop by hand.</p></div>
       </div>
     </div>
@@ -504,6 +543,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>Will our prompts or tuning data train Google's models?</span></h3><p>No. Google's Vertex AI data-governance documentation commits that customer data — prompts, outputs and tuning datasets — is not used for training or fine-tuning of its models unless you give prior permission or instruction. Controls and auditability follow your existing Google Cloud project settings.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>How is Vertex AI charged?</span></h3><p>Consumption-based: training compute, serving nodes and managed features are metered separately, so the total depends on architecture and usage patterns. Contact us for an estimate built on your actual workloads.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>Who runs the platform day to day?</span></h3><p>Vertex AI removes most infrastructure work, but models still need an owner for evaluation, retraining and monitoring. That role can sit in-house or with a managed partner. [TODO: Volcatech delivery model and response times]</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>How do we know a model still behaves the way it did when it was approved?</span></h3><p>Monitoring watches the feature values reaching a deployed tabular model and separates two different failures. Skew is judged against the distribution those features had in the training data, and catches production input that never looked like what the model learned from. Drift is judged against the distribution the same features showed in production earlier, and catches input that has shifted since. Comparisons run on a schedule you set, against thresholds you set per feature, so a degraded model surfaces as an alert rather than as a business result months later.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>Can training be repeatable rather than a notebook someone remembers to run?</span></h3><p>Yes. A pipeline describes the steps as code and runs them as a managed workflow, so preparation, training, evaluation and registration happen in the same order every time, with no infrastructure to stand up for a run. Steps whose inputs have not changed can reuse the previous result instead of recomputing it, and each run records the artefacts it produced, so months later it is still possible to say which data and which code produced a given model version.</p></div>
+        <div><h3><span class="n" aria-hidden="true">08</span><span>Can prediction endpoints be kept off the public internet?</span></h3><p>Yes, and it is a design decision rather than a later hardening step. Endpoints can be published privately through Private Service Connect so that calls reach them across your own network instead of a public address, and the service can be placed inside a VPC Service Controls perimeter that limits which projects and networks may reach it at all. Coverage differs by model type — tuned Gemini models, for one, are served from shared public endpoints — so the network design is confirmed per workload. It is best settled before applications are written, because moving an endpoint afterwards means changing every caller.</p></div>
       </div>
     </div>
   </section>

@@ -434,6 +434,8 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">02</span><div><h3>Capacity growth</h3><p>A share can be scaled up as the dataset grows, without moving clients to a new mount point.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Snapshots and backups</h3><p>Point-in-time copies are taken by the service itself, rather than by a job running inside the file system.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>Scale and limits</h3><p>Large zonal and regional instances can be provisioned from 10 TiB up to 100 TiB of capacity per instance.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Performance sized separately</h3><p>On the zonal and regional tiers performance is a configurable setting in its own right; on the basic tiers it comes fixed with the tier instead.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Snapshot ceiling</h3><p>An instance can hold as many as 240 snapshots at once, and they occupy space only as the data they reference changes.</p></div></div>
       </div>
     </div>
   </section>
@@ -444,7 +446,7 @@ a.node:hover{border-color:var(--accent)}
       <h2 class="sec">Three situations it is built for.</h2>
       <div class="uses">
         <div><h3>Content management</h3><p>A CMS whose media library and uploads live on a shared volume rather than in one server's disk.</p></div>
-        <div><h3>Media production</h3><p>Editing and rendering workstations working on the same project files without copying them between hosts.</p></div>
+        <div><h3>Media production</h3><p>Editing and rendering workstations working on the same project files without copying them between hosts. An editor who overwrites the wrong take can copy the earlier version back out of a snapshot directory, without raising a restore request.</p></div>
         <div><h3>Legacy applications</h3><p>Systems that expect a mounted path and were never designed to talk to an object store.</p></div>
       </div>
     </div>
@@ -501,6 +503,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>What happens if a zone fails?</span></h3><p>A zonal instance lives in a single zone and goes offline if that zone fails. Regional instances replicate across zones and fail over transparently, so mission-critical shares belong on the regional tier.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>Can instances stay within the EU?</span></h3><p>Yes. An instance lives in the region you choose and its data stays there. Select an EU region to meet residency requirements, and the regional tier if you also need cross-zone resilience.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>How is capacity sized and charged?</span></h3><p>You provision capacity per instance and can grow it as workloads demand. Cost follows provisioned capacity, service tier and region rather than usage alone — contact us to size a share against your throughput and growth expectations.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>Can Kubernetes workloads share one volume?</span></h3><p>Yes, and this is one of the common reasons to choose Filestore. The Filestore CSI driver presents a share to a cluster as a persistent volume that many nodes mount for reading and writing at the same time, which is what stateful workloads spread across nodes need. For Kubernetes workloads on the zonal and regional tiers, the performance setting can also be raised or lowered while the cluster keeps serving.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>What is the practical difference between a snapshot and a backup?</span></h3><p>Reach. A snapshot belongs to the instance it was taken on, and it is what you use to put back a file someone overwrote this morning. A backup is an independent differential copy that is addressable from anywhere, so it can rebuild the share in whichever region you choose. The difference that shows up on a bad day is lifecycle: deleting the instance takes its snapshots with it, while a backup carries on and has to be deleted in its own right.</p></div>
+        <div><h3><span class="n" aria-hidden="true">08</span><span>What is the plan if we lose a whole region?</span></h3><p>An instance can be paired with a standby elsewhere, and for protection against a regional outage that means a second region rather than a second zone. Changes are copied across asynchronously — usually at intervals of five to ten minutes, against a recovery point objective that targets about 30 minutes, which is quoted for a defined rate of change rather than for every share. If the first region goes down, the standby is promoted and starts accepting writes. Two things to design for: whatever was written since the last copy is not on the standby, which is what that recovery point objective describes, and the return to the original region is not automatic — applications have to be pointed back deliberately.</p></div>
       </div>
     </div>
   </section>

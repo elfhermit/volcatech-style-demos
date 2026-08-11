@@ -422,6 +422,33 @@ a.node:hover{border-color:var(--accent)}
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/></svg><h3>Works while offline</h3><p>Reads and writes go to a local cache when the network drops, and reconcile when it returns. The application does not need a separate offline path.</p></div>
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16M20 4v16"/><path d="M8 12h8"/><path d="M13 9l3 3-3 3"/></svg><h3>Rules enforced at the database</h3><p>Access is expressed as rules on documents and fields, evaluated by the service. A client can talk to the database directly without that becoming an open door.</p></div>
       </div>
+      <figure style="max-width:460px;margin:26px auto 0">
+        <svg viewBox="0 0 380 396" role="img" style="width:100%;height:auto;display:block">
+          <title>How a change reaches other devices: a write is applied to the local cache on the writing device, sent to Firestore when the device has a connection, and delivered from there to every listener attached to that document.</title>
+          <rect x="20" y="14" width="340" height="92" rx="8" fill="var(--surface)" stroke="var(--muted)"/>
+          <text x="34" y="40" font-family="var(--sans)" font-size="15" fill="currentColor">Device A — writing</text>
+          <rect x="34" y="52" width="150" height="30" rx="5" fill="#111A26" stroke="#FFB224"/>
+          <text x="46" y="72" font-family="var(--sans)" font-size="14" fill="currentColor">Local cache</text>
+          <text x="196" y="66" font-family="var(--sans)" font-size="14" fill="var(--muted)">applied here first,</text>
+          <text x="196" y="86" font-family="var(--sans)" font-size="14" fill="var(--muted)">even when offline</text>
+          <line x1="190" y1="106" x2="190" y2="140" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="184,140 196,140 190,150" fill="#FFB224"/>
+          <text x="204" y="130" font-family="var(--sans)" font-size="14" fill="var(--muted)">sent on when online</text>
+          <rect x="20" y="158" width="340" height="86" rx="8" fill="var(--surface)" stroke="var(--muted)"/>
+          <text x="34" y="186" font-family="var(--sans)" font-size="15" fill="currentColor">Firestore</text>
+          <text x="34" y="212" font-family="var(--sans)" font-size="14" fill="var(--muted)">stores the document, then tells</text>
+          <text x="34" y="232" font-family="var(--sans)" font-size="14" fill="var(--muted)">every listener on it</text>
+          <line x1="190" y1="244" x2="190" y2="276" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="184,276 196,276 190,286" fill="#FFB224"/>
+          <text x="204" y="266" font-family="var(--sans)" font-size="14" fill="var(--muted)">pushes the change</text>
+          <rect x="20" y="294" width="340" height="92" rx="8" fill="var(--surface)" stroke="var(--muted)"/>
+          <text x="34" y="320" font-family="var(--sans)" font-size="15" fill="currentColor">Device B — listening</text>
+          <rect x="34" y="332" width="150" height="30" rx="5" fill="#111A26" stroke="var(--muted)"/>
+          <text x="46" y="352" font-family="var(--sans)" font-size="14" fill="currentColor">Listener</text>
+          <text x="196" y="352" font-family="var(--sans)" font-size="14" fill="var(--muted)">screen follows</text>
+        </svg>
+        <figcaption style="margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--muted)">A write reaches the local cache first and the service afterwards; from there the change is delivered to every listener attached to that document.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -435,6 +462,8 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">03</span><div><h3>Multi-region transactions</h3><p>Transactions commit or roll back across replicas in more than one region, without a queue to reconcile afterwards.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Multi-region Firestore carries a 99.999% monthly uptime SLA; regional deployments carry 99.99% in most Google Cloud regions.</p></div></div>
         <div><span class="n" aria-hidden="true">05</span><div><h3>Indexing default</h3><p>Queries are indexed by default, and performance tracks the size of the result set rather than the dataset.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Document size ceiling</h3><p>A document holds up to 1 MiB (1,048,576 bytes) and collections nest up to a hundred levels deep — both are modelling limits rather than quotas to be raised.</p></div></div>
+        <div><span class="n" aria-hidden="true">07</span><div><h3>Recovery window</h3><p>With point-in-time recovery enabled, one version of each document is kept per minute for seven days, and the last hour can be read at finer granularity.</p></div></div>
       </div>
     </div>
   </section>
@@ -446,7 +475,7 @@ a.node:hover{border-color:var(--accent)}
       <div class="uses">
         <div><h3>Mobile applications</h3><p>Client applications that read and write directly, with the network treated as intermittent by default.</p></div>
         <div><h3>Collaboration tools</h3><p>Chat and shared editing, where two people looking at the same document should see the same thing.</p></div>
-        <div><h3>Game state</h3><p>Session and player state shared between devices in a match, updated as the state changes.</p></div>
+        <div><h3>Game state</h3><p>Session and player state shared between devices in a match, updated as the state changes. Session records that should not outlive the match can carry an expiry field, and the service removes them without a clean-up job to run.</p></div>
       </div>
     </div>
   </section>
@@ -502,6 +531,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>Can we meet EU data residency requirements?</span></h3><p>Firestore databases are created in a specific location, which can be an EU region; document data is stored there. Multi-region configurations replicate within the selected geography, not across it.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>How reliable is Firestore in production?</span></h3><p>Google commits to 99.999% monthly uptime for multi-region deployments and 99.99% for regional ones in most regions. Replication and scaling are handled by the service rather than by your team.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>What drives Firestore costs?</span></h3><p>Charges follow document reads, writes, deletes, storage and network egress, so cost tracks how the application actually behaves. Model your access patterns first — contact us and we will analyse them with you.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>Do we need our own push or websocket layer?</span></h3><p>No. A listener receives a snapshot of the data when it attaches and then only the changes that follow. Local writes fire the same callbacks straight away, before the server has confirmed them, and each document carries a flag showing whether it still has writes pending — which is what lets an interface feel immediate without pretending the change is durable yet.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>Can we recover from a bad write or a mistaken deletion?</span></h3><p>With point-in-time recovery switched on, the database keeps one version of each document per minute for seven days. A targeted fix reads the affected documents as they stood at a chosen minute and writes them back; a wider one clones the database, or exports and imports it, at a past timestamp. Within the last hour, states can be read at finer granularity — read only, not exported.</p></div>
+        <div><h3><span class="n" aria-hidden="true">08</span><span>How do we stop expired records accumulating?</span></h3><p>A time-to-live policy points at a single timestamp field within a collection group, and documents go once that time has passed — typically within a day of it rather than at the instant it is reached. Two behaviours belong in the design: expired documents still appear in queries until the deletion actually runs, and subcollections beneath a deleted document are not removed with it.</p></div>
       </div>
     </div>
   </section>

@@ -434,6 +434,8 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">02</span><div><h3>Partner models</h3><p>Claude from Anthropic, Llama from Meta, Mistral and Grok are available through the same catalogue.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Open models</h3><p>DeepSeek, Qwen, gpt-oss and Kimi can be deployed where an open-weight model is preferred to a hosted one.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>Catalogue size</h3><p>Google lists a curated catalogue of more than 200 models in Model Garden, spanning its own, partner and open model families.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Two ways to serve a model</h3><p>Open models from the catalogue are served either through a managed API that Google runs, or from an endpoint deployed inside your own project and VPC network. Not every model offers both, so the route is checked per model.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Containers for open weights</h3><p>Self-deployed open models run from a prebuilt serving container, from a custom vLLM container, or from weights you supply yourself — which is the route for a model your team has already tuned.</p></div></div>
       </div>
     </div>
   </section>
@@ -445,7 +447,7 @@ a.node:hover{border-color:var(--accent)}
       <div class="uses">
         <div><h3>Multimodal output</h3><p>Text, image, audio and video generation drawn from whichever family in the catalogue covers that medium.</p></div>
         <div><h3>Coding assistance</h3><p>Code completion and review models evaluated side by side before one is put in front of developers.</p></div>
-        <div><h3>Domain trials</h3><p>Short comparisons on your own material, to find which model is worth the tuning effort.</p></div>
+        <div><h3>Domain trials</h3><p>Short comparisons on your own material, to find which model is worth the tuning effort. Because every candidate is reached through the same project, a shortlist can be tested side by side without opening an account with each vendor first.</p></div>
       </div>
     </div>
   </section>
@@ -500,6 +502,8 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>Do partner models change our data terms?</span></h3><p>Partner models are consumed through your Google Cloud project rather than a separate vendor service, and each model card states the terms that apply. We review those terms during model selection.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>Can prompts stay in European regions?</span></h3><p>Endpoints are regional and many models can be served from European regions, but coverage differs per model. We verify residency on the model card for each shortlisted model before rollout.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>How is usage charged?</span></h3><p>Managed model APIs meter on usage, while self-deployed open models meter on the serving infrastructure you provision. Which is more economical depends on traffic shape and model choice — contact us to model both.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>What is the operational difference between a managed model API and one we deploy ourselves?</span></h3><p>A managed API is called over the network and Google keeps the serving side running, so nothing is provisioned inside your project. A self-deployed model runs on an endpoint you create, on machines and accelerators you choose, which gives control over the exact version, the isolation and the capacity behind it — and makes that serving layer yours to size and keep healthy. The trade-off is usually control against operational load, and it can differ per model on the same shortlist.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>Can we tune a model from the catalogue, or only use it as it comes?</span></h3><p>Tuning is part of the platform rather than a separate exercise. For Gemini the platform offers supervised tuning, reinforcement learning and preference tuning, with the methods listed per model; open models can be tuned by supervised and distillation methods. A tuned model is deployed to an endpoint and called the same way as the base model it came from, so adopting it is a change of target rather than a rewrite of the application.</p></div>
       </div>
     </div>
   </section>

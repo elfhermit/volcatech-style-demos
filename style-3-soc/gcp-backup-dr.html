@@ -434,7 +434,35 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">02</span><div><h3>Database support</h3><p>Oracle, SQL Server and SAP HANA are handled as applications, not as the disks they happen to sit on.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Policy-based schedules</h3><p>Retention and frequency are attached to a policy, so adding a workload means assigning it rather than configuring it.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>Backup immutability</h3><p>Backup vault storage enforces both immutability and indelibility: stored backup data can neither be modified nor deleted during its retention period.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Schedule granularity</h3><p>Rules run hourly, daily, weekly, monthly or yearly, each with its own retention and a start window of no less than six hours; one plan cannot hold two rules on the same frequency.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Where a vault can sit</h3><p>A vault is created either in a single region or in one of the multi-regions covering Asia, the EU and the United States. The choice narrows by workload: a vault holding AlloyDB backups has to sit in the region its source cluster sits in, while a Filestore vault can be placed in a second region but not in a multi-region.</p></div></div>
       </div>
+      <figure style="max-width:480px;margin:28px auto 0">
+        <svg viewBox="0 0 380 400" style="width:100%;height:auto" role="img">
+          <title>Protected workloads are copied on the plan's schedule into a backup vault, whose contents cannot be changed or deleted before the enforced retention has passed; restores bring copies back to the workload.</title>
+          <rect x="14" y="14" width="290" height="56" rx="8" fill="#111A26" stroke="var(--muted)"/>
+          <text x="32" y="40" font-family="var(--sans)" font-size="16" fill="currentColor">Workloads</text>
+          <text x="32" y="60" font-family="var(--sans)" font-size="14" fill="var(--muted)">VMs, databases, file shares</text>
+          <line x1="70" y1="70" x2="70" y2="88" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="64,88 76,88 70,98" fill="#FFB224"/>
+          <text x="92" y="88" font-family="var(--sans)" font-size="14" fill="var(--muted)">on the plan's schedule</text>
+          <rect x="14" y="100" width="290" height="62" rx="8" fill="#111A26" stroke="var(--muted)"/>
+          <text x="32" y="126" font-family="var(--sans)" font-size="16" fill="currentColor">Backup plan</text>
+          <text x="32" y="148" font-family="var(--sans)" font-size="14" fill="var(--muted)">rules set frequency and retention</text>
+          <line x1="70" y1="162" x2="70" y2="180" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="64,180 76,180 70,190" fill="#FFB224"/>
+          <text x="92" y="180" font-family="var(--sans)" font-size="14" fill="var(--muted)">changed blocks only</text>
+          <rect x="14" y="192" width="290" height="104" rx="8" fill="var(--surface)" stroke="#FFB224" stroke-width="1.5"/>
+          <text x="32" y="220" font-family="var(--sans)" font-size="16" fill="currentColor">Backup vault</text>
+          <text x="32" y="246" font-family="var(--sans)" font-size="14" fill="var(--muted)">contents cannot be changed or</text>
+          <text x="32" y="268" font-family="var(--sans)" font-size="14" fill="var(--muted)">deleted before retention expires</text>
+          <path d="M159 296 V320 H340 V42 H312" fill="none" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="312,36 312,48 304,42" fill="#FFB224"/>
+          <text x="14" y="348" font-family="var(--sans)" font-size="14" fill="var(--muted)">Restore returns copies to the workload</text>
+          <text x="14" y="376" font-family="var(--mono)" font-size="14" fill="var(--muted)">Enforced retention: 1 day to 99 years</text>
+        </svg>
+        <figcaption style="margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--muted)">Copies leave the workload on a schedule and land in a vault that cannot be rewritten or emptied until the retention set on it has run out.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -501,6 +529,8 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>Does it stop ransomware deleting our backups?</span></h3><p>Backups in a backup vault are immutable and indelible until their retention expires — they cannot be rewritten or purged. Self-managed snapshot storage does not carry the same guarantee.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>Where do the backup copies live?</span></h3><p>Backup vaults are created in the region or multi-region you select, so copies can stay within EU boundaries. Vault storage is Google-managed and sits outside your own projects, separating it from production credentials.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>What drives the cost of backup?</span></h3><p>Stored vault capacity, the number of protected workloads and retention length are the main drivers; incremental capture keeps stored volume below repeated full copies. Contact us for an estimate modelled on your estate.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>Can protected copies be used for anything besides recovery?</span></h3><p>Where the estate is protected through a backup/recovery appliance, yes. A copy can be cloned into an independent dataset for user acceptance testing, audit work or e-discovery, and a live clone can be refreshed on demand or on a schedule so a test environment tracks production without a fresh full copy each time. Copies written into a backup vault are there to be restored from — the clone and mount options belong to the appliance-managed path, which is worth knowing before a team plans around them.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>Once backups exist, who can shorten how long they are kept?</span></h3><p>Nobody, and that is deliberate. The floor is a property of the vault rather than of anyone's permissions: a vault is created with a minimum enforced retention of anywhere from one day to 99 years, and a backup rule writing into it may keep copies for longer but never for less. A backup becomes eligible for deletion only once that period has passed — which is the difference between a retention policy and a retention intention.</p></div>
       </div>
     </div>
   </section>

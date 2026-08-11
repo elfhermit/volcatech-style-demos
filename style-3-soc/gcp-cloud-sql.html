@@ -435,7 +435,38 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">03</span><div><h3>Encryption at rest</h3><p>Data and backups are encrypted without a key management step being added to the deployment.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>With high availability enabled, Cloud SQL carries a monthly uptime SLA of 99.95% on Enterprise edition and 99.99% on Enterprise Plus.</p></div></div>
         <div><span class="n" aria-hidden="true">05</span><div><h3>Engine coverage</h3><p>One managed service covers three engines: MySQL, PostgreSQL and SQL Server.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Failover behaviour</h3><p>A high-availability instance keeps a standby in a second zone; when the primary stops answering its heartbeat the standby takes over, applications reconnect on the same address, and the instance is unavailable for about a minute.</p></div></div>
+        <div><span class="n" aria-hidden="true">07</span><div><h3>Storage ceiling</h3><p>Dedicated-core instances scale to 64 TB of storage; shared-core instances stop at 3 TB.</p></div></div>
       </div>
+      <figure style="max-width:480px;margin:26px auto 0">
+        <svg viewBox="0 0 380 392" role="img" style="width:100%;height:auto;display:block">
+          <title>A high-availability Cloud SQL instance: the application connects to one address; writes are committed in two zones before they are acknowledged; if the primary stops answering its heartbeat the standby takes over; read replicas receive an asynchronous copy.</title>
+          <rect x="90" y="12" width="200" height="38" rx="6" fill="#111A26" stroke="var(--muted)"/>
+          <text x="190" y="36" text-anchor="middle" font-family="var(--sans)" font-size="14" fill="currentColor">Application — one address</text>
+          <line x1="190" y1="50" x2="190" y2="82" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="184,82 196,82 190,92" fill="#FFB224"/>
+          <rect x="14" y="100" width="352" height="168" rx="10" fill="none" stroke="var(--muted)"/>
+          <text x="28" y="124" font-family="var(--mono)" font-size="14" fill="var(--muted)">Regional instance</text>
+          <rect x="28" y="136" width="150" height="64" rx="6" fill="var(--surface)" stroke="#FFB224"/>
+          <circle cx="44" cy="158" r="4" fill="#3ECF8E"/>
+          <text x="56" y="163" font-family="var(--sans)" font-size="15" fill="currentColor">Primary</text>
+          <text x="44" y="187" font-family="var(--sans)" font-size="14" fill="var(--muted)">zone A</text>
+          <rect x="202" y="136" width="150" height="64" rx="6" fill="var(--surface)" stroke="var(--muted)"/>
+          <text x="216" y="163" font-family="var(--sans)" font-size="15" fill="currentColor">Standby</text>
+          <text x="216" y="187" font-family="var(--sans)" font-size="14" fill="var(--muted)">zone B</text>
+          <line x1="178" y1="168" x2="192" y2="168" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="192,162 192,174 202,168" fill="#FFB224"/>
+          <text x="190" y="224" text-anchor="middle" font-family="var(--sans)" font-size="14" fill="var(--muted)">writes committed in both zones</text>
+          <text x="190" y="250" text-anchor="middle" font-family="var(--sans)" font-size="14" fill="var(--muted)">heartbeat lost → standby takes over</text>
+          <line x1="104" y1="268" x2="104" y2="300" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="98,300 110,300 104,310" fill="#FFB224"/>
+          <text x="122" y="292" font-family="var(--sans)" font-size="14" fill="var(--muted)">asynchronous copy</text>
+          <rect x="20" y="318" width="340" height="62" rx="8" fill="var(--surface)" stroke="var(--muted)"/>
+          <text x="34" y="344" font-family="var(--sans)" font-size="15" fill="currentColor">Read replica</text>
+          <text x="34" y="368" font-family="var(--sans)" font-size="14" fill="var(--muted)">same region or another; reads only</text>
+        </svg>
+        <figcaption style="margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--muted)">Writes are acknowledged only once both zones hold them; on failover the standby serves the same address, and the instance is unavailable for about a minute.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -444,7 +475,7 @@ a.node:hover{border-color:var(--accent)}
       <p class="status"><span class="dot" aria-hidden="true"></span>Where it fits</p>
       <h2 class="sec">Three situations it is built for.</h2>
       <div class="uses">
-        <div><h3>Business applications</h3><p>Line-of-business systems whose database is a dependency rather than the thing being engineered.</p></div>
+        <div><h3>Business applications</h3><p>Line-of-business systems whose database is a dependency rather than the thing being engineered. Where reporting grows heavier, that traffic moves onto read replicas — Google advises keeping ten or fewer directly under the primary, with cascading levels below them when more are needed.</p></div>
         <div><h3>Content management</h3><p>WordPress, Drupal and similar platforms that expect a stock MySQL or PostgreSQL endpoint.</p></div>
         <div><h3>ERP and CRM</h3><p>Packaged systems certified against a specific engine version, where the vendor decides what is supported.</p></div>
       </div>
@@ -503,6 +534,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>What availability commitment does Cloud SQL carry?</span></h3><p>With high availability enabled, Google commits to 99.95% monthly uptime on Enterprise edition and 99.99% on Enterprise Plus. Single-zone and shared-core instances sit outside the SLA — a configuration detail worth checking early.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>How do we migrate from self-hosted databases?</span></h3><p>Replication-based migration keeps the source system live while data synchronises, so cutover shrinks to a short validation window. Google's Database Migration Service supports minimal-downtime migration for all three engines.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>How is Cloud SQL priced?</span></h3><p>Costs track provisioned compute, storage, networking and the edition you run. The right answer depends on sizing and availability requirements — contact us and we will size and optimise the configuration against your actual workload.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>How far back can we restore after a bad change?</span></h3><p>Point-in-time recovery covers a window that depends on the edition — up to seven days on Enterprise and up to thirty-five days on Enterprise Plus. It is worth settling that window before go-live, because it also decides how much history an incident review or an audit can reconstruct.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>Do maintenance updates take the database offline?</span></h3><p>Only briefly, and inside the window you set. On Enterprise the interruption stays under a minute; on Enterprise Plus it stays under a second, and maintenance counts inside that edition's uptime commitment instead of being excluded from it.</p></div>
+        <div><h3><span class="n" aria-hidden="true">08</span><span>How do applications reach the database without exposing it to the internet?</span></h3><p>An instance can hold a private address inside your VPC and no public one at all, which is the configuration Google recommends unless internet access is genuinely required. Private Service Connect extends that reach to VPC networks in other projects or organisations, the Cloud SQL Auth Proxy and the language connectors encrypt the connection and verify both ends, and IAM database authentication replaces built-in passwords where the estate already runs on Google identities.</p></div>
       </div>
     </div>
   </section>

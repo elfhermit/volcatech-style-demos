@@ -435,7 +435,48 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">03</span><div><h3>Service interconnect</h3><p>The environment reaches Google Cloud services over Google's network rather than across the public internet.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Clusters of 5 to 32 nodes in a single zone, configured with FTT=2 or higher, carry a monthly uptime SLA of at least 99.99%; 3-to-4-node clusters with FTT=1 carry at least 99.9%.</p></div></div>
         <div><span class="n" aria-hidden="true">05</span><div><h3>Included VMware stack</h3><p>The service bundles the VMware stack — vSphere, vCenter, vSAN and NSX — with HCX for workload migration.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Private cloud shape</h3><p>A cluster runs from 3 to 32 nodes, and one private cloud holds up to 32 clusters and 96 nodes, all of them inside a single region.</p></div></div>
+        <div><span class="n" aria-hidden="true">07</span><div><h3>Zone-spanning clusters</h3><p>A stretched private cloud divides its data nodes evenly between two zones in one region — 3+3 at the smallest, 16+16 at the largest — with a witness held in a third zone and run for you, so the cluster survives the loss of either data zone.</p></div></div>
       </div>
+      <figure style="max-width:520px;margin:28px auto 0">
+        <svg viewBox="0 0 380 376" style="width:100%;height:auto;display:block" role="img">
+          <title>How a VMware Engine environment is layered: your team administers the VMware stack through vCenter, the private cloud holds clusters of 3 to 32 nodes, and Google operates the dedicated hosts and the VMware platform beneath it.</title>
+          <!-- Your side -->
+          <rect x="14" y="12" width="352" height="54" rx="8" fill="var(--surface)" stroke="var(--muted)"/>
+          <text x="30" y="36" font-family="var(--mono)" font-size="14" fill="var(--muted)">Your team</text>
+          <text x="30" y="56" font-family="var(--sans)" font-size="14" fill="currentColor">vCenter · NSX Manager · HCX</text>
+          <line x1="190" y1="66" x2="190" y2="84" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="184,82 196,82 190,92" fill="var(--muted)"/>
+          <text x="204" y="82" font-family="var(--mono)" font-size="14" fill="var(--muted)">administers</text>
+          <!-- The private cloud you get -->
+          <rect x="14" y="96" width="352" height="164" rx="8" fill="#111A26" stroke="#FFB224" stroke-width="1.5"/>
+          <text x="30" y="120" font-family="var(--mono)" font-size="14" fill="var(--muted)">Private cloud — one region</text>
+          <rect x="30" y="132" width="160" height="86" rx="6" fill="var(--surface)" stroke="var(--muted)"/>
+          <text x="42" y="156" font-family="var(--mono)" font-size="14" fill="var(--muted)">Cluster</text>
+          <rect x="42" y="166" width="32" height="24" rx="4" fill="#111A26" stroke="var(--muted)"/>
+          <rect x="80" y="166" width="32" height="24" rx="4" fill="#111A26" stroke="var(--muted)"/>
+          <rect x="118" y="166" width="32" height="24" rx="4" fill="#111A26" stroke="var(--muted)"/>
+          <rect x="156" y="166" width="32" height="24" rx="4" fill="#111A26" stroke="var(--muted)"/>
+          <text x="42" y="208" font-family="var(--sans)" font-size="14" fill="currentColor">3 to 32 nodes</text>
+          <rect x="200" y="132" width="160" height="86" rx="6" fill="var(--surface)" stroke="var(--muted)" stroke-dasharray="5 5"/>
+          <text x="212" y="156" font-family="var(--mono)" font-size="14" fill="var(--muted)">Cluster</text>
+          <rect x="212" y="166" width="32" height="24" rx="4" fill="#111A26" stroke="var(--muted)" stroke-dasharray="4 4"/>
+          <rect x="250" y="166" width="32" height="24" rx="4" fill="#111A26" stroke="var(--muted)" stroke-dasharray="4 4"/>
+          <rect x="288" y="166" width="32" height="24" rx="4" fill="#111A26" stroke="var(--muted)" stroke-dasharray="4 4"/>
+          <rect x="326" y="166" width="32" height="24" rx="4" fill="#111A26" stroke="var(--muted)" stroke-dasharray="4 4"/>
+          <text x="212" y="208" font-family="var(--sans)" font-size="14" fill="var(--muted)">up to 32 per cloud</text>
+          <text x="30" y="244" font-family="var(--sans)" font-size="14" fill="var(--muted)">96 nodes in total across the private cloud</text>
+          <line x1="190" y1="260" x2="190" y2="278" stroke="var(--muted)" stroke-width="2"/>
+          <polygon points="184,276 196,276 190,286" fill="var(--muted)"/>
+          <text x="204" y="276" font-family="var(--mono)" font-size="14" fill="var(--muted)">runs on</text>
+          <!-- Google's side -->
+          <rect x="14" y="290" width="352" height="72" rx="8" fill="var(--surface)" stroke="var(--muted)"/>
+          <text x="30" y="314" font-family="var(--mono)" font-size="14" fill="var(--muted)">Google operates</text>
+          <text x="30" y="334" font-family="var(--sans)" font-size="14" fill="currentColor">Dedicated hosts and the VMware stack</text>
+          <text x="30" y="354" font-family="var(--sans)" font-size="14" fill="var(--muted)">Upgrades, monitoring and remediation</text>
+        </svg>
+        <figcaption style="margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--muted)">You administer the VMware stack through vCenter; Google operates the hosts and the platform underneath it.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -502,6 +543,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">02</span><span>How is this different from rebuilding on Compute Engine?</span></h3><p>Rehosting on Compute Engine means recreating each VM and adapting images, agents and networking. VMware Engine moves the environment largely unchanged, so timelines are set by migration waves rather than rebuild effort. Modernisation can follow at your own pace.</p></div>
         <div><h3><span class="n" aria-hidden="true">03</span><span>What does VMware licensing look like?</span></h3><p>The VMware software stack is licensed as part of the service, so no separate vSphere licence purchase is needed for the private cloud. Guest operating systems and third-party software are assessed separately.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>How quickly can capacity be added?</span></h3><p>Nodes join an existing private cloud on demand, without a procurement cycle, and clusters expand while workloads keep running. That elasticity is what makes phased data centre exits and standby disaster recovery viable.</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>Who operates the platform once the private cloud is live?</span></h3><p>Google does, up to the point where your workloads begin. The physical hosts, the ESXi layer and the VMware platform itself are run as part of the service — version upgrades, management plane backups, capacity and health monitoring, alerting and remediation all sit on that side of the line. What stays with you is everything above it: the virtual machines, their guest operating systems, the network segments and the policies applied to them.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>What are the routes for moving existing virtual machines across?</span></h3><p>HCX is deployed and licensed with the private cloud, and covers cold, bulk and vMotion moves, along with Layer 2 extension, which makes an existing subnet reachable inside the private cloud while a move is under way. Where HCX is not the right instrument there are other paths: restoring into the private cloud from your current backup product, moving VMs between vCenter instances with PowerCLI, or building fresh from templates and ISO images. Which mix applies is decided per migration wave during scoping.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>Can we prove the approach out before standing up a full cluster?</span></h3><p>A single-node private cloud can be created to evaluate the service, rehearse a recovery from backups or test an application upgrade. It carries real limits: it is not eligible for the availability commitment, anything that needs more than one node — vSphere HA and DRS among them — will not run, and its default storage policy keeps no second copy, so losing that node loses the data on it. Use it to validate a design, then expand to at least three nodes for anything you intend to keep.</p></div>
       </div>
     </div>
   </section>
