@@ -477,6 +477,7 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 | `build_gcp_pages_20260806.py` | 產生 19 個 GCP 產品頁(以 `cloud-compute.html` 為底檔)。**產品文案的唯一正本**;0811 起含 `hero_fact` 欄位與 `fig_motif()` |
 | `link_products_20260806.py` | 分類頁 19 張產品卡的雙出口連結 ＋ `cloud.html#products` 索引。可重複執行 |
 | `build_updates_20260810.py` | 產生根 hub「待做事項與產品清單」區(日期取 git log;備注 dict 手維護,更新前須經 Shiro 確認)。可重複執行 |
+| `rename_argushack_footer_20260810.py` | 0810 全站 footer 更名(CE-BAS→ArgusHack、移除兩品那兩列)。可重複執行,只動 footer |
 | `build_lab_20260806.py` | 產生 `lab/inline-cloud-compute.html`(**已完成階段任務**,`lab/` 刪掉後可一併移除)。⚠ 它從 `cloud-compute.html` 取 header/footer/CSS,所以**改完選單或頁尾要重跑它**——`lab/` 在 `check_links` 掃描範圍內,漏跑就會出現死錨點(0810 實際踩到) |
 | `archive_homepage_variants_20260806.py` | 封存 6 檔後的相對路徑修正 |
 | ~~`sync_nav_20260804.py`~~ / ~~`remove_gcp_groups_20260805.py`~~ | **已封印**,檔頭 `sys.exit` 擋住。功能被 `rebuild_nav` 取代 |

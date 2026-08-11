@@ -470,8 +470,13 @@ CLAUDE.md 驗證區 26 條指令逐條實跑、輸出與註解相符（footer �
 
 **已驗**：`check_nav`／`check_links` PASS；`check_copy` 恰 2 筆且都在授權範圍；
 CLAUDE.md 驗證區全套 grep 通過（24 頁各恰 1 列 `.fact`、晶片無產品名、footer 34/34、
-金額與自研宣稱零命中）；試點階段另派 verifier fresh-context 驗收 9 條，
-揪出的 `aria-hidden` 掛錯層級已修復複驗。
+金額與自研宣稱零命中）；**試點與全鋪各派一次 verifier fresh-context 驗收**——
+試點 9 條（揪出 `aria-hidden` 掛錯層級，已修復複驗）、全鋪 11 條全 PASS
+（含「搬移不是複製」逐頁核對、兩首頁 `<main>` 與改版前逐字節相同、色系凍結無新色票）。
+
+⚠ **未驗的一項**：390／768／1024／1440 的**瀏覽器實機目測沒做過**。本輪動的是
+`columns` 與 `padding`，恰好是腳本看不見的東西——下一個接手的人若要動這區，
+先開瀏覽器確認四個寬度無水平捲軸、以及 901–1100px 的選單就地展開區間。
 
 ### V1 首頁（改它之前必讀）
 
@@ -553,9 +558,10 @@ ISMS / PIMS、Penetration Testing、Cloud FinOps、Digital Transformation，
    第一層 button 的視覺高亮用非 ARIA 的 `class="on"`。
    ⚠ 第一層從 `<a>` 換成 `<button>` 時，`.menu a[aria-current="page"]` 這條 CSS 會匹配不到，
    **10 個檔的黃底線會靜默消失，而 `grep -c` 仍回報正常**——改完必須用瀏覽器實際確認。
-4. **孤兒頁**（選單裡沒有連結指向它，因此 header 內沒有 `aria-current`）目前只有
-   `cloud-services.html`。孤兒必須**明文登記**在 `check_nav_20260806.py` 的 `ORPHANS`，
-   不能默默出現——腳本會擋。
+4. **孤兒頁**（選單裡沒有連結指向它，因此 header 內沒有 `aria-current`）目前有兩個：
+   `cloud-services.html` 與 `gcp-cloud-armor.html`（0806 補齊產品頁時一併產出，
+   但它所屬的 Edge security 那組 0805 已移出選單）。孤兒必須**明文登記**在
+   `check_nav_20260806.py` 的 `ORPHANS`，不能默默出現——腳本會擋。
 5. **動 nav ＝ 改 `MENU` 後重跑腳本**（37 檔一次同步）；**動 footer 清單 ＝ 37 檔都要改**
    （footer 目前沒有產生器，靠「17 個內容頁 footer 與 sentinelone 逐字節相同」把關）。
    `ess.html` 與 `services.html` **禁任何外部連結**；`cloud-services.html` 有 1 條
@@ -566,7 +572,8 @@ ISMS / PIMS、Penetration Testing、Cloud FinOps、Digital Transformation，
 7. **901–1100px 這一段，二層改成在面板內就地展開**（`position:static`），不是側開 flyout——
    該區間視窗放不下側開的 flyout，窄端會跑出左緣。
 8. 全 37 檔的 `main [id]` 都有 `scroll-margin-top:80px`，深連結錨點才不會被 sticky header 遮住；
-   新增頁面時一併帶上。3 個 GCP 產品頁另需 `.stack a{scroll-margin-top:80px}`（圖中連結的鍵盤焦點）。
+   新增頁面時一併帶上。19 個 GCP 產品頁另需 `.stack a{scroll-margin-top:80px}`（圖中連結的鍵盤焦點）——
+   0806 補齊產品頁後 19 頁全數具備，這裡原本寫「3 個」是補齊之前的狀態。
 9. **`lab/` 的規則與 `style-3-soc/` 不同，而且只在 `lab/` 內有效**：那兩個 Tailwind 頁
    刻意違反禁外部 CDN / 禁框架 / 色系凍結。不得擴散；定案後整個資料夾刪掉。
 
@@ -602,9 +609,10 @@ ISMS / PIMS、Penetration Testing、Cloud FinOps、Digital Transformation，
       `docs/GCP_Introduce_v2.md` 覆蓋 19 個產品全部、欄位齊備；唯一破格的是 Model Garden
       （沒有「關鍵特色」欄，改為模型清單）。這條錯誤的盤點差點讓 16 頁不做，
       教訓是**素材充足與否要逐產品實際打開來看，不能憑印象下結論**。
-- [ ] **任務 2：補齊其餘產品/服務頁——待補 9 頁（2026-08-04）**：
-      Cybersecurity 8 項已完成 4 項（SentinelOne／ThreatSonar／CyberEyes／Google SecOps），
-      **待補＝Cybersecurity 剩 4 項＋Managed Services 5 項**；
+- [ ] **任務 2：補齊其餘產品/服務頁——待補 6 頁（原記 9 頁，2026-08-11 校正）**：
+      Cybersecurity 已完成 5 項（SentinelOne／ThreatSonar／CyberEyes／Google SecOps／ArgusHack），
+      **待補＝Cybersecurity 剩 FortiEDR 1 項＋Managed Services 5 項**；
+      原本的 9 頁裡，ArgusHack 已於 0810 建頁，AI-PTaaS 與 SecPurple 已因素材不足全站移除；
       **Cloud 線已由 8 個 `CI-*` 頁涵蓋，§A 的 Cloud 6 個 slug 不再逐項建頁**。
       另有 ESS 方案頁（方案層，**不計入 19 項 SKU**）。用下方 Prompt B。
       產品素材正本見 `docs/product/產品簡介總覽.md`（內部，gitignored）。

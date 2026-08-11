@@ -19,10 +19,22 @@
   `lab/inline-cloud-compute.html` 由 `build_lab_20260806.py` 產生。要改就改腳本後重跑。
   **全站 header 由 `rebuild_nav_20260806.py` 產生,任何頁面的 `<header>` 都不要手寫。**
 - **內容頁區塊元件(0806)**:`.probs`/`.uses`(琥珀左邊界)、`.trio`/`.quad`/`.duo`(icon 卡)、
-  `.steps`(**只用於真的有先後順序**的流程,帶真箭頭)、`.spec`(深色編號面板)、`.stack`(分層圖)。
+  `.steps`(**只用於真的有先後順序**的流程,帶真箭頭)、`.spec`(深色編號面板)、`.stack`(分層圖)、
+  `.pick`(選型指引)、`.faq`(**0811 起雙欄卡片**,640px 退單欄;仍全展開、不用 disclosure widget)、
+  `.fact`(**0811 新增,hero 代表事實列**)。
   **CSS 與 35 個 icon 的唯一正本是 `docs/reports/restyle_content_20260806.py`**——改元件樣式
   = 改 `BLOCK_CSS` 後重跑,37 檔一次同步;手改單頁 CSS 會讓 `check_nav` 立刻紅。
   **不得新增色票**(色系 0731 凍結),不得自繪新 icon 或引外部 icon 套件。
+- **`.fact` 的三條規則(0811)**:①內容是從該頁 `.spec` **搬**上來的既有一列(面板該列不再渲染、
+  編號留空缺),**不是新寫的句子**——複製會讓 `check_copy` 判 FAIL;②晶片放**列標題**,
+  **不放產品名**(H1 已有一次,重複就是多重集 +1);③GCP 19 頁由產生器的 `hero_fact` 欄位產生、
+  資安 5 頁手維護、`ess.html` 豁免(方案頁,無 `.spec` 面板)。
+- **節奏規則 scope 在 `.phero~section`**(0811 版型改版):兩個首頁沒有 `.phero` 所以天然免疫。
+  **哪天首頁用上 `.phero`/`.faq`/`.spec`,這個免疫就失效**,要另外處理。
+- **抽象節奏元素只准是抽象的**(0811):4 個無機制可畫的頁(API Gateway/Datastore/Filestore/
+  Model Garden)用 `fig_motif()` 補視覺喘息——放大的頁面 icon ＋點狀虛線,`aria-hidden`、
+  **無 `<title>`、無 figcaption、無箭頭、不成流程**。它不是機制圖:
+  0810 決議「沒機制可畫就不畫」仍然成立,想替它加說明文字就會撞軸 3。
 - **改內容頁版型時文案逐字不得變動**,跑 `python3 docs/reports/check_copy_20260806.py` 把關
   (拿 git 基準逐句比對 `<main>`;只放行 `.go` 標籤、箭頭、兩位數編號三類新增)。
 - **`lab/` 是改版提案區(0806 新增,同日定案不採用 Tailwind),不是正式頁面**。其中兩個 Tailwind 頁**刻意違反**
@@ -39,7 +51,10 @@
   舊的「Nav A ↔ Nav B 自 `<main>` 起逐字節相同」隨 Nav A 退場而失效。
   **軸 2** = 兩個首頁凍結共用文案——H1、副標、Why H2、CTA 橫幅 H2、footer 品牌句這五句
   各命中 2 次;核心句 `We operate what we sell, and we build what we cannot buy.` 只在 V1
-  出現(1 次),`index.html` 是**未經內容改動的對照組**,不得為了湊一致而改它。
+  出現(1 次)。⚠ **0810 起「`index.html` 是未經內容改動的對照組」這個前提已終結**
+  (ArgusHack 更名一次改到底、含兩個首頁)。核心句只在 V1 的理由改成**這句話本身**:
+  沃凱並非什麼都自建(ArgusHack 就是代理的),讓兩案都講會變成全站宣稱、與不虛構公司事實相牴觸。
+  前五句仍逐字凍結,改任一句都要兩案一起改。
 - **選單是三層,第一層不可點**。唯一正本是 `rebuild_nav_20260806.py` 的 `MENU` 常數,不是任何 HTML:
   - 第一層 `Google Cloud` / `CyberSecurity` / `Services` 是
     `<button type="button" aria-haspopup="true">`,不是 `<a>`。用 button 而非 span

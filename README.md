@@ -260,7 +260,10 @@ Volcatech_Web/                  # 專案根(= VS Code 開啟此層、http.server
 │   │   ├── check_copy_20260806.py         # ★ 軸 3 檢查:改版型時文案零漂移
 │   │   ├── check_links_20260806.py        # 標籤配對 / 唯一 h1 / 相對連結與錨點
 │   │   ├── build_v1_20260806.py           # 從 index.html 產生 V1——V1 不要手改,改這支後重跑
-│   │   ├── build_gcp_pages_20260806.py    # 產生 3 個 GCP 產品頁
+│   │   ├── build_gcp_pages_20260806.py    # ★ 產生 19 個 GCP 產品頁;產品文案的唯一正本
+│   │   ├── link_products_20260806.py      # 分類頁產品卡的雙出口連結 ＋ cloud.html 產品索引
+│   │   ├── build_updates_20260810.py      # ★ 根 hub 的「待做事項與產品清單」唯一正本
+│   │   ├── rename_argushack_footer_20260810.py  # 0810 全站 footer 更名(可重複執行,只動 footer)
 │   │   ├── build_lab_20260806.py          # 產生 lab/ 的守規則版改版提案
 │   │   ├── archive_homepage_variants_20260806.py  # 封存 6 檔後的相對路徑修正
 │   │   └── (已封印)sync_nav_20260804.py / remove_gcp_groups_20260805.py
