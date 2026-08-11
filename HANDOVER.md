@@ -478,6 +478,38 @@ CLAUDE.md 驗證區全套 grep 通過（24 頁各恰 1 列 `.fact`、晶片無�
 `columns` 與 `padding`，恰好是腳本看不見的東西——下一個接手的人若要動這區，
 先開瀏覽器確認四個寬度無水平捲軸、以及 901–1100px 的選單就地展開區間。
 
+### 本輪完成的事（2026-08-11 第三輪，資安線內容補實）
+
+0811 的待決盤點發現一件事：**「372 處 TODO 全部卡在公司素材」並不完全對**——
+`docs/product/` 裡 CyberEyes 與 Google SecOps 的內部素材只用了三到五成，
+這批內容**不用等公司回信就能做**。使用者裁決做，於是有了這一輪。
+
+做法是三頁各走「差距分析 → 產文 → **獨立稽核**」，稽核由沒有參與產文的 agent 執行。
+**三頁的初稿全部 FAIL**，這正是稽核存在的理由。抓到的類型值得記住：
+
+| 類型 | 實例 |
+| --- | --- |
+| **虛構公司事實** | 初稿寫 CyberEyes 由「an independent security software company **in Taiwan**」開發——素材只記載原廠名稱，沒有一句寫公司性質或註冊國別。改成 `an independent software vendor`，法人名與註冊國進 `[TODO]` |
+| **虛構產品功能** | 初稿在資料保護題裡寫「who can read them follows the roles you configure」，憑空給了產品一套角色權限模型——素材全篇沒有任何存取控制敘述 |
+| **把限定條件講成通用** | 素材只說「雲端版資料保留 7 天可加購」，初稿把保留期限講成兩種部署模式通用 |
+| **自打嘴巴的交付宣稱** | 初稿先斷言沃凱 deploys／tunes／wires／operates，句尾 `[TODO]` 又說夥伴關係範圍未定。改成照 `argushack.html` 先例只寫 `supplies it as a partner` |
+| **邏輯不成立的效能宣稱** | 初稿把 ThreatSonar 的四階段防護講成「漏掉一層還有其他層接住」——四階段是時間序不是並聯冗餘，漏在中間時後面只剩一段 |
+
+最後上站的是稽核修正版：三頁各補 3–4 題 FAQ、1–2 列成效、1 個 `#usecases` 場景區塊。
+編號都接續且**保留了升格到 hero 那一號的空缺**。
+
+**順帶修掉的既有瑕疵**：`cybereyes.html` 與 `google-secops.html` 各有一處美式拼寫
+（`behavior`）是 0806 就在的漏網，違反專案自訂的英式拼寫規則，一併改掉。
+
+⚠ **發現但未修，需要查證後才能動**：`threatsonar.html` 的 FAQ 02 說常駐模式僅支援 Windows，
+但稽核比對 TeamT5 deck p64 的對照表，常駐模式作業系統欄列的是 **Windows 與 Linux**，
+Windows 限定的只是其中四項標記功能（自我保護／還原保護／Protect Plus／Defense）。
+**這是產品事實，改錯比不改更糟**——要動之前先請人核對原廠 deck 或向 TeamT5 確認。
+
+**已驗**：`check_nav`／`check_links` PASS；`check_copy` 57 項差異全部核對——
+**「少了」只有 2 處且都是上述拼寫修正**，其餘 55 處全是「多了」且只落在這三頁；
+金額、hype、外部資源、`to be confirmed`、三段 section 計數全部通過。
+
 ### V1 首頁（改它之前必讀）
 
 **V1 不要手改。**它由 `docs/reports/build_v1_20260806.py` 從 `index.html` 產生：

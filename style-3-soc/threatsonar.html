@@ -458,6 +458,20 @@ a.node:hover{border-color:var(--accent)}
       <div class="spec">
         <div><span class="n" aria-hidden="true">01</span><div><h3>Evidence before rollout</h3><p>The compromise assessment shows what is already in your environment before you commit to a deployment.</p></div></div>
         <div><span class="n" aria-hidden="true">02</span><div><h3>No rip-and-replace</h3><p>ThreatSonar runs alongside your existing endpoint protection — a lightweight agent, not a migration project.</p></div></div>
+        <div><span class="n" aria-hidden="true">04</span><div><h3>Detection content that keeps arriving</h3><p>The vendor's own intrusion research feeds the product, so new attacker tradecraft reaches your endpoints as an update rather than as work for your analysts.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Ransomware cover in four stages</h3><p>Prediction from threat intelligence, watching newly seen processes before encryption starts, blocking while it runs, and protecting the backup copies afterwards are handled as four separate stages rather than one.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="usecases">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Where it fits</p>
+      <h2 class="sec">Three situations it is built for.</h2>
+      <div class="uses">
+        <div><h3>Residency-bound environments</h3><p>Public bodies, utilities, financial services and manufacturers that have to keep security telemetry inside a defined jurisdiction and show how a finding was reached.</p></div>
+        <div><h3>European groups with Asia-Pacific operations</h3><p>Subsidiaries, plants and suppliers in the region TeamT5 researches, so the intrusion groups behind its detection rules are the ones likely to be active.</p></div>
+        <div><h3>Segments no online agent can reach</h3><p>Segregated production networks and sites with no outbound route, scanned without a live connection to the server; the report file is uploaded to the platform afterwards.</p></div>
       </div>
     </div>
   </section>
@@ -496,6 +510,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">03</span><span>What does the agentless health check look for?</span></h3><p>It sweeps running memory as well as disk without installing anything, hunting for the kinds of trace signature scanning tends to walk past — backdoors, web shells, fileless command activity and hacking tools. The output is a scoped picture of which machines need resident coverage and which are clean.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>How is ThreatSonar licensed?</span></h3><p>Licensing follows the endpoints you place under protection, and a one-off compromise assessment is scoped separately from ongoing resident coverage. Those are two different commitments, so we scope them with you — contact us.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>Can we feed our own threat intelligence into it?</span></h3><p>Yes. Hashes, IP addresses, domains and YARA rules from your existing intelligence sources can be imported directly, and analysts can write their own hunting rules alongside the built-in set. Automated threat tracking then applies those indicators across every enrolled endpoint, so a lead found on one machine becomes a sweep of the entire estate.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>What leaves our network, and where is the data held?</span></h3><p>The platform is deployed on your own infrastructure or taken as an in-country cloud service, so the choice of jurisdiction is yours rather than the vendor's. Endpoints talk to the ThreatSonar server over HTTPS — where that server sits is the deployment decision above — and rollout can be pushed through Active Directory or your asset management system instead of machine by machine. Sending samples back to TeamT5 for analysis is opt-in: it happens only if you enable it.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>What happens when a detection needs more expertise than we have in house?</span></h3><p>TeamT5 operates a service tier above the licence, in which its own analysts take detections forward: threat notifications, periodic briefings with the indicators behind them, containment recommendations and written investigation reports. It sits above whoever handles day-to-day monitoring — your team, or ours under ESS — so a case does not stop at the point where in-house expertise runs out. <span class="todo">[TODO: Volcatech first-line coverage hours and escalation path to TeamT5]</span></p></div>
+        <div><h3><span class="n" aria-hidden="true">08</span><span>Can an attacker with local privileges simply switch the agent off?</span></h3><p>Resident mode includes self-protection, which is there to stop the agent being halted, uninstalled or cut off from its schedule — it raises the effort needed to remove cover rather than making it impossible. Endpoint and file isolation, restore protection and Protect Plus — real-time blocking of ransomware, web shell, command-line and registry activity — belong to the same mode. The health check is deliberately different: it installs nothing and runs once, which is why it suits a first sweep rather than standing cover, and offline scans run without a live connection to the server.</p></div>
       </div>
     </div>
   </section>

@@ -442,7 +442,7 @@ a.node:hover{border-color:var(--accent)}
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/></svg><h3>SIEM with SOAR included</h3>
           <p>Playbooks gather evidence and drive response automatically; case management and SOC KPI dashboards are part of the platform, not an add-on. Where the next step is a judgement call rather than a routine one, the playbook pauses for a person to make it.</p></div>
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12l6-4"/></svg><h3>Threat intelligence and UEBA</h3>
-          <p>Detections are enriched with VirusTotal, Google Cloud Threat Intelligence and Mandiant, while behavior analytics flags unusual sign-ins, brute force and abnormal traffic.</p></div>
+          <p>Detections are enriched with VirusTotal, Google Cloud Threat Intelligence and Mandiant, while behavioural analytics flags unusual sign-ins, brute force and abnormal traffic.</p></div>
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2 2-6z"/></svg><h3>Gemini-assisted investigation</h3>
           <p>Ask questions in natural language, get case summaries, and draft detection rules and playbooks — threat hunting without learning another query language first.</p></div>
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/><path d="M20 12c0 1.66-3.58 3-8 3s-8-1.34-8-3"/></svg><h3>Fast search, long retention</h3>
@@ -460,6 +460,19 @@ a.node:hover{border-color:var(--accent)}
         <div><span class="n" aria-hidden="true">03</span><div><h3>Synergy on Google Cloud</h3><p>GCP-native logs flow in directly and costs follow the data you ingest — one partner can run both your cloud and your SecOps.</p></div></div>
         <!-- src (More than 300): cloud.google.com/security/products/security-operations - vendor states "300+ SOAR integrations", verified 2026-08-10 -->
         <div><span class="n" aria-hidden="true">04</span><div><h3>Your tools keep their place</h3><p>More than 300 prebuilt SOAR integrations span endpoint, network, threat intelligence, ITSM and ticketing systems, so response runs through the tooling you already own rather than around it.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Operations you can report on</h3><p>Case volume, how work is progressing and how long each stage takes are recorded in the console as the work happens, so a monthly or quarterly review starts from the platform's own record rather than from figures gathered by hand.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="usecases">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Where it fits</p>
+      <h2 class="sec">The situations this is built for.</h2>
+      <div class="uses">
+        <div><h3>Replacing an on-premises SIEM</h3><p>Where the platform itself has become the project: sizing, patching and storage expansion move to the service, and what remains is connecting the sources and rebuilding the detections.</p></div>
+        <div><h3>Estates spread across clouds and SaaS</h3><p>Where the evidence for a single incident sits in several consoles today, and correlation happens by hand afterwards rather than at the moment the alert fires.</p></div>
+        <div><h3>Security teams too small for full cover</h3><p>Where there are not enough analysts to staff every shift, so collection and routine triage have to be automated if the analysts you do have are to spend their hours on decisions.</p></div>
       </div>
     </div>
   </section>
@@ -500,6 +513,9 @@ a.node:hover{border-color:var(--accent)}
         <div><h3><span class="n" aria-hidden="true">05</span><span>How is Google Security Operations charged?</span></h3><p>Charges follow the volume of data you ingest rather than the number of users or nodes, so how you design log collection matters more than headcount does. Contact us and we will model it against the sources you actually need.</p></div>
         <div><h3><span class="n" aria-hidden="true">06</span><span>What does UEBA actually catch?</span></h3><p>Patterns that are hard to write as fixed rules: a sign-in from an unfamiliar location, device or hour; repeated failures that add up to a brute-force attempt; a single account suddenly raising alerts across many systems; traffic well out of line with an entity's history. Each surfaces as a case alongside every other detection, for an analyst to confirm rather than to dig for.</p></div>
         <div><h3><span class="n" aria-hidden="true">07</span><span>How far does Gemini go in an investigation?</span></h3><p>It shortens the reading and the writing: it summarises a case, turns a plain-language question into a search, drafts detection rules and playbooks, and assembles what is known about a threat. It does not decide. Containment, escalation and communication stay with your analysts, and a drafted rule or playbook only takes effect once someone puts it into service.</p></div>
+        <div><h3><span class="n" aria-hidden="true">08</span><span>Does this only make sense if we are already on Google Cloud?</span></h3><p>No. The platform sits above the systems it watches rather than inside them, so logs from an estate that runs on-premises, in another provider's cloud, or across both are collected the same way. Adopting it does not require moving a workload anywhere. What running Google Cloud adds is that its own security logs arrive natively.</p></div>
+        <div><h3><span class="n" aria-hidden="true">09</span><span>Can we feed our own threat intelligence into it?</span></h3><p>Yes. Alongside the sources that come with the platform — VirusTotal, Google Cloud Threat Intelligence and Mandiant — feeds you subscribe to or produce yourself can be imported through the API and used to enrich detections and cases in the same way. Intelligence your team already curates keeps its value instead of being set aside when the platform changes.</p></div>
+        <div><h3><span class="n" aria-hidden="true">10</span><span>Will a playbook act on a production system by itself?</span></h3><p>Only where the playbook has been built to. The work that runs unattended is the collection: pulling together the account and the device behind an alert, checking the indicators against the intelligence sources, and assembling the result into a case that can be read rather than reconstructed. Whether a step that changes the state of a system runs on its own or waits at a decision point is set when the playbook is written, so the boundary is yours to draw and to revisit.</p></div>
       </div>
     </div>
   </section>
