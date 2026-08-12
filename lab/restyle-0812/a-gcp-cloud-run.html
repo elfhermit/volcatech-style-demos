@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+<title>[A] Cloud Run — serverless containers on Google Cloud | Volcatech</title>
+<meta name="description" content="Cloud Run runs container images in any language, scales with the traffic and bills by request — down to nothing when there is none. Designed, deployed and operated by Volcatech.">
+<style>
+:root{
+  --bg:#0E141F; --surface:#16202E; --ink:#E9EEF5; --muted:#9AA8BA;
+  --line:#27344A; --accent:#FFB224; --status:#3ECF8E;
+  --sans:'IBM Plex Sans','Noto Sans TC',ui-sans-serif,system-ui,'Helvetica Neue',Arial,sans-serif;
+  --mono:'IBM Plex Mono','Noto Sans TC',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --max:1200px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.65}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+main [id]{scroll-margin-top:80px}
+.status{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+.status .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--status);margin-right:9px;vertical-align:1px}
+.btn{display:inline-block;background:var(--accent);color:#0E141F;font-weight:600;font-size:15px;
+  padding:13px 26px;border-radius:6px;border:1px solid var(--accent)}
+.btn:hover{background:#E69E14}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--muted)}
+header{position:sticky;top:0;background:rgba(14,20,31,.95);border-bottom:1px solid var(--line);z-index:50}
+.nav{display:flex;align-items:center;gap:30px;height:66px}
+.logo{font-family:var(--mono);font-weight:600;font-size:16px;letter-spacing:.08em}
+.logo .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--status);margin-right:10px;vertical-align:1px}
+.menu{display:flex;gap:24px;margin-left:auto;align-items:center;list-style:none}
+.menu>li{position:relative}
+.menu a{font-size:14.5px;color:var(--muted);padding:8px 0}
+/* Top-level entries are disclosure triggers, not links (0805 decision): a <button> keeps
+   them keyboard-focusable so :focus-within still opens the panel with no JS. The reset has
+   to carry padding and line-height too — .menu a does not select a button, and a shorter
+   <li> would pull the panel up and leave a gap the pointer falls through. */
+.menu>li>button{background:none;border:0;padding:8px 0;font:inherit;font-size:14.5px;
+  line-height:inherit;color:var(--muted);cursor:default;appearance:none}
+.menu a:hover,.menu>li>button:hover,.menu a[aria-current="page"],.menu>li>.on{color:var(--ink)}
+/* Two separate roles: aria-current marks the link that IS this page (now usually on the
+   second level, since Nav B exposes the category pages); .on is the purely visual
+   "you are somewhere in this section" cue on the first-level button. */
+.menu>li>a[aria-current="page"],.menu>li>.on{border-bottom:2px solid var(--accent)}
+.dd>a::after,.dd>button::after{content:" ▾";font-size:10px}
+/* The panel must stay overflow:visible — any overflow value turns it into a clip
+   container and hides the .sub flyouts outside its edge. Nav B panels are short
+   (8 rows at most) so they do not need to scroll. */
+.dd ul{display:none;position:absolute;top:100%;left:-12px;background:var(--surface);border:1px solid var(--line);
+  border-radius:6px;min-width:290px;padding:10px 0;list-style:none}
+.dd:hover>ul,.dd:focus-within>ul{display:block}
+/* Second-level flyout. Child combinators only — descendant selectors would open every
+   nested level the moment the top item is hovered. Scoped to .menu because the footer
+   uses its own .sub class for column sub-headings. */
+.menu .sub{position:relative}
+.menu .sub>a::after{content:" ▸";font-size:10px}
+.menu .sub>ul{top:-11px;left:100%;min-width:240px}
+.menu .sub:hover>ul,.menu .sub:focus-within>ul{display:block}
+.dd ul a{display:block;padding:9px 18px;font-size:14px}
+.dd ul a:hover{background:#1B2736;color:var(--ink)}
+/* Entries with no page yet. Plain text, deliberately not focusable — there is nowhere
+   to go. .dd ul a does not select a span, so the padding has to be repeated. */
+.dd ul .off{display:block;padding:9px 18px;font-size:14px;color:var(--muted);cursor:default}
+.dd ul .off .soon{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;margin-left:8px}
+/* First row of every dropdown: plain-language decode of the ops term */
+.dd .head{padding:6px 18px 8px;margin-bottom:4px;border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.dd .head .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--status);margin-right:8px;vertical-align:1px}
+/* Language switcher — real links, not decorative text */
+.lang{display:flex;align-items:center;font-family:var(--mono);font-size:12px}
+.lang a{padding:4px 10px;color:var(--muted)}
+.lang a+a{border-left:1px solid var(--line)}
+.lang a[aria-current="true"]{color:var(--ink);font-weight:600}
+.navbtn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;
+  padding:8px 14px;font-size:14px;cursor:pointer;color:var(--ink)}
+/* Product hero */
+.phero{border-bottom:1px solid var(--line)}
+.phero .wrap{padding:88px 24px}
+.phero .code{font-family:var(--mono);font-size:14px;color:var(--accent);letter-spacing:.1em}
+.phero h1{font-weight:600;font-size:clamp(32px,4.8vw,54px);line-height:1.1;margin-top:16px}
+.phero .vendor{margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.phero .tag{margin-top:20px;font-size:18px;color:var(--muted);max-width:56ch}
+.phero .cta{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap}
+section{border-top:1px solid var(--line)}
+section .wrap{padding:80px 24px}
+h2.sec{font-weight:600;font-size:clamp(24px,3.2vw,34px);line-height:1.15;margin-top:16px;max-width:28ch}
+.cards2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:44px}
+.cards2>div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:24px 24px}
+.cards2 h3{font-size:17.5px}
+.cards2 p{margin-top:8px;font-size:14.5px;color:var(--muted)}
+.loglist{margin-top:40px;display:grid;gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.loglist>div{background:var(--surface);padding:20px 22px;display:grid;grid-template-columns:26px 1fr;gap:14px;align-items:start}
+.loglist>div+div{border-top:1px solid var(--line)}
+.loglist .d{width:9px;height:9px;border-radius:50%;background:var(--status);margin-top:7px}
+.loglist p{font-size:15px}
+.loglist small{display:block;color:var(--muted);margin-top:2px;font-size:14px}
+.todo{font-family:var(--mono);color:var(--muted);font-size:12px;border:1px dashed var(--line);padding:2px 8px;border-radius:4px}
+.vsrc{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-left:10px;vertical-align:1px}
+.cards2 .go{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:12.5px;
+  color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:2px}
+.cards2 .go:hover{border-color:var(--accent)}
+.ext{border-top:1px solid var(--line)}
+.ext .wrap{padding:26px 24px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.ext a{color:var(--accent);font-weight:600}
+.band{border-top:1px solid var(--line);background:var(--surface)}
+.band .wrap{padding:72px 24px;display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:center}
+.band h2{font-weight:600;font-size:clamp(22px,2.8vw,32px);line-height:1.2}
+.band div:last-child{text-align:right}
+footer{border-top:1px solid var(--line)}
+.fcols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:28px;padding:60px 24px}
+.fcols h4{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.fcols ul{list-style:none;margin-top:14px}
+.fcols li{margin-top:8px;font-size:14px}
+.fcols .sub{margin-top:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fcols a{color:var(--muted)} .fcols a:hover{color:var(--ink)}
+.fbrand p{margin-top:14px;font-size:14px;color:var(--muted);max-width:34ch}
+.fbrand dl{margin-top:18px;font-size:14px;color:var(--muted)}
+.fbrand dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;margin-top:10px}
+.fbrand dd{color:var(--ink)}
+.legal{border-top:1px solid var(--line);padding:22px 24px;font-family:var(--mono);font-size:11.5px;color:var(--muted);
+  max-width:78ch;line-height:1.8}
+.legal p{margin-top:6px}
+.legal .row{display:flex;gap:6px 20px;flex-wrap:wrap;margin-top:6px}
+.legal .notice{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px}
+.legal a:hover{color:var(--ink)}
+.backlink{padding:0 24px 22px;font-family:var(--mono);font-size:11.5px}
+/* ===== Block components (0806 content rework) — shared by all 20 pages =====
+   The 0805 review said a content page reads as one undifferentiated column of text:
+   the same .loglist three or four times over. Each section now gets its own treatment,
+   so the shape of a section tells you what kind of thing is in it before you read it.
+   No new colour token — three surface depths, one accent edge, one real arrow row.
+
+   Situational blocks share one rule on purpose. .probs is the state before the project
+   (pain points), .uses is the state it is built for (scenarios); both are short
+   situational statements and the eyebrow above already says which one you are reading. */
+.probs,.uses{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+.probs>div{background:#111A26;border:1px solid var(--line);border-left:3px solid #E69E14;
+  border-radius:0 8px 8px 0;padding:22px 22px}
+.uses>div{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0;padding:22px 22px}
+.probs h3,.uses h3{font-size:16.5px}
+.probs p,.uses p{margin-top:8px;font-size:14.5px;line-height:1.68;color:var(--muted)}
+/* 四項時加 .four —— 預設三欄會把第四張留在下一列只佔 1/3 寬 */
+.probs.four,.uses.four{grid-template-columns:repeat(4,1fr)}
+/* Products and services: an icon card that answers "what is actually on offer" and links
+   out, instead of one more row of text. Same card at three track counts — a catalogue is
+   not always divisible by three. Icons are hand-drawn 24x24 strokes, never image files. */
+.trio,.quad,.duo{display:grid;gap:18px;margin-top:36px}
+.trio{grid-template-columns:repeat(3,1fr)}
+.quad{grid-template-columns:repeat(4,1fr)}
+.duo{grid-template-columns:repeat(2,1fr)}
+.trio>div,.quad>div,.duo>div{background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  padding:24px 22px;display:flex;flex-direction:column}
+.trio .ic,.quad .ic,.duo .ic{display:block;color:var(--accent)}
+.trio h3,.quad h3,.duo h3{font-size:17px;margin-top:16px}
+.trio .full,.quad .full,.duo .full{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);font-weight:400;margin-top:5px}
+.trio p,.quad p,.duo p{margin-top:9px;font-size:14.5px;line-height:1.68;color:var(--muted);flex:1}
+/* 廠商標記（.vsrc）搬進卡片標題後會繼承 h3 的粗體。它是 mono 微標籤不是標題的一部分，
+   在卡片裡改成獨立一行、不加粗；.vsrc 本體的 CSS 在各頁基底，這裡只做卡片內的 scope 覆寫。 */
+.trio .vsrc,.quad .vsrc,.duo .vsrc{display:block;margin:5px 0 0;font-weight:400}
+.trio .go,.quad .go,.duo .go,.loglist .go{display:inline-block;margin-top:16px;font-family:var(--mono);font-size:12.5px;
+  color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:2px;align-self:flex-start}
+.trio .go:hover,.quad .go:hover,.duo .go:hover,.loglist .go:hover{border-color:var(--accent)}
+/* 0806：每個 GCP 產品都有內頁之後，產品卡有兩個出口（產品頁 ＋ 原廠頁）。卡片本身是
+   flex column，兩個 inline-block 的 .go 不包起來會各佔一行，所以用 .goes 併成一列。
+   兩個出口的先後有意義：站內的產品頁在前，離站的原廠頁在後。 */
+.goes{display:flex;flex-wrap:wrap;gap:18px;margin-top:16px;align-self:flex-start}
+.goes .go{margin-top:0}
+/* Sequences — the "arrows between blocks" the review asked for. The arrows are real
+   characters marked aria-hidden, never ::before content, so assistive tech reads the step
+   and skips the glyph. Node borders carry meaning, so they use --muted: --line against
+   the page background is 1.47:1, under the 3:1 that WCAG 1.4.11 asks for. */
+.steps{list-style:none;margin-top:44px;display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
+.steps>li{flex:1 1 200px;background:#111A26;border:1px solid var(--muted);border-radius:8px;padding:20px 18px}
+.steps>li.ar{flex:0 0 auto;border:0;background:none;padding:0;display:flex;align-items:center;
+  color:var(--muted);font-family:var(--mono);font-size:18px}
+.steps .n{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted)}
+.steps h3{font-size:16px;margin-top:10px}
+.steps>li>h3:first-child{margin-top:0}
+.steps p{margin-top:7px;font-size:14px;line-height:1.65;color:var(--muted)}
+/* Facts as a spec sheet: 雙欄交錯矩陣面板，消除單欄長條直落，提高資訊密度與空間利用率。 */
+.spec{margin-top:34px;background:#111A26;border:1px solid var(--line);border-radius:8px;overflow:hidden;
+  display:grid;grid-template-columns:repeat(2,1fr)}
+.spec>div{display:grid;grid-template-columns:36px 1fr;gap:14px;padding:16px 20px;align-items:start;
+  border-top:1px solid var(--line)}
+.spec>div:nth-child(1),.spec>div:nth-child(2){border-top:none}
+.spec>div:nth-child(even){border-left:1px solid var(--line)}
+.spec .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px}
+.spec h3{font-size:16px}
+.spec p{margin-top:5px;font-size:14px;line-height:1.65;color:var(--muted)}
+/* Where a thing sits relative to the rest. Normal flow only — absolute positioning
+   breaks this layout at 768 and 390px. */
+.stack{margin-top:34px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.stack>*+*{border-top:1px solid var(--line)}
+.stack a{scroll-margin-top:80px}
+.layer{background:var(--surface);padding:22px;display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center}
+.layer>h3{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:400}
+.nodes{list-style:none;display:flex;flex-wrap:wrap;gap:10px}
+.node{display:block;border:1px solid var(--muted);border-radius:6px;padding:12px 14px;min-width:170px;background:#111A26;
+  transition:border-color .15s ease,background .15s ease}
+a.node:hover{border-color:var(--accent);background:#182433}
+.node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
+.flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+/* 0806 round 2 — decision-support blocks. .pick answers "which of the 19 do I need":
+   each row pairs a situation with the product to reach for. The recommendation reuses
+   the .node chip language from .stack (deep panel, --muted border, amber self), so
+   "this is a product" reads the same everywhere on the site. Arrow is a real character
+   marked aria-hidden, same as .steps. */
+.pick{list-style:none;margin-top:36px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.pick>li{background:var(--surface);display:grid;grid-template-columns:1fr 28px minmax(200px,max-content);
+  gap:16px;align-items:center;padding:18px 22px;transition:background .15s ease}
+.pick>li:hover{background:#1B2736}
+.pick>li+li{border-top:1px solid var(--line)}
+.pick .when{font-size:14.5px;line-height:1.6}
+.pick .ar{color:var(--accent);font-family:var(--mono);font-size:16px;text-align:center}
+.pick .node{min-width:0;font-size:14.5px}
+/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
+   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
+   .spec so numbering reads as one system; questions carry the ink, answers the muted.
+   0811: the density audit measured #faq at 36-44% of page text — the tallest wall on every
+   product page — so the flat list packs into two newspaper columns of cards. Still fully
+   expanded, still Ctrl+F-findable, about half the height. Single column at 640px and down
+   (640 keeps clear of the 1100/1024 queries the nav checker slices on). */
+.faq{margin-top:36px;columns:2;column-gap:18px}
+.faq>div{break-inside:avoid;background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  padding:20px 22px;margin-bottom:18px;transition:border-color .18s ease}
+.faq>div:hover{border-color:var(--muted)}
+.faq h3{display:grid;grid-template-columns:36px 1fr;gap:14px;font-size:16px;line-height:1.45;color:var(--ink)}
+.faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
+.faq p{margin:10px 0 0 50px;font-size:14.5px;line-height:1.7;color:var(--muted)}
+/* 0811 layout pass (docs/reports/版型改版規劃_20260811.md). No new colour token.
+   Hero fact row: one spec line per product promoted into the hero — moved, not copied,
+   so the copy checker's multiset is unchanged; the chip reuses the .node.self language
+   ("this is the product") and carries the spec line's title, never the product name.
+   Rhythm: content pages only — the two homepages have no .phero, so .phero~section
+   leaves them untouched by construction. */
+.phero .fact{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin-top:28px;
+  background:#111A26;border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0;padding:16px 20px;max-width:840px}
+.phero .fact .n{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--muted)}
+.phero .fact .node{display:inline-block;min-width:0;padding:6px 12px;font-size:13.5px;
+  background:var(--surface);border:1px solid var(--accent);border-radius:4px;font-weight:600}
+.phero .fact .fx{flex:1 1 320px;max-width:640px;font-size:14.5px;line-height:1.6;color:var(--ink)}
+.phero~section .wrap{padding:64px 24px}
+.phero~section .probs,.phero~section .uses,.phero~section .trio,.phero~section .quad,
+.phero~section .duo,.phero~section .steps,.phero~section .pick,.phero~section .faq{margin-top:36px}
+.phero~section .spec,.phero~section .stack{margin-top:34px}
+@media (max-width:768px){
+  .spec{grid-template-columns:1fr}
+  .spec>div:nth-child(2){border-top:1px solid var(--line)}
+  .spec>div:nth-child(even){border-left:none}
+}
+@media (max-width:640px){
+  .faq{columns:1}
+}
+/* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
+   shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
+.probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
+.probs>div:hover,.uses>div:hover,.trio>div:hover,.quad>div:hover,.duo>div:hover{transform:translateY(-2px);border-color:var(--muted)}
+/* 1040px is deliberately not one of the widths used elsewhere in this file: the nav
+   checker slices on the 1100px and 1024px queries and needs each to appear once. */
+@media (max-width:1040px){
+  .quad,.probs.four,.uses.four{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .probs,.uses,.trio,.quad,.duo,.probs.four,.uses.four{grid-template-columns:1fr}
+  .steps{flex-direction:column}
+  .steps>li.ar{justify-content:center;transform:rotate(90deg)}
+  .layer{grid-template-columns:1fr;gap:10px}
+  .pick>li{grid-template-columns:1fr}
+  .pick .ar{transform:rotate(90deg);justify-self:center}
+  .faq p{margin-left:0}
+}
+@media (prefers-reduced-motion: reduce){
+  .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
+  .probs>div:hover,.uses>div:hover,.trio>div:hover,.quad>div:hover,.duo>div:hover{transform:none}
+}
+/* ===== end block components ===== */
+@keyframes statusPulse {
+  0% { box-shadow: 0 0 0 0 rgba(62, 207, 142, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(62, 207, 142, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(62, 207, 142, 0); }
+}
+.status .dot, .logo .dot, .card .cdot {
+  animation: statusPulse 2.5s infinite ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .status .dot, .logo .dot, .card .cdot { animation: none; }
+}
+/* 901-1100px: not enough room beside the panel for a side flyout — at the narrow end
+   of this band it would run past the left viewport edge. Open the second level inline
+   inside the panel instead, so horizontal overflow is structurally impossible. It still
+   only expands on hover/focus, so the panel never grows past ~12 rows. */
+@media (max-width:1100px){
+  .menu .sub>ul{position:static;top:auto;left:auto;right:auto;min-width:0;
+    border:none;border-radius:0;padding:4px 0 4px 14px}
+}
+@media (max-width:1024px){
+  .fcols{grid-template-columns:1fr 1fr}
+}
+@media (max-width:900px){
+  .cards2{grid-template-columns:1fr}
+  .band .wrap{grid-template-columns:1fr}
+  .band div:last-child{text-align:left}
+  .navbtn{display:block}
+  .menu{display:none;position:absolute;top:66px;left:0;right:0;background:var(--surface);
+    border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;padding:16px 24px;gap:4px;
+    max-height:calc(100vh - 66px);overflow-y:auto}
+  .menu.open{display:flex}
+  .menu>li>button{padding:8px 0}
+  .dd ul{display:block;position:static;border:none;padding-left:14px;min-width:0;max-height:none;overflow-y:visible}
+  .menu .sub>ul{position:static;left:auto;right:auto;min-width:0}
+  .lang{margin-top:10px}
+  .lang a{padding-left:0}
+  .lang a+a{padding-left:10px}
+}
+@media (max-width:560px){
+  .fcols{grid-template-columns:1fr}
+}
+
+/* ===== 提案 A —— Supabase 向：色彩用量 =============================
+   0812。基底 CSS 一字未改，以下全部是疊加的 override。
+
+   實測基線：var(--accent) 全站只出現 14–15 次，實際渲染的角色約 8 個。也就是說
+   refero 報告講的「Supabase 彩色僅約 1%」，現行站已經在做了——所以這一套不是「加上
+   Supabase 的顏色」，而是把僅存的幾處裝飾性琥珀退成中性色，讓琥珀只在真正需要它的
+   地方出現。判準：琥珀留給「可互動 / 焦點 / 當前位置 / 這就是本頁主角」。
+
+   保留不動：.btn（CTA）、a:focus-visible（焦點框）、.menu 現頁底線、.node.self、
+   .pick .ar（選型箭頭）、所有 hover 的 border-color:var(--accent)。
+   不動間距與字級——那是 B 套的額度，也避免推翻 0811 剛做完的 80→64px 節奏收斂。   */
+
+/* 1 — 產品頁 hero 的編號行。全站唯一大面積「純文字上琥珀」（14px mono 整行）。 */
+.phero .code{color:var(--muted)}
+
+/* 2 — 首頁 Built 區的 24px 標題。整段標題文字上色，是首頁最重的一塊裝飾性琥珀。 */
+.built .cols3 h3{color:var(--ink)}
+
+/* 3 — 原廠外連。連結身分改由底線承擔，不靠顏色；hover 才把琥珀帶回來。
+       這是 Supabase 最典型的手法：顏色不是用來標示「這是連結」的。 */
+.ext a{color:var(--ink);font-weight:500;text-decoration:underline;
+  text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:var(--line)}
+.ext a:hover{text-decoration-color:var(--accent)}
+
+/* 4 — 卡片 icon。SVG stroke 繼承 color，24 個卡片圖示同時上琥珀是全站最分散的一筆。
+       圖示是輔助辨識，不是焦點。 */
+.trio .ic,.quad .ic,.duo .ic{color:var(--muted)}
+
+/* 5 — 左邊界統一並縮細 3px→2px。順手清掉一處既有不一致：.probs 是全站唯一用硬編
+       暗琥珀 #E69E14 當左邊界的元件，.uses 用的卻是 var(--accent)。兩者語意相近
+       （痛點／場景），沒有理由用兩種琥珀。
+       ⚠ ADR 0001 說區塊區分靠「三層表面深度 ＋ 琥珀邊界 ＋ 箭頭」三個手段。這裡只是
+       統一色相並縮細，邊界仍在，.probs(#111A26) 與 .uses(--surface) 的深度差也仍在。 */
+.probs>div{border-left:2px solid var(--accent)}
+.uses>div{border-left:2px solid var(--accent)}
+.phero .fact{border-left:2px solid var(--accent)}
+
+/* 6 — 合併兩個 hover 色。#182433 與 #1B2736 亮度極接近卻並存，是逐次堆疊出來的冗餘。 */
+a.node:hover{background:#1B2736}
+
+/* 提案頁標記（純 CSS，不動 markup）。mono 微標籤，不受「正文禁 ALL CAPS」限制。 */
+body::after{content:"Proposal A · Supabase-leaning · not the live page";
+  position:fixed;left:14px;bottom:14px;z-index:80;pointer-events:none;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--surface);color:var(--muted);border:1px solid var(--muted);
+  border-radius:6px;padding:7px 12px}
+/* ===== end 提案 A ===== */
+</style>
+</head>
+<body>
+<header onkeydown="if(event.key==='Escape')this.querySelector('.logo').focus()">
+  <div class="wrap nav">
+    <a class="logo" href="../../style-3-soc/index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
+    <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
+    <ul class="menu" id="menu">
+      <li><a href="../../style-3-soc/index.html">Home</a></li>
+      <li class="dd"><button type="button" class="on" aria-haspopup="true">Google Cloud</button>
+        <ul>
+          <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
+          <li><a href="../../style-3-soc/cloud.html">Overview — all Google Cloud services</a></li>
+          <li class="sub"><a href="../../style-3-soc/cloud-compute.html" aria-haspopup="true">Compute</a>
+            <ul>
+              <li><a href="../../style-3-soc/gcp-compute-engine.html">Compute Engine</a></li>
+              <li><a href="../../style-3-soc/gcp-kubernetes-engine.html">Kubernetes Engine</a></li>
+              <li><a href="../../style-3-soc/gcp-vmware-engine.html">VMware Engine</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="../../style-3-soc/cloud-storage.html" aria-haspopup="true">Storage</a>
+            <ul>
+              <li><a href="../../style-3-soc/gcp-cloud-storage.html">Cloud Storage</a></li>
+              <li><a href="../../style-3-soc/gcp-filestore.html">Filestore</a></li>
+              <li><a href="../../style-3-soc/gcp-backup-dr.html">Backup and DR</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="../../style-3-soc/cloud-analytics.html" aria-haspopup="true">Analytics</a>
+            <ul>
+              <li><a href="../../style-3-soc/gcp-bigquery.html">BigQuery</a></li>
+              <li><a href="../../style-3-soc/gcp-pubsub.html">Pub/Sub</a></li>
+              <li><a href="../../style-3-soc/gcp-dataflow.html">Dataflow</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="../../style-3-soc/cloud-serverless.html" aria-haspopup="true">Serverless</a>
+            <ul>
+              <li><a href="../../style-3-soc/gcp-cloud-run.html" aria-current="page">Cloud Run</a></li>
+              <li><a href="../../style-3-soc/gcp-app-engine.html">App Engine</a></li>
+              <li><a href="../../style-3-soc/gcp-api-gateway.html">API Gateway</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="../../style-3-soc/cloud-databases.html" aria-haspopup="true">Databases</a>
+            <ul>
+              <li><a href="../../style-3-soc/gcp-alloydb.html">AlloyDB for PostgreSQL</a></li>
+              <li><a href="../../style-3-soc/gcp-cloud-sql.html">Cloud SQL</a></li>
+              <li><a href="../../style-3-soc/gcp-datastore.html">Datastore</a></li>
+              <li><a href="../../style-3-soc/gcp-firestore.html">Firestore</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="../../style-3-soc/cloud-ai.html" aria-haspopup="true">AI</a>
+            <ul>
+              <li><a href="../../style-3-soc/gcp-vertex-ai.html">Vertex AI</a></li>
+              <li><a href="../../style-3-soc/gcp-model-garden.html">Model Garden</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li class="dd"><button type="button" aria-haspopup="true">CyberSecurity</button>
+        <ul>
+          <li class="head"><span class="dot" aria-hidden="true"></span>CyberSecurity — EDR · SIEM &amp; WDR · BAS</li>
+          <li><a href="../../style-3-soc/cybersecurity.html">Overview — all security products</a></li>
+          <li class="sub"><a href="../../style-3-soc/cybersecurity.html#edr" aria-haspopup="true">Endpoint — EDR</a>
+            <ul>
+              <li><a href="../../style-3-soc/sentinelone.html">SentinelOne</a></li>
+              <li><a href="../../style-3-soc/threatsonar.html">ThreatSonar</a></li>
+              <li><span class="off">FortiEDR<span class="soon">Coming soon</span></span></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="../../style-3-soc/cybersecurity.html#detection" aria-haspopup="true">Detection — SIEM &amp; WDR</a>
+            <ul>
+              <li><a href="../../style-3-soc/cybereyes.html">CyberEyes</a></li>
+              <li><a href="../../style-3-soc/google-secops.html">Google SecOps</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="../../style-3-soc/cybersecurity.html#validation" aria-haspopup="true">Validation — breach &amp; attack simulation</a>
+            <ul>
+              <li><a href="../../style-3-soc/argushack.html">ArgusHack</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li class="dd"><button type="button" aria-haspopup="true">Services</button>
+        <ul>
+          <li class="head"><span class="dot" aria-hidden="true"></span>Services — Managed Services</li>
+          <li><a href="../../style-3-soc/services.html">Overview — all managed services</a></li>
+          <li><a href="../../style-3-soc/ess.html">Enterprise Security Service (ESS)</a></li>
+          <li><a href="../../style-3-soc/services.html#soc">24/7 SOC &amp; Incident Response</a></li>
+          <li><span class="off">GCP Managed Services<span class="soon">Coming soon</span></span></li>
+        </ul>
+      </li>
+      <li><a href="../../style-3-soc/index.html#why">About</a></li>
+      <li><a class="btn" style="padding:9px 18px" href="../../style-3-soc/index.html#contact">Contact us</a></li>
+      <li>
+        <nav class="lang" aria-label="Language">
+          <a href="a-gcp-cloud-run.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+        </nav>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="phero">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>CI-04 / Serverless — Google Cloud service</p>
+      <p class="code" style="margin-top:26px">CI-04 · SERVERLESS · CLOUD RUN</p>
+      <h1>Cloud Run</h1>
+      <p class="vendor">Google Cloud · Serverless containers</p>
+      <p class="tag">A managed platform for running containers. Bring an image in any language and it scales with the traffic — down to nothing when there is none.</p>
+      <p class="fact"><span class="n" aria-hidden="true">01</span><span class="node self">Scale to zero</span> <span class="fx">With no traffic the service holds no instances, and starts again on the next request.</span></p>
+      <div class="cta">
+        <a class="btn" href="../../style-3-soc/index.html#contact">Contact us</a>
+        <a class="btn btn-ghost" href="../../style-3-soc/cloud-serverless.html">All serverless services</a>
+      </div>
+    </div>
+  </div>
+
+  <section id="pain">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>The problem</p>
+      <h2 class="sec">What teams run into without it.</h2>
+      <div class="probs">
+        <div><h3>Idle capacity costs</h3><p>Container workloads with uneven traffic still occupy servers around the clock. Teams keep paying for compute that sits unused between peaks, because the platform cannot release it.</p></div>
+        <div><h3>Cluster overhead for small services</h3><p>Running a handful of containerised services should not require a full Kubernetes cluster. Provisioning, patching and upgrading nodes consumes engineering time out of proportion to the workload.</p></div>
+        <div><h3>Repeated per-service plumbing</h3><p>Every new service repeats the same setup: load balancing, certificates, autoscaling rules and deployment pipelines. Each copy is another thing to maintain and another place to make mistakes.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="value">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Why teams choose it</p>
+      <h2 class="sec">What Cloud Run is good at.</h2>
+      <div class="trio">
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg><h3>Deploy the container, not the platform</h3><p>If it builds into an image and listens on a port, it runs here. There is no cluster to size, patch or keep alive between deployments.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><h3>Billed by request</h3><p>An idle service costs nothing. Traffic that arrives in bursts is charged as bursts rather than as capacity reserved for the peak.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5L4 12l5 7M15 5l5 7-5 7"/></svg><h3>No language constraints</h3><p>Runtime, framework and dependency set are decided inside the image. The platform does not have an approved list.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Key features</p>
+      <h2 class="sec">What you get, specifically.</h2>
+      <div class="spec">
+        <div><span class="n" aria-hidden="true">02</span><div><h3>HTTPS endpoint on deploy</h3><p>Each service gets a TLS endpoint when it is created — no load balancer or certificate step in between.</p></div></div>
+        <div><span class="n" aria-hidden="true">03</span><div><h3>Fast autoscaling</h3><p>Instance count follows concurrent requests closely enough that traffic spikes do not need to be predicted in advance.</p></div></div>
+        <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Cloud Run services (non-GPU) carry a 99.95% monthly uptime service level objective in most cloud regions.</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Scale ceiling</h3><p>A single service can scale out to as many as one thousand instances under default quota, with higher ceilings available on request.</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Long-running requests</h3><p>A single request may run for up to 60 minutes when the timeout is raised; the default cut-off is five minutes.</p></div></div>
+        <div><span class="n" aria-hidden="true">07</span><div><h3>Per-instance concurrency</h3><p>One instance can serve up to 1,000 concurrent requests, with the ceiling configurable per service revision.</p></div></div>
+      </div>
+      <svg viewBox="0 0 360 264" role="img"
+           style="width:100%;max-width:520px;height:auto;display:block;margin:22px auto 0">
+        <title>How Cloud Run scales: an idle service holds zero instances, steady traffic is served by one instance, and a burst fans out to many.</title>
+        <rect x="30" y="8" width="300" height="34" rx="6" fill="#111A26" stroke="var(--muted)"/>
+        <text x="180" y="30" text-anchor="middle" font-size="13" fill="currentColor">Requests arrive at the HTTPS endpoint</text>
+        <line x1="180" y1="42" x2="180" y2="60" stroke="var(--muted)" stroke-width="1.5"/>
+        <polygon points="175,60 185,60 180,68" fill="var(--muted)"/>
+        <rect x="30" y="70" width="300" height="34" rx="6" fill="#111A26" stroke="var(--muted)"/>
+        <text x="180" y="92" text-anchor="middle" font-size="13" fill="currentColor">Autoscaler matches instances to load</text>
+        <line x1="62" y1="104" x2="62" y2="124" stroke="var(--muted)" stroke-width="1.5"/>
+        <polygon points="57,124 67,124 62,132" fill="var(--muted)"/>
+        <line x1="180" y1="104" x2="180" y2="124" stroke="var(--muted)" stroke-width="1.5"/>
+        <polygon points="175,124 185,124 180,132" fill="var(--muted)"/>
+        <line x1="298" y1="104" x2="298" y2="124" stroke="var(--muted)" stroke-width="1.5"/>
+        <polygon points="293,124 303,124 298,132" fill="var(--muted)"/>
+        <text x="62" y="150" text-anchor="middle" font-size="13" fill="currentColor">Idle</text>
+        <text x="180" y="150" text-anchor="middle" font-size="13" fill="currentColor">Steady</text>
+        <text x="298" y="150" text-anchor="middle" font-size="13" fill="currentColor">Burst</text>
+        <rect x="14" y="160" width="96" height="40" rx="6" fill="none" stroke="var(--muted)" stroke-dasharray="5 4"/>
+        <text x="62" y="184" text-anchor="middle" font-size="13" fill="currentColor">0 instances</text>
+        <text x="62" y="222" text-anchor="middle" font-size="13" fill="var(--muted)">scales to zero</text>
+        <rect x="132" y="160" width="96" height="40" rx="6" fill="#111A26" stroke="#FFB224"/>
+        <circle cx="144" cy="170" r="3" fill="#3ECF8E"/>
+        <text x="180" y="184" text-anchor="middle" font-size="13" fill="currentColor">1 instance</text>
+        <text x="180" y="222" text-anchor="middle" font-size="13" fill="var(--muted)">follows demand</text>
+        <rect x="250" y="158" width="28" height="20" rx="4" fill="#111A26" stroke="#FFB224"/>
+        <circle cx="264" cy="168" r="3" fill="#3ECF8E"/>
+        <rect x="284" y="158" width="28" height="20" rx="4" fill="#111A26" stroke="#FFB224"/>
+        <circle cx="298" cy="168" r="3" fill="#3ECF8E"/>
+        <rect x="318" y="158" width="28" height="20" rx="4" fill="#111A26" stroke="#FFB224"/>
+        <circle cx="332" cy="168" r="3" fill="#3ECF8E"/>
+        <rect x="267" y="184" width="28" height="20" rx="4" fill="#111A26" stroke="#FFB224"/>
+        <circle cx="281" cy="194" r="3" fill="#3ECF8E"/>
+        <rect x="301" y="184" width="28" height="20" rx="4" fill="#111A26" stroke="#FFB224"/>
+        <circle cx="315" cy="194" r="3" fill="#3ECF8E"/>
+        <text x="298" y="222" text-anchor="middle" font-size="13" fill="var(--muted)">up to 1,000</text>
+        <text x="180" y="252" text-anchor="middle" font-size="13" fill="var(--muted)">No capacity planning, no idle servers</text>
+      </svg>
+    </div>
+  </section>
+
+  <section id="usecases">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Where it fits</p>
+      <h2 class="sec">Three situations it is built for.</h2>
+      <div class="uses">
+        <div><h3>RESTful APIs</h3><p>Request-response services whose load is uneven, where paying for idle capacity overnight is the main waste.</p></div>
+        <div><h3>Web application back ends</h3><p>The server-side half of an application, deployed from the same image the team already builds in CI.</p></div>
+        <div><h3>Internal automation</h3><p>Webhook receivers, scheduled jobs and bot services that run rarely and should not carry a permanent host. Work that must run to completion rather than serve requests fits Cloud Run jobs, triggered on demand or on a schedule.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">When Cloud Run is the right call — and when it is not.</h2>
+      <ul class="pick">
+        <li><p class="when">Stateless HTTP services or event-driven containers with spiky traffic</p><span class="ar" aria-hidden="true">→</span><span class="node self">Cloud Run</span></li>
+        <li><p class="when">You need full cluster control: custom operators, node tuning, service mesh</p><span class="ar" aria-hidden="true">→</span><a class="node" href="../../style-3-soc/gcp-kubernetes-engine.html">Kubernetes Engine</a></li>
+        <li><p class="when">Long-lived stateful workloads or licensed software tied to a VM</p><span class="ar" aria-hidden="true">→</span><a class="node" href="../../style-3-soc/gcp-compute-engine.html">Compute Engine</a></li>
+        <li><p class="when">An existing App Engine estate that works and needs no migration</p><span class="ar" aria-hidden="true">→</span><a class="node" href="../../style-3-soc/gcp-app-engine.html">App Engine</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Works with</p>
+      <h2 class="sec">Where Cloud Run sits.</h2>
+      <div class="stack">
+        <div class="layer"><h3>In front</h3>
+          <ul class="nodes">
+            <li><a class="node" href="../../style-3-soc/gcp-api-gateway.html">API Gateway</a></li>
+          </ul>
+        </div>
+        <p class="flowmark"><span aria-hidden="true">↓</span> requests</p>
+        <div class="layer"><h3>Runtime</h3>
+          <ul class="nodes">
+            <li><span class="node self">Cloud Run</span></li>
+          </ul>
+        </div>
+        <p class="flowmark"><span aria-hidden="true">↓</span> reads and writes</p>
+        <div class="layer"><h3>State</h3>
+          <ul class="nodes">
+            <li><a class="node" href="../../style-3-soc/gcp-cloud-sql.html">Cloud SQL</a></li>
+            <li><a class="node" href="../../style-3-soc/gcp-firestore.html">Firestore</a></li>
+            <li><a class="node" href="../../style-3-soc/gcp-cloud-storage.html">Cloud Storage</a></li>
+          </ul>
+        </div>
+        <p class="flowmark"><span aria-hidden="true">↓</span> emits events to</p>
+        <div class="layer"><h3>Messaging</h3>
+          <ul class="nodes">
+            <li><a class="node" href="../../style-3-soc/gcp-pubsub.html">Pub/Sub</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="lead" style="margin-top:26px">Volcatech designs the layout, deploys it and keeps it under monitoring. <span class="todo">[TODO: delivery model and response times]</span></p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>Cloud Run or App Engine — which should we choose for a new build?</span></h3><p>For new workloads, Google's own documentation points to Cloud Run as the current serverless direction. App Engine remains fully supported, so existing estates need not move. We assess this per application rather than by default.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>Do we need Kubernetes skills to run it?</span></h3><p>No. Cloud Run accepts a container image and handles scheduling, scaling and TLS itself. Many organisations adopt it with no Kubernetes expertise in-house; Kubernetes Engine is for when you want cluster-level control, not a prerequisite.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>What happens when traffic drops to zero?</span></h3><p>Services scale down to no running instances by default, then scale back out when requests arrive. If cold starts matter on latency-sensitive paths, a minimum instance count can be configured.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>Are we locked into specific languages?</span></h3><p>No. Anything that can be containerised and serve HTTP will run, whatever the language or framework. For common runtimes, source-based deployment can build the container for you.</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>How is Cloud Run priced?</span></h3><p>Billing follows actual usage — CPU, memory and request volume — so cost depends on traffic shape and configuration. Contact us and we will model it against your expected workload.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>Can we release gradually and roll back quickly?</span></h3><p>Yes. Each deployment creates a new revision, and traffic is split between revisions by percentage — a new version can take a small share first, then more as monitoring stays clean. Rolling back means pointing traffic at the previous revision again.</p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>Is Cloud Run only for request-and-response services?</span></h3><p>No. Cloud Run jobs run a container to completion for batch-style work, on demand or scheduled, and worker pools handle always-on consumers that pull from queues or message brokers. Services, jobs and worker pools share the same image format and operating model.</p></div>
+        <div><h3><span class="n" aria-hidden="true">08</span><span>Do WebSockets, gRPC or streaming responses work?</span></h3><p>Yes. Connections are served over TLS that the platform manages, with HTTP/2 and gRPC supported end to end and WebSockets available for long-lived connections — subject to the configured request timeout.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ext"><div class="wrap">Vendor resources → <a href="https://cloud.google.com/run" target="_blank" rel="noopener">cloud.google.com/run ↗</a></div></div>
+  <div class="band">
+    <div class="wrap">
+      <h2>Size your workloads for Google Cloud — book a scoping session.</h2>
+      <div><a class="btn" href="../../style-3-soc/index.html#contact">Contact us</a></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap fcols">
+    <div class="fbrand">
+      <a class="logo" href="../../style-3-soc/index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
+      <p>Cloud, security and managed operations for European organisations.</p>
+      <dl>
+        <dt>Email</dt><dd>[TODO: contact email]</dd>
+        <dt>Phone</dt><dd>+886 [TODO]</dd>
+        <dt>Registered office</dt><dd>[TODO: registered address]</dd>
+      </dl>
+    </div>
+    <div id="cloud-list">
+      <h4><a href="../../style-3-soc/cloud.html">Cloud Infrastructure</a></h4>
+      <ul>
+        <li><a href="../../style-3-soc/cloud.html">Overview</a></li>
+        <li><a href="../../style-3-soc/cloud-compute.html">Compute</a></li>
+        <li><a href="../../style-3-soc/cloud-storage.html">Storage</a></li>
+        <li><a href="../../style-3-soc/cloud-analytics.html">Analytics</a></li>
+        <li><a href="../../style-3-soc/cloud-serverless.html">Serverless</a></li>
+        <li><a href="../../style-3-soc/cloud-databases.html">Databases</a></li>
+        <li><a href="../../style-3-soc/cloud-ai.html">AI</a></li>
+        <li><a href="../../style-3-soc/cloud-services.html">Cloud services &amp; Cloud Armor</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4><a href="../../style-3-soc/cybersecurity.html">Cybersecurity</a></h4>
+      <p class="sub">Endpoint — EDR</p>
+      <ul>
+        <li><a href="../../style-3-soc/sentinelone.html">SentinelOne</a></li>
+        <li><a href="../../style-3-soc/threatsonar.html">ThreatSonar</a></li>
+        <li><a href="../../style-3-soc/cybersecurity.html#fortiedr">FortiEDR</a></li>
+      </ul>
+      <p class="sub">Detection — SIEM & WDR</p>
+      <ul>
+        <li><a href="../../style-3-soc/cybereyes.html">CyberEyes</a></li>
+        <li><a href="../../style-3-soc/google-secops.html">Google SecOps</a></li>
+      </ul>
+      <p class="sub">Validation — breach &amp; attack simulation</p>
+      <ul>
+        <li><a href="../../style-3-soc/argushack.html">ArgusHack</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4><a href="../../style-3-soc/services.html">Managed Services</a></h4>
+      <ul>
+        <li><a href="../../style-3-soc/ess.html">Enterprise Security Service (ESS)</a></li>
+        <li><a href="../../style-3-soc/services.html#soc">24/7 SOC &amp; Incident Response</a></li>
+        <li><a href="../../style-3-soc/services.html#isms">ISMS / PIMS Consulting</a></li>
+        <li><a href="../../style-3-soc/services.html#pentest">Penetration Testing (human-led)</a></li>
+        <li><a href="../../style-3-soc/services.html#finops">Cloud FinOps &amp; Enablement</a></li>
+        <li><a href="../../style-3-soc/services.html#dx">Digital Transformation</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="../../style-3-soc/index.html#why">About</a></li>
+        <li><a href="../../style-3-soc/index.html#contact">Contact</a></li>
+        <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
+        <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap legal" id="legal">
+    <p>Volcatech Co., Ltd. <span lang="zh-Hant-TW">(沃凱科技股份有限公司)</span></p>
+    <p>Registered office: [TODO: registered address]</p>
+    <div class="row"><span>Company registration no.: [TODO]</span><span>VAT / tax ID: [TODO]</span></div>
+    <div class="row"><span>Email: [TODO: contact email]</span><span>Phone: +886 [TODO]</span></div>
+    <div class="row"><a href="#legal">Privacy Policy</a><a href="#legal">Imprint</a></div>
+    <p>© 2026 Volcatech Co., Ltd.</p>
+    <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
+  </div>
+  <div class="wrap backlink"><a href="index.html">← Restyle index</a> · <a href="../../style-3-soc/gcp-cloud-run.html">Current</a> · <a href="b-gcp-cloud-run.html">Proposal B</a> · <a href="../../index.html">Demo hub</a></div>
+</footer>
+</body>
+</html>

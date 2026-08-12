@@ -17,6 +17,12 @@
 **2026-08-05 會議又定案三件事**（結算正本：`docs/meeting_0805_end.md`）：①首頁收斂為兩案；
 ②選單改三層、第一層不可點、全站統一 Nav B；③內容頁改版——**0806 定案走守硬性規則的
 inline CSS 版**（`lab/` 的 Tailwind 版落選），16 個內容頁與首頁已全數改用區塊元件。
+**2026-08-12 新增視覺方向 A/B 提案**（`lab/restyle-0812/`，**待裁決**）：起點是
+`docs/reports/refero_design風格範本調查_20260811.md`，使用者挑了 Supabase 與 Harness.io 兩個範本，
+經四輪 grilling 裁決為**吸收手法、微調現行**（不換皮）。A ＝ 色彩用量（7 條 CSS，零解凍）；
+B ＝ 表面與形態 ＋ **19 個 font-size 值收斂成 8 級階梯**（只有背景加深需解凍）。
+範例頁 `<main>` 與正式頁逐字節相同、只有 CSS 不同。設計文件在 `docs/design/`，
+「色系凍結」的範圍首次被定義於 `docs/adr/0005-colour-freeze-scope.md`。
 **2026-08-10 第二輪**再定案 ArgusHack 重定位（決議 16–24，正本 `docs/meeting_0810.md` 附錄二）：
 原 `CE-BAS` 經查證**不是沃凱自研**（原廠盧氪賽忒 Leukocyte-Lab，沃凱代理）→ 更名 **ArgusHack**、
 升格獨立產品頁、選單第三組改為 `Validation — breach & attack simulation`、
@@ -628,8 +634,14 @@ ISMS / PIMS、Penetration Testing、Cloud FinOps、Digital Transformation，
 - [x] **任務 1f：內容頁視覺方向定案——已完成（2026-08-06）**：選**守硬性規則的 inline CSS 版**，
       Tailwind 版不採用（代價是外部 CDN、色系解凍與建置步驟，三項都與硬性規則衝突）。
       元件已套到全部 36 頁，`lab/` 留檔備查、隨時可刪。
-- [ ] **任務 1f-2（新）：`lab/` 何時刪**：它已完成階段任務，留著只有「當初為什麼沒選 Tailwind」
-      的紀錄價值。刪掉時 `docs/reports/build_lab_20260806.py` 可一併移除，
+- [ ] **任務 1g（新，2026-08-12）：視覺方向 A/B 擇一（或拆開採用）**：入口
+      `lab/restyle-0812/index.html`，附六項判準表。四個選項——採 A、採 B、A 全採＋B 挑幾條、
+      都不採。**B 可以拆**：字級收斂與圓角不需解凍，只有背景加深需要（ADR 0005）。
+      規格與落地步驟在 `docs/design/`（`90_落地路線圖_20260812.md` 有逐步指令）。
+      ⚠ 這輪推翻了 `refero_design風格範本調查_20260811.md` 第 6、95 行的「不會立即採用」註記。
+- [ ] **任務 1f-2：`lab/` 第一層四檔何時刪**：它已完成階段任務，留著只有「當初為什麼沒選 Tailwind」
+      的紀錄價值。⚠ 2026-08-12 起刪的是**第一層四檔**，不是整個 `lab/`——
+      `lab/restyle-0812/` 還在待裁決中。刪掉時 `docs/reports/build_lab_20260806.py` 可一併移除，
       CLAUDE.md 已知缺口第 5 條也隨之消失。**刪除時機由專案負責人決定**（未 commit 前刪掉就找不回來）。
 - [x] ~~**任務 1f-3：`cloud.html` 的 Overview 要不要展開到產品層**~~
       **2026-08-06 完成**（ADR 0002）：兩層都留——六領域卡在上當導覽，下面接 `.loglist`

@@ -7,7 +7,7 @@
 (原廠為台灣盧氪賽忒 Leukocyte-Lab,沃凱是代理商)→ 更名 **ArgusHack**、升格獨立產品頁、
 選單第三組改為 `Validation — breach & attack simulation`;`AI-PTaaS`／`SecPurple`
 因素材不足全站移除(非否定其自研,素材到位可加回)。
-現行維護對象是 `style-3-soc/`(**37 頁**)與 `lab/`(當初的兩案對照,已定案、留檔備查、隨時可刪);評選歷史與封存的首頁變體都在 `archive/`(凍結,不再更新)。
+現行維護對象是 `style-3-soc/`(**37 頁**)與 `lab/`(第一層四檔是 0806 兩案對照,已定案留檔備查;`lab/restyle-0812/` 是 0812 的視覺方向 A/B 提案,**待裁決**);評選歷史與封存的首頁變體都在 `archive/`(凍結,不再更新)。
 
 | 首頁兩案 | 路徑 | hero 之後第一眼 |
 |---|---|---|
@@ -74,8 +74,8 @@ hero 文案(H1 / 副標 / CTA)為 0731 會後改版的置中版。選單分類 `
 從 Demo hub 點進 style-3 的 37 個頁面(2 個首頁、3 個總覽頁、7 個 Cloud 分類頁、
 19 個 GCP 產品頁、5 個資安產品頁、ESS 方案頁)、`lab/` 改版提案與歸檔區。
 
-⚠️ `lab/` 的兩個 Tailwind 頁**需要連網**才會有樣式(它們從外部 CDN 抓 CSS)。
-其餘所有頁面都是單檔自足,離線一樣正常。
+⚠️ `lab/` 第一層的兩個 Tailwind 頁**需要連網**才會有樣式(它們從外部 CDN 抓 CSS)。
+其餘所有頁面(含 `lab/restyle-0812/` 五檔)都是單檔自足,離線一樣正常。
 
 **方法 B(建議,行為與正式環境一致)**:
 
@@ -88,6 +88,7 @@ python3 -m http.server 8000
 #   http://localhost:8000/style-3-soc/index-v1-proof.html      → 首頁:V1 信任前置
 #   (兩個首頁底部有 Layout 切換列)
 #   http://localhost:8000/lab/                                 → 內容頁改版提案(三欄比對)
+#   http://localhost:8000/lab/restyle-0812/                    → ★ 視覺方向 A/B 提案(附判準表)
 #   http://localhost:8000/style-3-soc/gcp-compute-engine.html  → GCP 產品頁:Compute Engine
 #   http://localhost:8000/style-3-soc/gcp-cloud-run.html       → GCP 產品頁:Cloud Run
 #   http://localhost:8000/style-3-soc/gcp-bigquery.html        → GCP 產品頁:BigQuery
@@ -156,7 +157,7 @@ Pages 約 1 分鐘後自動更新(若沒變,瀏覽器強制重新整理 Cmd+Shif
 ## 3. Demo 範圍與已知限制
 
 - 現行 demo 共 37 頁(2 個首頁、3 個總覽頁、7 個 Cloud 分類頁、19 個 GCP 產品頁、
-  5 個資安產品頁、1 個方案頁),另有 `lab/` 4 個提案頁(不算正式頁面)。
+  5 個資安產品頁、1 個方案頁),另有 `lab/` 9 個提案頁(4 個 0806 兩案對照 ＋ 5 個 0812 視覺方向提案,都不算正式頁面)。
   Privacy Policy 與 Imprint 指向頁尾法定資訊區(`#legal`),正式版才有獨立頁面。
 - **選單是三層,第一層不可點**(2026-08-05 決議):`Google Cloud` / `CyberSecurity` /
   `Services` 是 `<button>` 而非連結,只會 hover 展開,避免誤點;各分類的入口改由下拉
@@ -200,9 +201,13 @@ Pages 約 1 分鐘後自動更新(若沒變,瀏覽器強制重新整理 Cmd+Shif
   完整清單見 `CLAUDE.md` §已知缺口。
 - 公司事實(註冊地址、統編、VAT、Email、電話、ISO 認證等)以 `[TODO: 說明]` 佔位,未經確認不虛構。
   **對外分享 demo 前,建議至少先取得可用的聯絡 Email 與電話**,否則頁尾整片佔位觀感不佳。
-- **`lab/` 不是正式頁面**:它放當初兩案的對照(**已定案走 inline 版**),其中兩個 Tailwind 頁**刻意違反**
-  禁外部 CDN、禁框架、色系凍結三條硬性規則,用來讓「照 prompt 做的代價」被看見。
-  它們需要連網才有樣式。做法已搬回 `style-3-soc/`,`lab/` 隨時可整個刪掉。
+- **`lab/` 不是正式頁面**,底下兩個議題規則不同:
+  - **第一層四檔**= 0806 兩案對照(**已定案走 inline 版**),其中兩個 Tailwind 頁**刻意違反**
+    禁外部 CDN、禁框架、色系凍結三條硬性規則,用來讓「照 prompt 做的代價」被看見。
+    它們需要連網才有樣式。做法已搬回 `style-3-soc/`,這四檔隨時可刪。
+  - **`lab/restyle-0812/` 五檔**= 0812 視覺方向 A/B 提案,**待裁決**。它們**不違反任何硬性規則**
+    (零外部請求、零新增 script、離線可開),且 `<main>` 與正式頁逐字節相同——只有 CSS 不同。
+    由 `docs/reports/build_restyle_samples_20260812.py` 產生,不要手改;設計文件在 `docs/design/`。
 - `archive/` 內全部內容(落選風格、版型變體、GPT 參考包、首頁變體、舊總覽)已凍結:
   不修改、不 review、不納入任何檢查;其中 GPT 參考包自帶的 `CLAUDE.md` / `README.md` /
   `HANDOVER.md` 只描述它自己,**不適用本專案**,規則衝突以根目錄 `CLAUDE.md` 為準。
@@ -265,14 +270,20 @@ Volcatech_Web/                  # 專案根(= VS Code 開啟此層、http.server
 │   │   ├── build_updates_20260810.py      # ★ 根 hub 的「待做事項與產品清單」唯一正本
 │   │   ├── rename_argushack_footer_20260810.py  # 0810 全站 footer 更名(可重複執行,只動 footer)
 │   │   ├── build_lab_20260806.py          # 產生 lab/ 的守規則版改版提案
+│   │   ├── build_restyle_samples_20260812.py  # ★ 產生 lab/restyle-0812/ 四個視覺方向範例頁
 │   │   ├── archive_homepage_variants_20260806.py  # 封存 6 檔後的相對路徑修正
 │   │   └── (已封印)sync_nav_20260804.py / remove_gcp_groups_20260805.py
+│   ├── design/                            # ★ 視覺設計文件(0812):基線 / A 規格 / B 規格 / 落地路線圖
 │   └── backups/                           # 制度檔修改前備份
-├── lab/                        # 兩案對照(已定案走 inline 版,留檔備查,隨時可刪)
-│   ├── index.html              # 三欄比對入口:現況 / 守規則版 / Tailwind 版
+├── lab/                        # 提案區(不是正式頁面),底下兩個議題規則不同
+│   ├── index.html              # 0806 三欄比對入口:現況 / 守規則版 / Tailwind 版
 │   ├── inline-cloud-compute.html      # 分類頁改版提案(守硬性規則,深色)
 │   ├── tailwind-cloud-compute.html    # ⚠ Tailwind CDN + 淺色,刻意違反硬性規則
-│   └── tailwind-cloud-run.html        # ⚠ 同上;真頁籤版的產品頁
+│   ├── tailwind-cloud-run.html        # ⚠ 同上;真頁籤版的產品頁
+│   └── restyle-0812/           # ★ 0812 視覺方向 A/B 提案(待裁決),全部守硬性規則
+│       ├── index.html          # 對照入口 ＋ 六項判準表
+│       ├── a-index.html / a-gcp-cloud-run.html   # A · Supabase 向(色彩用量)
+│       └── b-index.html / b-gcp-cloud-run.html   # B · Harness 向(表面與形態＋字級階梯)
 ├── style-3-soc/                # ★ 勝出風格(現行唯一維護對象,共 37 頁)
 │   ├── index.html              # 首頁 — 現行版(對照組)
 │   ├── index-v1-proof.html     # 首頁 — V1 信任前置(由 build_v1 產生,不要手改)

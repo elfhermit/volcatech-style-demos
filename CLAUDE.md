@@ -194,7 +194,9 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 - 下一步:①**兩個首頁二選一**(現行版 vs V1);②`cloud-services.html` 的沃凱服務 3 段內文待素材;
   ③每個 `gcp-*.html` 的 `[TODO: delivery model and response times]` 同樣待素材;
   ④補齊 Services 線其餘服務頁;⑤全站頁尾的法定資訊(統編/VAT/地址/Email/電話)待公司提供;
-  ⑥再依 `docs/Volcatech_多風格_Build_Prompts.md` 的「共用基底 + 勝出風格模組」
+  ⑥**視覺方向 A/B 裁決**(0812 新增,`lab/restyle-0812/`——採 A、採 B、A＋B 挑幾條、或都不採;
+  比對頁附六項判準表。B 的「表面加深」需先依 ADR 0005 解凍,字級收斂不需要);
+  ⑦再依 `docs/Volcatech_多風格_Build_Prompts.md` 的「共用基底 + 勝出風格模組」
   產生正式 **Astro** 版(雙語 i18n、GDPR 隱私頁、sitemap/hreflang)
   ~~決定其餘 15 個 GCP 產品頁做不做~~、~~cloud.html 要不要展開成產品層~~ 已於 0806 完成。
 - **唯一事實來源(SSOT)**:`docs/Volcatech_多風格_Build_Prompts.md`(§A 19 項服務清單已於 2026-08-04
@@ -264,7 +266,7 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 | `.probs` / `.uses` | 痛點(專案前的狀態)／場景(為了什麼情境) | `--surface` ＋ 3px 琥珀左邊界;四項時加 `.four` |
 | `.trio` / `.quad` / `.duo` | 產品、服務、能力卡 | `--surface` 卡 ＋ 自繪 SVG icon ＋ 可選 `.go` 連結;3／4／2 欄 |
 | `.steps` | **有先後順序**的流程 | `#111A26` 節點 ＋ `--muted` 邊框 ＋ 節點間的真箭頭 |
-| `.spec` | 事實／規格／成效清單 | `#111A26` 深色面板 ＋ mono 兩位數編號 |
+| `.spec` | 事實／規格／成效清單 | `#111A26` 深色面板 ＋ mono 兩位數編號。**已改為雙欄交錯矩陣**(`grid-template-columns:repeat(2,1fr)`,偶數格帶左分隔線),消除單欄長條直落;768px 退單欄 |
 | `.stack`＋`.layer`＋`.node`＋`.flowmark` | 分層架構圖(目前只在 `gcp-*.html`) | 分層方塊 ＋ 真箭頭 |
 | `.loglist` | 緊湊索引(目前只在 `cloud.html#products`) | 帶邊框的單欄列表 ＋ 狀態圓點 |
 | `.goes` | 一張卡有兩個出口時的連結列 | 把兩個 `.go` 併成一列,不讓它們各佔一行 |
@@ -384,11 +386,46 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
   否則每跑一次就把全站元件搬進這個「留檔備查」的檔案——不要把那段剝除邏輯拿掉。
   子頁的錨點連結帶 `index.html` 前綴、同資料夾頁面用相對檔名。
 
-## 實驗區:`lab/`(已定案,留檔備查)
+## 實驗區:`lab/`
+
+⚠ **2026-08-12 起 `lab/` 重新啟用**,底下有兩個彼此獨立的議題,規則不同:
+
+| 子區 | 狀態 | 說明 |
+|---|---|---|
+| `lab/*.html`(第一層四檔) | **已定案、留檔備查** | 0806 的「內容頁改版:inline vs Tailwind」對照,見下方專節。隨時可刪 |
+| `lab/restyle-0812/`(五檔) | **待裁決** | 0812 的視覺方向 A/B 提案,見下方專節 |
+
+`check_links_20260806.py` 的 `lab/` 掃描已於 0812 由 `glob` 改為 **`rglob`**——
+原本只掃第一層,子資料夾會靜默逃過檢查而腳本照樣印 PASS。新增 `lab/` 子資料夾時
+不需要再改腳本,但**不要把它改回 `glob`**。
+
+### `lab/restyle-0812/` — 視覺方向 A/B 提案(2026-08-12,待裁決)
+
+起點是 `docs/reports/refero_design風格範本調查_20260811.md`(15 個深色候選)。
+使用者挑了 Supabase 與 Harness.io,經四輪 grilling 裁決為**吸收手法、微調現行**(不換皮)。
+⚠ 那份報告第 6、95 行寫「現階段不會立即採用任何候選、視覺風格維持不動」——
+**該註記已於 0812 由使用者正式重開**,以 `docs/design/README.md` 為準。
+
+- **A(Supabase 向)= 色彩用量**:7 條 CSS,把裝飾性琥珀退成中性色 ＋ 清掉兩處既有不一致。
+  零新增色票、零色碼值改動 → 依 ADR 0005 **不需解凍**。
+- **B(Harness 向)= 表面與形態**:背景加深(保持藍調、仍非純黑)＋ 圓角 6→10／8→12px
+  ＋ **19 個 `font-size` 值收斂成 8 級階梯**。只有「表面加深」動到色碼值,**需要解凍**;
+  字級與圓角不需要,可拆開單獨採用。
+- 四個範例頁**由 `build_restyle_samples_20260812.py` 產生,不要手改**。做法是
+  **只在 `<style>` 尾端疊 override,markup 凍結**——`<main>` 與正式頁逐字節相同
+  (只差 `../../style-3-soc/` 路徑前綴),差異 100% 來自 CSS。全檔另有 3 處刻意的導覽改寫:
+  `<title>` 前綴、EN 自指、backlink 列。
+- 設計文件在 **`docs/design/`**(不進版控):基線／A 規格／B 規格／落地路線圖。
+  「色系凍結」的範圍定義在 **`docs/adr/0005-colour-freeze-scope.md`**。
+- 選定後**不是把範例頁搬過去**,而是照 `docs/design/90_落地路線圖_20260812.md` 把每條改動
+  併回 `restyle_content_20260806.py` 的 `BLOCK_CSS` 與各頁基底 CSS。
+
+### `lab/` 第一層 — 內容頁改版比對(2026-08-06,已定案)
 
 2026-08-06 新增,同日定案。**結果:選 inline CSS 版**,元件已搬進 `style-3-soc/` 全部 37 頁
-(正本 `docs/reports/restyle_content_20260806.py`)。這個資料夾自此只剩紀錄價值——
-它保存了「當初為什麼沒選 Tailwind」的實際對照,**隨時可整個刪掉**,刪除時機由專案負責人決定。
+(正本 `docs/reports/restyle_content_20260806.py`)。這四個檔自此只剩紀錄價值——
+它保存了「當初為什麼沒選 Tailwind」的實際對照,**隨時可整個刪掉**,刪除時機由專案負責人決定
+(刪的是這四個檔,不是整個 `lab/`——`restyle-0812/` 還在用)。
 目前四個檔:
 `index.html`(比對入口,三欄對照表)、`inline-cloud-compute.html`(守硬性規則的分類頁改版提案)、
 `tailwind-cloud-compute.html`、`tailwind-cloud-run.html`(照 0805 prompt 的 Tailwind 實驗版)。
@@ -472,7 +509,8 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 | `restyle_content_20260806.py` | **區塊元件 CSS ＋ 35 個 icon 的唯一正本**。注入 37 檔,可重複執行 |
 | `check_nav_20260806.py` | 軸 1 檢查:37 檔 header ＋ 四段 CSS 逐字節相同 ＋ 結構數量 ＋ 孤兒登記 |
 | `check_copy_20260806.py` | 軸 3 檢查:對 git 基準逐句比對 `<main>`,文案零漂移 |
-| `check_links_20260806.py` | 標籤配對、唯一 h1、id 不重複、相對連結與錨點有效 |
+| `check_links_20260806.py` | 標籤配對、唯一 h1、id 不重複、相對連結與錨點有效。0812 起 `lab/` 改用 **`rglob`** 遞迴掃子資料夾（原本的 `glob` 只掃第一層，子資料夾會靜默逃過檢查） |
+| `build_restyle_samples_20260812.py` | 產生 `lab/restyle-0812/` 的 4 個視覺方向範例頁。只在 `<style>` 尾端疊 override，markup 凍結；A/B 兩套 CSS 的**唯一正本**。⚠ header/footer 取自底檔 —— **改完選單或頁尾要重跑** |
 | `build_v1_20260806.py` | 從 `index.html` 產生 `index-v1-proof.html`(0804 那支改造而來) |
 | `build_gcp_pages_20260806.py` | 產生 19 個 GCP 產品頁(以 `cloud-compute.html` 為底檔)。**產品文案的唯一正本**;0811 起含 `hero_fact` 欄位與 `fig_motif()` |
 | `link_products_20260806.py` | 分類頁 19 張產品卡的雙出口連結 ＋ `cloud.html#products` 索引。可重複執行 |
@@ -492,6 +530,7 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 | 規劃書、需求、prompt 集、會議記錄 | `docs/` |
 | **詞彙表**(同一個詞被用來指不同東西時的正本) | `docs/CONTEXT.md`(不放專案根——根目錄有白名單) |
 | **決策記錄(ADR)**:難逆、意外、有真取捨的決定 | `docs/adr/NNNN-slug.md`,編號遞增 |
+| **視覺設計文件**(現況基線、風格提案規格、可貼 AI 的 prompt、落地路線圖) | `docs/design/`(2026-08-12 建立);索引在其內 `README.md`。⚠ 它是**提案區不是正本**——tokens 正本仍是 CLAUDE.md 速查表 ＋ Build_Prompts §B ＋ 37 檔 `:root` |
 | 一次性腳本、比對報告、體檢輸出 | 臨時 → scratchpad;要保留 → `docs/reports/`(檔名帶日期) |
 | 現行風格的頁面與資產 | 只在 `style-3-soc/` 內 |
 | **改版提案 / 技術實驗**(未定案、不上正式版) | `lab/`,見下方專節 |
@@ -639,7 +678,8 @@ python3 -m http.server 8000   # 開 http://localhost:8000 逐頁檢查
 
 ## 已知缺口(明文登記,不含糊帶過)
 
-demo 不宣稱「完全符合 WCAG 2.2 AA」。以下七項是知道且刻意留著的(前五項無障礙、後兩項一致性):
+demo 不宣稱「完全符合 WCAG 2.2 AA」。以下八項是知道且刻意留著的
+(前五項無障礙、第 6–7 項一致性、第 8 項是 0812 新查出的排版缺口):
 
 1. **SC 1.4.11 非文字對比**:下拉面板邊框用 `--line #27344A`,對 `--bg` 只有 **1.47:1**
    (面板底色對背景更只有 1.12:1),不到 3:1。2026-08-05 使用者裁決**這輪不修**,Astro 正式版處理。
@@ -658,6 +698,13 @@ demo 不宣稱「完全符合 WCAG 2.2 AA」。以下七項是知道且刻意留
 7. **`ess.html` 的 `.steps` 編號寫在標題文字裡**(`01 · Data collection`)而非 `.n` span,
    與其他頁的 mono 灰字編號長得不同。原因是那串編號屬於既有文案,拆出來會讓軸 3 判定少一句。
    要統一得先改文案並 commit,讓軸 3 的基準前進。
+8. **全站沒有任何字體檔,IBM Plex 實際上多數訪客看不到**(2026-08-12 查出)。
+   1152 處 `font-family` 100% 走 `var(--sans)`/`var(--mono)`,但 repo 內
+   `.woff2`/`.woff`/`.ttf`/`.otf` **一個都沒有**、也無 `@font-face`——
+   Plex 只在訪客本機剛好裝了時才生效,否則 fallback 到 `ui-sans-serif`/`system-ui`。
+   **開發者看到的畫面與外部訪客很可能不同。**demo 階段刻意不修(自架字體檔會讓所有視覺
+   對照多一個變因),正式 Astro 版用 `@fontsource` 自架解決;細節見
+   `docs/design/00_現況基線_20260812.md` §8。
 
 SC 1.4.13 Dismissible 原本也在這份清單上,已於 2026-08-06 修掉:`<header>` 帶一個行內
 `onkeydown`,按 Esc 把焦點交給 logo(不是 `blur()`——blur 會把焦點丟回 body,

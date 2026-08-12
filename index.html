@@ -284,8 +284,38 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
     </div>
   </div>
 
+  <h2 class="sect">lab/ 視覺方向提案<span class="tag">待裁決</span>
+    <small>0812 新增。同樣兩頁、兩個視覺方向:一份削減琥珀用量(Supabase 向),
+      一份加深表面並收斂字級階梯(Harness 向)。<b>markup 逐字節凍結,只有 CSS 不同</b>——
+      所以看到的差異一定來自版面,不是文案。</small></h2>
+
+  <div class="grid">
+    <div class="card">
+      <div class="body">
+        <p class="no">Restyle 0812<span class="tag">A/B 對照</span></p>
+        <h2>Supabase 向 vs Harness 向</h2>
+        <p class="grow">來源是 <code>refero.design</code> 的 15 個深色風格候選調查。本輪定位是
+          <b>吸收手法、微調現行</b>,不是換皮——兩套都保留 SOC Console 骨架與琥珀主色,
+          各自只在一個維度上破例。實測發現<b>琥珀本來就已經很克制</b>
+          (<code>var(--accent)</code> 全站僅 14–15 次),所以 A 套的可動空間不大,
+          B 套的重點其實是把 19 個 <code>font-size</code> 值收斂成 8 級階梯。
+          比對頁附<b>六項判準表</b>。</p>
+        <div class="links">
+          <a class="primary" href="lab/restyle-0812/index.html">進入比對頁</a>
+          <span class="lbl">直接開</span>
+          <a href="style-3-soc/index.html">首頁現況</a>
+          <a href="lab/restyle-0812/a-index.html">首頁·A</a>
+          <a href="lab/restyle-0812/b-index.html">首頁·B</a>
+          <a href="style-3-soc/gcp-cloud-run.html">產品頁現況</a>
+          <a href="lab/restyle-0812/a-gcp-cloud-run.html">產品頁·A</a>
+          <a href="lab/restyle-0812/b-gcp-cloud-run.html">產品頁·B</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <h2 class="sect">lab/ 內容頁改版比對<span class="tag">已定案·留檔</span>
-    <small>當初的兩案對照,保留供回看。<b>已選守規則版</b>,其做法已落地到 style-3-soc 全部 36 頁;
+    <small>當初的兩案對照,保留供回看。<b>已選守規則版</b>,其做法已落地到 style-3-soc 全部 37 頁;
       <b>lab/ 不是正式頁面</b>——Tailwind 版會對外部 CDN 發請求,違反「禁外部 CDN(GDPR)」的硬性規則,
       不會併進 style-3-soc,整個資料夾隨時可刪。</small></h2>
 

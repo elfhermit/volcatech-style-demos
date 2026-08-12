@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+<title>[B] Volcatech — Cloud, cybersecurity and managed services</title>
+<meta name="description" content="Volcatech designs and runs Google Cloud environments for European organisations, deploys and tunes EDR and SIEM, and keeps both under 24/7 monitoring — cloud infrastructure, cybersecurity and managed services from one turn-key partner.">
+<style>
+/* ===== Style 3: SOC Console — dark ops room, engineering credibility =====
+   Production build self-hosts fonts via @fontsource (GDPR). Demo uses system fallbacks. */
+:root{
+  --bg:#0E141F; --surface:#16202E; --ink:#E9EEF5; --muted:#9AA8BA;
+  --line:#27344A; --accent:#FFB224; --status:#3ECF8E;
+  --sans:'IBM Plex Sans','Noto Sans TC',ui-sans-serif,system-ui,'Helvetica Neue',Arial,sans-serif;
+  --mono:'IBM Plex Mono','Noto Sans TC',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --max:1200px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.65}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+main [id]{scroll-margin-top:80px}
+.status{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+.status .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--status);margin-right:9px;vertical-align:1px}
+.btn{display:inline-block;background:var(--accent);color:#0E141F;font-weight:600;font-size:15px;
+  padding:13px 26px;border-radius:6px;border:1px solid var(--accent)}
+.btn:hover{background:#E69E14}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--muted)}
+header{position:sticky;top:0;background:rgba(14,20,31,.95);border-bottom:1px solid var(--line);z-index:50}
+.nav{display:flex;align-items:center;gap:30px;height:66px}
+.logo{font-family:var(--mono);font-weight:600;font-size:16px;letter-spacing:.08em}
+.logo .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--status);margin-right:10px;vertical-align:1px}
+.menu{display:flex;gap:24px;margin-left:auto;align-items:center;list-style:none}
+.menu>li{position:relative}
+.menu a{font-size:14.5px;color:var(--muted);padding:8px 0}
+/* Top-level entries are disclosure triggers, not links (0805 decision): a <button> keeps
+   them keyboard-focusable so :focus-within still opens the panel with no JS. The reset has
+   to carry padding and line-height too — .menu a does not select a button, and a shorter
+   <li> would pull the panel up and leave a gap the pointer falls through. */
+.menu>li>button{background:none;border:0;padding:8px 0;font:inherit;font-size:14.5px;
+  line-height:inherit;color:var(--muted);cursor:default;appearance:none}
+.menu a:hover,.menu>li>button:hover,.menu a[aria-current="page"],.menu>li>.on{color:var(--ink)}
+/* Two separate roles: aria-current marks the link that IS this page (now usually on the
+   second level, since Nav B exposes the category pages); .on is the purely visual
+   "you are somewhere in this section" cue on the first-level button. */
+.menu>li>a[aria-current="page"],.menu>li>.on{border-bottom:2px solid var(--accent)}
+.dd>a::after,.dd>button::after{content:" ▾";font-size:10px}
+/* The panel must stay overflow:visible — any overflow value turns it into a clip
+   container and hides the .sub flyouts outside its edge. Nav B panels are short
+   (8 rows at most) so they do not need to scroll. */
+.dd ul{display:none;position:absolute;top:100%;left:-12px;background:var(--surface);border:1px solid var(--line);
+  border-radius:6px;min-width:290px;padding:10px 0;list-style:none}
+.dd:hover>ul,.dd:focus-within>ul{display:block}
+/* Second-level flyout. Child combinators only — descendant selectors would open every
+   nested level the moment the top item is hovered. Scoped to .menu because the footer
+   uses its own .sub class for column sub-headings. */
+.menu .sub{position:relative}
+.menu .sub>a::after{content:" ▸";font-size:10px}
+.menu .sub>ul{top:-11px;left:100%;min-width:240px}
+.menu .sub:hover>ul,.menu .sub:focus-within>ul{display:block}
+.dd ul a{display:block;padding:9px 18px;font-size:14px}
+.dd ul a:hover{background:#1B2736;color:var(--ink)}
+/* Entries with no page yet. Plain text, deliberately not focusable — there is nowhere
+   to go. .dd ul a does not select a span, so the padding has to be repeated. */
+.dd ul .off{display:block;padding:9px 18px;font-size:14px;color:var(--muted);cursor:default}
+.dd ul .off .soon{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;margin-left:8px}
+/* First row of every dropdown: plain-language decode of the ops term */
+.dd .head{padding:6px 18px 8px;margin-bottom:4px;border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.dd .head .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--status);margin-right:8px;vertical-align:1px}
+/* Language switcher — real links, not decorative text */
+.lang{display:flex;align-items:center;font-family:var(--mono);font-size:12px}
+.lang a{padding:4px 10px;color:var(--muted)}
+.lang a+a{border-left:1px solid var(--line)}
+.lang a[aria-current="true"]{color:var(--ink);font-weight:600}
+.navbtn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;
+  padding:8px 14px;font-size:14px;cursor:pointer;color:var(--ink)}
+/* Hero */
+.hero{border-bottom:1px solid var(--line)}
+.hero .wrap{padding:96px 24px 72px}
+.hero h1{font-weight:600;font-size:clamp(36px,5.2vw,58px);line-height:1.08;max-width:20ch;margin-top:22px}
+.hero>.wrap>p.sub{margin-top:22px;max-width:58ch;font-size:18px;color:var(--muted)}
+.hero .cta{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+/* Hero copy is centred; the console cards below stay left-aligned */
+.hero .status,.hero h1,.hero>.wrap>p.sub{text-align:center;margin-inline:auto}
+/* Console cards — 3-second rule */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:56px 0 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:26px 24px;position:relative}
+.card .head{display:flex;justify-content:space-between;align-items:center}
+.card .cdot{width:9px;height:9px;border-radius:50%;background:var(--status)}
+.card .lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.card h2{font-size:21px;margin-top:16px}
+.card p{margin-top:10px;font-size:14.5px;color:var(--muted);max-width:44ch}
+.card a{display:inline-block;margin-top:18px;color:var(--ink);font-weight:600;font-size:15px}
+.card a .arr{color:var(--accent)}
+.card a:hover{text-decoration:underline}
+/* Sections with scan-line dividers + mono status eyebrows */
+section{border-top:1px solid var(--line)}
+section .wrap{padding:88px 24px}
+h2.sec{font-weight:600;font-size:clamp(26px,3.4vw,38px);line-height:1.15;margin-top:18px;max-width:26ch}
+.lead{margin-top:16px;color:var(--muted);font-size:17px;max-width:58ch}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+.cols3>div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:26px 24px}
+.cols3 h3{font-size:18px}
+.cols3 p{margin-top:9px;font-size:14.5px;color:var(--muted);max-width:44ch}
+.todo{font-family:var(--mono);color:var(--muted);font-size:12px;border:1px dashed var(--line);padding:2px 8px;border-radius:4px}
+/* Built by Volcatech — in-house services (amber only at 24px+, per style rule) */
+.built .cols3 h3{font-size:24px;color:var(--accent);font-weight:600}
+.built .cols3 .full{display:block;font-size:12.5px;color:var(--muted);font-weight:400;margin-top:6px;max-width:38ch}
+.built .note{margin-top:28px;font-size:14px;color:var(--muted)}
+.trustline{margin-top:22px;font-family:var(--mono);font-size:13px;color:var(--muted);display:flex;gap:12px 32px;flex-wrap:wrap}
+.trustline b{color:var(--ink);font-weight:600}
+.trustline span{max-width:64ch}
+.vendors span{font-weight:600;font-size:16px;color:var(--muted);margin-right:40px;display:inline-block;margin-top:10px}
+.band{border-top:1px solid var(--line);background:var(--surface)}
+.band .wrap{padding:80px 24px;display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:center}
+.band h2{font-weight:600;font-size:clamp(24px,3vw,34px);line-height:1.2;max-width:24ch}
+.band div:last-child{text-align:right}
+/* Footer */
+footer{border-top:1px solid var(--line)}
+.fcols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr 1fr;gap:28px;padding:60px 24px}
+.fcols h4{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.fcols ul{list-style:none;margin-top:14px}
+.fcols li{margin-top:8px;font-size:14px}
+.fcols .sub{margin-top:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.fcols a{color:var(--muted)} .fcols a:hover{color:var(--ink)}
+.fbrand p{margin-top:14px;font-size:14px;color:var(--muted);max-width:34ch}
+.fbrand dl{margin-top:18px;font-size:14px;color:var(--muted)}
+.fbrand dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;margin-top:10px}
+.fbrand dd{color:var(--ink)}
+.legal{border-top:1px solid var(--line);padding:22px 24px;font-family:var(--mono);font-size:11.5px;color:var(--muted);
+  max-width:78ch;line-height:1.8}
+.legal p{margin-top:6px}
+.legal .row{display:flex;gap:6px 20px;flex-wrap:wrap;margin-top:6px}
+.legal .notice{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px}
+.legal a:hover{color:var(--ink)}
+.backlink{padding:0 24px 22px;font-family:var(--mono);font-size:11.5px}
+/* ===== Block components (0806 content rework) — shared by all 20 pages =====
+   The 0805 review said a content page reads as one undifferentiated column of text:
+   the same .loglist three or four times over. Each section now gets its own treatment,
+   so the shape of a section tells you what kind of thing is in it before you read it.
+   No new colour token — three surface depths, one accent edge, one real arrow row.
+
+   Situational blocks share one rule on purpose. .probs is the state before the project
+   (pain points), .uses is the state it is built for (scenarios); both are short
+   situational statements and the eyebrow above already says which one you are reading. */
+.probs,.uses{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+.probs>div{background:#111A26;border:1px solid var(--line);border-left:3px solid #E69E14;
+  border-radius:0 8px 8px 0;padding:22px 22px}
+.uses>div{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0;padding:22px 22px}
+.probs h3,.uses h3{font-size:16.5px}
+.probs p,.uses p{margin-top:8px;font-size:14.5px;line-height:1.68;color:var(--muted)}
+/* 四項時加 .four —— 預設三欄會把第四張留在下一列只佔 1/3 寬 */
+.probs.four,.uses.four{grid-template-columns:repeat(4,1fr)}
+/* Products and services: an icon card that answers "what is actually on offer" and links
+   out, instead of one more row of text. Same card at three track counts — a catalogue is
+   not always divisible by three. Icons are hand-drawn 24x24 strokes, never image files. */
+.trio,.quad,.duo{display:grid;gap:18px;margin-top:36px}
+.trio{grid-template-columns:repeat(3,1fr)}
+.quad{grid-template-columns:repeat(4,1fr)}
+.duo{grid-template-columns:repeat(2,1fr)}
+.trio>div,.quad>div,.duo>div{background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  padding:24px 22px;display:flex;flex-direction:column}
+.trio .ic,.quad .ic,.duo .ic{display:block;color:var(--accent)}
+.trio h3,.quad h3,.duo h3{font-size:17px;margin-top:16px}
+.trio .full,.quad .full,.duo .full{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);font-weight:400;margin-top:5px}
+.trio p,.quad p,.duo p{margin-top:9px;font-size:14.5px;line-height:1.68;color:var(--muted);flex:1}
+/* 廠商標記（.vsrc）搬進卡片標題後會繼承 h3 的粗體。它是 mono 微標籤不是標題的一部分，
+   在卡片裡改成獨立一行、不加粗；.vsrc 本體的 CSS 在各頁基底，這裡只做卡片內的 scope 覆寫。 */
+.trio .vsrc,.quad .vsrc,.duo .vsrc{display:block;margin:5px 0 0;font-weight:400}
+.trio .go,.quad .go,.duo .go,.loglist .go{display:inline-block;margin-top:16px;font-family:var(--mono);font-size:12.5px;
+  color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:2px;align-self:flex-start}
+.trio .go:hover,.quad .go:hover,.duo .go:hover,.loglist .go:hover{border-color:var(--accent)}
+/* 0806：每個 GCP 產品都有內頁之後，產品卡有兩個出口（產品頁 ＋ 原廠頁）。卡片本身是
+   flex column，兩個 inline-block 的 .go 不包起來會各佔一行，所以用 .goes 併成一列。
+   兩個出口的先後有意義：站內的產品頁在前，離站的原廠頁在後。 */
+.goes{display:flex;flex-wrap:wrap;gap:18px;margin-top:16px;align-self:flex-start}
+.goes .go{margin-top:0}
+/* Sequences — the "arrows between blocks" the review asked for. The arrows are real
+   characters marked aria-hidden, never ::before content, so assistive tech reads the step
+   and skips the glyph. Node borders carry meaning, so they use --muted: --line against
+   the page background is 1.47:1, under the 3:1 that WCAG 1.4.11 asks for. */
+.steps{list-style:none;margin-top:44px;display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
+.steps>li{flex:1 1 200px;background:#111A26;border:1px solid var(--muted);border-radius:8px;padding:20px 18px}
+.steps>li.ar{flex:0 0 auto;border:0;background:none;padding:0;display:flex;align-items:center;
+  color:var(--muted);font-family:var(--mono);font-size:18px}
+.steps .n{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted)}
+.steps h3{font-size:16px;margin-top:10px}
+.steps>li>h3:first-child{margin-top:0}
+.steps p{margin-top:7px;font-size:14px;line-height:1.65;color:var(--muted)}
+/* Facts as a spec sheet: 雙欄交錯矩陣面板，消除單欄長條直落，提高資訊密度與空間利用率。 */
+.spec{margin-top:34px;background:#111A26;border:1px solid var(--line);border-radius:8px;overflow:hidden;
+  display:grid;grid-template-columns:repeat(2,1fr)}
+.spec>div{display:grid;grid-template-columns:36px 1fr;gap:14px;padding:16px 20px;align-items:start;
+  border-top:1px solid var(--line)}
+.spec>div:nth-child(1),.spec>div:nth-child(2){border-top:none}
+.spec>div:nth-child(even){border-left:1px solid var(--line)}
+.spec .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px}
+.spec h3{font-size:16px}
+.spec p{margin-top:5px;font-size:14px;line-height:1.65;color:var(--muted)}
+/* Where a thing sits relative to the rest. Normal flow only — absolute positioning
+   breaks this layout at 768 and 390px. */
+.stack{margin-top:34px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.stack>*+*{border-top:1px solid var(--line)}
+.stack a{scroll-margin-top:80px}
+.layer{background:var(--surface);padding:22px;display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center}
+.layer>h3{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:400}
+.nodes{list-style:none;display:flex;flex-wrap:wrap;gap:10px}
+.node{display:block;border:1px solid var(--muted);border-radius:6px;padding:12px 14px;min-width:170px;background:#111A26;
+  transition:border-color .15s ease,background .15s ease}
+a.node:hover{border-color:var(--accent);background:#182433}
+.node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
+.flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+/* 0806 round 2 — decision-support blocks. .pick answers "which of the 19 do I need":
+   each row pairs a situation with the product to reach for. The recommendation reuses
+   the .node chip language from .stack (deep panel, --muted border, amber self), so
+   "this is a product" reads the same everywhere on the site. Arrow is a real character
+   marked aria-hidden, same as .steps. */
+.pick{list-style:none;margin-top:36px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.pick>li{background:var(--surface);display:grid;grid-template-columns:1fr 28px minmax(200px,max-content);
+  gap:16px;align-items:center;padding:18px 22px;transition:background .15s ease}
+.pick>li:hover{background:#1B2736}
+.pick>li+li{border-top:1px solid var(--line)}
+.pick .when{font-size:14.5px;line-height:1.6}
+.pick .ar{color:var(--accent);font-family:var(--mono);font-size:16px;text-align:center}
+.pick .node{min-width:0;font-size:14.5px}
+/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
+   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
+   .spec so numbering reads as one system; questions carry the ink, answers the muted.
+   0811: the density audit measured #faq at 36-44% of page text — the tallest wall on every
+   product page — so the flat list packs into two newspaper columns of cards. Still fully
+   expanded, still Ctrl+F-findable, about half the height. Single column at 640px and down
+   (640 keeps clear of the 1100/1024 queries the nav checker slices on). */
+.faq{margin-top:36px;columns:2;column-gap:18px}
+.faq>div{break-inside:avoid;background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  padding:20px 22px;margin-bottom:18px;transition:border-color .18s ease}
+.faq>div:hover{border-color:var(--muted)}
+.faq h3{display:grid;grid-template-columns:36px 1fr;gap:14px;font-size:16px;line-height:1.45;color:var(--ink)}
+.faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
+.faq p{margin:10px 0 0 50px;font-size:14.5px;line-height:1.7;color:var(--muted)}
+/* 0811 layout pass (docs/reports/版型改版規劃_20260811.md). No new colour token.
+   Hero fact row: one spec line per product promoted into the hero — moved, not copied,
+   so the copy checker's multiset is unchanged; the chip reuses the .node.self language
+   ("this is the product") and carries the spec line's title, never the product name.
+   Rhythm: content pages only — the two homepages have no .phero, so .phero~section
+   leaves them untouched by construction. */
+.phero .fact{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin-top:28px;
+  background:#111A26;border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0;padding:16px 20px;max-width:840px}
+.phero .fact .n{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--muted)}
+.phero .fact .node{display:inline-block;min-width:0;padding:6px 12px;font-size:13.5px;
+  background:var(--surface);border:1px solid var(--accent);border-radius:4px;font-weight:600}
+.phero .fact .fx{flex:1 1 320px;max-width:640px;font-size:14.5px;line-height:1.6;color:var(--ink)}
+.phero~section .wrap{padding:64px 24px}
+.phero~section .probs,.phero~section .uses,.phero~section .trio,.phero~section .quad,
+.phero~section .duo,.phero~section .steps,.phero~section .pick,.phero~section .faq{margin-top:36px}
+.phero~section .spec,.phero~section .stack{margin-top:34px}
+@media (max-width:768px){
+  .spec{grid-template-columns:1fr}
+  .spec>div:nth-child(2){border-top:1px solid var(--line)}
+  .spec>div:nth-child(even){border-left:none}
+}
+@media (max-width:640px){
+  .faq{columns:1}
+}
+/* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
+   shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
+.probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
+.probs>div:hover,.uses>div:hover,.trio>div:hover,.quad>div:hover,.duo>div:hover{transform:translateY(-2px);border-color:var(--muted)}
+/* 1040px is deliberately not one of the widths used elsewhere in this file: the nav
+   checker slices on the 1100px and 1024px queries and needs each to appear once. */
+@media (max-width:1040px){
+  .quad,.probs.four,.uses.four{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  .probs,.uses,.trio,.quad,.duo,.probs.four,.uses.four{grid-template-columns:1fr}
+  .steps{flex-direction:column}
+  .steps>li.ar{justify-content:center;transform:rotate(90deg)}
+  .layer{grid-template-columns:1fr;gap:10px}
+  .pick>li{grid-template-columns:1fr}
+  .pick .ar{transform:rotate(90deg);justify-self:center}
+  .faq p{margin-left:0}
+}
+@media (prefers-reduced-motion: reduce){
+  .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
+  .probs>div:hover,.uses>div:hover,.trio>div:hover,.quad>div:hover,.duo>div:hover{transform:none}
+}
+/* ===== end block components ===== */
+@keyframes statusPulse {
+  0% { box-shadow: 0 0 0 0 rgba(62, 207, 142, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(62, 207, 142, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(62, 207, 142, 0); }
+}
+.status .dot, .logo .dot, .card .cdot {
+  animation: statusPulse 2.5s infinite ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .status .dot, .logo .dot, .card .cdot { animation: none; }
+}
+/* 901-1100px: not enough room beside the panel for a side flyout — at the narrow end
+   of this band it would run past the left viewport edge. Open the second level inline
+   inside the panel instead, so horizontal overflow is structurally impossible. It still
+   only expands on hover/focus, so the panel never grows past ~12 rows. */
+@media (max-width:1100px){
+  .menu .sub>ul{position:static;top:auto;left:auto;right:auto;min-width:0;
+    border:none;border-radius:0;padding:4px 0 4px 14px}
+}
+@media (max-width:1024px){
+  .fcols{grid-template-columns:1fr 1fr}
+}
+@media (max-width:900px){
+  .cards,.cols3{grid-template-columns:1fr}
+  .band .wrap{grid-template-columns:1fr}
+  .band div:last-child{text-align:left}
+  .navbtn{display:block}
+  .menu{display:none;position:absolute;top:66px;left:0;right:0;background:var(--surface);
+    border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;padding:16px 24px;gap:4px;
+    max-height:calc(100vh - 66px);overflow-y:auto}
+  .menu.open{display:flex}
+  .menu>li>button{padding:8px 0}
+  .dd ul{display:block;position:static;border:none;padding-left:14px;min-width:0;max-height:none;overflow-y:visible}
+  .menu .sub>ul{position:static;left:auto;right:auto;min-width:0}
+  .lang{margin-top:10px}
+  .lang a{padding-left:0}
+  .lang a+a{padding-left:10px}
+}
+@media (max-width:560px){
+  .fcols{grid-template-columns:1fr}
+}
+
+/* ===== 提案 B —— Harness 向：表面與形態 ============================
+   0812。基底 CSS 一字未改，以下全部是疊加的 override。
+
+   refero 報告的 Harness 是 #070707 中性黑 ＋ 圓角藥丸型。兩者都不照搬：
+   #070707 撞「禁純黑」，中性黑會丟掉 SOC 主控台的冷色身分（0731 選中 style-3 的原因）。
+   所以背景**保持藍調、只加深**，形態只做柔化不做藥丸。
+
+   實測基線：全站用到 19 個不同的 font-size 值（10 / 10.5 / 11 / 11.5 / 12 / 12.5 /
+   13 / 13.5 / 14 / 14.5 / 15 / 16 / 16.5 / 17 / 17.5 / 18 / 20 / 21 / 24），出現 0.5px 級距。
+   （20px 只出現一次：index-v1-proof.html 的 .pcards .wm，V1 專屬，落地時映射到 21 級。
+   本檔改的兩個底檔都沒有它，所以下面的 override 不含那一條。）
+   那不是設計出來的，是逐次堆疊出來的。本套收斂成 8 級：12 / 13.5 / 15 / 16.5 /
+   18.5 / 21 / 26 / 34（約 1.125 比例）。下拉三角形 ▾▸ 的 10px 不在此列——它是圖示不是字。
+
+   不動 .phero~section .wrap 的 64px：0811 才剛把它從 80px 收下來解決文字疲勞，
+   本套沒有理由推翻它。字級變大連帶的卡內距微調有做。                                */
+
+/* ---- 表面：四層階梯，保持藍調 -------------------------------------
+   #0E141F → #080C13（頁面）／#111A26 → #0D141E（凹陷面板）／
+   #16202E → #131C29（抬升卡）／#1B2736·#182433 → #18222F（hover，順手合併）
+   ⚠ --bg 的值有變 = 動到 token 色碼本身，依 ADR 0005 這需要解凍。本檔是提案，未選定不落地。 */
+:root{--bg:#080C13; --surface:#131C29}
+header{background:rgba(8,12,19,.95)}
+.btn{color:#080C13}
+.probs>div,.steps>li,.spec,.node,.phero .fact{background:#0D141E}
+.dd ul a:hover,.pick>li:hover{background:#18222F}
+a.node:hover{background:#18222F}
+
+/* ---- 形態：圓角柔化（6→10 / 8→12 / 4→6），不做藥丸 ---------------- */
+.btn,.dd ul,.navbtn,.node{border-radius:10px}
+.card,.cols3>div,.cards2>div,.trio>div,.quad>div,.duo>div,
+.steps>li,.spec,.stack,.pick,.faq>div,.loglist{border-radius:12px}
+.probs>div,.uses>div,.phero .fact{border-radius:0 12px 12px 0}
+.todo,.phero .fact .node{border-radius:6px}
+
+/* ---- 字級：19 個值 → 8 級（本頁用得到的那些） --------------------- */
+/* 12 — mono 微標籤（原 10.5 / 11 / 11.5 / 12） */
+.fcols .sub,.fbrand dt,.dd ul .off .soon,.vsrc,
+.dd .head,.fcols h4,.steps .n,.trio .full,.quad .full,.duo .full,.layer>h3,
+.card .lbl,.legal,.backlink,
+.spec .n,.faq .n,.phero .fact .n,.lang,.todo{font-size:12px}
+/* 13.5 — mono 標籤與次要說明（原 12.5 / 13 / 13.5） */
+.status,.trio .go,.quad .go,.duo .go,.loglist .go,.cards2 .go,.flowmark,
+.legal .notice,.built .cols3 .full,.phero .vendor,
+.trustline,.ext .wrap,.phero .fact .node{font-size:13.5px}
+/* 15 — 內文與導覽（原 14 / 14.5 / 15） */
+.dd ul a,.dd ul .off,.navbtn,.phero .code,.steps p,.spec p,
+.fcols li,.fbrand p,.fbrand dl,.built .note,.loglist small,
+.menu a,.menu>li>button,.card p,.cols3 p,.cards2 p,.probs p,.uses p,
+.trio p,.quad p,.duo p,.faq p,.pick .when,.phero .fact .fx,
+.btn,.card a,.loglist p{font-size:15px}
+/* 16.5 — 小標題與正文基準（原 16 / 16.5） */
+body,.logo,.steps h3,.spec h3,.faq h3,.probs h3,.uses h3,.pick .ar{font-size:16.5px}
+/* 18.5 — 卡片標題與 hero 副標（原 17 / 17.5 / 18） */
+.trio h3,.quad h3,.duo h3,.cards2 h3,.cols3 h3,
+.hero>.wrap>p.sub,.phero .tag,.steps>li.ar{font-size:18.5px}
+/* 21 — 首頁主卡標題 */
+.card h2{font-size:21px}
+/* 26 — Built 區標題（原 24） */
+.built .cols3 h3{font-size:26px}
+/* h1／h2：把落差拉開。h2 收到階梯頂 34px，h1 往上走。 */
+.hero h1{font-size:clamp(38px,5.6vw,64px)}
+.phero h1{font-size:clamp(34px,5.2vw,58px)}
+h2.sec{font-size:clamp(26px,3.4vw,34px)}
+.band h2{font-size:clamp(21px,2.8vw,26px)}
+
+/* ---- 字級變大連帶的內距微調（不動 section 直向節奏） -------------- */
+.trio>div,.quad>div,.duo>div{padding:26px 24px}
+.probs>div,.uses>div{padding:24px 22px}
+.faq>div{padding:22px 24px}
+.spec>div{padding:18px 22px}
+.pick>li{padding:20px 24px}
+
+/* 提案頁標記（純 CSS，不動 markup）。 */
+body::after{content:"Proposal B · Harness-leaning · not the live page";
+  position:fixed;left:14px;bottom:14px;z-index:80;pointer-events:none;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--surface);color:var(--muted);border:1px solid var(--muted);
+  border-radius:10px;padding:7px 12px}
+/* ===== end 提案 B ===== */
+</style>
+</head>
+<body>
+<header onkeydown="if(event.key==='Escape')this.querySelector('.logo').focus()">
+  <div class="wrap nav">
+    <a class="logo" href="../../style-3-soc/index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
+    <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
+    <ul class="menu" id="menu">
+      <li><a href="../../style-3-soc/index.html" aria-current="page">Home</a></li>
+      <li class="dd"><button type="button" aria-haspopup="true">Google Cloud</button>
+        <ul>
+          <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
+          <li><a href="../../style-3-soc/cloud.html">Overview — all Google Cloud services</a></li>
+          <li class="sub"><a href="../../style-3-soc/cloud-compute.html" aria-haspopup="true">Compute</a>
+            <ul>
+              <li><a href="../../style-3-soc/gcp-compute-engine.html">Compute Engine</a></li>
+              <li><a href="../../style-3-soc/gcp-kubernetes-engine.html">Kubernetes Engine</a></li>
+              <li><a href="../../style-3-soc/gcp-vmware-engine.html">VMware Engine</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="../../style-3-soc/cloud-storage.html" aria-haspopup="true">Storage</a>
+            <ul>
+              <li><a href="../../style-3-soc/gcp-cloud-storage.html">Cloud Storage</a></li>
+              <li><a href="../../style-3-soc/gcp-filestore.html">Filestore</a></li>
+              <li><a href="../../style-3-soc/gcp-backup-dr.html">Backup and DR</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="../../style-3-soc/cloud-analytics.html" aria-haspopup="true">Analytics</a>
+            <ul>
+              <li><a href="../../style-3-soc/gcp-bigquery.html">BigQuery</a></li>
+              <li><a href="../../style-3-soc/gcp-pubsub.html">Pub/Sub</a></li>
+              <li><a href="../../style-3-soc/gcp-dataflow.html">Dataflow</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="../../style-3-soc/cloud-serverless.html" aria-haspopup="true">Serverless</a>
+            <ul>
+              <li><a href="../../style-3-soc/gcp-cloud-run.html">Cloud Run</a></li>
+              <li><a href="../../style-3-soc/gcp-app-engine.html">App Engine</a></li>
+              <li><a href="../../style-3-soc/gcp-api-gateway.html">API Gateway</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="../../style-3-soc/cloud-databases.html" aria-haspopup="true">Databases</a>
+            <ul>
+              <li><a href="../../style-3-soc/gcp-alloydb.html">AlloyDB for PostgreSQL</a></li>
+              <li><a href="../../style-3-soc/gcp-cloud-sql.html">Cloud SQL</a></li>
+              <li><a href="../../style-3-soc/gcp-datastore.html">Datastore</a></li>
+              <li><a href="../../style-3-soc/gcp-firestore.html">Firestore</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="../../style-3-soc/cloud-ai.html" aria-haspopup="true">AI</a>
+            <ul>
+              <li><a href="../../style-3-soc/gcp-vertex-ai.html">Vertex AI</a></li>
+              <li><a href="../../style-3-soc/gcp-model-garden.html">Model Garden</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li class="dd"><button type="button" aria-haspopup="true">CyberSecurity</button>
+        <ul>
+          <li class="head"><span class="dot" aria-hidden="true"></span>CyberSecurity — EDR · SIEM &amp; WDR · BAS</li>
+          <li><a href="../../style-3-soc/cybersecurity.html">Overview — all security products</a></li>
+          <li class="sub"><a href="../../style-3-soc/cybersecurity.html#edr" aria-haspopup="true">Endpoint — EDR</a>
+            <ul>
+              <li><a href="../../style-3-soc/sentinelone.html">SentinelOne</a></li>
+              <li><a href="../../style-3-soc/threatsonar.html">ThreatSonar</a></li>
+              <li><span class="off">FortiEDR<span class="soon">Coming soon</span></span></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="../../style-3-soc/cybersecurity.html#detection" aria-haspopup="true">Detection — SIEM &amp; WDR</a>
+            <ul>
+              <li><a href="../../style-3-soc/cybereyes.html">CyberEyes</a></li>
+              <li><a href="../../style-3-soc/google-secops.html">Google SecOps</a></li>
+            </ul>
+          </li>
+          <li class="sub"><a href="../../style-3-soc/cybersecurity.html#validation" aria-haspopup="true">Validation — breach &amp; attack simulation</a>
+            <ul>
+              <li><a href="../../style-3-soc/argushack.html">ArgusHack</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li class="dd"><button type="button" aria-haspopup="true">Services</button>
+        <ul>
+          <li class="head"><span class="dot" aria-hidden="true"></span>Services — Managed Services</li>
+          <li><a href="../../style-3-soc/services.html">Overview — all managed services</a></li>
+          <li><a href="../../style-3-soc/ess.html">Enterprise Security Service (ESS)</a></li>
+          <li><a href="../../style-3-soc/services.html#soc">24/7 SOC &amp; Incident Response</a></li>
+          <li><span class="off">GCP Managed Services<span class="soon">Coming soon</span></span></li>
+        </ul>
+      </li>
+      <li><a href="#why" title="Demo: opens the matching section on this page">About</a></li>
+      <li><a class="btn" style="padding:9px 18px" href="#contact">Contact us</a></li>
+      <li>
+        <nav class="lang" aria-label="Language">
+          <a href="b-index.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+        </nav>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="hero" id="top">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Cloud · Cybersecurity · Managed Services</p>
+      <h1>Cloud infrastructure, cybersecurity and managed services — from one turn-key partner.</h1>
+      <p class="sub">We design and run Google Cloud environments for European organisations, deploy and tune EDR and SIEM, and keep both under 24/7 monitoring. One team, one contract, one point of accountability.</p>
+      <div class="cta">
+        <a class="btn" href="#contact">Contact us</a>
+        <a class="btn btn-ghost" href="#offer">Explore our services</a>
+      </div>
+
+      <!-- 3-second rule: console cards -->
+      <div class="cards" id="offer">
+        <div class="card">
+          <div class="head"><span class="lbl">C-Series — Google Cloud</span><span class="cdot" aria-hidden="true"></span></div>
+          <h2>Cloud Infrastructure</h2>
+          <p>Google Cloud design, migration and day-2 operations — Compute Engine, Cloud SQL, Cloud Armor, Kubernetes, hybrid setups and data/AI pipelines. EU regions available.</p>
+          <a href="../../style-3-soc/cloud.html">Explore Cloud Infrastructure <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+        <div class="card">
+          <div class="head"><span class="lbl">E·S·A-Series — CyberSecurity</span><span class="cdot" aria-hidden="true"></span></div>
+          <h2>Cybersecurity</h2>
+          <p>EDR, SIEM and WDR from SentinelOne, TeamT5, Fortinet, CyberEyes and Google — selected, deployed and tuned — plus breach and attack simulation to check that they hold.</p>
+          <a href="../../style-3-soc/cybersecurity.html">Explore Cybersecurity <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+        <div class="card">
+          <div class="head"><span class="lbl">X-Series — Services</span><span class="cdot" aria-hidden="true"></span></div>
+          <h2>Managed Services</h2>
+          <p>24/7 SOC and incident response, ISMS / PIMS consulting, human-led penetration testing, cloud cost governance and digital transformation.</p>
+          <a href="../../style-3-soc/services.html">Explore Managed Services <span class="arr" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="built" id="built">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Operated by Volcatech — security validation</p>
+      <h2 class="sec">Tooling we operate, and evidence that it works.</h2>
+      <p class="lead">We do not stop at supplying security tooling — our team also runs the exercises that show whether it holds.</p>
+      <div class="duo">
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg><h3>ArgusHack<span class="full">Breach and attack simulation · by Leukocyte-Lab</span></h3>
+          <p>A breach and attack simulation platform that replays attacker techniques against your live environment, so the controls you already own are measured on what they stop rather than on what they were bought to stop.</p>
+          <a class="go" href="../../style-3-soc/argushack.html">Product page →</a></div>
+      </div>
+      <p class="note">Reference deployments and delivery model: <span class="todo">[TODO: anonymised customer references, delivery model and response times]</span></p>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Why Volcatech</p>
+      <h2 class="sec">One partner accountable for the whole stack.</h2>
+      <div class="trio">
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5L6.5 17M12 11.5L17.5 17"/></svg><h3>One partner for the whole stack</h3><p>Cloud, security products and 24/7 operations under one contract — fewer suppliers, and fewer gaps between them.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h9.5a4.5 4.5 0 0 0 .3-9A6 6 0 0 0 5.6 10.4 4 4 0 0 0 7 18z"/></svg><h3>Google Cloud engineering</h3><p>Architecture, migration, cost governance and training, delivered by the same team that operates the platform afterwards. <span class="todo">[TODO: partner tier and certifications]</span></p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.6-3.2 8.4-8 9.6C7.2 20.4 4 16.6 4 12V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><h3>Security we operate, not just resell</h3><p>Our SOC watches the tools we deploy, and we run breach and attack simulation against them to check that they hold.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="trust">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Trust &amp; compliance</p>
+      <div class="trio" style="margin-top:24px">
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg><h3>GDPR-ready</h3><p>By design</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg><h3>EU data residency</h3><p>Google Cloud (europe-west)</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg><h3>ISO 27001</h3><p><span class="todo">[TODO: certification status, scope and certificate number]</span></p></div>
+      </div>
+      <p style="margin-top:24px;font-family:var(--mono);font-size:13px;color:var(--muted)">This demo loads no third-party resources and sets no cookies.</p>
+
+    </div>
+  </section>
+
+  <section id="vendors">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Technology partners</p>
+      <div class="vendors" style="margin-top:12px">
+        <span>Google Cloud</span><span>SentinelOne</span><span>TeamT5</span><span>Fortinet</span><span>CyberEyes</span><span>Leukocyte-Lab</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="band" id="contact">
+    <div class="wrap">
+      <h2>Tell us about your environment — we will map the path to cloud, security and operations.</h2>
+      <div><a class="btn" href="#contact">Contact us</a></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap fcols">
+    <div class="fbrand">
+      <a class="logo" href="../../style-3-soc/index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
+      <p>Cloud, security and managed operations for European organisations.</p>
+      <dl>
+        <dt>Email</dt><dd>[TODO: contact email]</dd>
+        <dt>Phone</dt><dd>+886 [TODO]</dd>
+        <dt>Registered office</dt><dd>[TODO: registered address]</dd>
+      </dl>
+    </div>
+    <div id="cloud-list">
+      <h4><a href="../../style-3-soc/cloud.html">Cloud Infrastructure</a></h4>
+      <ul>
+        <li><a href="../../style-3-soc/cloud.html">Overview</a></li>
+        <li><a href="../../style-3-soc/cloud-compute.html">Compute</a></li>
+        <li><a href="../../style-3-soc/cloud-storage.html">Storage</a></li>
+        <li><a href="../../style-3-soc/cloud-analytics.html">Analytics</a></li>
+        <li><a href="../../style-3-soc/cloud-serverless.html">Serverless</a></li>
+        <li><a href="../../style-3-soc/cloud-databases.html">Databases</a></li>
+        <li><a href="../../style-3-soc/cloud-ai.html">AI</a></li>
+        <li><a href="../../style-3-soc/cloud-services.html">Cloud services &amp; Cloud Armor</a></li>
+      </ul>
+    </div>
+    <div id="security-list">
+      <h4><a href="../../style-3-soc/cybersecurity.html">Cybersecurity</a></h4>
+      <p class="sub">Endpoint — EDR</p>
+      <ul>
+        <li><a href="../../style-3-soc/sentinelone.html">SentinelOne</a></li>
+        <li><a href="../../style-3-soc/threatsonar.html">ThreatSonar</a></li>
+        <li><a href="../../style-3-soc/cybersecurity.html#fortiedr">FortiEDR</a></li>
+      </ul>
+      <p class="sub">Detection — SIEM & WDR</p>
+      <ul>
+        <li><a href="../../style-3-soc/cybereyes.html">CyberEyes</a></li>
+        <li><a href="../../style-3-soc/google-secops.html">Google SecOps</a></li>
+      </ul>
+      <p class="sub">Validation — breach &amp; attack simulation</p>
+      <ul>
+        <li><a href="../../style-3-soc/argushack.html">ArgusHack</a></li>
+      </ul>
+    </div>
+    <div id="managed-list">
+      <h4><a href="../../style-3-soc/services.html">Managed Services</a></h4>
+      <ul>
+        <li><a href="../../style-3-soc/ess.html">Enterprise Security Service (ESS)</a></li>
+        <li><a href="../../style-3-soc/services.html#soc">24/7 SOC &amp; Incident Response</a></li>
+        <li><a href="../../style-3-soc/services.html#isms">ISMS / PIMS Consulting</a></li>
+        <li><a href="../../style-3-soc/services.html#pentest">Penetration Testing (human-led)</a></li>
+        <li><a href="../../style-3-soc/services.html#finops">Cloud FinOps &amp; Enablement</a></li>
+        <li><a href="../../style-3-soc/services.html#dx">Digital Transformation</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#why">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
+        <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap legal" id="legal">
+    <p>Volcatech Co., Ltd. <span lang="zh-Hant-TW">(沃凱科技股份有限公司)</span></p>
+    <p>Registered office: [TODO: registered address]</p>
+    <div class="row"><span>Company registration no.: [TODO]</span><span>VAT / tax ID: [TODO]</span></div>
+    <div class="row"><span>Email: [TODO: contact email]</span><span>Phone: +886 [TODO]</span></div>
+    <div class="row"><a href="#legal">Privacy Policy</a><a href="#legal">Imprint</a></div>
+    <p>© 2026 Volcatech Co., Ltd.</p>
+    <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
+  </div>
+  <div class="wrap backlink"><a href="index.html">← Restyle index</a> · <a href="../../style-3-soc/index.html">Current</a> · <a href="a-index.html">Proposal A</a> · <a href="../../index.html">Demo hub</a></div>
+</footer>
+</body>
+</html>
