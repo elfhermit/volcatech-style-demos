@@ -137,17 +137,19 @@ footer{border-top:1px solid var(--line)}
    Situational blocks share one rule on purpose. .probs is the state before the project
    (pain points), .uses is the state it is built for (scenarios); both are short
    situational statements and the eyebrow above already says which one you are reading. */
-.probs,.uses{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
-.probs>div,.uses>div{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+.probs,.uses{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+.probs>div{background:#111A26;border:1px solid var(--line);border-left:3px solid #E69E14;
+  border-radius:0 8px 8px 0;padding:22px 22px}
+.uses>div{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
   border-radius:0 8px 8px 0;padding:22px 22px}
 .probs h3,.uses h3{font-size:16.5px}
-.probs p,.uses p{margin-top:8px;font-size:14.5px;color:var(--muted)}
+.probs p,.uses p{margin-top:8px;font-size:14.5px;line-height:1.68;color:var(--muted)}
 /* 四項時加 .four —— 預設三欄會把第四張留在下一列只佔 1/3 寬 */
 .probs.four,.uses.four{grid-template-columns:repeat(4,1fr)}
 /* Products and services: an icon card that answers "what is actually on offer" and links
    out, instead of one more row of text. Same card at three track counts — a catalogue is
    not always divisible by three. Icons are hand-drawn 24x24 strokes, never image files. */
-.trio,.quad,.duo{display:grid;gap:18px;margin-top:44px}
+.trio,.quad,.duo{display:grid;gap:18px;margin-top:36px}
 .trio{grid-template-columns:repeat(3,1fr)}
 .quad{grid-template-columns:repeat(4,1fr)}
 .duo{grid-template-columns:repeat(2,1fr)}
@@ -157,7 +159,7 @@ footer{border-top:1px solid var(--line)}
 .trio h3,.quad h3,.duo h3{font-size:17px;margin-top:16px}
 .trio .full,.quad .full,.duo .full{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
   text-transform:uppercase;color:var(--muted);font-weight:400;margin-top:5px}
-.trio p,.quad p,.duo p{margin-top:9px;font-size:14.5px;color:var(--muted);flex:1}
+.trio p,.quad p,.duo p{margin-top:9px;font-size:14.5px;line-height:1.68;color:var(--muted);flex:1}
 /* 廠商標記（.vsrc）搬進卡片標題後會繼承 h3 的粗體。它是 mono 微標籤不是標題的一部分，
    在卡片裡改成獨立一行、不加粗；.vsrc 本體的 CSS 在各頁基底，這裡只做卡片內的 scope 覆寫。 */
 .trio .vsrc,.quad .vsrc,.duo .vsrc{display:block;margin:5px 0 0;font-weight:400}
@@ -180,26 +182,28 @@ footer{border-top:1px solid var(--line)}
 .steps .n{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted)}
 .steps h3{font-size:16px;margin-top:10px}
 .steps>li>h3:first-child{margin-top:0}
-.steps p{margin-top:7px;font-size:14px;color:var(--muted)}
-/* Facts as a spec sheet: deeper panel, mono index, one continuous surface.
-   0811: rows tightened (padding 20/22 -> 15/20, index 42 -> 36) — the audit put #features
-   second only to #faq by text weight, and a spec sheet reads fine at ledger density. */
-.spec{margin-top:40px;background:#111A26;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.spec>div{display:grid;grid-template-columns:36px 1fr;gap:14px;padding:15px 20px;align-items:start}
-.spec>div+div{border-top:1px solid var(--line)}
+.steps p{margin-top:7px;font-size:14px;line-height:1.65;color:var(--muted)}
+/* Facts as a spec sheet: 雙欄交錯矩陣面板，消除單欄長條直落，提高資訊密度與空間利用率。 */
+.spec{margin-top:34px;background:#111A26;border:1px solid var(--line);border-radius:8px;overflow:hidden;
+  display:grid;grid-template-columns:repeat(2,1fr)}
+.spec>div{display:grid;grid-template-columns:36px 1fr;gap:14px;padding:16px 20px;align-items:start;
+  border-top:1px solid var(--line)}
+.spec>div:nth-child(1),.spec>div:nth-child(2){border-top:none}
+.spec>div:nth-child(even){border-left:1px solid var(--line)}
 .spec .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px}
 .spec h3{font-size:16px}
-.spec p{margin-top:5px;font-size:14px;color:var(--muted)}
+.spec p{margin-top:5px;font-size:14px;line-height:1.65;color:var(--muted)}
 /* Where a thing sits relative to the rest. Normal flow only — absolute positioning
    breaks this layout at 768 and 390px. */
-.stack{margin-top:40px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.stack{margin-top:34px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .stack>*+*{border-top:1px solid var(--line)}
 .stack a{scroll-margin-top:80px}
 .layer{background:var(--surface);padding:22px;display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center}
 .layer>h3{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:400}
 .nodes{list-style:none;display:flex;flex-wrap:wrap;gap:10px}
-.node{display:block;border:1px solid var(--muted);border-radius:6px;padding:12px 14px;min-width:170px;background:#111A26}
-a.node:hover{border-color:var(--accent)}
+.node{display:block;border:1px solid var(--muted);border-radius:6px;padding:12px 14px;min-width:170px;background:#111A26;
+  transition:border-color .15s ease,background .15s ease}
+a.node:hover{border-color:var(--accent);background:#182433}
 .node.self{border-color:var(--accent);background:var(--surface);font-weight:600}
 .flowmark{background:var(--bg);text-align:center;padding:8px 0;color:var(--muted);
   font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
@@ -208,12 +212,13 @@ a.node:hover{border-color:var(--accent)}
    the .node chip language from .stack (deep panel, --muted border, amber self), so
    "this is a product" reads the same everywhere on the site. Arrow is a real character
    marked aria-hidden, same as .steps. */
-.pick{list-style:none;margin-top:44px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.pick{list-style:none;margin-top:36px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .pick>li{background:var(--surface);display:grid;grid-template-columns:1fr 28px minmax(200px,max-content);
-  gap:16px;align-items:center;padding:18px 22px}
+  gap:16px;align-items:center;padding:18px 22px;transition:background .15s ease}
+.pick>li:hover{background:#1B2736}
 .pick>li+li{border-top:1px solid var(--line)}
-.pick .when{font-size:14.5px}
-.pick .ar{color:var(--muted);font-family:var(--mono);font-size:16px;text-align:center}
+.pick .when{font-size:14.5px;line-height:1.6}
+.pick .ar{color:var(--accent);font-family:var(--mono);font-size:16px;text-align:center}
 .pick .node{min-width:0;font-size:14.5px}
 /* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
    (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
@@ -222,26 +227,35 @@ a.node:hover{border-color:var(--accent)}
    product page — so the flat list packs into two newspaper columns of cards. Still fully
    expanded, still Ctrl+F-findable, about half the height. Single column at 640px and down
    (640 keeps clear of the 1100/1024 queries the nav checker slices on). */
-.faq{margin-top:44px;columns:2;column-gap:18px}
+.faq{margin-top:36px;columns:2;column-gap:18px}
 .faq>div{break-inside:avoid;background:var(--surface);border:1px solid var(--line);border-radius:8px;
-  padding:20px 22px;margin-bottom:18px}
-.faq h3{display:grid;grid-template-columns:36px 1fr;gap:14px;font-size:16px}
+  padding:20px 22px;margin-bottom:18px;transition:border-color .18s ease}
+.faq>div:hover{border-color:var(--muted)}
+.faq h3{display:grid;grid-template-columns:36px 1fr;gap:14px;font-size:16px;line-height:1.45;color:var(--ink)}
 .faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
-.faq p{margin:8px 0 0 50px;font-size:14.5px;color:var(--muted)}
+.faq p{margin:10px 0 0 50px;font-size:14.5px;line-height:1.7;color:var(--muted)}
 /* 0811 layout pass (docs/reports/版型改版規劃_20260811.md). No new colour token.
    Hero fact row: one spec line per product promoted into the hero — moved, not copied,
    so the copy checker's multiset is unchanged; the chip reuses the .node.self language
    ("this is the product") and carries the spec line's title, never the product name.
    Rhythm: content pages only — the two homepages have no .phero, so .phero~section
    leaves them untouched by construction. */
-.phero .fact{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-top:24px}
+.phero .fact{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin-top:28px;
+  background:#111A26;border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0;padding:16px 20px;max-width:840px}
 .phero .fact .n{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--muted)}
-.phero .fact .node{display:inline-block;min-width:0;padding:8px 12px;font-size:14px}
-.phero .fact .fx{flex:1 1 320px;max-width:640px;font-size:14.5px;color:var(--muted)}
+.phero .fact .node{display:inline-block;min-width:0;padding:6px 12px;font-size:13.5px;
+  background:var(--surface);border:1px solid var(--accent);border-radius:4px;font-weight:600}
+.phero .fact .fx{flex:1 1 320px;max-width:640px;font-size:14.5px;line-height:1.6;color:var(--ink)}
 .phero~section .wrap{padding:64px 24px}
 .phero~section .probs,.phero~section .uses,.phero~section .trio,.phero~section .quad,
 .phero~section .duo,.phero~section .steps,.phero~section .pick,.phero~section .faq{margin-top:36px}
 .phero~section .spec,.phero~section .stack{margin-top:34px}
+@media (max-width:768px){
+  .spec{grid-template-columns:1fr}
+  .spec>div:nth-child(2){border-top:1px solid var(--line)}
+  .spec>div:nth-child(even){border-left:none}
+}
 @media (max-width:640px){
   .faq{columns:1}
 }
