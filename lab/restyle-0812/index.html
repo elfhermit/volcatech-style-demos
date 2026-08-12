@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>restyle-0812 — 兩個視覺方向:Supabase 向 vs Harness 向</title>
-<meta name="description" content="Volcatech 官網 demo 的視覺方向提案:同樣的兩個頁面,一份削減琥珀用量(Supabase 向),一份加深表面並收斂字級階梯(Harness 向)。markup 逐字節凍結,只有 CSS 不同。">
+<meta name="description" content="Volcatech 官網 demo 的視覺方向提案:同樣兩頁,照 supabase.com 與 harness.io 的實測版型各做一套,配色、字體、版型三者都換,文案逐字未動。">
 <style>
 :root{
   --bg:#0E141F; --surface:#16202E; --deep:#111A26; --ink:#E9EEF5; --muted:#9AA8BA;
@@ -52,6 +52,8 @@ td{color:var(--muted)}
 .card p{margin-top:10px;font-size:14.5px;color:var(--muted);flex:1}
 .card ul{margin:10px 0 0 18px;font-size:14.5px;color:var(--muted);flex:1}
 .card li{margin-top:6px}
+.sw{display:flex;gap:6px;margin-top:14px}
+.sw i{width:26px;height:26px;border-radius:5px;border:1px solid var(--line);display:block}
 .links{margin-top:18px;display:flex;flex-wrap:wrap;gap:9px}
 .links a{font-size:14px;border:1px solid var(--line);border-radius:6px;padding:8px 14px;color:var(--ink);
   text-decoration:none;min-height:36px;display:inline-flex;align-items:center}
@@ -68,113 +70,131 @@ td{color:var(--muted)}
 <body>
 <div class="wrap">
   <div class="head">
-    <p class="kicker">Volcatech — lab / restyle 0812</p>
-    <h1>同樣兩頁,兩個視覺方向:Supabase 向 vs Harness 向</h1>
-    <p>來源是 <code>docs/reports/refero_design風格範本調查_20260811.md</code> 盤的 15 個深色風格候選。
-      你從中挑了 <b>Supabase</b> 與 <b>Harness.io</b> 兩個「很接近現行風格」的範本。這裡是把它們的手法
-      實際套在自己的頁面上之後的樣子。</p>
+    <p class="kicker">Volcatech — lab / restyle 0812（第二版）</p>
+    <h1>同樣兩頁,照兩個參考站的實測版型各做一套</h1>
+    <p>來源是 <code>docs/reports/refero_design風格範本調查_20260811.md</code> 的 15 個深色候選,
+      你挑了 <b>Supabase</b> 與 <b>Harness.io</b>。這一版<b>配色、字體、版型三者都照各自的參考站</b>,
+      不是我自己發明的版型——supabase.com 與 harness.io 各兩頁都實際抓下來解剖過
+      (含 Harness 的 Webflow CSS),數值直接從原始碼讀,解剖報告在
+      <code>docs/design/30_參考站版型解剖_20260812.md</code>。</p>
 
     <div class="note">
-      <b>本輪的定位是「吸收手法」,不是「換皮」。</b>兩套都保留 style-3-soc 的骨架、保留琥珀主色、
-      保留 IBM Plex stack,各自只在<b>一個維度</b>上破例——否則兩套會長得幾乎一樣,對照就沒有意義。
+      <b>第一版做錯了什麼,先講清楚。</b>第一版只換了顏色與少數屬性,<b>一條版型都沒動</b>,
+      所以你看完的感想是「只感受到色彩有一點點差異」——那是準確的。
+      根因是第一版自我設限「markup 凍結」,而那個限制的理由站不住腳:
+      <code>check_copy_20260806.py</code> 本來就在比對 <code>&lt;main&gt;</code> 的文字節點集合,
+      少一句就 FAIL。<b>文案保護從來不需要靠凍結 markup。</b>這一版解除了那個限制。
+    </div>
+
+    <div class="note">
+      <b>兩站最根本的差異不是顏色,是資訊策略。</b>這也是本次對照真正該看的東西:
       <ul>
-        <li><b>A(Supabase 向)= 色彩用量。</b>把僅存的幾處裝飾性琥珀退成中性色。</li>
-        <li><b>B(Harness 向)= 表面與形態。</b>背景加深(保持藍調、仍非純黑)、圓角柔化、
-          把 19 個 <code>font-size</code> 值收斂成 8 級階梯。</li>
+        <li><b>A(Supabase)= 一次攤開。</b>單一 12 欄 bento、所有卡片同時可見、零互動控制項。
+          它整站<b>連 FAQ 都沒有</b>——不是省略,是它相信內容應該全部攤在那裡。</li>
+        <li><b>B(Harness)= 漸進揭露。</b>頁籤、手風琴、輪播。內容藏在控制項後面,
+          版面短一半,但你得點才看得到。</li>
       </ul>
+      這個差異比任何色票都大。看的時候請特別注意產品頁的 <b>FAQ 那一段</b>——
+      A 是八張攤開的卡,B 是八條收起來的手風琴。
     </div>
 
     <div class="note">
-      <b>看之前先知道:markup 是凍結的。</b>四個範例頁的 <code>&lt;main&gt;</code> 與正式頁
-      <b>逐字節相同</b>(只差相對路徑前綴),差別 100% 來自 <code>&lt;style&gt;</code>。
-      所以你在這裡看到的每一個差異都是版面造成的,不會有「這頁比較好懂是因為字被改順了」的混淆
-      (這個坑踩過:全域教訓簿 2026-07-30)。
-      範例頁左下角有一枚 mono 標記註明它不是線上版本——那也是純 CSS 的 <code>::after</code>,沒有動 markup。
-    </div>
-
-    <div class="note">
-      <b>一個先講清楚的實測結果:琥珀本來就已經很克制。</b>
-      <code>var(--accent)</code> 全站只出現 14–15 次,實際渲染的角色約 8 個。refero 報告把 Supabase
-      判定為現行風格的「<b>強驗證</b>」而不是替代方案——事實確認了報告是對的。所以 A 套的可動空間
-      本來就不大,這正是它需要被實際看過才能判斷的原因。
+      <b>文案仍然逐字未動。</b><code>&lt;main&gt;</code> 的文字節點與正式頁完全相同,
+      由 <code>check_copy</code> 機械把關(已通過)。A 套的 <code>&lt;main&gt;</code> 甚至是
+      <b>逐字節相同</b>;B 套唯一的 markup 改動是把 FAQ 的每一項換成零 JS 的
+      <code>&lt;details&gt;</code> 手風琴,標題階層沒有掉。<b>全站仍然零 <code>&lt;script&gt;</code>、
+      零外部請求</b>——四套字體都自架在 <code>fonts/</code>(211KB,皆 SIL OFL 1.1)。
     </div>
   </div>
 
   <h2 class="sect">首頁<span class="tag">三欄對照</span>
-    <small>門面。A 動 Built 區的 24px 琥珀標題;B 動背景、圓角與整套字級階梯。</small></h2>
+    <small>門面。這裡最該看的是 hero 的排法——三套完全不同。</small></h2>
 
   <div class="cards">
     <div class="card base">
       <p class="no2">現況 · 基準</p>
       <h3>index.html</h3>
-      <p>今天線上的樣子。hero 置中 H1 <code>clamp(36–58px)</code> ＋ 三張 console 卡,
-        接 Built → Why → Trust → Vendors。比較的基準線就是它。</p>
+      <p>hero <b>置中</b>、H1 <code>clamp(36–58px)</code>、三張 console 卡在下方。
+        接 Built → Why → Trust → Vendors,每段同樣的深藍底。</p>
+      <div class="sw" aria-hidden="true">
+        <i style="background:#0E141F"></i><i style="background:#16202E"></i>
+        <i style="background:#FFB224"></i><i style="background:#3ECF8E"></i>
+      </div>
       <div class="links"><a class="primary" href="../../style-3-soc/index.html">開啟現況</a></div>
     </div>
 
     <div class="card">
       <p class="no2">A · Supabase 向</p>
-      <h3>色彩用量</h3>
+      <h3>分裂式標題</h3>
       <ul>
-        <li>Built 區 24px 標題 琥珀 → <code>--ink</code></li>
-        <li>卡片 icon 線條 琥珀 → <code>--muted</code></li>
-        <li>痛點／場景左邊界 3px → 2px,色相統一</li>
+        <li>hero <b>靠左</b>:H1 在左、副標在右、<b>底線對齊</b></li>
+        <li>三張板塊卡改 <b>12 欄 bento</b>:6 + 3 + 3 大小卡混排</li>
+        <li>每段髮絲線分隔、<b>底色完全不換</b>,整頁像一張帳本</li>
+        <li>Inter ＋ Source Code Pro</li>
       </ul>
+      <div class="sw" aria-hidden="true">
+        <i style="background:#121212"></i><i style="background:#1C1C1C"></i>
+        <i style="background:#3ECF8E"></i><i style="background:#A0A0A0"></i>
+      </div>
       <div class="links"><a class="primary" href="a-index.html">開啟 A</a></div>
     </div>
 
     <div class="card">
       <p class="no2">B · Harness 向</p>
-      <h3>表面與形態</h3>
+      <h3>不對稱 55 / 30</h3>
       <ul>
-        <li>背景 <code>#0E141F</code> → <code>#080C13</code></li>
-        <li>圓角 8px → 12px,卡片更軟</li>
-        <li>H1 上看 64px、h2 收到 34px,落差拉開</li>
+        <li>hero H1 佔 55%、副標佔 30%,<b>右側刻意留 15% 空白</b></li>
+        <li><b>每段一個世界</b>:各自底色、padding 在 104/80/60 之間跳</li>
+        <li>Built 區標題吃薄荷綠,外連吃信號藍(雙強調色)</li>
+        <li>Geist ＋ Geist Mono</li>
       </ul>
+      <div class="sw" aria-hidden="true">
+        <i style="background:#0A0A0A"></i><i style="background:#141414"></i>
+        <i style="background:#70DCD3"></i><i style="background:#0092E4"></i>
+      </div>
       <div class="links"><a class="primary" href="b-index.html">開啟 B</a></div>
     </div>
   </div>
 
   <h2 class="sect">GCP 產品頁<span class="tag">三欄對照</span>
-    <small>元件最齊的頁型:hero ＋ <code>.fact</code> ＋ <code>.probs</code> ＋ <code>.trio</code> ＋
-      <code>.spec</code> ＋ <code>.uses</code> ＋ <code>.pick</code> ＋ <code>.stack</code> ＋
-      <code>.faq</code>。要看新風格套在區塊元件上長什麼樣,看這頁。</small></h2>
+    <small>元件最齊的頁型。<b>差異最大的一頁</b>——請務必看到底,尤其是 FAQ 與架構圖。</small></h2>
 
   <div class="cards">
     <div class="card base">
       <p class="no2">現況 · 基準</p>
       <h3>gcp-cloud-run.html</h3>
-      <p>含 0811 版型改版的成果:<code>.faq</code> 已是雙欄卡片、<code>.spec</code> 已緊湊化、
-        hero 有 <code>.fact</code> 代表事實列、區塊節奏已從 80px 收到 64px。</p>
+      <p>0811 版型改版後的樣子:<code>.faq</code> 雙欄卡片、<code>.spec</code> 雙欄矩陣、
+        hero 有 <code>.fact</code> 事實列、架構圖直向堆疊。</p>
       <div class="links"><a class="primary" href="../../style-3-soc/gcp-cloud-run.html">開啟現況</a></div>
     </div>
 
     <div class="card">
       <p class="no2">A · Supabase 向</p>
-      <h3>色彩用量</h3>
+      <h3>攤平成帳本</h3>
       <ul>
-        <li>hero 編號行 <code>CI-04 · SERVERLESS</code> 琥珀 → <code>--muted</code></li>
-        <li>原廠外連改用底線標示,不用顏色</li>
-        <li>三張優勢卡的 icon 退成中性色</li>
+        <li>三張優勢卡改 <b>6 + 3 + 3</b>,icon 放大到 158px 沉進卡片右下角當背景</li>
+        <li><code>.spec</code> 從深色面板改成 <b>無底色的髮絲線清單</b></li>
+        <li>FAQ 八題<b>全部攤開</b></li>
+        <li>hero:編號行退成灰,H1 左、一句話說明右、底線對齊</li>
       </ul>
       <div class="links"><a class="primary" href="a-gcp-cloud-run.html">開啟 A</a></div>
     </div>
 
     <div class="card">
       <p class="no2">B · Harness 向</p>
-      <h3>表面與形態</h3>
+      <h3>收起來與橫著走</h3>
       <ul>
-        <li>四層表面重算,<code>.spec</code>／<code>.steps</code> 面板更沉</li>
-        <li>內文 14／14.5px → 統一 15px</li>
-        <li>卡內距 +2px,配合放大的字</li>
+        <li>FAQ 八題改成<b>零 JS 編號手風琴</b>,預設全部收合</li>
+        <li>架構圖從直向堆疊改成 <b>橫向可捲卡片列</b>,箭頭轉 90°</li>
+        <li>每個 section 有自己的底色與 padding;架構圖那段放寬到 1440px</li>
+        <li>hero:H1 55% / 說明 30% / 留白 15%</li>
       </ul>
       <div class="links"><a class="primary" href="b-gcp-cloud-run.html">開啟 B</a></div>
     </div>
   </div>
 
   <h2 class="sect">判準表<span class="tag">看完逐列勾</span>
-    <small>0805 的首頁兩案對照做完到現在仍未選定,CLAUDE.md 的「下一步 ①」還挂著。
-      這張表的用途就是讓判斷有依據,不要又變成看感覺。</small></h2>
+    <small>0805 的首頁兩案對照做完到現在仍未選定。先訂判準,才不會又變成看感覺。</small></h2>
 
   <div class="tblwrap">
     <table>
@@ -184,80 +204,75 @@ td{color:var(--muted)}
       </thead>
       <tbody>
         <tr>
+          <th scope="row">資訊策略</th>
+          <td class="look">產品頁的 FAQ 那一段</td>
+          <td>八題全部攤開,雙欄卡片。</td>
+          <td><b>一次攤開。</b>八題全可見,零控制項,Ctrl+F 一定找得到。</td>
+          <td class="no"><b>漸進揭露。</b>八題收合,版面短一半。<b>代價:收起來的答案在部分瀏覽器 Ctrl+F 找不到</b>——這正是 0805 當初反對頁籤的理由。</td>
+        </tr>
+        <tr>
           <th scope="row">首屏 3 秒辨識度</th>
-          <td class="look">首頁不捲動,能不能一眼看出賣雲端＋資安＋託管</td>
-          <td>H1 <code>clamp(36–58px)</code>,三張卡標題 21px。</td>
-          <td>與現況相同——A 完全不動 hero 排版。</td>
-          <td>H1 上看 64px、h2 收到 34px。標題層級最分明,但首屏文字佔比也最高。</td>
+          <td class="look">首頁不捲動,看不看得出賣雲端＋資安＋託管</td>
+          <td>置中 hero,三張板塊卡在下方。</td>
+          <td>靠左分裂式標題,三張卡改 6+3+3 混排,仍在首屏。</td>
+          <td>H1 佔 55%、副標佔 30%,三張卡仍在首屏。右側留白最明顯。</td>
         </tr>
         <tr>
-          <th scope="row">長文可讀性</th>
-          <td class="look">產品頁的 <code>.spec</code> 面板與 <code>.faq</code> 雙欄那兩段</td>
-          <td>內文 14／14.5px 混用,<code>.spec p</code> 是 14px。</td>
-          <td>與現況相同——A 不動字級。</td>
-          <td>內文統一 15px、卡內距 +2px。字大了,但頁面也會變長。</td>
+          <th scope="row">頁面節奏</th>
+          <td class="look">從上捲到底,段落之間怎麼分</td>
+          <td>每段同樣的底色與 padding,靠 1px 線分隔。</td>
+          <td><b>刻意齊一。</b>髮絲線 ＋ 完全相同的 72px padding,不換底色——整頁像一張連續帳本。</td>
+          <td><b>刻意不齊。</b>各段自己的底色漸層、padding 在 104/80/60 之間跳、架構圖那段寬到 1440px。</td>
         </tr>
         <tr>
-          <th scope="row">區塊區分度</th>
-          <td class="look"><code>.probs</code>(痛點)、<code>.uses</code>(場景)、<code>.trio</code>(產品卡)
-            三者能不能不讀字就分出來</td>
-          <td>三層表面深度 ＋ 琥珀左邊界 ＋ 真箭頭(ADR 0001 的三個手段)。</td>
-          <td>邊界 3px→2px 且色相統一。三個手段都還在,但邊界的視覺重量降低。</td>
-          <td>表面層差加大(四層階梯),圓角 12px。深度這個手段被強化。</td>
+          <th scope="row">卡片語彙</th>
+          <td class="look">產品頁的三張優勢卡</td>
+          <td>三等分,icon 在標題上方 24px。</td>
+          <td><b>大小卡混排</b>(6+3+3),icon 放大到 158px 沉進右下角當背景,邊框是上亮下暗的漸層髮絲線。</td>
+          <td>等寬卡,icon 維持在上方但吃薄荷綠,圓角放大到 14px,邊框與底色對比較強。</td>
         </tr>
         <tr>
           <th scope="row">與 SOC 身分的距離</th>
           <td class="look">還像不像同一家公司的網站</td>
-          <td>基準。0731 選中 style-3 的原因就是這個冷色主控台調性。</td>
-          <td class="yes">最近。只是琥珀更少,骨架色票完全不動。</td>
-          <td>較遠。更深的底 ＋ 更軟的角。刻意<b>不</b>轉中性黑就是為了不丟掉冷色身分。</td>
+          <td>基準。0731 選中的冷色主控台。</td>
+          <td>中性近黑 ＋ 單一綠。冷色偏向消失,但克制感最接近原本的紀律。</td>
+          <td>中性近黑 ＋ 雙強調色。最不像原本,也最像一個獨立的品牌。</td>
         </tr>
         <tr>
           <th scope="row">落地成本</th>
-          <td class="look">選定之後要改幾個地方才能推到全站 37 頁</td>
+          <td class="look">選定後要改幾個地方才能推到 37 頁</td>
           <td>0。</td>
-          <td class="yes">7 條 CSS、<b>0 個色碼值</b>。其中 4 條在 <code>restyle_content_20260806.py</code>
-            的 <code>BLOCK_CSS</code>(改一處、37 檔同步),3 條在各頁基底 CSS。</td>
-          <td class="no">約 60 條 CSS ＋ <b>4 個色碼值</b>。要處理 435 次非 token 硬編色
-            (<code>#111A26</code> 250 次等)、111 次 <code>rgba()</code>,以及
-            <code>build_gcp_pages_20260806.py</code> 裡 136 次硬編。</td>
+          <td class="no">高。改 3 個 token 值 ＋ 435 次非 token 硬編色 ＋ 兩支產生器 ＋ 全站 section 的 grid 結構 ＋ 引入字體檔。</td>
+          <td class="no">高,且多一項:FAQ 的 markup 要在 37 頁全部改成 <code>&lt;details&gt;</code>(可腳本化)。</td>
         </tr>
         <tr>
           <th scope="row">硬性規則相容性</th>
-          <td class="look">禁 glow／禁純黑／禁外部 CDN／WCAG 2.2 AA</td>
+          <td class="look">禁 glow／禁純黑／禁外部 CDN／WCAG AA</td>
           <td>全守。</td>
-          <td class="yes">全守,且零新增色票。依 ADR 0005 的定義<b>完全合法,不需解凍</b>。</td>
-          <td>禁 glow／禁 CDN／非純黑 都守。但動到 <code>--bg</code> 的值,
-            依 ADR 0005 <b>需要先解凍</b>才能落地。</td>
+          <td class="yes">全守。零外部請求、零 <code>&lt;script&gt;</code>、字體自架。</td>
+          <td class="yes">全守,但有兩處平替:<code>#070707</code> → <code>#0A0A0A</code>(禁純黑);原站的模糊光暈 → 改用色階與邊框。</td>
         </tr>
         <tr>
-          <th scope="row">附帶效果</th>
-          <td class="look">已知缺口 1(下拉面板邊框對比不足)有沒有改善</td>
-          <td><code>--line</code> 對 <code>--bg</code> = <b>1.47:1</b>,未達 SC 1.4.11 的 3:1。</td>
-          <td>不變,仍 1.47:1。</td>
-          <td>提升到 <b>約 1.56:1</b>——<b>仍未達 3:1</b>,不能算修好。
-            <code>--muted</code> 則從 7.63:1 升到 8.10:1。</td>
+          <th scope="row">對比實測</th>
+          <td class="look">已知缺口 1:邊框對比不足(需 3:1)</td>
+          <td><code>--line</code> 對底 <b>1.47:1</b>。</td>
+          <td><b>1.65:1</b>。內文 16.0:1、次要 7.17:1、綠 9.38:1。</td>
+          <td><b>1.57:1</b>。內文 18.97:1、次要 7.68:1、薄荷綠 12.14:1、信號藍 5.88:1。</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="note" style="margin-top:26px">
-    <b>怎麼用這張表:</b>兩套不是互斥的。A 的七條改動與 B 的六十條之間沒有衝突,
-    技術上可以只採 A、只採 B、或 A 全採 ＋ B 挑幾條(例如只收斂字級,不動背景色)。
-    <b>字級收斂那一條特別值得單獨考慮</b>——它是實質改善(19 個值收成 8 級)而不只是風格偏好,
-    而且不動任何色碼,依 ADR 0005 同樣不需解凍。
+    <b>三個都沒達到 3:1</b>——已知缺口 1 兩套都沒修好,只是各自略有改善。上表的數字是用 WCAG
+    相對亮度公式實算的,不是估的(第一版曾把 1.56 估成「約 1.9」,已更正)。
   </div>
 
   <div class="note">
-    <b>本輪沒有處理、但查出來的一個缺口:全站沒有任何字體檔。</b>
-    1152 處 <code>font-family</code> 全部走 <code>var(--sans)</code>／<code>var(--mono)</code>,
-    但 repo 裡 <code>.woff2</code>／<code>.woff</code>／<code>.ttf</code>／<code>.otf</code> 一個都沒有,
-    也沒有 <code>@font-face</code>。IBM Plex 只在訪客本機剛好裝了時才生效,否則直接 fallback 到
-    <code>ui-sans-serif</code>／<code>system-ui</code>。
-    <b>你現在看到的畫面,和外部訪客看到的很可能不是同一套字。</b>
-    本輪刻意不動字體(否則 A/B 對照會多一個變因),缺口記在
-    <code>docs/design/00_現況基線_20260812.md</code>,Astro 正式版用 <code>@fontsource</code> 自架解決。
+    <b>兩套不是互斥的。</b>可以只取 A 的分裂式標題、只取 B 的字級階梯、或 A 的版型配 B 的配色。
+    最值得單獨考慮的兩條:<b>分裂式標題</b>(一條 CSS 套全站,節奏立刻不同)與
+    <b>字級階梯收斂</b>(兩套都做了,把 19 個 <code>font-size</code> 值壓成 8 級,
+    那是修實質的一致性債,不是風格偏好)。
   </div>
 
   <div class="foot">

@@ -285,8 +285,8 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
   </div>
 
   <h2 class="sect">lab/ 視覺方向提案<span class="tag">待裁決</span>
-    <small>0812 新增。同樣兩頁、兩個視覺方向:一份削減琥珀用量(Supabase 向),
-      一份加深表面並收斂字級階梯(Harness 向)。<b>markup 逐字節凍結,只有 CSS 不同</b>——
+    <small>0812 新增,已改到第二版。照 supabase.com 與 harness.io 的<b>實測版型</b>各做一套,
+      配色、字體、版型三者全換。<b>文案逐字未動</b>——由 <code>check_copy</code> 機械把關,
       所以看到的差異一定來自版面,不是文案。</small></h2>
 
   <div class="grid">
@@ -294,12 +294,11 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
       <div class="body">
         <p class="no">Restyle 0812<span class="tag">A/B 對照</span></p>
         <h2>Supabase 向 vs Harness 向</h2>
-        <p class="grow">來源是 <code>refero.design</code> 的 15 個深色風格候選調查。本輪定位是
-          <b>吸收手法、微調現行</b>,不是換皮——兩套都保留 SOC Console 骨架與琥珀主色,
-          各自只在一個維度上破例。實測發現<b>琥珀本來就已經很克制</b>
-          (<code>var(--accent)</code> 全站僅 14–15 次),所以 A 套的可動空間不大,
-          B 套的重點其實是把 19 個 <code>font-size</code> 值收斂成 8 級階梯。
-          比對頁附<b>六項判準表</b>。</p>
+        <p class="grow">照 <code>supabase.com</code> 與 <code>harness.io</code> 的
+          <b>實測版型</b>各做一套——四頁都實際抓下來解剖過,配色、字體、版型三者全換。
+          兩站最根本的差異不是顏色而是<b>資訊策略</b>:A 是<b>一次攤開</b>
+          (12 欄 bento、FAQ 八題全可見),B 是<b>漸進揭露</b>(零 JS 手風琴、橫向可捲架構圖)。
+          <b>文案逐字未動</b>,由 <code>check_copy</code> 機械把關。比對頁附<b>八項判準表</b>。</p>
         <div class="links">
           <a class="primary" href="lab/restyle-0812/index.html">進入比對頁</a>
           <span class="lbl">直接開</span>

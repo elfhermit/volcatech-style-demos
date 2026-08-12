@@ -324,86 +324,194 @@ a.node:hover{border-color:var(--accent);background:#182433}
   .fcols{grid-template-columns:1fr}
 }
 
-/* ===== 提案 B —— Harness 向：表面與形態 ============================
-   0812。基底 CSS 一字未改，以下全部是疊加的 override。
+/* ══════════ 提案 B —— Harness 向 ══════════════════════════════════════
+   0812 第二版。基底 CSS 一字未改，以下全部是疊加的 override。
+   依據：harness.io/ 與 /products/continuous-delivery 實抓，含兩支 Webflow CSS
+   （見 docs/design/30_參考站版型解剖_20260812.md）。
+   一句話：**漸進揭露 ＋ 不對稱**。每一段有自己的世界，內容可以收起來。          */
 
-   refero 報告的 Harness 是 #070707 中性黑 ＋ 圓角藥丸型。兩者都不照搬：
-   #070707 撞「禁純黑」，中性黑會丟掉 SOC 主控台的冷色身分（0731 選中 style-3 的原因）。
-   所以背景**保持藍調、只加深**，形態只做柔化不做藥丸。
+/* ── 字體：自架，零外部請求。Geist 與 Geist Mono 皆 SIL OFL 1.1 ────── */
+@font-face{font-family:'GeistVF';src:url('fonts/geist-latin.woff2') format('woff2');
+  font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'GeistMonoVF';src:url('fonts/geist-mono-latin.woff2') format('woff2');
+  font-weight:100 900;font-style:normal;font-display:swap}
 
-   實測基線：全站用到 19 個不同的 font-size 值（10 / 10.5 / 11 / 11.5 / 12 / 12.5 /
-   13 / 13.5 / 14 / 14.5 / 15 / 16 / 16.5 / 17 / 17.5 / 18 / 20 / 21 / 24），出現 0.5px 級距。
-   （20px 只出現一次：index-v1-proof.html 的 .pcards .wm，V1 專屬，落地時映射到 21 級。
-   本檔改的兩個底檔都沒有它，所以下面的 override 不含那一條。）
-   那不是設計出來的，是逐次堆疊出來的。本套收斂成 8 級：12 / 13.5 / 15 / 16.5 /
-   18.5 / 21 / 26 / 34（約 1.125 比例）。下拉三角形 ▾▸ 的 10px 不在此列——它是圖示不是字。
+/* ── 色票：Harness 的 Void ＋ 薄荷綠 ＋ 信號藍 ────────────────────────
+   ⚠ 平替：Harness 實際用 #070707，那已經是字面上的近純黑，撞專案「禁純黑」
+   → 改用 #0A0A0A。實測對比（相對亮度公式算出來的，不是估的）：
+     --ink  #FAFAFA 對底 18.97:1     --muted #9AA3A3 對底  7.68:1
+     薄荷綠 #70DCD3 對底 12.14:1     信號藍 #0092E4 對底  5.88:1（過 AA 正常文字）
+     --line #333333 對底  1.57:1 ← 仍未達 SC 1.4.11 的 3:1，但優於現行的 1.47:1  */
+:root{
+  --bg:#0A0A0A; --surface:#141414; --ink:#FAFAFA; --muted:#9AA3A3; --line:#333333;
+  --accent:#70DCD3; --accent2:#0092E4; --status:#70DCD3; --max:1200px;
+  --sans:'GeistVF',ui-sans-serif,system-ui,'Helvetica Neue',Arial,sans-serif;
+  --mono:'GeistMonoVF',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+}
+header{background:rgba(10,10,10,.94)}
+.btn{color:#0A0A0A}
+.btn:hover{background:#8FE7DF}
+.probs>div,.steps>li,.spec,.node,.phero .fact{background:#0F0F0F}
+.dd ul a:hover,.pick>li:hover,a.node:hover{background:#1C1C1C}
+/* 信號藍是 Harness 的第二強調色，用在「往外走」的動作上 */
+.trio .go:hover,.quad .go:hover,.duo .go:hover,.loglist .go:hover,.cards2 .go:hover{
+  border-color:var(--accent2)}
+.pick .ar{color:var(--accent2)}
 
-   不動 .phero~section .wrap 的 64px：0811 才剛把它從 80px 收下來解決文字疲勞，
-   本套沒有理由推翻它。字級變大連帶的卡內距微調有做。                                */
+/* ── 招牌 1：不對稱 55% / 30% ─────────────────────────────────────────
+   實抓 .home-hero_layout{grid-template-columns:55% 30%; grid-column-gap:0; align-items:start;
+   max-width:1200px}。**尾端那 15% 是刻意留的**，不是沒排滿。
+   Harness 右欄放迴圈影片，我們沒有影片也不能放 <img> → 右欄改放副標，
+   讓不對稱本身成為版型語言。hero padding 收緊，讓三張板塊卡留在首屏（硬性規則 3）。 */
+.hero>.wrap{display:grid;grid-template-columns:minmax(0,1fr);column-gap:0;align-items:start;
+  padding:64px 24px 44px}
+.hero .status,.hero h1,.hero>.wrap>p.sub{text-align:left;margin-inline:0}
+.hero h1{max-width:none;margin-top:20px}
+.hero .cta{justify-content:flex-start;margin-top:30px}
+.cards{padding:44px 0 0}
+@media (min-width:1024px){
+  .hero>.wrap{grid-template-columns:55% 30%}
+  .hero>.wrap>*{grid-column:1}
+  .hero>.wrap>.status{grid-column:1/-1;grid-row:1}
+  .hero>.wrap>h1{grid-column:1;grid-row:2}
+  .hero>.wrap>p.sub{grid-column:2;grid-row:2;margin-top:14px;padding-left:36px;max-width:none}
+  .hero>.wrap>.cta{grid-column:1;grid-row:3}
+  .hero>.wrap>.cards{grid-column:1/-1;grid-row:4}
+}
+.phero>.wrap{display:grid;grid-template-columns:minmax(0,1fr);column-gap:0;align-items:start;
+  padding:72px 24px 60px}
+@media (min-width:1024px){
+  .phero>.wrap{grid-template-columns:55% 30%}
+  .phero>.wrap>*{grid-column:1}
+  .phero>.wrap>.status{grid-column:1/-1;grid-row:1}
+  .phero>.wrap>.code{grid-column:1;grid-row:2}
+  .phero>.wrap>h1{grid-column:1;grid-row:3}
+  .phero>.wrap>.vendor{grid-column:1;grid-row:4}
+  .phero>.wrap>.tag{grid-column:2;grid-row:3;grid-row-end:5;margin-top:6px;padding-left:36px;max-width:none}
+  .phero>.wrap>.fact{grid-column:1/-1;grid-row:5}
+  .phero>.wrap>.cta{grid-column:1;grid-row:6}
+}
 
-/* ---- 表面：四層階梯，保持藍調 -------------------------------------
-   #0E141F → #080C13（頁面）／#111A26 → #0D141E（凹陷面板）／
-   #16202E → #131C29（抬升卡）／#1B2736·#182433 → #18222F（hover，順手合併）
-   ⚠ --bg 的值有變 = 動到 token 色碼本身，依 ADR 0005 這需要解凍。本檔是提案，未選定不落地。 */
-:root{--bg:#080C13; --surface:#131C29}
-header{background:rgba(8,12,19,.95)}
-.btn{color:#080C13}
-.probs>div,.steps>li,.spec,.node,.phero .fact{background:#0D141E}
-.dd ul a:hover,.pick>li:hover{background:#18222F}
-a.node:hover{background:#18222F}
+/* ── 招牌 2：每段一個世界 ─────────────────────────────────────────────
+   實抓：Harness 每個 section 有自己的底色（linear-gradient(#070707,#050505 88%)）、
+   自己的 padding（150 / 100 / 60px 不等）、max-width 在 1200 與 1440 之間跳。
+   Supabase 的做法正好相反（全部一致），所以這是兩套最直接的對照點。
+   ⚠ 平替：Harness 靠 50px 的模糊漸層光暈做段落分界，撞專案的禁 glow 條款
+   （這裡刻意不寫出那個 CSS 屬性的字面形式——寫了會被自己的違規掃描 grep 命中，
+   教訓簿 2026-08-04 記過同一個坑）
+   → 改用兩階近黑的線性漸層 ＋ 邊框，深度只靠色階表達，零模糊。                     */
+section:nth-of-type(odd){background:linear-gradient(180deg,#0A0A0A 0%,#101010 100%)}
+section:nth-of-type(even){background:#0A0A0A;border-top:1px solid var(--line)}
+section:nth-of-type(3n+1)>.wrap{padding:104px 24px}
+section:nth-of-type(3n+2)>.wrap{padding:80px 24px}
+section:nth-of-type(3n)>.wrap{padding:60px 24px}
+.phero~section:nth-of-type(3n+1)>.wrap{padding:104px 24px}
+.phero~section:nth-of-type(3n+2)>.wrap{padding:80px 24px}
+.phero~section:nth-of-type(3n)>.wrap{padding:60px 24px}
+/* max-width 跳一格：架構圖那段放寬到 1440，其餘 1200 */
+#stack>.wrap,#why>.wrap{max-width:1440px}
+.band{background:linear-gradient(180deg,#101010 0%,#0A0A0A 100%);border-top:1px solid var(--line)}
+.band>.wrap{padding:96px 24px}
 
-/* ---- 形態：圓角柔化（6→10 / 8→12 / 4→6），不做藥丸 ---------------- */
-.btn,.dd ul,.navbtn,.node{border-radius:10px}
-.card,.cols3>div,.cards2>div,.trio>div,.quad>div,.duo>div,
-.steps>li,.spec,.stack,.pick,.faq>div,.loglist{border-radius:12px}
-.probs>div,.uses>div,.phero .fact{border-radius:0 12px 12px 0}
-.todo,.phero .fact .node{border-radius:6px}
+/* ── 招牌 3：圓角柔化（Harness 形態偏軟，但不做藥丸） ───────────────── */
+.card,.cols3>div,.cards2>div,.trio>div,.quad>div,.duo>div,.steps>li,.spec,.stack,
+.pick,.faq>div,.faq details,.loglist,.layer{border-radius:14px}
+.probs>div,.uses>div,.phero .fact{border-radius:0 14px 14px 0}
+.btn,.dd ul,.navbtn,.node{border-radius:12px}
+.todo,.phero .fact .node{border-radius:8px}
+.trio>div,.quad>div,.duo>div{padding:28px 26px}
+.probs>div,.uses>div{padding:26px 24px}
+.spec>div{padding:20px 24px}
+.pick>li{padding:22px 26px}
 
-/* ---- 字級：19 個值 → 8 級（本頁用得到的那些） --------------------- */
-/* 12 — mono 微標籤（原 10.5 / 11 / 11.5 / 12） */
-.fcols .sub,.fbrand dt,.dd ul .off .soon,.vsrc,
-.dd .head,.fcols h4,.steps .n,.trio .full,.quad .full,.duo .full,.layer>h3,
-.card .lbl,.legal,.backlink,
-.spec .n,.faq .n,.phero .fact .n,.lang,.todo{font-size:12px}
-/* 13.5 — mono 標籤與次要說明（原 12.5 / 13 / 13.5） */
+/* ── 招牌 4：架構圖改成橫向可捲列 ─────────────────────────────────────
+   實抓 .home-vd_tabs-list{display:flex; overflow:auto; grid-column-gap:16px}——
+   Harness 把並列的東西做成一條橫向可捲的卡片列，而不是直向堆疊。
+   .stack 的 .layer 與 .flowmark 在 DOM 裡是同層兄弟（測繪確認），所以整列改 flex
+   零 markup 改動就成立。窄螢幕不重排、直接捲——內容不會被擠爆，
+   而且與專案既有的「寬內容在自己的容器裡捲，頁面本體永不橫捲」慣例一致。          */
+@media (min-width:1024px){
+  .stack{display:flex;flex-wrap:nowrap;overflow-x:auto;align-items:stretch;gap:0;
+    border:0;border-radius:0;padding-bottom:6px}
+  .stack>*+*{border-top:0}
+  .stack>.layer{flex:0 0 260px;display:block;border:1px solid var(--line);border-radius:14px;
+    background:var(--surface);padding:22px}
+  .stack>.layer>h3{margin-bottom:12px}
+  .stack>.nodes,.stack .nodes{flex-direction:column;align-items:stretch}
+  .stack>.flowmark{flex:0 0 auto;display:flex;flex-direction:column;justify-content:center;
+    align-items:center;gap:6px;background:none;padding:0 14px;max-width:96px;text-align:center;
+    line-height:1.35}
+  .stack>.flowmark span[aria-hidden]{transform:rotate(-90deg);font-size:19px;color:var(--accent)}
+}
+
+/* ── 招牌 5：FAQ 改成零 JS 編號手風琴 ─────────────────────────────────
+   實抓：Harness 的 FAQ 是編號手風琴（.layout-faq_number 編號晶片 ＋ 開合圖示）。
+   markup 由本腳本把每一項的外層 div 換成 details、標題外面包一層 summary
+   （h3 留在 summary 裡面——規格允許 summary 含標題，所以標題階層沒有掉）。全站仍然零腳本。
+   ⚠ 這段註解刻意不寫出標籤的字面形式：寫了會污染「數 details/summary 有幾個」的
+   grep 計數，教訓簿 2026-08-04 記過同一個坑。
+   ⚠ 這重開了 0805「不做頁籤」的決議，但只重開 FAQ 這一段：0805 反對的是把
+   「關鍵特色」的一半藏起來，FAQ 收合的性質不同（它本來就是查詢式內容），
+   而且 FAQ 曾佔全頁文字量 36–44%，是最該收的一塊。
+   ⚠ 代價要講清楚：收合的答案在部分瀏覽器的 Ctrl+F 找不到，這是漸進揭露的固有成本，
+   也正是本套與 A 套「一次攤開」的核心對照點。                                       */
+.faq{columns:1;column-gap:0;display:grid;gap:12px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  transition:border-color .18s ease}
+.faq details:hover{border-color:var(--muted)}
+.faq details[open]{border-color:var(--accent)}
+.faq summary{list-style:none;cursor:pointer;padding:20px 24px;display:block;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:24px;top:18px;
+  font-family:var(--mono);font-size:20px;color:var(--accent);line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq summary h3{display:grid;grid-template-columns:44px 1fr;gap:14px;font-size:17px;
+  line-height:1.45;color:var(--ink);padding-right:28px}
+.faq .n{font-family:var(--mono);font-size:12.5px;color:var(--accent);letter-spacing:.1em;
+  margin-top:3px;font-weight:400}
+.faq details>p{margin:0 24px 22px 82px;font-size:15.5px;line-height:1.72;color:var(--muted)}
+@media (max-width:900px){ .faq details>p{margin-left:24px} }
+
+/* ── 其餘元件 ─────────────────────────────────────────────────────────
+   Harness 的卡片有明顯的邊框與底色差，不像 Supabase 幾乎無裝飾。                    */
+.trio .ic,.quad .ic,.duo .ic{color:var(--accent)}
+.steps>li{border-color:var(--muted)}
+.probs>div{border-left:3px solid var(--accent2)}
+.uses>div{border-left:3px solid var(--accent)}
+.phero .fact{border-left:3px solid var(--accent)}
+.phero .fact .node{border-color:var(--accent)}
+.node.self{border-color:var(--accent)}
+.ext a{color:var(--accent2);font-weight:600}
+
+/* ── 字級：8 級，比 A 寬鬆（Harness 的內文明顯大一號） ────────────────
+   12.5 / 14 / 15.5 / 17 / 19.5 / 22 / 27 / 38                                       */
+.fcols .sub,.fbrand dt,.dd ul .off .soon,.vsrc,.dd .head,.fcols h4,.steps .n,
+.trio .full,.quad .full,.duo .full,.layer>h3,.card .lbl,.legal,.backlink,
+.spec .n,.phero .fact .n,.lang,.todo{font-size:12.5px}
 .status,.trio .go,.quad .go,.duo .go,.loglist .go,.cards2 .go,.flowmark,
-.legal .notice,.built .cols3 .full,.phero .vendor,
-.trustline,.ext .wrap,.phero .fact .node{font-size:13.5px}
-/* 15 — 內文與導覽（原 14 / 14.5 / 15） */
-.dd ul a,.dd ul .off,.navbtn,.phero .code,.steps p,.spec p,
-.fcols li,.fbrand p,.fbrand dl,.built .note,.loglist small,
-.menu a,.menu>li>button,.card p,.cols3 p,.cards2 p,.probs p,.uses p,
-.trio p,.quad p,.duo p,.faq p,.pick .when,.phero .fact .fx,
-.btn,.card a,.loglist p{font-size:15px}
-/* 16.5 — 小標題與正文基準（原 16 / 16.5） */
-body,.logo,.steps h3,.spec h3,.faq h3,.probs h3,.uses h3,.pick .ar{font-size:16.5px}
-/* 18.5 — 卡片標題與 hero 副標（原 17 / 17.5 / 18） */
-.trio h3,.quad h3,.duo h3,.cards2 h3,.cols3 h3,
-.hero>.wrap>p.sub,.phero .tag,.steps>li.ar{font-size:18.5px}
-/* 21 — 首頁主卡標題 */
-.card h2{font-size:21px}
-/* 26 — Built 區標題（原 24） */
-.built .cols3 h3{font-size:26px}
-/* h1／h2：把落差拉開。h2 收到階梯頂 34px，h1 往上走。 */
-.hero h1{font-size:clamp(38px,5.6vw,64px)}
-.phero h1{font-size:clamp(34px,5.2vw,58px)}
-h2.sec{font-size:clamp(26px,3.4vw,34px)}
-.band h2{font-size:clamp(21px,2.8vw,26px)}
-
-/* ---- 字級變大連帶的內距微調（不動 section 直向節奏） -------------- */
-.trio>div,.quad>div,.duo>div{padding:26px 24px}
-.probs>div,.uses>div{padding:24px 22px}
-.faq>div{padding:22px 24px}
-.spec>div{padding:18px 22px}
-.pick>li{padding:20px 24px}
+.legal .notice,.built .cols3 .full,.phero .vendor,.trustline,.ext .wrap,
+.phero .fact .node{font-size:14px}
+.dd ul a,.dd ul .off,.navbtn,.phero .code,.steps p,.spec p,.fcols li,.fbrand p,
+.fbrand dl,.built .note,.loglist small,.menu a,.menu>li>button,.card p,.cols3 p,
+.cards2 p,.probs p,.uses p,.trio p,.quad p,.duo p,.pick .when,
+.phero .fact .fx,.btn,.card a,.loglist p{font-size:15.5px}
+body,.logo,.steps h3,.spec h3,.probs h3,.uses h3,.pick .ar{font-size:17px}
+.trio h3,.quad h3,.duo h3,.cards2 h3,.cols3 h3,.hero>.wrap>p.sub,.phero .tag,
+.steps>li.ar{font-size:19.5px}
+.card h2{font-size:22px}
+.built .cols3 h3{font-size:27px;color:var(--accent)}
+.hero h1{font-size:clamp(38px,5.4vw,58px)}
+.phero h1{font-size:clamp(34px,4.8vw,52px)}
+h2.sec{font-size:clamp(25px,3vw,38px)}
+.band h2{font-size:clamp(22px,2.6vw,27px)}
 
 /* 提案頁標記（純 CSS，不動 markup）。 */
 body::after{content:"Proposal B · Harness-leaning · not the live page";
   position:fixed;left:14px;bottom:14px;z-index:80;pointer-events:none;
-  font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
   background:var(--surface);color:var(--muted);border:1px solid var(--muted);
-  border-radius:10px;padding:7px 12px}
-/* ===== end 提案 B ===== */
+  border-radius:12px;padding:7px 12px}
+/* ══════════ end 提案 B ══════════ */
 </style>
 </head>
 <body>
@@ -663,14 +771,14 @@ body::after{content:"Proposal B · Harness-leaning · not the live page";
       <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
       <h2 class="sec">What evaluators ask.</h2>
       <div class="faq">
-        <div><h3><span class="n" aria-hidden="true">01</span><span>Cloud Run or App Engine — which should we choose for a new build?</span></h3><p>For new workloads, Google's own documentation points to Cloud Run as the current serverless direction. App Engine remains fully supported, so existing estates need not move. We assess this per application rather than by default.</p></div>
-        <div><h3><span class="n" aria-hidden="true">02</span><span>Do we need Kubernetes skills to run it?</span></h3><p>No. Cloud Run accepts a container image and handles scheduling, scaling and TLS itself. Many organisations adopt it with no Kubernetes expertise in-house; Kubernetes Engine is for when you want cluster-level control, not a prerequisite.</p></div>
-        <div><h3><span class="n" aria-hidden="true">03</span><span>What happens when traffic drops to zero?</span></h3><p>Services scale down to no running instances by default, then scale back out when requests arrive. If cold starts matter on latency-sensitive paths, a minimum instance count can be configured.</p></div>
-        <div><h3><span class="n" aria-hidden="true">04</span><span>Are we locked into specific languages?</span></h3><p>No. Anything that can be containerised and serve HTTP will run, whatever the language or framework. For common runtimes, source-based deployment can build the container for you.</p></div>
-        <div><h3><span class="n" aria-hidden="true">05</span><span>How is Cloud Run priced?</span></h3><p>Billing follows actual usage — CPU, memory and request volume — so cost depends on traffic shape and configuration. Contact us and we will model it against your expected workload.</p></div>
-        <div><h3><span class="n" aria-hidden="true">06</span><span>Can we release gradually and roll back quickly?</span></h3><p>Yes. Each deployment creates a new revision, and traffic is split between revisions by percentage — a new version can take a small share first, then more as monitoring stays clean. Rolling back means pointing traffic at the previous revision again.</p></div>
-        <div><h3><span class="n" aria-hidden="true">07</span><span>Is Cloud Run only for request-and-response services?</span></h3><p>No. Cloud Run jobs run a container to completion for batch-style work, on demand or scheduled, and worker pools handle always-on consumers that pull from queues or message brokers. Services, jobs and worker pools share the same image format and operating model.</p></div>
-        <div><h3><span class="n" aria-hidden="true">08</span><span>Do WebSockets, gRPC or streaming responses work?</span></h3><p>Yes. Connections are served over TLS that the platform manages, with HTTP/2 and gRPC supported end to end and WebSockets available for long-lived connections — subject to the configured request timeout.</p></div>
+        <details><summary><h3><span class="n" aria-hidden="true">01</span><span>Cloud Run or App Engine — which should we choose for a new build?</span></h3></summary><p>For new workloads, Google's own documentation points to Cloud Run as the current serverless direction. App Engine remains fully supported, so existing estates need not move. We assess this per application rather than by default.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">02</span><span>Do we need Kubernetes skills to run it?</span></h3></summary><p>No. Cloud Run accepts a container image and handles scheduling, scaling and TLS itself. Many organisations adopt it with no Kubernetes expertise in-house; Kubernetes Engine is for when you want cluster-level control, not a prerequisite.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">03</span><span>What happens when traffic drops to zero?</span></h3></summary><p>Services scale down to no running instances by default, then scale back out when requests arrive. If cold starts matter on latency-sensitive paths, a minimum instance count can be configured.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">04</span><span>Are we locked into specific languages?</span></h3></summary><p>No. Anything that can be containerised and serve HTTP will run, whatever the language or framework. For common runtimes, source-based deployment can build the container for you.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">05</span><span>How is Cloud Run priced?</span></h3></summary><p>Billing follows actual usage — CPU, memory and request volume — so cost depends on traffic shape and configuration. Contact us and we will model it against your expected workload.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">06</span><span>Can we release gradually and roll back quickly?</span></h3></summary><p>Yes. Each deployment creates a new revision, and traffic is split between revisions by percentage — a new version can take a small share first, then more as monitoring stays clean. Rolling back means pointing traffic at the previous revision again.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">07</span><span>Is Cloud Run only for request-and-response services?</span></h3></summary><p>No. Cloud Run jobs run a container to completion for batch-style work, on demand or scheduled, and worker pools handle always-on consumers that pull from queues or message brokers. Services, jobs and worker pools share the same image format and operating model.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">08</span><span>Do WebSockets, gRPC or streaming responses work?</span></h3></summary><p>Yes. Connections are served over TLS that the platform manages, with HTTP/2 and gRPC supported end to end and WebSockets available for long-lived connections — subject to the configured request timeout.</p></details>
       </div>
     </div>
   </section>

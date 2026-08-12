@@ -406,15 +406,30 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 ⚠ 那份報告第 6、95 行寫「現階段不會立即採用任何候選、視覺風格維持不動」——
 **該註記已於 0812 由使用者正式重開**,以 `docs/design/README.md` 為準。
 
-- **A(Supabase 向)= 色彩用量**:7 條 CSS,把裝飾性琥珀退成中性色 ＋ 清掉兩處既有不一致。
-  零新增色票、零色碼值改動 → 依 ADR 0005 **不需解凍**。
-- **B(Harness 向)= 表面與形態**:背景加深(保持藍調、仍非純黑)＋ 圓角 6→10／8→12px
-  ＋ **19 個 `font-size` 值收斂成 8 級階梯**。只有「表面加深」動到色碼值,**需要解凍**;
-  字級與圓角不需要,可拆開單獨採用。
-- 四個範例頁**由 `build_restyle_samples_20260812.py` 產生,不要手改**。做法是
-  **只在 `<style>` 尾端疊 override,markup 凍結**——`<main>` 與正式頁逐字節相同
-  (只差 `../../style-3-soc/` 路徑前綴),差異 100% 來自 CSS。全檔另有 3 處刻意的導覽改寫:
+⚠ **第一版(只改色彩)已作廢**。它一條版型都沒動,使用者回饋「只感受到色彩有一點點差異」。
+根因是自我設限「markup 凍結」,而那個理由不成立——`check_copy` 本來就在比對文字節點集合。
+**第二版(0812 現行)照兩個參考站的實測版型做**,配色、字體、版型三者都換:
+
+- **A(Supabase 向)= 一次攤開**。`#121212` ＋ 單一綠 `#3ECF8E`(琥珀完全退場)、
+  Inter ＋ Source Code Pro。四個招牌:**分裂式標題**(`section>.wrap` 改 grid `1fr 1fr`
+  ＋ `align-items:end`,標題左、說明右、底線對齊)、**髮絲線分節**(每段相同 padding、
+  不換底色)、**漸層髮絲邊框**、**12 欄 bento**(6+3+3,icon 放大 158px 沉進卡片右下角)。
+- **B(Harness 向)= 漸進揭露 ＋ 不對稱**。`#0A0A0A`(平替 `#070707`,禁純黑)
+  ＋ 薄荷綠 `#70DCD3` ＋ 信號藍 `#0092E4`、Geist ＋ Geist Mono。五個招牌:
+  **不對稱 55%/30%**(右側刻意留 15% 空白)、**每段一個世界**(各自底色與 padding、
+  max-width 1200↔1440 跳)、**FAQ 零 JS `<details>` 手風琴**、
+  **架構圖改橫向可捲卡片列**、圓角柔化。
+- 兩套都把 19 個 `font-size` 值收斂成 8 級階梯(數值各自調)。
+- 四個範例頁**由 `build_restyle_samples_20260812.py` 產生,不要手改**。
+  基底 CSS 一字不動、override 疊在 `<style>` 尾端;**markup 只動一處**——
+  B 套把 FAQ 的每一項換成 `<details>`(`h3` 留在 `<summary>` 內,標題階層沒掉)。
+  A 套的 `<main>` 仍與正式頁逐字節相同。全檔另有 3 處刻意的導覽改寫:
   `<title>` 前綴、EN 自指、backlink 列。
+- **字體自架在 `lab/restyle-0812/fonts/`**(4 個 woff2、211KB、皆 SIL OFL 1.1,
+  授權見該資料夾 `LICENSES.md`)。這是本 repo 第一次放二進位資產;
+  提案不採用的話連同整個資料夾刪掉即可。**仍然零外部請求、零 `<script>`**。
+- ⚠ B 套的 FAQ 手風琴**重開了 0805「不做頁籤」的決議**,但只重開 FAQ 這一段。
+  代價明文登記:收合的答案在部分瀏覽器 Ctrl+F 找不到——那正是與 A 套的核心對照點。
 - 設計文件在 **`docs/design/`**(不進版控):基線／A 規格／B 規格／落地路線圖。
   「色系凍結」的範圍定義在 **`docs/adr/0005-colour-freeze-scope.md`**。
 - 選定後**不是把範例頁搬過去**,而是照 `docs/design/90_落地路線圖_20260812.md` 把每條改動
@@ -510,7 +525,7 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 | `check_nav_20260806.py` | 軸 1 檢查:37 檔 header ＋ 四段 CSS 逐字節相同 ＋ 結構數量 ＋ 孤兒登記 |
 | `check_copy_20260806.py` | 軸 3 檢查:對 git 基準逐句比對 `<main>`,文案零漂移 |
 | `check_links_20260806.py` | 標籤配對、唯一 h1、id 不重複、相對連結與錨點有效。0812 起 `lab/` 改用 **`rglob`** 遞迴掃子資料夾（原本的 `glob` 只掃第一層，子資料夾會靜默逃過檢查） |
-| `build_restyle_samples_20260812.py` | 產生 `lab/restyle-0812/` 的 4 個視覺方向範例頁。只在 `<style>` 尾端疊 override，markup 凍結；A/B 兩套 CSS 的**唯一正本**。⚠ header/footer 取自底檔 —— **改完選單或頁尾要重跑** |
+| `build_restyle_samples_20260812.py` | 產生 `lab/restyle-0812/` 的 4 個視覺方向範例頁（第二版：配色＋字體＋版型全換）。基底 CSS 不動、override 疊在 `<style>` 尾端；**markup 只動一處**——B 套把 FAQ 每一項轉成 `<details>`（`to_accordion()`）。A/B 兩套 CSS 的**唯一正本**。⚠ header/footer 取自底檔 —— **改完選單或頁尾要重跑** |
 | `build_v1_20260806.py` | 從 `index.html` 產生 `index-v1-proof.html`(0804 那支改造而來) |
 | `build_gcp_pages_20260806.py` | 產生 19 個 GCP 產品頁(以 `cloud-compute.html` 為底檔)。**產品文案的唯一正本**;0811 起含 `hero_fact` 欄位與 `fig_motif()` |
 | `link_products_20260806.py` | 分類頁 19 張產品卡的雙出口連結 ＋ `cloud.html#products` 索引。可重複執行 |
