@@ -19,8 +19,33 @@
    inline CSS 版**(`lab/` 的 Tailwind 版落選),16 個內容頁與首頁已全數改用區塊元件,
    詳見下方〈內容頁區塊元件〉與〈軸 3〉。
 
-現行 `style-3-soc/` 共 **37 頁**:2 首頁 ＋ 3 總覽 ＋ 7 Cloud 分類 ＋ **5 資安產品**(0810 新增
-`argushack.html`)＋ 1 方案(ESS)＋ **19 GCP 產品頁**(0806 補齊,選單第三層)。
+現行 `style-3-soc/` 共 **38 頁**:2 首頁 ＋ 3 總覽 ＋ 7 Cloud 分類 ＋ **5 資安產品**(0810 新增
+`argushack.html`)＋ 1 方案(ESS)＋ **19 GCP 產品頁**(0806 補齊,選單第三層)
+＋ **1 服務頁**(0813 新增 `managed-gcp.html`,見下方 0813 決議)。
+
+**2026-08-13(地轉雲線建頁)**——選單 Services 底下原本的灰字 `GCP Managed Services` 已建頁,
+並更名為 **`GCP Migration & Managed Services`**(`managed-gcp.html`)。素材出自使用者提供的
+`docs/地轉雲_GCP_網頁製作企劃書_V1.md`;**內容正本是 `docs/地轉雲線_內容規劃_20260813.md`**
+(逐區塊英文定稿文案、互連表、以及「企劃書哪些部分沒做、為什麼」的對照表)。四輪 grilling 決議摘要:
+
+1. **一頁通吃 migrate ＋ run**——企劃書講的是遷移全流程,而選單那格叫 managed services,
+   兩者不同;裁決為一頁涵蓋整個生命週期,選單標籤跟著改名。
+   `cloud-services.html` 的 `Cloud Migration & Kubernetes` 卡加一條 `.go` 指向本頁,重疊解消
+   (**該卡內文的 `[TODO]` 刻意不填**——本輪素材授權只解禁新頁)。
+2. **檔名 `managed-gcp.html`**,刻意不用 `gcp-` 前綴——`gcp-*.html` 在本專案是「Google 產品頁」
+   的保留語意,借用它會讓四條驗證指令(`#pain`/`#pick`/`#faq` 各須 1、`#stack` 須恰一個
+   `.node.self`、`.stack a{scroll-margin-top}` 須 19 檔各 1、hero 晶片檢查)立刻紅。
+3. **索引碼 `MS-01`**,為 Services 線建立 MS-NN 體例(CI/E/V 三線本來就有序號,只有 Services 沒有;
+   `MS` 保留給總覽頁、`ESS` 是 programme 特例)。未來補的 SOC 頁是 `MS-02`。
+4. **7 段骨架**:`#pain`(`.probs.four`,全站第一次用 `.four`)→ `#process`(`.steps` 六階段,
+   **每階段只有一句**)→ `#services`(`.quad` 四卡,刻意與六階段錯開節奏)→ `#stack`(五層,
+   頂層是沃凱自我節點)→ `#pick`(4 列,照全站慣例)→ `#plans`(`.trio` 三方案等重)→ `#faq`(6 題)。
+   **`.fact` 豁免**(比照 `ess.html`,服務頁非產品頁),故 `.fact` 仍是 24 頁。
+5. **24/7 沿用**但口徑限定為**監控與告警**;回應時間目標與 SLA 是本頁唯一的
+   `[TODO: response time targets]`。企劃書自己禁「未經確認前寫入 24×7 與特定 SLA」,
+   前半由使用者裁決解禁(站上 `services.html` 早有 24/7 SOC 宣稱),後半維持。
+6. **這頁是手維護頁**(比照 6 個資安產品頁),沒有產生器;header 與四段 CSS 仍由
+   `rebuild_nav` / `restyle_content` 統一,不得手改。
 
 **2026-08-06 第二輪**又定案四件事(來源:對 `docs/meeting_0805_end.md` 的逐條盤點,
 決策記錄在 `docs/adr/`,術語正本在 `docs/CONTEXT.md`):
@@ -157,8 +182,10 @@ V1 專屬區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(
   WDR 併記是因 CyberEyes 實為 WDR;第三組原為「Built in-house—Volcatech AI Security(CE-BAS)」,
   0810 查證確認非自研後改為能力分類(見上方 0810 第二輪)。
   下拉 head 白話行:`CyberSecurity — EDR · SIEM &amp; WDR · BAS`。
-- Services(扁平,無第二層):Overview ＋ ESS ＋ 24/7 SOC & IR ＋ **GCP Managed Services 灰字**。
+- Services(扁平,無第二層):Overview ＋ ESS ＋ 24/7 SOC & IR ＋
+  **GCP Migration & Managed Services**(0813 建頁前是灰字,現為真連結 `managed-gcp.html`)。
 - **灰字項**(`<span class="off">`,附 mono 的 Coming soon)= 尚無內頁的項目,刻意不可 focus。
+  ⚠ 0813 起**全站只剩 FortiEDR 一項灰字**(`check_nav` 的 `class="off"` 期望值同步 2→1)。
   用 `--muted` 上色(對 `--surface` 6.79:1,過 AA)。**絕不可寫成 `<a href="#">`**——
   會踩到「每檔只能有 1 個 `href="#"`」的檢查。
 - 每個下拉第一行保留 mono 白話對照(`li.head`)。
@@ -191,9 +218,13 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 - 公司事實唯一可信來源:`docs/公司_104.md`(僅可用於服務範圍與願景,**不可**用來填統編/VAT/地址)。
   ⚠️ 2026-08-04 使用者指示**本次先不參考它**,0806 再次確認維持——沃凱自有服務描述一律 `[TODO]`,
   待新素材;各頁交付卡是不含獨有宣稱的通用交付項,取得素材後須校正。
+  ⚠️ **0813 局部解禁**:`docs/地轉雲_GCP_網頁製作企劃書_V1.md` 是使用者提供的新素材,
+  **只解禁 `managed-gcp.html` 一頁**的沃凱服務描述;其餘頁面(含 `cloud-services.html` 那三張卡)
+  的 `[TODO]` 一律不動。`公司_104.md` 仍然不參考。
 - 下一步:①**兩個首頁二選一**(現行版 vs V1);②`cloud-services.html` 的沃凱服務 3 段內文待素材;
   ③每個 `gcp-*.html` 的 `[TODO: delivery model and response times]` 同樣待素材;
-  ④補齊 Services 線其餘服務頁;⑤全站頁尾的法定資訊(統編/VAT/地址/Email/電話)待公司提供;
+  ④補齊 Services 線其餘服務頁(0813 已補 `managed-gcp.html`,尚缺 SOC 獨立頁與 0805 移出選單的四項);
+  ⑤全站頁尾的法定資訊(統編/VAT/地址/Email/電話)待公司提供;
   ⑥**視覺方向 A/B 裁決**(0812 新增,`lab/restyle-0812/`——採 A、採 B、A＋B 挑幾條、或都不採;
   比對頁附六項判準表。B 的「表面加深」需先依 ADR 0005 解凍,字級收斂不需要);
   ⑦再依 `docs/Volcatech_多風格_Build_Prompts.md` 的「共用基底 + 勝出風格模組」
@@ -202,7 +233,9 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 - **唯一事實來源(SSOT)**:`docs/Volcatech_多風格_Build_Prompts.md`(§A 19 項服務清單已於 2026-08-04
   定案為 **pre-0731 歷史體系**——保留封存、不改內容、新架構不對齊它;
   §B style-3 模組的選單逐字定義同為**評選期歷史**,選單分類以本檔上述 0731 決議為準)。
-  Cloud 線的內容正本是 `docs/Cloud線_內容規劃_20260804.md`,不是 SSOT §A。
+  Cloud 線的內容正本是 `docs/Cloud線_內容規劃_20260804.md`,不是 SSOT §A;
+  `managed-gcp.html` 的內容正本是 `docs/地轉雲線_內容規劃_20260813.md`(來源素材
+  `docs/地轉雲_GCP_網頁製作企劃書_V1.md`)。
   `docs/官網建置計畫_Build_Prompt_v3.md` 已凍結為 **legacy**(僅供背景脈絡,勿照做)。
 
 ## 硬性規則(所有修改必須遵守)
@@ -256,7 +289,7 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 (mono 微標籤如 `li.head`/`.off .soon`/status 行不在此限)。
 歷史四風格的 tokens 對照見 `archive/index.html` 或 `docs/Volcatech_多風格_Build_Prompts.md` §B。
 
-### 內容頁區塊元件(2026-08-06,全站 37 頁共用)
+### 內容頁區塊元件(2026-08-06,全站 38 頁共用)
 
 0805 的意見是「每頁都是同一個 `loglist` 重複三四次,讀起來是一整欄沒分別的文字」。
 現在每一段各有自己的處理,眼睛在讀字之前就分得出它是哪一類:
@@ -275,7 +308,7 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 | `.fact` | **hero 代表事實列**(0811;產品頁 24 頁,`ess.html` 豁免) | mono 編號 ＋ 琥珀 `.node.self` 晶片(列標題)＋ 事實內文。內容是從該頁 `.spec` **搬上來**的既有一列(面板該列不再渲染、編號留空缺),不是新寫的句子 |
 
 **唯一正本是 `docs/reports/restyle_content_20260806.py` 的 `BLOCK_CSS`**(含 35 個自繪 icon 的
-`ICONS` 常數)。改元件樣式 = 改那個常數後重跑腳本,37 檔一次同步;**手改單頁的 CSS 會讓軸 1 立刻紅**。
+`ICONS` 常數)。改元件樣式 = 改那個常數後重跑腳本,38 檔一次同步;**手改單頁的 CSS 會讓軸 1 立刻紅**。
 
 **0811 版型改版**(決議 25–34,`docs/meeting_0810.md` 附錄三;施工正本
 `docs/reports/版型改版規劃_20260811.md`、數據 `docs/reports/內容頁密度體檢_20260811.md`):
@@ -307,15 +340,15 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 全站統一 Nav B 之後,A/B 對照物理上不存在了。它曾是全站**唯一**能自動抓到「手改漏一檔」的檢查,
 所以必須有東西接手,新軸 1 就是那個接手的東西。
 
-### 軸 1|全站 header 同源:正規化後 37 檔逐字節相同
+### 軸 1|全站 header 同源:正規化後 38 檔逐字節相同
 
 `python3 docs/reports/check_nav_20260806.py` → 必須 PASS。
 
 它把每檔的 `<header>` 與**四段 CSS**(三段 nav ＋ 0806 的區塊元件)取出,
 正規化掉 5 個本來就該逐檔不同的參數
 (EN 自指 href、logo/Home 目標、About/Contact 的錨點前綴、`aria-current` 落點、`class="on"` 落點)
-之後,要求 **37 檔逐字節相同**;另外檢查結構數量(`li.sub`=9、`li.head`=3、button=3、
-`.off`=2、`li.grp`=0)、`aria-current` 落點、Esc handler、以及 `.dd ul` 沒有 overflow。
+之後,要求 **38 檔逐字節相同**;另外檢查結構數量(`li.sub`=9、`li.head`=3、button=3、
+`.off`=1、`li.grp`=0)、`aria-current` 落點、Esc handler、以及 `.dd ul` 沒有 overflow。
 
 - **`aria-current="page"` 掛「選單裡 href 等於本檔名的那個 `<a>`」**,通常在第二層。
   第一層是 button,`.menu a[...]` 選不到它——所以視覺上的「你在這個區塊」改用
@@ -378,8 +411,8 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
   改 hero 一律改 `index.html` 再重跑 `build_v1_20260806.py`,不要手改 V1。
 - 改任何共用內容(hero、Built、Why、Trust、footer)→ 改 `index.html` 後
   **重跑 `docs/reports/build_v1_20260806.py`**,V1 會自動跟上。
-- 動到 nav 項目 → 改 `rebuild_nav_20260806.py` 的 `MENU` 後重跑,**全站 37 檔一次同步**;
-  動到 footer 清單 → 37 檔都要改(footer 目前沒有產生器,靠逐字節比對把關)。
+- 動到 nav 項目 → 改 `rebuild_nav_20260806.py` 的 `MENU` 後重跑,**全站 38 檔一次同步**;
+  動到 footer 清單 → 38 檔都要改(footer 目前沒有產生器,靠逐字節比對把關)。
   ⚠ 兩者都要**順手重跑 `build_lab_20260806.py`**——`lab/inline-cloud-compute.html` 的
   header/footer 是從 `cloud-compute.html` 取的,它在 `check_links` 掃描範圍內。
   該腳本**刻意把底檔的區塊元件 CSS 整段剝掉**(0810 加的,`lab/` 那一頁自帶一份提案版),
@@ -437,7 +470,7 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 
 ### `lab/` 第一層 — 內容頁改版比對(2026-08-06,已定案)
 
-2026-08-06 新增,同日定案。**結果:選 inline CSS 版**,元件已搬進 `style-3-soc/` 全部 37 頁
+2026-08-06 新增,同日定案。**結果:選 inline CSS 版**,元件已搬進 `style-3-soc/` 全部 38 頁
 (正本 `docs/reports/restyle_content_20260806.py`)。這四個檔自此只剩紀錄價值——
 它保存了「當初為什麼沒選 Tailwind」的實際對照,**隨時可整個刪掉**,刪除時機由專案負責人決定
 (刪的是這四個檔,不是整個 `lab/`——`restyle-0812/` 還在用)。
@@ -502,12 +535,20 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
   eyebrow 索引碼、內容區塊;素材見 `docs/product/`(內部,先讀產品簡介總覽.md)。
   完成後跑 `rebuild_nav_20260806.py`(header 自動處理),並把 `MENU` 裡該項改成真連結。
   ⚠ `cards2` 必須偶數張(產品數為奇數時,把產品清單改走 `loglist`,`cards2` 留給沃凱交付項)。
+- **補 Services 線服務頁**:骨架照 `managed-gcp.html`(0813)或 `ess.html`;索引碼走 **MS-NN** 序列
+  (下一個是 `MS-02`)。**服務頁 `.fact` 一律豁免**——它是產品頁的元件,`.fact` 檔數維持 24。
+  新頁完成後:①`rebuild_nav_20260806.py` 的 `MENU` 加真連結並重跑;②`services.html` 的
+  `#catalogue` 加一張卡並帶 `id`(驗證指令的錨點清單要同步);③全站 footer 加一列
+  (**footer 沒有產生器**,用「只在 `<footer>` 區域內取代」的腳本改,寬鬆子字串會誤中 header 的選單項);
+  ④`check_nav_20260806.py` 的 `EXPECT_FILES` 與 `restyle_content_20260806.py` 的 `EXPECT_FILES`
+  兩處都要 +1(兩支腳本各自寫死頁數);⑤重跑 `build_lab` 與 `build_restyle_samples`(它們的
+  header/footer 取自底檔);⑥`build_updates_20260810.py` 的 `NOTES` 加一筆(key 必須與選單同名)。
 - **補 Cloud 分類頁**:內容正本是 `docs/Cloud線_內容規劃_20260804.md`(§4 骨架、§5 逐項英文文案、
   §6 逐頁大綱);產品事實一律出自 `docs/GCP_Introduce.md`。
   每個產品在名冊 `loglist` 佔一列且**必須帶 `id`**(nav 深連結的落點),
   新頁必含 `main [id]{scroll-margin-top:80px}`,否則 66px sticky header 會蓋住落點。
 - **改內容頁的版型**:元件樣式改 `restyle_content_20260806.py` 的 `BLOCK_CSS` 後重跑
-  (37 檔一次同步);某一頁的 markup 則直接改該檔的 `<main>`。改完必跑
+  (38 檔一次同步);某一頁的 markup 則直接改該檔的 `<main>`。改完必跑
   `check_copy_20260806.py` 確認沒有把文案一起改掉。
   ⚠️ `.steps` 只能用在真的有先後順序的內容;判不出順序就用 `.quad`,不要為了版型假造推進關係。
 - **版面定稿後**:勝出方案的內容搬進 `index.html`(現行版位置),另一個移入 `archive/`;
@@ -521,8 +562,8 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 | 腳本 | 做什麼 |
 |---|---|
 | `rebuild_nav_20260806.py` | **選單唯一正本**。整段抽換 header ＋ 三段 nav CSS,可重複執行 |
-| `restyle_content_20260806.py` | **區塊元件 CSS ＋ 35 個 icon 的唯一正本**。注入 37 檔,可重複執行 |
-| `check_nav_20260806.py` | 軸 1 檢查:37 檔 header ＋ 四段 CSS 逐字節相同 ＋ 結構數量 ＋ 孤兒登記 |
+| `restyle_content_20260806.py` | **區塊元件 CSS ＋ 35 個 icon 的唯一正本**。注入 38 檔,可重複執行 |
+| `check_nav_20260806.py` | 軸 1 檢查:38 檔 header ＋ 四段 CSS 逐字節相同 ＋ 結構數量 ＋ 孤兒登記 |
 | `check_copy_20260806.py` | 軸 3 檢查:對 git 基準逐句比對 `<main>`,文案零漂移 |
 | `check_links_20260806.py` | 標籤配對、唯一 h1、id 不重複、相對連結與錨點有效。0812 起 `lab/` 改用 **`rglob`** 遞迴掃子資料夾（原本的 `glob` 只掃第一層，子資料夾會靜默逃過檢查） |
 | `build_restyle_samples_20260812.py` | 產生 `lab/restyle-0812/` 的 4 個視覺方向範例頁（第二版：配色＋字體＋版型全換）。基底 CSS 不動、override 疊在 `<style>` 尾端；**markup 只動一處**——B 套把 FAQ 每一項轉成 `<details>`（`to_accordion()`）。A/B 兩套 CSS 的**唯一正本**。⚠ header/footer 取自底檔 —— **改完選單或頁尾要重跑** |
@@ -545,7 +586,7 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 | 規劃書、需求、prompt 集、會議記錄 | `docs/` |
 | **詞彙表**(同一個詞被用來指不同東西時的正本) | `docs/CONTEXT.md`(不放專案根——根目錄有白名單) |
 | **決策記錄(ADR)**:難逆、意外、有真取捨的決定 | `docs/adr/NNNN-slug.md`,編號遞增 |
-| **視覺設計文件**(現況基線、風格提案規格、可貼 AI 的 prompt、落地路線圖) | `docs/design/`(2026-08-12 建立);索引在其內 `README.md`。⚠ 它是**提案區不是正本**——tokens 正本仍是 CLAUDE.md 速查表 ＋ Build_Prompts §B ＋ 37 檔 `:root` |
+| **視覺設計文件**(現況基線、風格提案規格、可貼 AI 的 prompt、落地路線圖) | `docs/design/`(2026-08-12 建立);索引在其內 `README.md`。⚠ 它是**提案區不是正本**——tokens 正本仍是 CLAUDE.md 速查表 ＋ Build_Prompts §B ＋ 38 檔 `:root` |
 | 一次性腳本、比對報告、體檢輸出 | 臨時 → scratchpad;要保留 → `docs/reports/`(檔名帶日期) |
 | 現行風格的頁面與資產 | 只在 `style-3-soc/` 內 |
 | **改版提案 / 技術實驗**(未定案、不上正式版) | `lab/`,見下方專節 |
@@ -575,7 +616,7 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 ### 三支腳本先跑,都必須 PASS
 
 ```bash
-python3 docs/reports/check_nav_20260806.py     # 軸 1:37 檔 header ＋ 四段 CSS 同源、結構數量、孤兒登記
+python3 docs/reports/check_nav_20260806.py     # 軸 1:38 檔 header ＋ 四段 CSS 同源、結構數量、孤兒登記
 python3 docs/reports/check_copy_20260806.py    # 軸 3:改版型沒把文案一起改掉(基準預設 HEAD)
 python3 docs/reports/check_links_20260806.py   # 標籤配對、唯一 h1、id 不重複、相對連結與錨點
 ```
@@ -619,7 +660,8 @@ for f in gcp-*.html; do awk '/<section id="stack">/,/<\/section>/' $f | grep -c 
 for s in pain pick faq; do grep -c "section id=\"$s\"" gcp-*.html | grep -vc ':1$'; done   # 三行各應輸出 0
 # 資安線 6 頁各有 痛點/選型/FAQ 三段(0807 跟進 5 頁;argushack.html 0810 建頁時就帶三段)
 for s in pain pick faq; do grep -c "section id=\"$s\"" sentinelone.html threatsonar.html cybereyes.html google-secops.html ess.html argushack.html | grep -vc ':1$'; done   # 三行各應輸出 0
-# 0811:hero 代表事實列。24 頁各恰一列(19 GCP ＋ 5 資安;ess.html 是方案頁,已裁決豁免)
+# 0811:hero 代表事實列。24 頁各恰一列(19 GCP ＋ 5 資安;`ess.html` 與 `managed-gcp.html`
+#      兩個服務／方案頁已裁決豁免,不要幫它們補)
 grep -l 'class="fact"' *.html | wc -l          # 應為 24
 grep -c 'class="fact"' *.html | grep -vc ':[01]$'   # 應為 0(每檔 0 或 1,不得有 2)
 # 0811:hero 晶片不得放產品名(H1 已有一次,重複會讓軸 3 判 FAIL) → 應為空
@@ -670,8 +712,8 @@ grep -ohE 'id="(compute-engine|kubernetes-engine|vmware-engine|cloud-storage|fil
 # ⚠ 0810 起產品少了 ce-bas/ai-ptaas/secpurple、多了 argushack;第三個區塊 id 由 in-house 改為 validation
 grep -ohE 'id="(sentinelone|threatsonar|fortiedr|cybereyes|google-secops|argushack)"' cybersecurity.html | sort -u | wc -l  # 應為 6
 grep -ohE 'id="(edr|detection|validation)"' cybersecurity.html | sort -u | wc -l   # 應為 3
-grep -ohE 'id="(ess|soc|isms|pentest|finops|dx)"' services.html | sort -u | wc -l # 應為 6
-# 34 個內容頁 footer 與 sentinelone 逐字節相同 → 應輸出 34 行 OK(排除 2 個 index*.html 與 sentinelone 自己)
+grep -ohE 'id="(ess|soc|isms|pentest|finops|dx|managed-gcp)"' services.html | sort -u | wc -l # 應為 7
+# 35 個內容頁 footer 與 sentinelone 逐字節相同 → 應輸出 35 行 OK(排除 2 個 index*.html 與 sentinelone 自己)
 for f in $(ls *.html | grep -vE '^(sentinelone|index.*)\.html$'); do
   diff <(awk '/<footer/,/<\/footer>/' sentinelone.html) \
        <(awk '/<footer/,/<\/footer>/' $f) >/dev/null && echo "$f OK" || echo "$f DIFF"; done

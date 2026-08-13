@@ -29,7 +29,7 @@ B ＝ 表面與形態 ＋ **19 個 font-size 值收斂成 8 級階梯**（只有
 首頁第 4 區改「我們自己維運」定位；`AI-PTaaS`／`SecPurple` 因素材不足全站移除。
 細節見下方〈本輪完成的事（2026-08-10 第二輪）〉。
 
-現行維護對象 `style-3-soc/`，**共 37 頁**（0810 新增 `argushack.html`）：
+現行維護對象 `style-3-soc/`，**共 38 頁**（0810 新增 `argushack.html`；0813 新增 `managed-gcp.html`）：
 
 - **2 個首頁**：`index.html`（現行版）、`index-v1-proof.html`（V1 信任前置，
   由 `docs/reports/build_v1_20260806.py` 產生，**不得手改**）。
@@ -42,7 +42,9 @@ B ＝ 表面與形態 ＋ **19 個 font-size 值收斂成 8 級階梯**（只有
   全部由 `build_gcp_pages_20260806.py` 的 `PAGES` 產生，**不要手改頁面**。
 - **5 個資安產品頁**：`sentinelone` / `threatsonar` / `cybereyes` / `google-secops`
   ＋ **`argushack`（2026-08-10 新建**，BAS；原廠 Leukocyte-Lab，沃凱代理）；＋方案頁 `ess.html`。
-- **全 37 頁選單統一為三層 Nav B**，不再有 Nav A。
+- **1 個服務頁**：`managed-gcp.html`（MS-01，2026-08-13 新建；GCP 遷移與維運，
+  素材出自地轉雲企劃書，內容正本 `docs/地轉雲線_內容規劃_20260813.md`；**手維護頁**，非產生器產出）。
+- **全 38 頁選單統一為三層 Nav B**，不再有 Nav A。
 
 **內容充實狀態（2026-08-11）**：19 個 GCP 產品頁**全部完成**（每頁 FAQ +2～3、規格 +2，
 其中 12 頁有 SVG 示意圖、4 頁依「誠實優先」判定不做圖）；5 個資安產品頁與 ESS 皆有
@@ -516,6 +518,71 @@ Windows 限定的只是其中四項標記功能（自我保護／還原保護／
 **「少了」只有 2 處且都是上述拼寫修正**，其餘 55 處全是「多了」且只落在這三頁；
 金額、hype、外部資源、`to be confirmed`、三段 section 計數全部通過。
 
+### 本輪完成的事（2026-08-13，地轉雲線建頁：`managed-gcp.html`）
+
+起點是使用者交來的繁中企劃書 `docs/地轉雲_GCP_網頁製作企劃書_V1.md`，要求把它變成選單 Services
+底下那個灰字 `GCP Managed Services` 的內容。經四輪 grilling 定案 19 條決議，
+**內容正本落在 `docs/地轉雲線_內容規劃_20260813.md`**（含逐區塊英文定稿文案與互連表）。
+
+**這輪最需要先想清楚的一件事：企劃書講的不是 managed services。** 它的六大區塊重心是
+**遷移全流程**（維運只佔第六階段與方案 C），而選單那格叫 managed services，兩者名實不符；
+站上又早有一張 `cloud-services.html` 的 `Cloud Migration & Kubernetes` 卡在等素材，內容重疊。
+裁決是**一頁通吃 migrate ＋ run**、選單標籤改名為 `GCP Migration & Managed Services`，
+那張卡加一條 `.go` 指過來把重疊解掉（**卡內文的 `[TODO]` 刻意不填**——本輪素材授權只解禁新頁）。
+
+**檔名 `managed-gcp.html` 是計算過的，不是隨手取的。** `gcp-managed-services.html` 會被
+`gcp-*.html` 這個 glob 抓進去，讓四條驗證指令立刻紅（`#pain`/`#pick`/`#faq` 各須 1、
+`#stack` 須恰一個 `.node.self`、`.stack a{scroll-margin-top}` 須 19 檔各 1、hero 晶片檢查）——
+因為 `gcp-` 前綴在本專案是「Google 產品頁」的保留語意，而這頁是沃凱服務。
+`cloud-managed.html` 會撞 `cloud-*` 兩條。只有 `managed-gcp.html` 零副作用。
+
+**骨架 7 段**：`#pain`（`.probs.four`，**全站第一次用 `.four`**）→ `#process`（`.steps` 六階段，
+每階段只有一句）→ `#services`（`.quad` 四卡）→ `#stack`（五層）→ `#pick`（4 列）→
+`#plans`（`.trio` 三方案）→ `#faq`（6 題）。幾個刻意的取捨：
+
+| 決定 | 理由 |
+| --- | --- |
+| **砍掉企劃書的「六大效益」整區** | 它與區塊一的七個痛點是同一件事的正反面，兩段都放＝同一件事講兩遍，正是 0811 密度體檢抓到的「節奏重複」病灶。效益改為吸收進痛點內文的反面與方案描述 |
+| **`#services` 用 4 卡而非照企劃書的 6 項** | 六項服務與六階段流程條目重疊約七成；改成 4 卡讓兩段的節奏錯開（4 vs 6），角度也分得開——`#process` 講順序與里程碑，`#services` 講出什麼人做什麼事 |
+| **`.pick` 只有 4 列，不是企劃書表格的 13 列** | 全站 `.pick` 一律 4 列；而 13 列裡有 **5 類產品站上根本沒有頁面**（Migration Center／VPC·VPN·Interconnect／LB·DNS·CDN／Cloud Identity·IAM／Logging·Monitoring）。那 5 類改寫進 `#process` 階段 03 的 landing zone 那一句，**不點產品名**——正是企劃書自己要求的「不要變成產品名稱清單」 |
+| **`#stack` 頂層放沃凱自我節點而非某個 Google 產品** | 圖的意思因此從「產品目錄」變成「這幾層都在維運契約裡」。無 href 的節點在 `.stack` 會渲染成 `.node.self`，所以沒頁的產品**不能**塞進去，否則圖會宣稱「本頁就是 VPC」 |
+| **`.fact` 豁免** | 它是產品頁的元件；服務頁比照 `ess.html` 不用。`.fact` 檔數因此仍是 24，零指令要改 |
+| **24/7 只寫「監控與告警」** | 使用者裁決沿用站上既有的 24/7 SOC 宣稱，但「有人在」與「多久回」是兩種承諾——回應時間目標與 SLA 留 `[TODO: response time targets]`，是本頁唯一的佔位 |
+| **零外部連結** | 比照 `ess.html` / `services.html` 兩個服務頁。企劃書 §六的 Google 官方參考只作為改寫依據，不上站 |
+
+**企劃書有五類要求刻意不做**（全部登記為 Astro 正式版待辦，理由見內容正本 §6）：
+攝影／情境主視覺（撞禁 `<img>`）、諮詢表單（純靜態無後端＋GDPR）、網頁追蹤（禁 JS ＋零追蹤）、
+每區塊不同 CTA（全站一律 `Contact us`）、單頁式網站（本站是多頁架構）。
+
+**獨立稽核抓到 26 項，全部修掉。** 做法是六個維度各一位稽核員（拼寫與語法／hype 與宣稱／
+金額與佔位／事實與連結／素材忠實度／全站一致性），每一項發現再交給另一位 agent 做**反駁式複核**
+（預設立場是「這可能是誤報」，只有親眼看到證據才判成立）——提出 39 項、成立 26 項、駁回 13 項。
+值得記住的類型：
+
+| 類型 | 實例 |
+| --- | --- |
+| **英文硬語法錯** | `so little of the platform's managed services get used`——`little` 是不可數量詞卻修飾可數複數，且動詞數也不對；`take budget and attention that were never meant to be an IT deliverable`——複數先行詞配單數表語，而且預算與注意力是投入不是產出 |
+| **同頁自相矛盾** | FAQ 03 斷言現代化「pays it back in operations」（無條件回本），FAQ 02 卻誠實寫「Not automatically」——企劃書 §一.5 明文禁止這類保證。改成有條件句 |
+| **分層圖畫錯事實** | `#stack` 原本是「Data ↓ **backed up to** → Storage(Cloud Storage · Filestore · Backup and DR)」，等於宣稱資料庫備份進 Filestore——但 Filestore 是即時掛載的 NFS 共享。改成儲存併入資料層、Backup and DR 獨立成最後一層用「protected by」收尾 |
+| **文件宣稱與頁面不符** | 內容正本聲明企劃書痛點第 7 項（新系統／資料分析／AI 導入門檻）已被吸收進 Run and optimise 卡，實際頁面上沒有任何落點。補了一句 |
+| **交代不完整** | 企劃書搭配表裡另有 4 項無站內頁的產品（Migrate to VMs／DMS／Persistent Disk／SCC）在文件裡毫無交代。前兩項補進階段 05 的不點名敘述，後兩項明文登記為不做 |
+| **外圍文件沒跟上** | README／HANDOVER／copilot-instructions 有 9 處還寫著「GCP Managed Services 是灰字」，其中一處在〈可直接複製給下一位 AI 的 Prompts〉裡——那是會被整段複製去執行的 |
+
+**⚠️ 施工踩到的坑，值得記住**：改全站 footer 的批次腳本，冪等守衛原本用
+`managed-gcp.html">GCP Migration` 這個子字串——但它**同時命中 header 的選單項**
+（`rebuild_nav` 先跑過了），於是 37 檔被靜默跳過只改到 1 檔。更糟的是當下的驗證
+`grep -c` 也數不出來：每檔都「恰 1 次」，只是那 1 次在 header。
+**是 footer 逐字節比對把它抓出來的。**改 footer 的腳本一律要**先切出 `<footer>` 區域再取代**，
+而且不要拿「全檔子字串命中數」當驗證。
+
+**連動改動清單**（下次補 Services 線服務頁照這張表走，CLAUDE.md〈常見任務怎麼做〉也有同一份）：
+`MENU` 灰字改真連結並重跑 → `services.html` 加第 7 張卡（`.trio`→`.quad`，帶 `id`）→
+38 檔 footer 加列 → `check_nav` 與 `restyle_content` **兩支腳本各自寫死的 `EXPECT_FILES` 都要 +1** →
+重跑 `build_lab` 與 `build_restyle_samples`（header/footer 取自底檔）→
+`build_updates_20260810.py` 的 `NOTES` 加一筆（key 必須與選單同名）→ 根 hub 頁面清單加連結 →
+CLAUDE.md／README／HANDOVER／copilot-instructions 的「37 頁」全部改 38
+（⚠ **標明日期的歷史紀錄段落不要改**，例如本檔第 381、409 行）。
+
 ### V1 首頁（改它之前必讀）
 
 **V1 不要手改。**它由 `docs/reports/build_v1_20260806.py` 從 `index.html` 產生：
@@ -540,7 +607,7 @@ hero / Built / Why / Trust / CTA 五個共用區塊直接**切片**取得，所�
 ## 2. 現行導覽結構速查（style-3-soc）
 
 > **選單的唯一正本是 `docs/reports/rebuild_nav_20260806.py` 的 `MENU` 常數**，不是任何 HTML 檔。
-> 改它 → 重跑腳本（37 檔一次同步）→ 跑 `check_nav_20260806.py`。手改必定漏。
+> 改它 → 重跑腳本（38 檔一次同步）→ 跑 `check_nav_20260806.py`。手改必定漏。
 
 2026-08-06 起全站統一**三層 Nav B**，不再有 Nav A：
 
@@ -564,7 +631,8 @@ hero / Built / Why / Trust / CTA 五個共用區塊直接**切片**取得，所�
   0810 由「Built in-house — Volcatech AI Security」改名，理由見上方資訊架構節）。
   第二層群組父項是深連結（`cybersecurity.html#edr` / `#detection` / `#validation`）。
 - `Services`（**扁平，無第二層**）：Overview（`services.html`）＋ ESS（`ess.html`）＋
-  24/7 SOC & Incident Response（`services.html#soc`）＋ **GCP Managed Services（不可點灰字）**。
+  24/7 SOC & Incident Response（`services.html#soc`）＋
+  **GCP Migration & Managed Services（`managed-gcp.html`，0813 建頁，原為灰字）**。
 
 **0805 從選單移除、但頁面區塊全部保留的項目**（只動選單，不要「順手清乾淨」）：
 ISMS / PIMS、Penetration Testing、Cloud FinOps、Digital Transformation，
@@ -585,7 +653,7 @@ ISMS / PIMS、Penetration Testing、Cloud FinOps、Digital Transformation，
    - **軸 1**＝全站 header 同源。舊的「Nav A ↔ Nav B 自 `<main>` 起逐字節相同」隨 Nav A 退場而失效，
      接手的是：
      ```bash
-     python3 docs/reports/check_nav_20260806.py     # 37 檔 header 正規化後逐字節相同
+     python3 docs/reports/check_nav_20260806.py     # 38 檔 header 正規化後逐字節相同
      python3 docs/reports/check_links_20260806.py   # 標籤配對 / 唯一 h1 / 連結與錨點
      ```
      ⚠ 這條檢查的存在意義：它是全站**唯一**能自動抓到「手改漏一檔」的東西。舊軸 1 死掉時
@@ -600,8 +668,10 @@ ISMS / PIMS、Penetration Testing、Cloud FinOps、Digital Transformation，
    `cloud-services.html` 與 `gcp-cloud-armor.html`（0806 補齊產品頁時一併產出，
    但它所屬的 Edge security 那組 0805 已移出選單）。孤兒必須**明文登記**在
    `check_nav_20260806.py` 的 `ORPHANS`，不能默默出現——腳本會擋。
-5. **動 nav ＝ 改 `MENU` 後重跑腳本**（37 檔一次同步）；**動 footer 清單 ＝ 37 檔都要改**
-   （footer 目前沒有產生器，靠「17 個內容頁 footer 與 sentinelone 逐字節相同」把關）。
+5. **動 nav ＝ 改 `MENU` 後重跑腳本**（38 檔一次同步）；**動 footer 清單 ＝ 38 檔都要改**
+   （footer 目前沒有產生器，靠「35 個內容頁 footer 與 sentinelone 逐字節相同」把關；
+   改 footer 的腳本必須**只在 `<footer>` 區域內取代**——寬鬆子字串會誤中 header 的選單項，
+   0813 實際踩到，37 檔被靜默跳過而驗證指令當下看不出來）。
    `ess.html` 與 `services.html` **禁任何外部連結**；`cloud-services.html` 有 1 條
    Cloud Armor 官方連結、`cybersecurity.html` 有 5 條原廠連結，皆合法。
 6. **`.dd ul` 絕不可加 overflow**——會變成 clip container 裁掉二層 flyout。
@@ -609,7 +679,7 @@ ISMS / PIMS、Penetration Testing、Cloud FinOps、Digital Transformation，
    **`.sub` 的四條規則一律 scope 成 `.menu .sub`**——footer 有內文用的 `<p class="sub">`。
 7. **901–1100px 這一段，二層改成在面板內就地展開**（`position:static`），不是側開 flyout——
    該區間視窗放不下側開的 flyout，窄端會跑出左緣。
-8. 全 37 檔的 `main [id]` 都有 `scroll-margin-top:80px`，深連結錨點才不會被 sticky header 遮住；
+8. 全 38 檔的 `main [id]` 都有 `scroll-margin-top:80px`，深連結錨點才不會被 sticky header 遮住；
    新增頁面時一併帶上。19 個 GCP 產品頁另需 `.stack a{scroll-margin-top:80px}`（圖中連結的鍵盤焦點）——
    0806 補齊產品頁後 19 頁全數具備，這裡原本寫「3 個」是補齊之前的狀態。
 9. **`lab/` 的規則與 `style-3-soc/` 不同，而且只在 `lab/` 內有效**：那兩個 Tailwind 頁
@@ -696,10 +766,10 @@ ISMS / PIMS、Penetration Testing、Cloud FinOps、Digital Transformation，
 ```text
 請讀取根目錄的 HANDOVER.md 與 CLAUDE.md。
 先跑兩支檢查腳本，兩支都必須 PASS：
-  python3 docs/reports/check_nav_20260806.py     # 軸1：37 檔 header 正規化後逐字節相同
+  python3 docs/reports/check_nav_20260806.py     # 軸1：38 檔 header 正規化後逐字節相同
   python3 docs/reports/check_links_20260806.py   # 標籤配對 / 唯一 h1 / 相對連結與錨點
 
-再用 python3 -m http.server 8000 啟動本機伺服器，對 style-3-soc 的全部 37 頁做檢查
+再用 python3 -m http.server 8000 啟動本機伺服器，對 style-3-soc 的全部 38 頁做檢查
 （用 ls style-3-soc/*.html 取得清單，不要用寫死的檔名）：
 ① 軸2：五句定稿文案在 2 個 index*.html 各命中 2 次、核心句
    「We operate what we sell, and we build what we cannot buy.」恰 1 次
@@ -708,7 +778,8 @@ ISMS / PIMS、Penetration Testing、Cloud FinOps、Digital Transformation，
    - 第一層 Google Cloud / CyberSecurity / Services **不可點**（是 <button> 不是 <a>）
    - 斜著移進第二層 flyout 不掉層；純鍵盤 Tab 全程可達
    - 下拉開著時按 Esc 會關閉（焦點回到左上角 logo）
-   - FortiEDR 與 GCP Managed Services 是不可點灰字，且不得寫成 <a href="#">
+   - FortiEDR 是唯一的不可點灰字，且不得寫成 <a href="#">；
+     GCP Migration & Managed Services 於 0813 建頁後已是真連結（managed-gcp.html）
 ③ 390 / 768 / 1024 / 1440px 無水平捲軸。特別測 **約 1000px**：
    二層應改成在面板內就地展開，不是側開 flyout（該區間 19 個原 Nav A 檔從沒測過）。
    390px：選單三層全部攤開成縮排清單。
@@ -755,7 +826,7 @@ lab/ 的兩個 Tailwind 頁刻意違反禁 CDN／禁框架／色系凍結，那�
 - header **不要手寫**：新頁建好後跑 docs/reports/rebuild_nav_20260806.py，
   aria-current 與第一層的 class="on" 會自動落到正確位置；
   並把該項在 MENU 常數裡的 href 從錨點改成新頁檔名
-- 動 nav ＝ 改 MENU 後重跑腳本（37 檔一次同步）；動 footer ＝ 37 檔都要改
+- 動 nav ＝ 改 MENU 後重跑腳本（38 檔一次同步）；動 footer ＝ 38 檔都要改
   （footer 沒有產生器，靠「與 sentinelone.html 逐字節相同」把關）
 - 改完跑 docs/reports/check_nav_20260806.py 與 check_links_20260806.py，兩支都要 PASS
 - 新頁的動線落點：現在 Cybersecurity 與 Managed Services 各項在

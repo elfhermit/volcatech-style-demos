@@ -7,7 +7,7 @@
 (原廠為台灣盧氪賽忒 Leukocyte-Lab,沃凱是代理商)→ 更名 **ArgusHack**、升格獨立產品頁、
 選單第三組改為 `Validation — breach & attack simulation`;`AI-PTaaS`／`SecPurple`
 因素材不足全站移除(非否定其自研,素材到位可加回)。
-現行維護對象是 `style-3-soc/`(**37 頁**)與 `lab/`(第一層四檔是 0806 兩案對照,已定案留檔備查;`lab/restyle-0812/` 是 0812 的視覺方向 A/B 提案,**待裁決**);評選歷史與封存的首頁變體都在 `archive/`(凍結,不再更新)。
+現行維護對象是 `style-3-soc/`(**38 頁**,0813 新增 `managed-gcp.html`)與 `lab/`(第一層四檔是 0806 兩案對照,已定案留檔備查;`lab/restyle-0812/` 是 0812 的視覺方向 A/B 提案,**待裁決**);評選歷史與封存的首頁變體都在 `archive/`(凍結,不再更新)。
 
 | 首頁兩案 | 路徑 | hero 之後第一眼 |
 |---|---|---|
@@ -17,16 +17,17 @@
 V1 由 `docs/reports/build_v1_20260806.py` 從 `index.html` 產生,**不得手改**。
 V2(型錄前置)與 V3(參考架構圖)已封存於 `archive/style-3-homepage-variants/`。
 
-| 其餘 19 頁 | 路徑 | 說明 |
+| 其餘 36 頁 | 路徑 | 說明 |
 |---|---|---|
 | 總覽頁 ×3 | `cloud.html`、`cybersecurity.html`、`services.html` | 代碼 CI / CS / MS;三條業務線各一個落點頁 |
 | Cloud 分類頁 ×7 | `cloud-compute.html`、`cloud-storage.html`、`cloud-analytics.html`、`cloud-serverless.html`、`cloud-databases.html`、`cloud-ai.html`、`cloud-services.html` | 代碼 CI-01〜CI-07;各頁收錄該分類的 GCP 產品(每項一個錨點),`cloud-services.html` 另含 Cloud Armor 與沃凱自有雲端服務 3 項 |
 | **GCP 產品頁 ×19** | `gcp-*.html`(18 個 GCP 產品 ＋ `gcp-cloud-armor.html`) | 2026-08-06 補齊,選單**第三層**。全部由 `build_gcp_pages_20260806.py` 產生,不要手改 |
 | 資安產品頁 ×5 | `sentinelone.html`、`threatsonar.html`、`cybereyes.html`、`google-secops.html`、`argushack.html` | `argushack.html` 為 2026-08-10 新建(BAS);原廠 Leukocyte-Lab,沃凱代理——原名 CE-BAS,查證確認非自研後更名 |
 | 方案頁 ×1 | `ess.html` | **Enterprise Security Service(ESS)**:沃凱打包方案(CyberEyes WDR + 多品牌 EDR + 自有 7x24 SOC)。**方案層,不屬 19 項 SKU**;全頁零外部連結 |
+| 服務頁 ×1 | `managed-gcp.html` | 代碼 MS-01:**GCP 遷移與維運**(2026-08-13 新建)。素材出自地轉雲企劃書,內容正本 `docs/地轉雲線_內容規劃_20260813.md`;手維護頁、全頁零外部連結 |
 
 一致性鐵則仍是**雙軸**,但軸 1 已換人:
-**軸 1** =「全站 37 檔的 header 正規化後逐字節相同」(舊的 Nav A ↔ Nav B 對照隨 Nav A 退場而失效);
+**軸 1** =「全站 38 檔的 header 正規化後逐字節相同」(舊的 Nav A ↔ Nav B 對照隨 Nav A 退場而失效);
 **軸 2** = 兩個首頁的共用文案逐字凍結(H1、副標、Why H2、CTA、footer 品牌句五句),
 且兩案的 hero 區塊完全一致——比的是版面,不是文案。
 hero 文案(H1 / 副標 / CTA)為 0731 會後改版的置中版。選單分類 `CyberSecurity` 的駝峰寫法
@@ -71,8 +72,8 @@ hero 文案(H1 / 副標 / CTA)為 0731 會後改版的置中版。選單分類 `
 ## 1. 本機預覽
 
 **方法 A(最快)**:直接用瀏覽器開啟根目錄的 `index.html`(雙擊即可),
-從 Demo hub 點進 style-3 的 37 個頁面(2 個首頁、3 個總覽頁、7 個 Cloud 分類頁、
-19 個 GCP 產品頁、5 個資安產品頁、ESS 方案頁)、`lab/` 改版提案與歸檔區。
+從 Demo hub 點進 style-3 的 38 個頁面(2 個首頁、3 個總覽頁、7 個 Cloud 分類頁、
+19 個 GCP 產品頁、5 個資安產品頁、ESS 方案頁、GCP 遷移與維運服務頁)、`lab/` 改版提案與歸檔區。
 
 ⚠️ `lab/` 第一層的兩個 Tailwind 頁**需要連網**才會有樣式(它們從外部 CDN 抓 CSS)。
 其餘所有頁面(含 `lab/restyle-0812/` 五檔)都是單檔自足,離線一樣正常。
@@ -156,8 +157,8 @@ Pages 約 1 分鐘後自動更新(若沒變,瀏覽器強制重新整理 Cmd+Shif
 
 ## 3. Demo 範圍與已知限制
 
-- 現行 demo 共 37 頁(2 個首頁、3 個總覽頁、7 個 Cloud 分類頁、19 個 GCP 產品頁、
-  5 個資安產品頁、1 個方案頁),另有 `lab/` 9 個提案頁(4 個 0806 兩案對照 ＋ 5 個 0812 視覺方向提案,都不算正式頁面)。
+- 現行 demo 共 38 頁(2 個首頁、3 個總覽頁、7 個 Cloud 分類頁、19 個 GCP 產品頁、
+  5 個資安產品頁、1 個方案頁、1 個服務頁 `managed-gcp.html`),另有 `lab/` 9 個提案頁(4 個 0806 兩案對照 ＋ 5 個 0812 視覺方向提案,都不算正式頁面)。
   Privacy Policy 與 Imprint 指向頁尾法定資訊區(`#legal`),正式版才有獨立頁面。
 - **選單是三層,第一層不可點**(2026-08-05 決議):`Google Cloud` / `CyberSecurity` /
   `Services` 是 `<button>` 而非連結,只會 hover 展開,避免誤點;各分類的入口改由下拉
@@ -169,8 +170,9 @@ Pages 約 1 分鐘後自動更新(若沒變,瀏覽器強制重新整理 Cmd+Shif
     **Validation — breach & attack simulation**(ArgusHack → `argushack.html`)。
     CyberEyes 實為 WDR,故 SIEM 群組已改名;第三組 0810 由「Built in-house — Volcatech
     AI Security(CE-BAS)」改名,因為查證確認該產品是代理而非自研。
-  - `Services`(扁平)= Overview ＋ ESS ＋ 24/7 SOC & Incident Response ＋ GCP Managed Services。
-  - **FortiEDR 與 GCP Managed Services 尚無內頁,做成不可點的灰字**(附 Coming soon)。
+  - `Services`(扁平)= Overview ＋ ESS ＋ 24/7 SOC & Incident Response ＋
+    **GCP Migration & Managed Services**(0813 建頁後為真連結 → `managed-gcp.html`)。
+  - **FortiEDR 尚無內頁,做成不可點的灰字**(附 Coming soon;0813 起全站只剩這一項)。
   - **0805 從選單移除 4 項**:ISMS / PIMS、Penetration Testing、Cloud FinOps、
     Digital Transformation。**只動選單**——這四項在 `services.html` 的區塊與頁尾清單全部保留。
     同理更早移除的 Cloud Armor 與沃凱雲端服務 3 項,`cloud-services.html` 頁面與頁尾那列都還在。
@@ -178,7 +180,7 @@ Pages 約 1 分鐘後自動更新(若沒變,瀏覽器強制重新整理 Cmd+Shif
     與上述「只動選單」相反;理由是素材不足,不是否定它們是自研。
   - 每個下拉第一行仍是 mono 白話對照。
   - **選單的唯一正本是 `docs/reports/rebuild_nav_20260806.py` 的 `MENU` 常數**,不是任何 HTML 檔;
-    改它之後重跑腳本,37 檔一次同步,再跑 `check_nav_20260806.py` 驗證。
+    改它之後重跑腳本,38 檔一次同步,再跑 `check_nav_20260806.py` 驗證。
 - **頁尾「Cloud Infrastructure」欄**已改為 8 行分類連結(Overview / Compute / Storage /
   Analytics / Serverless / Databases / AI / Cloud services & Cloud Armor),
   取代舊的 6 項 SKU 列法。
@@ -261,7 +263,7 @@ Volcatech_Web/                  # 專案根(= VS Code 開啟此層、http.server
 │   ├── reports/                           # 要保留的一次性腳本與比對報告(檔名帶日期)
 │   │   ├── rebuild_nav_20260806.py        # ★ 選單唯一正本:整段抽換 header + 三段 nav CSS
 │   │   ├── restyle_content_20260806.py    # ★ 區塊元件 CSS ＋ 35 個 icon 的唯一正本
-│   │   ├── check_nav_20260806.py          # ★ 軸 1 檢查:37 檔 header ＋ 四段 CSS 逐字節相同
+│   │   ├── check_nav_20260806.py          # ★ 軸 1 檢查:38 檔 header ＋ 四段 CSS 逐字節相同
 │   │   ├── check_copy_20260806.py         # ★ 軸 3 檢查:改版型時文案零漂移
 │   │   ├── check_links_20260806.py        # 標籤配對 / 唯一 h1 / 相對連結與錨點
 │   │   ├── build_v1_20260806.py           # 從 index.html 產生 V1——V1 不要手改,改這支後重跑
@@ -284,11 +286,11 @@ Volcatech_Web/                  # 專案根(= VS Code 開啟此層、http.server
 │       ├── index.html          # 對照入口 ＋ 六項判準表
 │       ├── a-index.html / a-gcp-cloud-run.html   # A · Supabase 向(色彩用量)
 │       └── b-index.html / b-gcp-cloud-run.html   # B · Harness 向(表面與形態＋字級階梯)
-├── style-3-soc/                # ★ 勝出風格(現行唯一維護對象,共 37 頁)
+├── style-3-soc/                # ★ 勝出風格(現行唯一維護對象,共 38 頁)
 │   ├── index.html              # 首頁 — 現行版(對照組)
 │   ├── index-v1-proof.html     # 首頁 — V1 信任前置(由 build_v1 產生,不要手改)
 │   ├── cybersecurity.html      # Cybersecurity 總覽(CS):8 產品分 3 群,11 個錨點
-│   ├── services.html           # Managed Services 總覽(MS):6 服務,6 個錨點([TODO] 待補內文)
+│   ├── services.html           # Managed Services 總覽(MS):7 服務,7 個錨點(0813 加 managed-gcp)
 │   ├── cloud.html              # Cloud 總覽(CI):六分類導覽 + 沃凱雲端服務
 │   ├── cloud-compute.html      # Cloud 分類頁 CI-01:Compute Engine / Kubernetes Engine / VMware Engine
 │   ├── cloud-storage.html      # Cloud 分類頁 CI-02:Cloud Storage / Filestore / Backup and DR
@@ -305,7 +307,8 @@ Volcatech_Web/                  # 專案根(= VS Code 開啟此層、http.server
 │   ├── cybereyes.html          # 產品頁
 │   ├── google-secops.html      # 產品頁
 │   ├── argushack.html          # 產品頁:ArgusHack(BAS,原廠 Leukocyte-Lab;0810 新建)
-│   └── ess.html                # 方案頁:ESS(方案層,非 19 項 SKU;全頁零外部連結)
+│   ├── ess.html                # 方案頁:ESS(方案層,非 19 項 SKU;全頁零外部連結)
+│   └── managed-gcp.html        # 服務頁:GCP 遷移與維運(MS-01;0813 新建,手維護頁)
 ├── archive/                    # 評選歷史,全部凍結不再更新
 │   ├── index.html              # 舊評選總覽(帶已歸檔橫幅)
 │   ├── style-1-zurich/

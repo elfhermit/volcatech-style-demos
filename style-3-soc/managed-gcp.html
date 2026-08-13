@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-<title>Compute on Google Cloud (VMs, GKE, VMware) — Volcatech</title>
-<meta name="description" content="Compute Engine, Kubernetes Engine and VMware Engine — sized, migrated and operated for European organisations by Volcatech.">
+<title>Google Cloud migration and managed operations — Volcatech</title>
+<meta name="description" content="Volcatech surveys your on-premises estate, designs the Google Cloud landing zone, migrates workloads in tested waves, and keeps the result monitored, backed up and reviewed.">
 <style>
 :root{
   --bg:#0E141F; --surface:#16202E; --ink:#E9EEF5; --muted:#9AA8BA;
@@ -332,11 +332,11 @@ a.node:hover{border-color:var(--accent);background:#182433}
     <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
     <ul class="menu" id="menu">
       <li><a href="index.html">Home</a></li>
-      <li class="dd"><button type="button" class="on" aria-haspopup="true">Google Cloud</button>
+      <li class="dd"><button type="button" aria-haspopup="true">Google Cloud</button>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
           <li><a href="cloud.html">Overview — all Google Cloud services</a></li>
-          <li class="sub"><a href="cloud-compute.html" aria-current="page" aria-haspopup="true">Compute</a>
+          <li class="sub"><a href="cloud-compute.html" aria-haspopup="true">Compute</a>
             <ul>
               <li><a href="gcp-compute-engine.html">Compute Engine</a></li>
               <li><a href="gcp-kubernetes-engine.html">Kubernetes Engine</a></li>
@@ -404,20 +404,20 @@ a.node:hover{border-color:var(--accent);background:#182433}
           </li>
         </ul>
       </li>
-      <li class="dd"><button type="button" aria-haspopup="true">Services</button>
+      <li class="dd"><button type="button" class="on" aria-haspopup="true">Services</button>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Services — Managed Services</li>
           <li><a href="services.html">Overview — all managed services</a></li>
           <li><a href="ess.html">Enterprise Security Service (ESS)</a></li>
           <li><a href="services.html#soc">24/7 SOC &amp; Incident Response</a></li>
-          <li><a href="managed-gcp.html">GCP Migration &amp; Managed Services</a></li>
+          <li><a href="managed-gcp.html" aria-current="page">GCP Migration &amp; Managed Services</a></li>
         </ul>
       </li>
       <li><a href="index.html#why">About</a></li>
       <li><a class="btn" style="padding:9px 18px" href="index.html#contact">Contact us</a></li>
       <li>
         <nav class="lang" aria-label="Language">
-          <a href="cloud-compute.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
+          <a href="managed-gcp.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
         </nav>
       </li>
     </ul>
@@ -427,14 +427,14 @@ a.node:hover{border-color:var(--accent);background:#182433}
 <main>
   <div class="phero">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>CI-01 / COMPUTE — Google Cloud services</p>
-      <p class="code" style="margin-top:26px">CI-01 · CLOUD INFRASTRUCTURE · COMPUTE</p>
-      <h1>Compute on Google Cloud</h1>
-      <p class="vendor">Vendor: Google Cloud · Virtual machines, Kubernetes and VMware</p>
-      <p class="tag">Virtual machines, managed Kubernetes and native VMware — chosen per workload, then built and operated by one team.</p>
+      <p class="status"><span class="dot" aria-hidden="true"></span>MS-01 / GOOGLE CLOUD — Operated by Volcatech</p>
+      <p class="code" style="margin-top:26px">MS-01 · MANAGED SERVICES · GOOGLE CLOUD</p>
+      <h1>Google Cloud migration and managed operations</h1>
+      <p class="vendor">Service: Volcatech — assessment, migration and day-2 operations</p>
+      <p class="tag">Moving off your own hardware is a project with an assessment at the front and an operating model at the end. We survey the estate you have, design the Google Cloud environment it should land in, move workloads in waves that can be reversed, and keep the result monitored, backed up and reviewed once the project team has gone.</p>
       <div class="cta">
         <a class="btn" href="index.html#contact">Contact us</a>
-        <a class="btn btn-ghost" href="index.html#contact">Talk to our team</a>
+        <a class="btn btn-ghost" href="services.html">All managed services</a>
       </div>
     </div>
   </div>
@@ -442,75 +442,150 @@ a.node:hover{border-color:var(--accent);background:#182433}
   <section id="pain">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Pain points — before the project</p>
-      <h2 class="sec">The problems this takes off your board.</h2>
-      <div class="probs">
-        <div><h3>Sizing guesswork</h3><p>Over-provisioned instances carry cost you only discover at quarter end.</p></div>
-        <div><h3>Migration risk</h3><p>Rehosting production workloads without downtime needs a plan, not a weekend.</p></div>
-        <div><h3>Platform sprawl</h3><p>VMs, containers and legacy VMware each end up with their own operating model.</p></div>
+      <h2 class="sec">What an ageing estate costs you.</h2>
+      <div class="probs four">
+        <div><h3>A data centre you did not plan to run</h3><p>Power, cooling, network contracts and hardware support renewals take budget and attention that nobody planned as part of IT delivery, and the refresh cycle arrives whether the business needs the capacity or not.</p></div>
+        <div><h3>Capacity that cannot follow demand</h3><p>Sizing for the annual peak leaves machines idle for most of the year; sizing for the average turns every busy period into an emergency purchase with a lead time attached.</p></div>
+        <div><h3>Recovery nobody has rehearsed</h3><p>Backups run, but a full restore has never been timed from end to end, so the recovery window quoted to the business is an estimate rather than a measurement.</p></div>
+        <div><h3>Access, logs and monitoring in pieces</h3><p>Identity, audit trails and alerting sit in different tools across sites and remote users' machines, so working out who changed what means assembling the answer by hand.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>How the project runs</p>
+      <h2 class="sec">Six stages, each with something to sign off.</h2>
+      <ol class="steps">
+        <li><span class="n">01</span><h3>Discovery</h3><p>We inventory servers, virtual machines, applications, databases, storage, network paths, software versions, licences and the dependencies between them.</p></li>
+        <li class="ar" aria-hidden="true">→</li>
+        <li><span class="n">02</span><h3>Assessment</h3><p>Each system is rated on criticality, load, data volume, security and regulatory constraints, acceptable downtime and what it would take to run it on Google Cloud.</p></li>
+        <li class="ar" aria-hidden="true">→</li>
+        <li><span class="n">03</span><h3>Landing zone design</h3><p>Organisation and project structure, billing, network connectivity, identity and access, security policy, logging, monitoring, backup and disaster recovery are designed before a single workload moves.</p></li>
+        <li class="ar" aria-hidden="true">→</li>
+        <li><span class="n">04</span><h3>Migration plan</h3><p>Every system is assigned a route: move it as it is, adjust it, replatform it, rebuild it, keep it on-premises, or run it across both.</p></li>
+        <li class="ar" aria-hidden="true">→</li>
+        <li><span class="n">05</span><h3>Test and cut-over</h3><p>Replication-based trial migrations for virtual machines and databases, functional and performance testing and data reconciliation come before a rehearsed cut-over, with a rollback path proven before it is needed.</p></li>
+        <li class="ar" aria-hidden="true">→</li>
+        <li><span class="n">06</span><h3>Run and optimise</h3><p>Monitoring, alerting, backup verification, access review, cost analysis and resizing continue on a schedule after go-live.</p></li>
+      </ol>
     </div>
   </section>
 
   <section id="services">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Google Cloud services</p>
-      <h2 class="sec">Three ways to run a workload.</h2>
+      <p class="status"><span class="dot" aria-hidden="true"></span>What Volcatech does</p>
+      <h2 class="sec">One team across the whole path.</h2>
+      <div class="quad">
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 10h6M9 14h6"/></svg><h3>Advisory and assessment</h3>
+          <p>Requirement interviews, a survey of the on-premises estate, classification of systems and data, dependency analysis, and a written assessment of what each move would put at risk.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg><h3>Architecture and build</h3>
+          <p>Google Cloud architecture and resource sizing, organisation and project structure, network and connectivity, identity and access, compute, storage and database services, logging, monitoring and security configuration.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h11"/><path d="M11 5l3 3-3 3"/><path d="M21 16H10"/><path d="M13 13l-3 3 3 3"/></svg><h3>Migration and cut-over</h3>
+          <p>Virtual machines, applications, databases and file shares move in sequence, with test plans, functional and performance validation, data reconciliation, the cut-over itself, the rollback path, technical documentation, handover and training.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l4-5"/></svg><h3>Run and optimise</h3>
+          <p>Resource and service monitoring with alerting, backup and restore management, access and security review, cost and performance analysis, a regular operations report, and architecture changes as the estate evolves. Analytics and machine learning services also come within reach of systems that could not host them before.</p></div>
+      </div>
+      <p class="lead" style="margin-top:26px">We do more than supply Google Cloud resources. The survey, the architecture, the migration and the running of the environment afterwards sit in one contract, with one team answerable for the whole of it. Monitoring and alerting run around the clock. <span class="todo">[TODO: response time targets]</span></p>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Works with</p>
+      <h2 class="sec">What sits under a managed estate.</h2>
+      <div class="stack">
+        <div class="layer"><h3>Managed by Volcatech</h3>
+          <ul class="nodes">
+            <li><span class="node self">Monitoring, backup, access and cost review</span></li>
+          </ul>
+        </div>
+        <p class="flowmark"><span aria-hidden="true">↓</span> covers</p>
+        <div class="layer"><h3>Edge</h3>
+          <ul class="nodes">
+            <li><a class="node" href="gcp-cloud-armor.html">Cloud Armor</a></li>
+          </ul>
+        </div>
+        <p class="flowmark"><span aria-hidden="true">↓</span> fronts</p>
+        <div class="layer"><h3>Runtime</h3>
+          <ul class="nodes">
+            <li><a class="node" href="gcp-compute-engine.html">Compute Engine</a></li>
+            <li><a class="node" href="gcp-kubernetes-engine.html">Kubernetes Engine</a></li>
+            <li><a class="node" href="gcp-cloud-run.html">Cloud Run</a></li>
+            <li><a class="node" href="gcp-app-engine.html">App Engine</a></li>
+            <li><a class="node" href="gcp-vmware-engine.html">VMware Engine</a></li>
+          </ul>
+        </div>
+        <p class="flowmark"><span aria-hidden="true">↓</span> reads and writes</p>
+        <div class="layer"><h3>Data, storage and analytics</h3>
+          <ul class="nodes">
+            <li><a class="node" href="gcp-cloud-sql.html">Cloud SQL</a></li>
+            <li><a class="node" href="gcp-alloydb.html">AlloyDB for PostgreSQL</a></li>
+            <li><a class="node" href="gcp-firestore.html">Firestore</a></li>
+            <li><a class="node" href="gcp-cloud-storage.html">Cloud Storage</a></li>
+            <li><a class="node" href="gcp-filestore.html">Filestore</a></li>
+            <li><a class="node" href="gcp-bigquery.html">BigQuery</a></li>
+            <li><a class="node" href="gcp-vertex-ai.html">Vertex AI</a></li>
+          </ul>
+        </div>
+        <p class="flowmark"><span aria-hidden="true">↓</span> protected by</p>
+        <div class="layer"><h3>Recovery</h3>
+          <ul class="nodes">
+            <li><a class="node" href="gcp-backup-dr.html">Backup and DR</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pick">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
+      <h2 class="sec">Which route each workload takes.</h2>
+      <ul class="pick">
+        <li><p class="when">Servers that must move as they are, operating system and licences intact</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-compute-engine.html">Compute Engine</a></li>
+        <li><p class="when">A vSphere estate to move with minimal change to how it is run</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-vmware-engine.html">VMware Engine</a></li>
+        <li><p class="when">Self-managed PostgreSQL or MySQL you would rather stop patching</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-cloud-sql.html">Cloud SQL</a></li>
+        <li><p class="when">Stateless services that do not justify running a cluster</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-cloud-run.html">Cloud Run</a></li>
+      </ul>
+      <p class="lead" style="margin-top:26px">These are starting points, not a fixed bundle. The final set depends on architecture, operating system versions, data volumes, availability and latency requirements, licensing and security constraints — which is what the assessment stage is for.</p>
+    </div>
+  </section>
+
+  <section id="plans">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Where to start</p>
+      <h2 class="sec">Three ways to begin.</h2>
       <div class="trio">
-        <div id="compute-engine"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4"/></svg><h3>Compute Engine</h3>
-          <p>Customisable virtual machines with preset or custom machine types, for web servers, databases and AI workloads.</p>
-          <div class="goes"><a class="go" href="gcp-compute-engine.html">Product page →</a><a class="go" href="https://cloud.google.com/products/compute" target="_blank" rel="noopener">Vendor page ↗</a></div></div>
-        <div id="kubernetes-engine"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg><h3>Kubernetes Engine (GKE)</h3>
-          <p>Managed Kubernetes for deploying and auto-scaling containerised applications, with the full Kubernetes API.</p>
-          <div class="goes"><a class="go" href="gcp-kubernetes-engine.html">Product page →</a><a class="go" href="https://cloud.google.com/kubernetes-engine" target="_blank" rel="noopener">Vendor page ↗</a></div></div>
-        <div id="vmware-engine"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg><h3>VMware Engine</h3>
-          <p>Run native VMware workloads on Google Cloud without re-architecting, keeping your existing tools and processes.</p>
-          <div class="goes"><a class="go" href="gcp-vmware-engine.html">Product page →</a><a class="go" href="https://cloud.google.com/vmware-engine" target="_blank" rel="noopener">Vendor page ↗</a></div></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><h3>Cloud health check and assessment</h3>
+          <p>Start here if you have not decided whether to move at all. A first survey of the on-premises estate, classification of systems and data, a feasibility view, an outline Google Cloud architecture, a cost model and a written recommendation on what to do next.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg><h3>Migration and build</h3>
+          <p>For organisations that have decided to move and want the work done. Full estate survey, migration plan and risk register, the Google Cloud landing zone, migration of systems, virtual machines, databases and data, testing, validation, cut-over, documentation and handover.</p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/></svg><h3>Managed operations</h3>
+          <p>For organisations already on Google Cloud without a dedicated platform team. Resource and service monitoring, backup and alerting, access and security management, cost and performance analysis, architecture recommendations and a regular operations report.</p></div>
+      </div>
+      <p class="lead" style="margin-top:26px">Scope, timeline and commercial terms are set after the requirement interview and the estate survey, not before.</p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
+      <h2 class="sec">What evaluators ask.</h2>
+      <div class="faq">
+        <div><h3><span class="n" aria-hidden="true">01</span><span>Can every system move to Google Cloud?</span></h3><p>No. Operating systems past their support window, software licensed to specific hardware, applications coupled to equipment on site and latency-sensitive systems are all cases for keeping something on-premises, rebuilding it rather than moving it, or running it across both environments. Which of those routes a system takes is an output of the assessment stage, not an assumption made at the start.</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>Will this reduce our IT costs?</span></h3><p>Not automatically. Moving off your own hardware makes spending visible and adjustable, which is a different thing from making it smaller. The total depends on architecture, how much you actually use, software licensing, data transfer, the resilience you ask for and how the estate is operated afterwards. We model it during assessment against your own workloads rather than a reference case.</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>Lift-and-shift or modernise — which should we choose?</span></h3><p>Lift-and-shift moves a system with little change to the application, which shortens the project and defers the rewrite; it also carries the existing design across, so few of the platform's managed services get used. Modernising — a managed database, containers, a serverless runtime — costs more effort up front; whether that effort pays back depends on how long the system will run and how much of its operation you want to hand to the platform. Most estates end up with both, decided system by system.</p></div>
+        <div><h3><span class="n" aria-hidden="true">04</span><span>What is a landing zone, and why build one first?</span></h3><p>It is the environment everything else lands in: organisation and project structure, identity and access, network, security policy, logging and billing. Building it first means every workload that arrives afterwards inherits the same controls. Retrofitting it once a few hundred resources already exist is a migration of its own.</p></div>
+        <div><h3><span class="n" aria-hidden="true">05</span><span>Can we keep part of the estate on-premises?</span></h3><p>Yes, and it is common. Some systems stay where they are and are joined to Google Cloud over a private network connection, with identity and monitoring shared across both. The design question is which side each system sits on and how the two are kept in step — not whether a hybrid arrangement is acceptable.</p></div>
+        <div><h3><span class="n" aria-hidden="true">06</span><span>Once we are on Google Cloud, what is still our responsibility?</span></h3><p>Google secures the infrastructure and the services it runs; your data, accounts and permissions, applications, configuration and — depending on the service — part of the operating system remain yours. The split moves with the service model: more of it stays with you on infrastructure services than on managed or software services. Where Volcatech operates the environment, we take the parts named in the contract and the rest stays with you, in writing.</p></div>
       </div>
     </div>
   </section>
-
-  <section id="delivery">
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>What Volcatech delivers</p>
-      <h2 class="sec">What we build on it.</h2>
-      <ol class="steps">
-        <li><span class="n">01</span><h3>Landing zone design</h3><p>Projects, networks, IAM and quotas laid out before the first workload moves.</p></li>
-        <li class="ar" aria-hidden="true">→</li>
-        <li><span class="n">02</span><h3>Migration planning</h3><p>Workloads assessed, sequenced and rehosted with a tested rollback at each step.</p></li>
-        <li class="ar" aria-hidden="true">→</li>
-        <li><span class="n">03</span><h3>Container platform</h3><p>GKE clusters, pipelines and containerisation guidance for teams new to Kubernetes.</p></li>
-        <li class="ar" aria-hidden="true">→</li>
-        <li><span class="n">04</span><h3>Day-2 operations</h3><p>Patching, scaling, monitoring and cost reviews handled as a running service.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <section id="outcomes">
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Business outcomes — after go-live</p>
-      <h2 class="sec">What changes on day one.</h2>
-      <div class="spec">
-        <div><span class="n" aria-hidden="true">01</span><div><h3>Right-sized from the start</h3><p>Machine types match the workload instead of the safest guess.</p></div></div>
-        <div><span class="n" aria-hidden="true">02</span><div><h3>One operating model</h3><p>VMs, containers and VMware run under the same monitoring and change process.</p></div></div>
-        <div><span class="n" aria-hidden="true">03</span><div><h3>Migration without a big bang</h3><p>Workloads move in sequenced waves, each reversible.</p></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="why">
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Why build with Volcatech</p>
-      <h2 class="sec">A platform is only as good as its operation.</h2>
-      <p style="margin-top:24px;color:var(--muted);max-width:66ch">We size the environment against your actual workloads, move them in reversible waves, and stay on for patching, scaling and cost review.
-        <span class="todo">[TODO: local references &amp; delivery details]</span></p>
-    </div>
-  </section>
-
-  <div class="ext"><div class="wrap">Vendor resources → <a href="https://cloud.google.com/products/compute" target="_blank" rel="noopener">cloud.google.com/products/compute ↗</a> · <a href="https://cloud.google.com/kubernetes-engine" target="_blank" rel="noopener">cloud.google.com/kubernetes-engine ↗</a> · <a href="https://cloud.google.com/vmware-engine" target="_blank" rel="noopener">cloud.google.com/vmware-engine ↗</a></div></div>
 
   <div class="band">
     <div class="wrap">
-      <h2>Size your workloads for Google Cloud — book a scoping session.</h2>
+      <h2>Not sure which systems should move? Start with a survey of what you run today.</h2>
       <div><a class="btn" href="index.html#contact">Contact us</a></div>
     </div>
   </div>

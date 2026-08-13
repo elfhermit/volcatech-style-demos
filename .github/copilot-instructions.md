@@ -23,7 +23,7 @@
   `.pick`(選型指引)、`.faq`(**0811 起雙欄卡片**,640px 退單欄;仍全展開、不用 disclosure widget)、
   `.fact`(**0811 新增,hero 代表事實列**)。
   **CSS 與 35 個 icon 的唯一正本是 `docs/reports/restyle_content_20260806.py`**——改元件樣式
-  = 改 `BLOCK_CSS` 後重跑,37 檔一次同步;手改單頁 CSS 會讓 `check_nav` 立刻紅。
+  = 改 `BLOCK_CSS` 後重跑,38 檔一次同步;手改單頁 CSS 會讓 `check_nav` 立刻紅。
   **不得新增色票**(色系 0731 凍結),不得自繪新 icon 或引外部 icon 套件。
 - **`.fact` 的三條規則(0811)**:①內容是從該頁 `.spec` **搬**上來的既有一列(面板該列不再渲染、
   編號留空缺),**不是新寫的句子**——複製會讓 `check_copy` 判 FAIL;②晶片放**列標題**,
@@ -46,7 +46,7 @@
   它自帶的 `CLAUDE.md` / `README.md` / `HANDOVER.md` 只描述它自己,**不適用本專案**,
   規則衝突時一律以根目錄 `CLAUDE.md` 為準。
 - **一致性鐵則是雙軸**(軸 1 已於 2026-08-06 換人):
-  **軸 1** = 全站 37 檔的 `<header>` 與三段 nav CSS,正規化掉 5 個逐檔參數後**逐字節相同**
+  **軸 1** = 全站 38 檔的 `<header>` 與三段 nav CSS,正規化掉 5 個逐檔參數後**逐字節相同**
   (`python3 docs/reports/check_nav_20260806.py` 必須 PASS)。
   舊的「Nav A ↔ Nav B 自 `<main>` 起逐字節相同」隨 Nav A 退場而失效。
   **軸 2** = 兩個首頁凍結共用文案——H1、副標、Why H2、CTA 橫幅 H2、footer 品牌句這五句
@@ -67,8 +67,9 @@
     **Validation — breach & attack simulation**(ArgusHack → `argushack.html`)。
     ⚠ 第三組 0810 由「Built in-house — Volcatech AI Security(CE-BAS)」改名:
     查證確認該產品的原廠是盧氪賽忒(Leukocyte-Lab)、沃凱是代理商,自研宣稱不成立。
-  - `Services`(扁平)= Overview ＋ ESS ＋ 24/7 SOC & IR ＋ GCP Managed Services。
-  - **FortiEDR 與 GCP Managed Services 是不可點灰字**(`<span class="off">`＋mono 的
+  - `Services`(扁平)= Overview ＋ ESS ＋ 24/7 SOC & IR ＋
+    **GCP Migration & Managed Services**(0813 建頁 → `managed-gcp.html`,已是真連結)。
+  - **FortiEDR 是唯一的不可點灰字**(`<span class="off">`＋mono 的
     Coming soon,用 `--muted` 上色)。**絕不可寫成 `<a href="#">`**——會踩到
     「每檔只能有 1 個 `href="#"`」的檢查。
   - `CyberSecurity` 駝峰是 0731 會議指定的**刻意寫法**,不要「修正」成 Cybersecurity
@@ -101,13 +102,14 @@
   `#pick` 選型指引 →`stack` 分層圖 →`#faq` 平鋪問答 → CTA。**不做頁籤**——全部平鋪成 section,
   可深連結、Ctrl+F 找得到。痛點/選型/FAQ 的素材取自 Google docs overview 頁改寫。
   `cards2` 必須偶數張(產品數為奇數時把清單改走 `loglist`)。
-- **動 nav = 改 MENU 後重跑腳本**(37 檔一次同步);**動 footer = 37 檔都要改**
-  (footer 沒有產生器,靠「34 個內容頁與 `sentinelone.html` 逐字節相同」把關)。
+- **動 nav = 改 MENU 後重跑腳本**(38 檔一次同步);**動 footer = 38 檔都要改**
+  (footer 沒有產生器,靠「35 個內容頁與 `sentinelone.html` 逐字節相同」把關;
+  改 footer 的腳本必須**只在 `<footer>` 區域內取代**——寬鬆子字串會誤中 header 的選單項)。
   ⚠ 兩者都要順手重跑 `build_lab_20260806.py`——`lab/inline-cloud-compute.html` 的
   header/footer 取自 `cloud-compute.html`,而 `lab/` 在 `check_links` 掃描範圍內。
   頁尾三個欄標題都是連到對應總覽頁的連結。改完跑
   `check_nav_20260806.py`、`check_copy_20260806.py` 與 `check_links_20260806.py`,三支都要 PASS。
-- 全 37 檔的 `main [id]` 都有 `scroll-margin-top:80px`,新增頁面要一併帶上;
+- 全 38 檔的 `main [id]` 都有 `scroll-margin-top:80px`,新增頁面要一併帶上;
   19 個 GCP 產品頁另需 `.stack a{scroll-margin-top:80px}`。
 - `ess.html` 是方案頁:ESS(Enterprise Security Service)為沃凱打包方案
   (CyberEyes WDR + 多品牌 EDR + 自有 7x24 SOC),**方案層、非 19 項 SKU**;
