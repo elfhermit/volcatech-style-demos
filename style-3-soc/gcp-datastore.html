@@ -310,9 +310,11 @@ a.node:hover{border-color:var(--accent);background:#182433}
    line — roughly twice the 75-85 that stays readable. Same declaration those two
    pages already carry, so they render identically; the rest finally get a measure. */
 .lead{margin-top:16px;color:var(--muted);font-size:17px;max-width:58ch}
-/* 0814. The footer email and phone became mailto:/tel: links (wire_contact_20260814.py).
-   `.fcols a{color:var(--muted)}` would render them dimmer than the address sitting
-   right below them, which reads as disabled rather than clickable. The underline is
+/* 0814. The footer email became a mailto: link (wire_contact_20260814.py). The phone
+   row that used to sit beside it is gone — the number was pulled from the whole site
+   later the same day — so the rule now covers the email alone.
+   `.fcols a{color:var(--muted)}` would render it dimmer than the address sitting
+   right below it, which reads as disabled rather than clickable. The underline is
    the only affordance here, so it uses --muted (7.63:1 on --bg) and not --line
    (1.47:1, short of the 3:1 that SC 1.4.11 asks of a non-text indicator). */
 .fbrand dd a{color:var(--ink);border-bottom:1px solid var(--muted)}
@@ -398,7 +400,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
           <li class="sub"><a href="cloud-analytics.html" aria-haspopup="true"><span class="lbl">Analytics</span><span class="why">Turn scattered data into reports</span></a>
             <ul>
               <li><a href="gcp-bigquery.html">BigQuery</a></li>
-              <li><a href="gcp-pubsub.html">Pub/Sub</a></li>
               <li><a href="gcp-dataflow.html">Dataflow</a></li>
             </ul>
           </li>
@@ -420,7 +421,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
           <li class="sub"><a href="cloud-ai.html" aria-haspopup="true"><span class="lbl">AI</span><span class="why">Model building, tuning and serving</span></a>
             <ul>
               <li><a href="gcp-vertex-ai.html">Vertex AI</a></li>
-              <li><a href="gcp-model-garden.html">Model Garden</a></li>
             </ul>
           </li>
         </ul>
@@ -619,7 +619,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <p>Cloud, security and managed operations for European organisations.</p>
       <dl>
         <dt>Email</dt><dd><a href="mailto:salesgroup@volcatech.com">salesgroup@volcatech.com</a></dd>
-        <dt>Phone</dt><dd><a href="tel:+886223279668">+886 2 2327 9668</a></dd>
         <dt>Registered office</dt><dd>9F.-2, No. 54, Songjiang Rd., Zhongshan Dist., Taipei City 104090, Taiwan (R.O.C.)</dd>
       </dl>
     </div>

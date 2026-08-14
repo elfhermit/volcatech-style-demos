@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
 <title>ArgusHack (BAS) — Volcatech</title>
-<meta name="description" content="Breach and attack simulation from Leukocyte-Lab: controlled exercises that replay attacker techniques against your live environment, so the controls you already own are measured on what they stop. Supplied by Volcatech as a Leukocyte-Lab partner.">
+<meta name="description" content="Breach and attack simulation: controlled exercises that replay attacker techniques against your live environment, so the controls you already own are measured on what they stop. Supplied and operated by Volcatech.">
 <link rel="icon" href="favicon.png">
 <style>
 :root{
@@ -305,9 +305,11 @@ a.node:hover{border-color:var(--accent);background:#182433}
    line — roughly twice the 75-85 that stays readable. Same declaration those two
    pages already carry, so they render identically; the rest finally get a measure. */
 .lead{margin-top:16px;color:var(--muted);font-size:17px;max-width:58ch}
-/* 0814. The footer email and phone became mailto:/tel: links (wire_contact_20260814.py).
-   `.fcols a{color:var(--muted)}` would render them dimmer than the address sitting
-   right below them, which reads as disabled rather than clickable. The underline is
+/* 0814. The footer email became a mailto: link (wire_contact_20260814.py). The phone
+   row that used to sit beside it is gone — the number was pulled from the whole site
+   later the same day — so the rule now covers the email alone.
+   `.fcols a{color:var(--muted)}` would render it dimmer than the address sitting
+   right below it, which reads as disabled rather than clickable. The underline is
    the only affordance here, so it uses --muted (7.63:1 on --bg) and not --line
    (1.47:1, short of the 3:1 that SC 1.4.11 asks of a non-text indicator). */
 .fbrand dd a{color:var(--ink);border-bottom:1px solid var(--muted)}
@@ -393,7 +395,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
           <li class="sub"><a href="cloud-analytics.html" aria-haspopup="true"><span class="lbl">Analytics</span><span class="why">Turn scattered data into reports</span></a>
             <ul>
               <li><a href="gcp-bigquery.html">BigQuery</a></li>
-              <li><a href="gcp-pubsub.html">Pub/Sub</a></li>
               <li><a href="gcp-dataflow.html">Dataflow</a></li>
             </ul>
           </li>
@@ -415,7 +416,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
           <li class="sub"><a href="cloud-ai.html" aria-haspopup="true"><span class="lbl">AI</span><span class="why">Model building, tuning and serving</span></a>
             <ul>
               <li><a href="gcp-vertex-ai.html">Vertex AI</a></li>
-              <li><a href="gcp-model-garden.html">Model Garden</a></li>
             </ul>
           </li>
         </ul>
@@ -465,7 +465,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <p class="status"><span class="dot" aria-hidden="true"></span>V-01 / BAS — Active vendor</p>
       <p class="code" style="margin-top:26px">V-01 · CYBERSECURITY · BAS</p>
       <h1>ArgusHack</h1>
-      <p class="vendor">Vendor: Leukocyte-Lab · Breach and Attack Simulation (BAS)</p>
+      <p class="vendor">Breach and Attack Simulation (BAS)</p>
       <p class="tag">A breach and attack simulation platform that exercises attacker techniques within an authorised customer environment, so the controls you already own are measured on what they stop rather than on what they
         were bought to stop.</p>
       <p class="fact"><span class="n" aria-hidden="true">01</span><span class="node self">Evidence instead of assumption</span> <span class="fx">Each exercise ends with a list: techniques that were stopped, techniques that were only detected, and techniques that ran unnoticed.</span></p>
@@ -529,7 +529,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why deploy with Volcatech</p>
       <h2 class="sec">A product is only as good as its operation.</h2>
-      <p style="margin-top:24px;color:var(--muted);max-width:66ch">ArgusHack is developed by Leukocyte-Lab in
+      <p style="margin-top:24px;color:var(--muted);max-width:66ch">ArgusHack is developed in
         Taiwan; Volcatech supplies it as a partner rather than as its manufacturer.
         Deployment, exercise scheduling and the support arrangement around them are agreed per engagement.</p>
     </div>
@@ -539,7 +539,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
       <h2 class="sec">What evaluators ask.</h2>
       <div class="faq">
-        <div><h3><span class="n" aria-hidden="true">01</span><span>Whose product is ArgusHack, and what is Volcatech's role?</span></h3><p>ArgusHack is developed by Leukocyte-Lab, a security software company based in Taipei. The platform, its exercise content and its roadmap belong to the vendor. Volcatech supplies it as a partner, so the product you buy is theirs and the commercial relationship is with us.</p></div>
+        <div><h3><span class="n" aria-hidden="true">01</span><span>Whose product is ArgusHack, and what is Volcatech's role?</span></h3><p>ArgusHack is developed by a security software company based in Taipei. The platform, its exercise content and its roadmap belong to the vendor. Volcatech supplies it as a partner, so the product you buy is theirs and the commercial relationship is with us.</p></div>
         <!-- src: lkc-lab.com/about (developer: Leukocyte-Lab Co., Ltd., Taipei) -->
         <div><h3><span class="n" aria-hidden="true">02</span><span>How is this different from a penetration test?</span></h3><p>A penetration test is a human engagement with a start and an end date, scoped to find a way in. ArgusHack runs defined techniques repeatedly and reports how each of your controls responded, so it answers a narrower question far more often. They complement each other: the exercises keep the answer current between engagements.</p></div>
         <div><h3><span class="n" aria-hidden="true">03</span><span>Can it run where the network has no internet access?</span></h3><p>Yes. It deploys on premises, in cloud environments, or fully offline for isolated and regulated networks. Testing runs in agent-based or agentless mode, so a first exercise does not require software on every host.</p></div>
@@ -566,7 +566,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <p>Cloud, security and managed operations for European organisations.</p>
       <dl>
         <dt>Email</dt><dd><a href="mailto:salesgroup@volcatech.com">salesgroup@volcatech.com</a></dd>
-        <dt>Phone</dt><dd><a href="tel:+886223279668">+886 2 2327 9668</a></dd>
         <dt>Registered office</dt><dd>9F.-2, No. 54, Songjiang Rd., Zhongshan Dist., Taipei City 104090, Taiwan (R.O.C.)</dd>
       </dl>
     </div>

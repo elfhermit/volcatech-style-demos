@@ -86,7 +86,7 @@
    `<div class="band" id="contact">` 裡面——**點下去畫面不動**;頁尾 Email 與電話是不能點的純文字。
    使用者裁決:**不做 contact 頁,直接接 `mailto:`**。做法見 `wire_contact_20260814.py`:
    132 顆按鈕改 mailto(主旨帶該頁 h1,`Request a demo` 用 `Demo request:` 前綴以資區別),
-   頁尾 Email/Phone 包成 `mailto:`/`tel:`。
+   頁尾 Email/Phone 包成 `mailto:`/`tel:`(⚠ 電話已於當日晚間全站移除,見第 11 條)。
    ⚠ header 與頁尾 Company 欄的 `Contact` **維持指向 `index.html#contact`**——那一區的 H2
    本身是有內容的,而且要讓 `#contact` 錨點保持有人引用。
    ⚠ **公司信箱同時由 `info@` 改為 `salesgroup@volcatech.com`**(使用者提供)。
@@ -112,6 +112,41 @@
    ⚠ 三支腳本的移除邏輯已停用/反轉:`fix_content_todos` 的 `drop_fortiedr()` 不再被呼叫、
    `fix_footer` 的 `drop_fortiedr_row()` 換成 `restore_fortiedr_row()`——**兩者都保留函式本體**,
    真要再下架把呼叫換回來即可。**V1 不動**(它 0814 起已無入口連結)。
+11. **合作夥伴 demo 前的最終調整**(0814 晚間,需求來源 `docs/meeting_0814.md`,
+   六項需求經 grilling 逐項確認後施工;每一項的裁決與代價都記在下面):
+   ①**電話全站移除**——40 檔頁尾聯絡 `<dl>` 那列、`imprint.html` 的 05 格(原 06
+     `Responsible for content` 遞補為 05)、`privacy.html` 的 controller 那句。
+     ⚠ **Email 與登記地址刻意保留**:那個信箱正是全站 132 顆 CTA 按鈕寄信的去處,
+     拿掉會讓「頁尾不給信箱、按鈕卻寄得出信」自相矛盾。做法見 `fix_footer` 的 ⑦
+     (兩種形式都吃:純文字版與 `tel:` 連結版)與 `build_legal_pages`;
+     `wire_contact` 的頁尾迴圈同步拿掉 Phone 那一對,否則守衛會對 40 檔全部報 0 次。
+   ②**`Leukocyte-Lab` 這個名字全站不再顯示**(使用者裁決)——`argushack.html` 的 meta、
+     hero `.vendor` 行、`#why` 內文、FAQ 01,`cybersecurity.html` 的 `.vsrc`,
+     首頁 vendors 列,以及 V1 的四處(`build_v1` 正本)。
+     ⚠ **`lkc-lab.com` 外連刻意保留、也不補「這是代理」的聲明**,兩者都是使用者明示的選擇。
+     代價在裁決前已明白告知並記錄在案:`#built` 區的標題是「我們自己維運的工具」,
+     原廠名拿掉之後 ArgusHack 可能被讀成沃凱自研——**那正是 0810 查證後禁止的宣稱**。
+     素材端沒有任何改變:它仍然是代理產品。`# src:` 註解裡的原廠名保留(不渲染,是來源記錄)。
+   ③**Pub/Sub 與 Model Garden 全站下架**——選單那兩項移除;`cloud.html` 索引與
+     `cloud-analytics` / `cloud-ai` 的產品卡只留離站的 `Vendor page ↗`;
+     別頁架構圖與選型指引裡的同名節點改成**不可點的晶片**(`build_gcp_pages` 的 `_chip()`,
+     文字保留——它們仍是真實的 GCP 元件,`Dataflow` 的圖少了 Pub/Sub 就是錯的)。
+     ⚠ `_chip()` 有**三種**狀態不是兩種:有 href / 無 href 且是本頁(`.node.self` 琥珀) /
+     無 href 且是別的產品(`.node` 普通)。省事把 href 設 None 會讓 Pub/Sub 在 BigQuery 的圖上
+     變成琥珀的「你在這裡」,是這個元件語言裡最明確的謊。
+     兩頁檔案與內容完整保留、登記為孤兒頁;`build_updates` 的產品數守衛 28→26。
+   ④**根 hub 不改**——夥伴拿到的網址直接指向 `style-3-soc/index.html`。
+     ⚠ 根目錄那個中文進度儀表板因此仍在線上(H1 寫著「0814 已完成客戶 demo 前整備」、
+     底下 20 條中文待辦、兩個首頁方案並列、歷史存檔與 lab 入口),只是不在動線上。
+     它的產品表備注欄還留著唯一一處 `Leukocyte-Lab`(內部備注,不在夥伴動線上)。
+   ⑤**`cybereyes.html` 完全不碰**——使用者手改中(vendor 改為 `ZUIN Technology`、
+     四段文案重寫)。⚠ 待確認:那段文案的來源(疑似原廠供稿,若逐字取自原廠官網
+     撞硬性規則 8)、`ZUIN Technology` 這個新公司事實的 `# src:` 註記,
+     以及首頁 vendors 列該不該把 `CyberEyes`(產品名)換成 `ZUIN Technology`(公司名)。
+   ⑥**`lab/preview-restyle/` 與 `lab/prototype-advanced/` 不進版控**——兩個本機視覺實驗,
+     合計是 `check_links` 全部 43 條死錨點的來源。已加進 `.gitignore`,並在
+     `check_links_20260806.py` 加 `UNTRACKED_LAB` 排除(⚠ `.gitignore` 只管版控,
+     檢查腳本掃的是磁碟,兩邊都要設)。掃描檔數因此由 57 降為 50。
 
 **2026-08-06 第二輪**又定案四件事(來源:對 `docs/meeting_0805_end.md` 的逐條盤點,
 決策記錄在 `docs/adr/`,術語正本在 `docs/CONTEXT.md`):
@@ -219,7 +254,8 @@ V1 專屬區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(
   **每張產品卡帶 `id` 當深連結落點**)→ `#delivery`(`steps` 或 `quad`)→ `#outcomes`(`spec`)→ `#why`。
   ⚠ 舊版本檔說產品走「名冊 `loglist`」——**那是 0806 改版前的狀態**,`loglist` 現在只用在
   `cloud.html` 的產品索引,分類頁的產品一律是卡片。`cards2` 同樣已退場。
-  每張產品卡有**兩個出口**(`.goes` 併成一列):站內 `Product page →` 在前、
+  每張產品卡有**兩個出口**(`.goes` 併成一列;⚠ 0814 晚間下架的 Pub/Sub 與 Model Garden
+  只剩離站那一個,故 `Product page →` 全站是 **17** 不是 19):站內 `Product page →` 在前、
   離站 `Vendor page ↗`(帶 `target="_blank" rel="noopener"`)在後。這兩條由
   `link_products_20260806.py` 產生,不要手改。
   **代碼分層**:`CI-*` 是頁面層(現行);`C-*`/`E-*`/`S-*`/`X-*` 是 SSOT §A 的 SKU 層,
@@ -239,8 +275,10 @@ V1 專屬區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(
   `.dd>a::after` 也必須寫成 `.dd>a::after,.dd>button::after`,否則三個下拉三角形全消失。
 - **第二層**= 分類頁(Google Cloud 六組指向 `cloud-*.html`;CyberSecurity 三組指向
   `cybersecurity.html#錨點`);**第三層**= 產品。
-- Google Cloud:Overview → `cloud.html`,六組 18 項,**18 項全部連各自的 `gcp-*.html` 產品頁**
+- Google Cloud:Overview → `cloud.html`,六組 **16 項**,全部連各自的 `gcp-*.html` 產品頁
   (0806 補齊,不再有「分類頁#錨點」的過渡狀態)。
+  ⚠ **0814 晚間 Pub/Sub 與 Model Garden 從選單下架**(18→16;Analytics 剩 2 項、AI 剩 1 項)。
+  兩個產品頁檔案仍在、內容完整,只是站上沒有入口——它們因此是孤兒頁。
   產品資料正本 `docs/GCP_Introduce.md`(2026-08-04 補第 7 節 Cloud Armor)。
 - CyberSecurity:Overview ＋ Endpoint—EDR(SentinelOne / ThreatSonar ＋ **FortiEDR 灰字項**;
   ⚠ 0814 早上一度只剩前兩項,同日晚間 FortiEDR 以 Coming soon 形式加回)、
@@ -297,7 +335,8 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 - 法定資訊(0814 使用者提供):法人名 `Volcatech Corporate Ltd.`
   (沃凱科技股份有限公司)、統編 `94269177`、
   英文地址 `9F.-2, No. 54, Songjiang Rd., Zhongshan Dist., Taipei City 104090, Taiwan (R.O.C.)`、
-  電話 `+886 2 2327 9668`、Email `salesgroup@volcatech.com`。
+  電話 `+886 2 2327 9668`(⚠ **0814 晚間起全站不顯示**,常數留在 `fix_footer` 與
+  `build_legal_pages` 供日後加回)、Email `salesgroup@volcatech.com`。
   ⚠ **`VAT / tax ID` 那一列刻意整列刪除**:台灣公司沒有 EU VAT 號,統編就是稅籍編號;
   填進 `VAT / tax ID` 會讓歐洲買家拿去 VIES 查而查不到,那是實質誤導。
   現在寫成 `Company registration no. (Taiwan): 94269177`,把管轄標在欄位名裡。
@@ -464,9 +503,11 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
   第一層是 button,`.menu a[...]` 選不到它——所以視覺上的「你在這個區塊」改用
   `class="on"`(非 ARIA)掛在 button 上。這兩個角色不可混用。
 - **孤兒頁登記**:選單裡沒有任何連結指向它的頁面,header 內就沒有 `aria-current`。
-  目前有四個:`cloud-services.html`(0805 兩組移出選單所致)、`gcp-cloud-armor.html`
-  (0806 補齊產品頁時一併產出,但它所屬的 Edge security 那組已被移出選單),
-  以及 0814 新建的 `privacy.html` 與 `imprint.html`(入口在頁尾,慣例上不進選單)。
+  目前有六個:`cloud-services.html`(0805 兩組移出選單所致)、`gcp-cloud-armor.html`
+  (0806 補齊產品頁時一併產出,但它所屬的 Edge security 那組已被移出選單)、
+  0814 新建的 `privacy.html` 與 `imprint.html`(入口在頁尾,慣例上不進選單),
+  以及 **0814 晚間下架的 `gcp-pubsub.html` 與 `gcp-model-garden.html`**
+  (使用者裁決;頁面與內容都保留,但站上不再有任何入口,詳見 0814 決議第 11 條)。
   ⚠ 兩個法務頁還要登記在 `check_nav` 的 **`NOSECTION`**:它們不隸屬任何板塊,
   第一層 button 不該有 `class="on"`,硬塞一個板塊會說謊。
   **孤兒必須明文登記在 `check_nav_20260806.py` 的 `ORPHANS`**,不能默默出現——腳本會擋。
@@ -807,7 +848,7 @@ python3 -c "import pathlib,re;print([(p.name,m[:60]) for p in pathlib.Path('.').
 # 第二行 40、第三行 40。⚠ 只准 header 與頁尾 Company 欄那兩條 Contact 導覽連結指向錨點
 grep -n '<a class="btn[^"]*"[^>]*href="\(index\.html\)\?#contact"' *.html
 grep -l 'href="mailto:salesgroup@volcatech.com' *.html | wc -l
-grep -l 'href="tel:+886223279668"' *.html | wc -l
+grep -l 'href="tel:+886223279668"' *.html | wc -l   # ⚠ 0814 晚間電話全站移除後應為 0(當日早上是 40)
 # 0814:不得殘留「這是 demo」的自白與內部導覽 → 四行皆應為空
 # ⚠ 第四行是 0814 盤點補的:前三個字串沒涵蓋首頁 Trust 區底下那句「This demo loads…」,
 #   結果宣稱「demo 痕跡全站零」時它還在站上
@@ -842,9 +883,10 @@ for f in *.html; do n=$(awk '/<main/,/<\/main>/' $f | grep -c 'FortiEDR'); [ "$n
 #   gcp-model-garden 的架構圖層名就叫 <h3>Platform</h3>,掃全檔會誤報這三頁(0806 實測)
 for f in *.html; do awk '/<header/,/<\/header>/' $f; done \
   | grep -c 'Arsenal\|>Platform<\|>Operations<\|<li class="grp">'
-# 19 張產品卡都有兩個出口 → 兩行皆應輸出 19
-grep -oh 'Product page →' cloud-*.html | wc -l
-grep -oh 'Vendor page ↗' cloud-*.html | wc -l
+# 產品卡的出口。⚠ 0814 晚間 Pub/Sub 與 Model Garden 下架後兩行不再相等:
+# 站內出口 17(那兩張卡只剩離站的),離站出口仍是 19(卡片與文字都保留,拿掉的只有站內連結)
+grep -oh 'Product page →' cloud-*.html | wc -l   # 應為 17
+grep -oh 'Vendor page ↗' cloud-*.html | wc -l    # 應為 19
 # 每個產品頁的架構圖都要標出主角 → 應輸出 0
 # ⚠ 0806 三輪後不能再對全檔數 'node self'——.pick 的自指列也用 .node.self,會多算
 for f in gcp-*.html; do awk '/<section id="stack">/,/<\/section>/' $f | grep -c 'node self'; done | grep -vc '^1$'
@@ -863,8 +905,9 @@ for f in gcp-*.html sentinelone.html threatsonar.html cybereyes.html google-seco
   grep 'class="fact"' $f | grep -q "node self\">$n<" && echo "$f 晶片=產品名"; done
 # 金額禁令(ADR 0004):單價/免費額度/促銷不上站 → 應為空
 grep -nE '[$€£]|per month|free tier|free of charge' *.html
-# cloud.html 的產品索引 19 列
-grep -c 'Product page →' cloud.html
+# cloud.html 的產品索引仍是 19 列,但其中兩列(Pub/Sub、Model Garden)0814 晚間拿掉了站內出口
+grep -c 'Product page →' cloud.html          # 應為 17
+grep -c '<h3>Pub/Sub</h3>\|<h3>Model Garden</h3>' cloud.html   # 應為 2(文字保留在索引裡)
 # 0805 移除的 4 項:選單裡應為 0,但 services.html 的頁面區塊必須還在(所以只能掃 header 區)
 for f in *.html; do awk '/<header/,/<\/header>/' $f; done \
   | grep -c 'ISMS\|Penetration Testing\|Cloud FinOps\|Digital Transformation'
@@ -888,8 +931,9 @@ grep -c '#security-list\|#managed-list' *.html
 # title 與 meta description 全站唯一 → 兩行皆應無輸出(註解宣稱兩項,指令就有兩條)
 grep -h '<title>' *.html | sort | uniq -d
 grep -h 'name="description"' *.html | sort | uniq -d
-# aria-current 每檔=3(1 個 markup + 2 個 CSS 選擇器);四個登記在案的孤兒頁 =2
-# (cloud-services / gcp-cloud-armor / privacy / imprint —— 選單沒有連結指向它們,故無 markup 那 1 個)
+# aria-current 每檔=3(1 個 markup + 2 個 CSS 選擇器);六個登記在案的孤兒頁 =2
+# (cloud-services / gcp-cloud-armor / privacy / imprint / gcp-pubsub / gcp-model-garden
+#  —— 選單沒有連結指向它們,故無 markup 那 1 個。後兩個是 0814 晚間下架的)
 grep -c 'aria-current="page"' *.html
 # ess.html 與 services.html 零外部連結 → 皆應輸出 0
 grep -c 'https\?://' ess.html services.html
