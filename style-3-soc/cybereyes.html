@@ -167,6 +167,12 @@ footer{border-top:1px solid var(--line)}
 .trio .go,.quad .go,.duo .go,.loglist .go{display:inline-block;margin-top:16px;font-family:var(--mono);font-size:12.5px;
   color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:2px;align-self:flex-start}
 .trio .go:hover,.quad .go:hover,.duo .go:hover,.loglist .go:hover{border-color:var(--accent)}
+/* 0814 晚間：還沒有內頁的產品卡，底部放這個狀態標記。它刻意佔 .go 的位置（同 margin-top、
+   同 align-self、同字級），所以同一列卡片的底線會對齊 —— 讀的人一眼看出這張是「還沒開」
+   而不是「漏了連結」。不是連結也不加底線：可點的東西要看起來可點，不可點的就不該像。
+   class 名沿用選單灰字項的 .soon（那條 CSS scope 在 .dd ul .off 內，兩者不互相影響）。 */
+.trio .soon,.quad .soon,.duo .soon{display:inline-block;margin-top:16px;font-family:var(--mono);font-size:12.5px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--muted);align-self:flex-start}
 /* 0806：每個 GCP 產品都有內頁之後，產品卡有兩個出口（產品頁 ＋ 原廠頁）。卡片本身是
    flex column，兩個 inline-block 的 .go 不包起來會各佔一行，所以用 .goes 併成一列。
    兩個出口的先後有意義：站內的產品頁在前，離站的原廠頁在後。 */
@@ -422,6 +428,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
             <ul>
               <li><a href="sentinelone.html">SentinelOne</a></li>
               <li><a href="threatsonar.html">ThreatSonar</a></li>
+              <li><span class="off">FortiEDR<span class="soon">Coming soon</span></span></li>
             </ul>
           </li>
           <li class="sub"><a href="cybersecurity.html#detection" aria-haspopup="true"><span class="lbl">Detection — SIEM &amp; WDR</span><span class="why">Spot threats across cloud and logs</span></a>
@@ -458,9 +465,8 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <p class="status"><span class="dot" aria-hidden="true"></span>S-01 / WDR — Active vendor</p>
       <p class="code" style="margin-top:26px">S-01 · CYBERSECURITY · WDR</p>
       <h1>CyberEyes</h1>
-      <p class="vendor">Vendor: CyberEyes · Web Detection &amp; Response</p>
-      <p class="tag">Web Detection and Response (WDR) for the traffic your WAF lets through.
-        It watches how your websites are actually used — complementing your WAF and feeding your SIEM.</p>
+      <p class="vendor">Vendor: ZUIN Technology · Web Detection &amp; Response</p>
+      <p class="tag">Web Detection and Response (WDR) for analysing website traffic and application behaviour, including activity that passes through your WAF. It complements existing web security controls and feeds contextual findings into your SIEM.</p>
       <p class="fact"><span class="n" aria-hidden="true">01</span><span class="node self">Fewer, better alerts</span> <span class="fx">Analysts open one attack chain instead of dozens of disconnected events.</span></p>
       <div class="cta">
         <a class="btn" href="mailto:salesgroup@volcatech.com?subject=Demo%20request%3A%20CyberEyes">Request a demo</a>
@@ -487,11 +493,11 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <h2 class="sec">Behavioral detection for your web layer.</h2>
       <div class="quad">
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.5"/></svg><h3>Full HTTP visibility</h3>
-          <p>Every request is recorded with its context, building a continuous picture of how each website actually behaves.</p></div>
+          <p>Captured HTTP requests are recorded with their available context, building a continuous view of how each monitored website is used.</p></div>
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><h3>Machine-learned baselines</h3>
-          <p>Models of normal business behaviour expose the anomalies that hide inside legitimate-looking traffic. Because detection follows the learned baseline rather than a signature list, abuse the model has never seen before still stands out.</p></div>
+          <p>Models of normal business behaviour expose the anomalies that hide inside legitimate-looking traffic. By combining learned behavioural baselines with detection rules, CyberEyes can help identify suspicious activity that might not match known signatures.</p></div>
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h5l4 10h9"/><path d="M18 14l3 3-3 3"/></svg><h3>Attack-chain alerts</h3>
-          <p>Related events collapse into one root-cause alert with a complete timeline — fewer false positives, faster triage.</p></div>
+          <p>Related events are correlated into an attack storyline with timeline and root-cause context, helping analysts reduce fragmented investigation and prioritise triage.</p></div>
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5L6.5 17M12 11.5L17.5 17"/></svg><h3>Non-intrusive deployment</h3>
           <p>Port Mirror, Agent or vTAP feeds a passive copy of traffic — nothing sits inline — and your web assets and attack surface are inventoried along the way. That inventory covers the places attackers probe first: upload forms, login pages and files reachable without the access they should require.</p></div>
       </div>
@@ -504,7 +510,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <h2 class="sec">What changes on day one.</h2>
       <div class="spec">
         <div><span class="n" aria-hidden="true">02</span><div><h3>A sharper SIEM</h3><p>Web-layer findings flow into your SIEM with context it cannot reconstruct on its own.</p></div></div>
-        <div><span class="n" aria-hidden="true">03</span><div><h3>Zero downtime to deploy</h3><p>A passive traffic copy means no maintenance window and no new point of failure.</p></div></div>
+        <div><span class="n" aria-hidden="true">03</span><div><h3>Low-impact deployment</h3><p>Passive traffic collection keeps CyberEyes outside the request path, reducing deployment risk and avoiding an additional inline point of failure.</p></div></div>
         <div><span class="n" aria-hidden="true">04</span><div><h3>The full path, not the last step</h3><p>When an attacker inventories your upload pages, confirms a reachable path, then signs in with leaked credentials and plants a file, you read it as one sequence — not four unrelated alerts.</p></div></div>
       </div>
     </div>
@@ -606,6 +612,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <ul>
         <li><a href="sentinelone.html">SentinelOne</a></li>
         <li><a href="threatsonar.html">ThreatSonar</a></li>
+        <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
       </ul>
       <p class="sub">Detection — SIEM & WDR</p>
       <ul>

@@ -71,6 +71,7 @@
 5. **FortiEDR 下架**(選單、`cybersecurity.html` 的卡片、全站頁尾那列、V1 的夥伴卡與服務索引)。
    理由:同組另兩個 EDR 都點得進去,只有它點不動——那讀起來是「還沒談成」而不是「即將推出」。
    EDR 組因此由 `.trio` 改 `.duo`(比照 detection 組的 2 卡慣例)。
+   ⚠ **同日晚間使用者裁決反轉,改為「留在站上並明寫 Coming soon」**(見下方第 10 條)。
 6. **`lab/` 與 `archive/` 維持線上**(使用者裁決)。移除 backlink 列之後,
    客戶只有手動改網址才到得了根 hub 與這兩區。
 7. **頁尾 `.legal` 灰字帶整塊移除**(當日稍晚追加,使用者指示「先移除」)——法人名／登記地址／
@@ -91,13 +92,26 @@
    ⚠ **公司信箱同時由 `info@` 改為 `salesgroup@volcatech.com`**(使用者提供)。
 9. **0814 盤點抓到的其餘修正**(來源 `docs/reports/改善盤點_20260814.md`,51 條成立發現):
    `index.html` 與 V1 的 `This demo loads…` 改 `This site loads…`(**站上最後一句 demo 自白**)、
-   `cybersecurity.html` 的 `Three endpoint platforms` 改 `Two`(FortiEDR 下架後只剩兩張卡)、
+   `cybersecurity.html` 的 `Three endpoint platforms` 改 `Two`(FortiEDR 下架後只剩兩張卡;
+   **同日晚間隨第 10 條改回 `Three`**)、
    `.lead` 補進 `BLOCK_CSS`(24 頁在用、只有 2 頁定義過,其餘 22 頁行長拉到 152–166 字元)、
    `managed-gcp.html` 六階段流程圖改用 `.steps.six`(原本排不成一列,第 6 格獨自換行、
    前面那個箭頭指向空白)、`All ai services` → `All AI services`、`imprint` 版權行的 `Ltd..`、
    `ess.html` 三處美式拼寫、V1 服務目錄補上 `managed-gcp`(6→7 services)。
    ⚠ **Fortinet 維持在夥伴清單**(使用者裁決:是真夥伴,只是產品頁素材未到)——
    所以只改標題數字,不動 `index.html` 的 vendors 列與 `cybersecurity.html` 的 vendor 行。
+10. **FortiEDR 加回,標 `Coming soon`**(0814 晚間,使用者裁決,**推翻同日的第 5 條下架**)。
+   下架的理由是「這一組只有它點不進去,讀起來像還沒談成」;現在卡片明寫 Coming soon,
+   那個歧義沒了,而少一張真夥伴的卡反而讓 EDR 選型看起來只有兩個選項。落地在三處:
+   ①`cybersecurity.html` 的 EDR 組回到 `.trio` 三卡、h2 改回 `Three endpoint platforms`,
+   FortiEDR 卡內文寫實話(不含 `[TODO]`)、底部掛 `<span class="soon">Coming soon</span>`;
+   ②選單 Endpoint—EDR 底下加回**灰字項**(`("off", "FortiEDR")`,沒有內頁就不給連結);
+   ③40 檔頁尾 EDR 那列加回,指向 `cybersecurity.html#fortiedr`(錨點由①的卡片提供)。
+   ⚠ 連帶改動:`.trio/.quad/.duo .soon` 是**新的區塊元件**(見下方元件表),
+   `check_nav` 的 `class="off"` 期望值回到 **1**,`build_updates` 的產品數守衛回到 **28**。
+   ⚠ 三支腳本的移除邏輯已停用/反轉:`fix_content_todos` 的 `drop_fortiedr()` 不再被呼叫、
+   `fix_footer` 的 `drop_fortiedr_row()` 換成 `restore_fortiedr_row()`——**兩者都保留函式本體**,
+   真要再下架把呼叫換回來即可。**V1 不動**(它 0814 起已無入口連結)。
 
 **2026-08-06 第二輪**又定案四件事(來源:對 `docs/meeting_0805_end.md` 的逐條盤點,
 決策記錄在 `docs/adr/`,術語正本在 `docs/CONTEXT.md`):
@@ -228,8 +242,8 @@ V1 專屬區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(
 - Google Cloud:Overview → `cloud.html`,六組 18 項,**18 項全部連各自的 `gcp-*.html` 產品頁**
   (0806 補齊,不再有「分類頁#錨點」的過渡狀態)。
   產品資料正本 `docs/GCP_Introduce.md`(2026-08-04 補第 7 節 Cloud Armor)。
-- CyberSecurity:Overview ＋ Endpoint—EDR(SentinelOne / ThreatSonar;
-  ⚠ **0814 起只有這兩項**——FortiEDR 因零素材下架)、
+- CyberSecurity:Overview ＋ Endpoint—EDR(SentinelOne / ThreatSonar ＋ **FortiEDR 灰字項**;
+  ⚠ 0814 早上一度只剩前兩項,同日晚間 FortiEDR 以 Coming soon 形式加回)、
   Detection—SIEM & WDR(CyberEyes / Google SecOps)、
   **Validation—breach & attack simulation(ArgusHack → `argushack.html`)**。
   WDR 併記是因 CyberEyes 實為 WDR;第三組原為「Built in-house—Volcatech AI Security(CE-BAS)」,
@@ -238,8 +252,8 @@ V1 專屬區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(
 - Services(扁平,無第二層):Overview ＋ ESS ＋ 24/7 SOC & IR ＋
   **GCP Migration & Managed Services**(0813 建頁前是灰字,現為真連結 `managed-gcp.html`)。
 - **灰字項**(`<span class="off">`,附 mono 的 Coming soon)= 尚無內頁的項目,刻意不可 focus。
-  ⚠ **0814 起全站沒有任何灰字項**(FortiEDR 下架;`check_nav` 的 `class="off"` 期望值
-  0805 是 2、0813 是 1、**現在是 0**)。要加回灰字項時用 `--muted` 上色
+  ⚠ **全站唯一的灰字項是 FortiEDR**(`check_nav` 的 `class="off"` 期望值 0805 是 2、
+  0813 是 1、0814 早上下架時歸 0、**同日晚間加回後是 1**)。灰字項用 `--muted` 上色
   (對 `--surface` 6.79:1,過 AA),**絕不可寫成 `<a href="#">`**——全站 `href="#"`
   0814 起應為 0,一寫這條檢查就紅。
 - **語言切換(EN / 繁中)已於 0814 整組移除**。繁中原本是 `href="#"` 死連結,
@@ -309,7 +323,8 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
   ③**把「按案議定」換成具體 SLA**——約 30 處交付分工與回應時間 0814 已從佔位符改成
   不含承諾的敘述,素材到位可換成實數;
   ④補齊 Services 線其餘服務頁(0813 已補 `managed-gcp.html`,尚缺 SOC 獨立頁與 0805 移出選單的四項);
-  ⑤**FortiEDR 素材**(0814 因零素材下架,加回流程見待補清單);
+  ⑤**FortiEDR 素材**(0814 晚間已用 Coming soon 形式留在選單與頁面上,
+  但仍缺產品描述與沃凱的使用方式,拿到才能建產品頁、把灰字項換成真連結);
   ⑥**視覺方向 A/B 裁決**(0812 新增,`lab/restyle-0812/`——採 A、採 B、A＋B 挑幾條、或都不採;
   比對頁附六項判準表。B 的「表面加深」需先依 ADR 0005 解凍,字級收斂不需要);
   ⑦再依 `docs/Volcatech_多風格_Build_Prompts.md` 的「共用基底 + 勝出風格模組」
@@ -399,6 +414,7 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 | `.goes` | 一張卡有兩個出口時的連結列 | 把兩個 `.go` 併成一列,不讓它們各佔一行 |
 | `.pick` | 選型指引:「情境 → 建議產品」(0806 三輪;`gcp-*.html` ＋ 0807 起資安線 5 頁) | `--surface` 列 ＋ 真箭頭 ＋ `.node` 晶片(建議是本頁自己時用 `.node.self`) |
 | `.faq` | 平鋪問答(0806 三輪;`gcp-*.html` ＋ 0807 起資安線 5 頁) | **0811 起雙欄卡片**(CSS `columns:2`＋`--surface` 卡):FAQ 曾佔全頁 36–44% 是最大文字牆,雙欄後牆高砍半;640px 退單欄。仍全展開、Ctrl+F 找得到,刻意不用 disclosure widget |
+| `.soon` | **尚無內頁的產品卡狀態標記**(0814 晚間;目前只有 `cybersecurity.html` 的 FortiEDR) | 卡片底部的 mono 灰字 `Coming soon`。刻意佔 `.go` 的位置(同 margin-top、同 align-self、同字級),同列卡片的底線因此對齊——一眼看出是「還沒開」而非「漏了連結」。不是連結、不加底線 |
 | `.fact` | **hero 代表事實列**(0811;產品頁 24 頁,`ess.html` 豁免) | mono 編號 ＋ 琥珀 `.node.self` 晶片(列標題)＋ 事實內文。內容是從該頁 `.spec` **搬上來**的既有一列(面板該列不再渲染、編號留空缺),不是新寫的句子 |
 
 **唯一正本是 `docs/reports/restyle_content_20260806.py` 的 `BLOCK_CSS`**(含 35 個自繪 icon 的
@@ -442,7 +458,7 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 正規化掉 5 個本來就該逐檔不同的參數
 (EN 自指 href、logo/Home 目標、About/Contact 的錨點前綴、`aria-current` 落點、`class="on"` 落點)
 之後,要求 **40 檔逐字節相同**;另外檢查結構數量(`li.sub`=9、`li.head`=3、button=3、
-`.off`=**0**(0814 FortiEDR 下架後全站無灰字)、`li.grp`=0)、`aria-current` 落點、Esc handler、以及 `.dd ul` 沒有 overflow。
+`.off`=**1**(FortiEDR;0814 早上下架時曾為 0,同日晚間加回)、`li.grp`=0)、`aria-current` 落點、Esc handler、以及 `.dd ul` 沒有 overflow。
 
 - **`aria-current="page"` 掛「選單裡 href 等於本檔名的那個 `<a>`」**,通常在第二層。
   第一層是 button,`.menu a[...]` 選不到它——所以視覺上的「你在這個區塊」改用
@@ -698,7 +714,7 @@ python3 docs/reports/build_updates_20260810.py
 | `link_products_20260806.py` | 分類頁 19 張產品卡的雙出口連結 ＋ `cloud.html#products` 索引。可重複執行 |
 | `build_updates_20260810.py` | 產生根 hub「待做事項與產品清單」區(日期取 git log;備注 dict 手維護,更新前須經 Shiro 確認)。可重複執行。⚠ 0814 修掉一個自 0813 起讓它 `IndexError` 跑不動的欄位位移(`MENU` 的 `sub` 子項從 `row[3]` 移到 `row[4]`) |
 | `build_legal_pages_20260814.py` | 產生 `privacy.html` ＋ `imprint.html`(以 `sentinelone.html` 為底檔)。**法務頁唯一正本**,不得手改頁面。⚠ 刻意零新增 CSS |
-| `fix_footer_20260814.py` | 頁尾法定資訊補實 ＋ 移除 Demo notice/backlink 列/FortiEDR 那列。**只在 `<footer>` 之後動手**。可重複執行 |
+| `fix_footer_20260814.py` | 頁尾法定資訊補實 ＋ 移除 Demo notice/backlink 列。**只在 `<footer>` 之後動手**。可重複執行。⚠ FortiEDR 那列 0814 早上移除、同日晚間反轉為加回(`restore_fortiedr_row`,插在 ThreatSonar 之後) |
 | `fix_content_todos_20260814.py` | `<main>` 內容型佔位符的處置對照表(按案議定/刪句/available on request/11 張服務卡補寫)。**待補清單的資料來源** |
 | `wire_contact_20260814.py` | **Contact 動線正本**(0814 稍晚):132 顆 CTA 按鈕由 `#contact` 改 `mailto:`(主旨帶該頁 h1)＋頁尾 Email/Phone 包成 `mailto:`/`tel:`。⚠ 必須排在 `build_gcp_pages`／`build_v1`／`build_legal_pages` 之後——那三支會整段重寫 `<main>`,把按鈕還原 |
 | `build_favicon_20260814.py` | **favicon 正本**(0814):從 `docs/assets/volcatech-logo-final.png` 裁出「A」火山字符 → 256×256 透明 PNG,並在 41 檔注入 `<link rel="icon">`。不依賴 Pillow(PNG 解/編碼都在檔內)。⚠ 母檔在 `docs/` 底下,不進版控;產出的 `favicon.png` 有進版控,所以站不會壞,但要重產得先把母檔放回去 |
@@ -812,8 +828,15 @@ grep -l '94269177' *.html | wc -l                                      # 應為 
 #   頁尾灰字帶的寫法,已隨灰字帶移除。imprint.html 把它拆成 <h3>欄位名</h3><p>值</p>
 #   兩個節點(imprint.html:447),完整字串在站上已不存在——照舊寫法跑會得到 0 而誤判成資料掉了
 grep -n 'VAT / tax ID' *.html                                          # 應為空(VAT 列已刪)
-# 0814:FortiEDR 已下架 → 應為空(大小寫敏感,理由同 CE-BAS 那條)
-grep -l 'FortiEDR\|fortiedr' *.html
+# 0814 晚間:FortiEDR 以 Coming soon 形式留在站上,三個位置分開驗(四行的期望值:40/1/0/0)
+# ⚠ 這批的期望值 0814 早上是「全站零命中」(那時全站下架),別照舊寫法判成「資料掉了要清掉」。
+# ⚠ 也**不可**寫成「應只列出 cybersecurity.html」——選單灰字項與頁尾那列的文字本身就是
+#   FortiEDR,40 檔全部命中。要限定在產品卡就得先用 awk 切出 <main>(第五行)
+grep -l 'FortiEDR' *.html | wc -l                                      # 應為 40(選單＋頁尾)
+awk '/<div id="fortiedr">/,/<\/div>/' cybersecurity.html | grep -c 'class="soon">Coming soon'  # 應為 1
+grep -c '<span class="off">FortiEDR' *.html | grep -vc ':1$'           # 應為 0(40 檔各 1 灰字項)
+grep -c 'cybersecurity.html#fortiedr' *.html | grep -vc ':1$'          # 應為 0(40 檔頁尾各 1 列)
+for f in *.html; do n=$(awk '/<main/,/<\/main>/' $f | grep -c 'FortiEDR'); [ "$n" -gt 0 ] && echo "$f=$n"; done   # 應只有 cybersecurity.html=1
 # 舊選單術語不得殘留在「選單」→ 應輸出 0
 # ⚠ 只能掃 header 區。Platform 在正文是合法英文字——gcp-vmware-engine / gcp-vertex-ai /
 #   gcp-model-garden 的架構圖層名就叫 <h3>Platform</h3>,掃全檔會誤報這三頁(0806 實測)
@@ -879,7 +902,7 @@ grep -ohE 'id="(compute-engine|kubernetes-engine|vmware-engine|cloud-storage|fil
   cloud*.html | sort -u | wc -l   # 應為 22
 # 兩個總覽頁的落點:cybersecurity 6 產品 + 3 區塊、services 6 服務
 # ⚠ 0810 起產品少了 ce-bas/ai-ptaas/secpurple、多了 argushack;第三個區塊 id 由 in-house 改為 validation
-grep -ohE 'id="(sentinelone|threatsonar|cybereyes|google-secops|argushack)"' cybersecurity.html | sort -u | wc -l  # 應為 5(0814 FortiEDR 下架前是 6)
+grep -ohE 'id="(sentinelone|threatsonar|fortiedr|cybereyes|google-secops|argushack)"' cybersecurity.html | sort -u | wc -l  # 應為 6(0814 早上 FortiEDR 下架時曾為 5)
 grep -ohE 'id="(edr|detection|validation)"' cybersecurity.html | sort -u | wc -l   # 應為 3
 grep -ohE 'id="(ess|soc|isms|pentest|finops|dx|managed-gcp)"' services.html | sort -u | wc -l # 應為 7
 # 37 個內容頁 footer 與 sentinelone 逐字節相同 → 應輸出 37 行 OK(排除 2 個 index*.html 與 sentinelone 自己)

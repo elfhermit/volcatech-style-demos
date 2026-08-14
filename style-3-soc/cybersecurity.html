@@ -172,6 +172,12 @@ footer{border-top:1px solid var(--line)}
 .trio .go,.quad .go,.duo .go,.loglist .go{display:inline-block;margin-top:16px;font-family:var(--mono);font-size:12.5px;
   color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:2px;align-self:flex-start}
 .trio .go:hover,.quad .go:hover,.duo .go:hover,.loglist .go:hover{border-color:var(--accent)}
+/* 0814 晚間：還沒有內頁的產品卡，底部放這個狀態標記。它刻意佔 .go 的位置（同 margin-top、
+   同 align-self、同字級），所以同一列卡片的底線會對齊 —— 讀的人一眼看出這張是「還沒開」
+   而不是「漏了連結」。不是連結也不加底線：可點的東西要看起來可點，不可點的就不該像。
+   class 名沿用選單灰字項的 .soon（那條 CSS scope 在 .dd ul .off 內，兩者不互相影響）。 */
+.trio .soon,.quad .soon,.duo .soon{display:inline-block;margin-top:16px;font-family:var(--mono);font-size:12.5px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--muted);align-self:flex-start}
 /* 0806：每個 GCP 產品都有內頁之後，產品卡有兩個出口（產品頁 ＋ 原廠頁）。卡片本身是
    flex column，兩個 inline-block 的 .go 不包起來會各佔一行，所以用 .goes 併成一列。
    兩個出口的先後有意義：站內的產品頁在前，離站的原廠頁在後。 */
@@ -427,6 +433,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
             <ul>
               <li><a href="sentinelone.html">SentinelOne</a></li>
               <li><a href="threatsonar.html">ThreatSonar</a></li>
+              <li><span class="off">FortiEDR<span class="soon">Coming soon</span></span></li>
             </ul>
           </li>
           <li class="sub"><a href="cybersecurity.html#detection" aria-haspopup="true"><span class="lbl">Detection — SIEM &amp; WDR</span><span class="why">Spot threats across cloud and logs</span></a>
@@ -463,8 +470,8 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <p class="status"><span class="dot" aria-hidden="true"></span>CS / OVERVIEW — Cybersecurity practice</p>
       <p class="code" style="margin-top:26px">CS · CYBERSECURITY · OVERVIEW</p>
       <h1>Cybersecurity</h1>
-      <p class="vendor">Vendors: SentinelOne · TeamT5 · Fortinet · CyberEyes · Google Cloud · Leukocyte-Lab</p>
-      <p class="tag">Endpoint EDR, web-layer WDR and SIEM from vendors we select — plus breach and attack simulation to check that they hold. All of it watched by our own 24/7 SOC.</p>
+      <p class="vendor">Vendors: SentinelOne · TeamT5 · Fortinet · CyberEyes · Google Cloud</p>
+      <p class="tag">Endpoint EDR, web detection and response, SIEM and breach and attack simulation technologies selected and integrated for each customer environment. Managed monitoring and response services are available according to the selected service plan.</p>
       <div class="cta">
         <a class="btn" href="mailto:salesgroup@volcatech.com?subject=Enquiry%3A%20Cybersecurity">Contact us</a>
         <a class="btn btn-ghost" href="mailto:salesgroup@volcatech.com?subject=Enquiry%3A%20Cybersecurity">Talk to our team</a>
@@ -487,14 +494,17 @@ a.node:hover{border-color:var(--accent);background:#182433}
   <section id="edr">
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Endpoint — EDR</p>
-      <h2 class="sec">Two endpoint platforms, one selection process.</h2>
-      <div class="duo">
+      <h2 class="sec">Three endpoint platforms, one selection process.</h2>
+      <div class="trio">
         <div id="sentinelone"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.6-3.2 8.4-8 9.6C7.2 20.4 4 16.6 4 12V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><h3>SentinelOne <span class="vsrc">SentinelOne</span></h3>
-          <p>Static and behavioural AI run on the device itself: execution is stopped locally, ransomware damage can be rolled back, and related events collapse into a single attack story.</p>
+          <p>On-device Static AI and Behavioral AI help detect and respond to endpoint threats. Supported remediation and rollback capabilities can help recover from ransomware-related changes, while Storyline correlates related events into a single attack narrative.</p>
           <a class="go" href="sentinelone.html">Product page →</a></div>
         <div id="threatsonar"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12l6-4"/></svg><h3>ThreatSonar <span class="vsrc">TeamT5</span></h3>
-          <p>Endpoint forensics built on Asia-Pacific APT intelligence. Run it as a one-off compromise assessment, or leave it resident with managed detection behind it.</p>
+          <p>TeamT5’s ThreatSonar product family supports endpoint threat assessment, forensic investigation and endpoint detection and response, using intelligence on Asia-Pacific APT activity. Available capabilities depend on the selected product and service arrangement.</p>
           <a class="go" href="threatsonar.html">Product page →</a></div>
+        <div id="fortiedr"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><h3>FortiEDR <span class="vsrc">Fortinet</span></h3>
+          <p>Endpoint detection and response from Fortinet, a vendor we work with on endpoint selections. A dedicated product page is in preparation.</p>
+          <span class="soon">Coming soon</span></div>
       </div>
     </div>
   </section>
@@ -602,6 +612,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <ul>
         <li><a href="sentinelone.html">SentinelOne</a></li>
         <li><a href="threatsonar.html">ThreatSonar</a></li>
+        <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
       </ul>
       <p class="sub">Detection — SIEM & WDR</p>
       <ul>

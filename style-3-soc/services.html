@@ -172,6 +172,12 @@ footer{border-top:1px solid var(--line)}
 .trio .go,.quad .go,.duo .go,.loglist .go{display:inline-block;margin-top:16px;font-family:var(--mono);font-size:12.5px;
   color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:2px;align-self:flex-start}
 .trio .go:hover,.quad .go:hover,.duo .go:hover,.loglist .go:hover{border-color:var(--accent)}
+/* 0814 晚間：還沒有內頁的產品卡，底部放這個狀態標記。它刻意佔 .go 的位置（同 margin-top、
+   同 align-self、同字級），所以同一列卡片的底線會對齊 —— 讀的人一眼看出這張是「還沒開」
+   而不是「漏了連結」。不是連結也不加底線：可點的東西要看起來可點，不可點的就不該像。
+   class 名沿用選單灰字項的 .soon（那條 CSS scope 在 .dd ul .off 內，兩者不互相影響）。 */
+.trio .soon,.quad .soon,.duo .soon{display:inline-block;margin-top:16px;font-family:var(--mono);font-size:12.5px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--muted);align-self:flex-start}
 /* 0806：每個 GCP 產品都有內頁之後，產品卡有兩個出口（產品頁 ＋ 原廠頁）。卡片本身是
    flex column，兩個 inline-block 的 .go 不包起來會各佔一行，所以用 .goes 併成一列。
    兩個出口的先後有意義：站內的產品頁在前，離站的原廠頁在後。 */
@@ -427,6 +433,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
             <ul>
               <li><a href="sentinelone.html">SentinelOne</a></li>
               <li><a href="threatsonar.html">ThreatSonar</a></li>
+              <li><span class="off">FortiEDR<span class="soon">Coming soon</span></span></li>
             </ul>
           </li>
           <li class="sub"><a href="cybersecurity.html#detection" aria-haspopup="true"><span class="lbl">Detection — SIEM &amp; WDR</span><span class="why">Spot threats across cloud and logs</span></a>
@@ -583,6 +590,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <ul>
         <li><a href="sentinelone.html">SentinelOne</a></li>
         <li><a href="threatsonar.html">ThreatSonar</a></li>
+        <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
       </ul>
       <p class="sub">Detection — SIEM & WDR</p>
       <ul>

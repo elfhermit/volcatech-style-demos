@@ -10,3 +10,8 @@ docs/
 
 # 專案層 agent skills 與本機設定:僅本機使用(來源版本見 .claude/skills/SOURCES.md)
 .claude/
+
+# 本機視覺實驗:未定案、不上線。0814 決議不進版控——它們合計是 check_links
+# 全部 43 條死錨點的來源,進了版控就變成每次檢查都紅的技術債。
+lab/preview-restyle/
+lab/prototype-advanced/

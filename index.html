@@ -113,7 +113,7 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
       <li>可具名或匿名的客戶案例授權（首頁 Reference deployments 現寫「可應要求提供」）</li>
       <li>各服務／產品的實際回應時間與 SLA（0814 全部改寫成「按案議定」，站上已無佔位符）</li>
       <li>Services 線其餘服務頁待素材（SOC 獨立頁、0805 移出選單的四項）</li>
-      <li>FortiEDR 產品素材（0814 因零素材從選單與頁面下架，素材到位可加回）</li>
+      <li>FortiEDR 產品素材（0814 晚間以 Coming soon 形式加回選單與頁面；素材到位才能建產品頁）</li>
       <li>0810 因素材不足全站移除的兩項自研測試服務素材（非否定自研；到位後加回）</li>
       <li>CyberEyes 原廠的法人英文名／註冊國／合作範圍；ArgusHack 的合作範圍（供貨 or 供貨＋交付）</li>
       <li>index-v1-proof.html 仍有 10 處佔位符（0814 刻意不清；首頁若選 V1 才需處理）</li>
@@ -154,6 +154,7 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
         <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>Cloud Armor</td><td><a href="style-3-soc/gcp-cloud-armor.html">style-3-soc/gcp-cloud-armor.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）；選單未列（孤兒頁）</td></tr>
         <tr><td class="dt">2026-08-14</td><td>CyberSecurity</td><td>SentinelOne</td><td><a href="style-3-soc/sentinelone.html">style-3-soc/sentinelone.html</a></td><td>0730 評選期建頁；0806 區塊化；0807 補選型/FAQ；0810 補資料主權 FAQ 與 telemetry 保留句；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
         <tr><td class="dt">2026-08-14</td><td>CyberSecurity</td><td>ThreatSonar</td><td><a href="style-3-soc/threatsonar.html">style-3-soc/threatsonar.html</a></td><td>0803 建頁；0806 區塊化；0807 補選型/FAQ；0811 版型改版（FAQ 雙欄、hero 代表事實列）；0810 補情資匯入 FAQ 與應變／常駐句</td></tr>
+        <tr><td class="dt">—</td><td>CyberSecurity</td><td>FortiEDR</td><td>—</td><td>尚無產品頁；0814 早上下架、同日晚間加回為選單灰字項＋cybersecurity.html 的 Coming soon 卡；待原廠素材</td></tr>
         <tr><td class="dt">2026-08-14</td><td>CyberSecurity</td><td>CyberEyes</td><td><a href="style-3-soc/cybereyes.html">style-3-soc/cybereyes.html</a></td><td>0803 建頁；0806 區塊化；0807 補選型/FAQ；0811 版型改版（FAQ 雙欄、hero 代表事實列）；0810 補 vs NDR/EDR FAQ、攻擊鏈成效列</td></tr>
         <tr><td class="dt">2026-08-14</td><td>CyberSecurity</td><td>Google SecOps</td><td><a href="style-3-soc/google-secops.html">style-3-soc/google-secops.html</a></td><td>0803 建頁；0806 區塊化；0807 補選型/FAQ；0811 版型改版（FAQ 雙欄、hero 代表事實列）；0810 補整合成效列、UEBA/Gemini FAQ</td></tr>
         <tr><td class="dt">2026-08-14</td><td>CyberSecurity</td><td>ArgusHack</td><td><a href="style-3-soc/argushack.html">style-3-soc/argushack.html</a></td><td>0810 新建產品頁；由舊代號更名而來，確認為代理 Leukocyte-Lab 產品；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
@@ -303,6 +304,46 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
           <a href="style-3-soc/cloud-services.html">Cloud services &amp; Armor</a>
           <span class="lbl">Services 線</span>
           <a href="style-3-soc/managed-gcp.html">GCP 遷移與維運</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="sect">lab/ 進階大版型重構原型（方向 1~3 整合）<span class="tag" style="background:#FFB224;color:#080C14;font-weight:700">全新提案</span>
+    <small>打破三欄等寬方框循環：<b>12 欄非對稱 Bento Grid</b> ＋ <b>左右分裂 Hero 與 Live SOC 主控台視窗</b> ＋ <b>圖形化架構流向圖 &amp; 4 階段 Stepper</b>。</small></h2>
+
+  <div class="grid">
+    <div class="card" style="border-color:rgba(255,178,36,0.5);background:#121A2A">
+      <div class="body">
+        <p class="no" style="color:#FFB224">Directions 1 + 2 + 3 Combined<span class="tag" style="border-color:rgba(255,178,36,0.4);color:#FFB224">宏觀版型重構</span></p>
+        <h2>非對稱 Bento ＋ SOC 主控台動態視窗 ＋ 圖形化拓樸架構</h2>
+        <p class="grow">全面解決「純文字牆」與「方塊重複疲勞」：左側高權重文案與行動呼籲，右側嵌入模擬 Live SOC 事件流主控台；核心業務改採 8+4 權重 Bento Grid；四層雲端架構與 4 階段上線流程改為直觀圖形化流程圖。</p>
+        <div class="links">
+          <a class="primary" style="background:#FFB224;color:#080C14;border-color:#FFB224" href="lab/prototype-advanced/index.html">開啟「進階重構首頁」 ↗</a>
+          <span class="lbl">進階代表頁直接開啟</span>
+          <a href="lab/prototype-advanced/index.html">進階首頁 (Split Hero + Bento)</a>
+          <a href="lab/prototype-advanced/cloud.html">進階 Cloud 總覽頁</a>
+          <a href="lab/prototype-advanced/gcp-cloud-run.html">進階 Cloud Run 詳情頁</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="sect">lab/ 視覺疲勞改善預覽 (微觀降噪版)<span class="tag" style="background:#3ECF8E;color:#111418">微觀調整</span>
+    <small>0814 依訪談決議建置。包含 8 級字階收斂、Geist/Geist Mono 現代字體、背景色階降噪與 HTML5 原生手風琴 FAQ。</small></h2>
+
+  <div class="grid">
+    <div class="card" style="border-color:rgba(62,207,142,0.4)">
+      <div class="body">
+        <p class="no">Restyle Preview<span class="tag">3 代表頁 Demo</span></p>
+        <h2>視覺疲勞改善與 Google 產品資訊查核預覽</h2>
+        <p class="grow">針對深色主控台帶來的「滿屏框線噪聲」與「FAQ 垂直文字牆」進行降噪重構：弱化生硬外框改採色階分層、FAQ 改為可折疊手風琴（高度縮減 40%）、全站收斂為 8 級標準字階並升級為 Geist 字體體系。提供首頁、Cloud 總覽與 Cloud Run 詳情頁新舊即時比對。</p>
+        <div class="links">
+          <a class="primary" style="background:#3ECF8E;color:#111418;border-color:#3ECF8E" href="lab/preview-restyle/preview-hub.html">進入預覽對照中心 ↗</a>
+          <span class="lbl">代表頁直接開啟</span>
+          <a href="lab/preview-restyle/index.html">首頁預覽</a>
+          <a href="lab/preview-restyle/cloud.html">Cloud 總覽預覽</a>
+          <a href="lab/preview-restyle/gcp-cloud-run.html">Cloud Run 詳情預覽 (FAQ 手風琴)</a>
         </div>
       </div>
     </div>
