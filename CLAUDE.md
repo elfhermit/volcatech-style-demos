@@ -80,6 +80,24 @@
    `fix_footer_20260814.py` 的 ⑥ 與 `RESTORE_LEGAL`。
    ⚠ 連帶影響:V1 的 `.legalrow` 原本指 `#legal` 錨點,已改指兩個實頁
    (`build_v1_20260806.py`,是 check_links 逼出來的必要改動)。
+8. **Contact 動線接上信箱**(當日稍晚追加)。盤點三個鏡頭各自獨立抓到同一件事:全站 118 個
+   `Contact us`、132 顆 CTA 按鈕,而終點那顆是 `<a class="btn" href="#contact">` 掛在
+   `<div class="band" id="contact">` 裡面——**點下去畫面不動**;頁尾 Email 與電話是不能點的純文字。
+   使用者裁決:**不做 contact 頁,直接接 `mailto:`**。做法見 `wire_contact_20260814.py`:
+   132 顆按鈕改 mailto(主旨帶該頁 h1,`Request a demo` 用 `Demo request:` 前綴以資區別),
+   頁尾 Email/Phone 包成 `mailto:`/`tel:`。
+   ⚠ header 與頁尾 Company 欄的 `Contact` **維持指向 `index.html#contact`**——那一區的 H2
+   本身是有內容的,而且要讓 `#contact` 錨點保持有人引用。
+   ⚠ **公司信箱同時由 `info@` 改為 `salesgroup@volcatech.com`**(使用者提供)。
+9. **0814 盤點抓到的其餘修正**(來源 `docs/reports/改善盤點_20260814.md`,51 條成立發現):
+   `index.html` 與 V1 的 `This demo loads…` 改 `This site loads…`(**站上最後一句 demo 自白**)、
+   `cybersecurity.html` 的 `Three endpoint platforms` 改 `Two`(FortiEDR 下架後只剩兩張卡)、
+   `.lead` 補進 `BLOCK_CSS`(24 頁在用、只有 2 頁定義過,其餘 22 頁行長拉到 152–166 字元)、
+   `managed-gcp.html` 六階段流程圖改用 `.steps.six`(原本排不成一列,第 6 格獨自換行、
+   前面那個箭頭指向空白)、`All ai services` → `All AI services`、`imprint` 版權行的 `Ltd..`、
+   `ess.html` 三處美式拼寫、V1 服務目錄補上 `managed-gcp`(6→7 services)。
+   ⚠ **Fortinet 維持在夥伴清單**(使用者裁決:是真夥伴,只是產品頁素材未到)——
+   所以只改標題數字,不動 `index.html` 的 vendors 列與 `cybersecurity.html` 的 vendor 行。
 
 **2026-08-06 第二輪**又定案四件事(來源:對 `docs/meeting_0805_end.md` 的逐條盤點,
 決策記錄在 `docs/adr/`,術語正本在 `docs/CONTEXT.md`):
@@ -644,6 +662,7 @@ python3 docs/reports/build_v1_20260806.py
 python3 docs/reports/link_products_20260806.py
 python3 docs/reports/fix_content_todos_20260814.py
 python3 docs/reports/fix_footer_20260814.py
+python3 docs/reports/wire_contact_20260814.py   # ← 必須排在會重寫 <main> 的三支之後
 python3 docs/reports/restyle_content_20260806.py
 python3 docs/reports/rebuild_nav_20260806.py    # ← 一定要最後跑
 python3 docs/reports/build_lab_20260806.py      # 取自底檔,故排在 nav/footer 之後
@@ -671,6 +690,7 @@ python3 docs/reports/build_updates_20260810.py
 | `build_legal_pages_20260814.py` | 產生 `privacy.html` ＋ `imprint.html`(以 `sentinelone.html` 為底檔)。**法務頁唯一正本**,不得手改頁面。⚠ 刻意零新增 CSS |
 | `fix_footer_20260814.py` | 頁尾法定資訊補實 ＋ 移除 Demo notice/backlink 列/FortiEDR 那列。**只在 `<footer>` 之後動手**。可重複執行 |
 | `fix_content_todos_20260814.py` | `<main>` 內容型佔位符的處置對照表(按案議定/刪句/available on request/11 張服務卡補寫)。**待補清單的資料來源** |
+| `wire_contact_20260814.py` | **Contact 動線正本**(0814 稍晚):132 顆 CTA 按鈕由 `#contact` 改 `mailto:`(主旨帶該頁 h1)＋頁尾 Email/Phone 包成 `mailto:`/`tel:`。⚠ 必須排在 `build_gcp_pages`／`build_v1`／`build_legal_pages` 之後——那三支會整段重寫 `<main>`,把按鈕還原 |
 | `build_todo_backlog_20260814.py` | 由上一支的對照表產生 `docs/待補素材清單_20260814.md`。改了對照表就重跑它 |
 | `rename_argushack_footer_20260810.py` | 0810 全站 footer 更名(CE-BAS→ArgusHack、移除兩品那兩列)。可重複執行,只動 footer |
 | `build_lab_20260806.py` | 產生 `lab/inline-cloud-compute.html`(**已完成階段任務**,`lab/` 刪掉後可一併移除)。⚠ 它從 `cloud-compute.html` 取 header/footer/CSS,所以**改完選單或頁尾要重跑它**——`lab/` 在 `check_links` 掃描範圍內,漏跑就會出現死錨點(0810 實際踩到) |
@@ -752,8 +772,16 @@ grep -oh '\[TODO' index-v1-proof.html | wc -l
 #   帶 <span class="todo"> 外殼的當成純文字處理,新句子會被留在虛線框裡,
 #   頁面上看起來仍是佔位符,而數 [TODO 的檢查完全看不出來(0814 verifier 抓到)。
 python3 -c "import pathlib,re;print([(p.name,m[:60]) for p in pathlib.Path('.').glob('*.html') for m in re.findall(r'<span class=\"todo[^\"]*\">((?:(?!\[TODO)[^<])*?)</span>', p.read_text())])"
-# 0814:不得殘留「這是 demo」的自白與內部導覽 → 三行皆應為空
+# 0814 稍晚:Contact 動線必須真的能寄信 → 第一行應為空(沒有按鈕還指著 #contact)、
+# 第二行 40、第三行 40。⚠ 只准 header 與頁尾 Company 欄那兩條 Contact 導覽連結指向錨點
+grep -n '<a class="btn[^"]*"[^>]*href="\(index\.html\)\?#contact"' *.html
+grep -l 'href="mailto:salesgroup@volcatech.com' *.html | wc -l
+grep -l 'href="tel:+886223279668"' *.html | wc -l
+# 0814:不得殘留「這是 demo」的自白與內部導覽 → 四行皆應為空
+# ⚠ 第四行是 0814 盤點補的:前三個字串沒涵蓋首頁 Trust 區底下那句「This demo loads…」,
+#   結果宣稱「demo 痕跡全站零」時它還在站上
 grep -n 'Demo notice\|internal design review\|are placeholders' *.html
+grep -n 'This demo' *.html
 grep -n 'class="wrap backlink"' *.html
 grep -n 'Demo: ' *.html
 # 0814:頁尾聯絡資訊已補實 → 前兩行各應輸出 40(Email 與登記地址在每頁的聯絡 dl 裡)

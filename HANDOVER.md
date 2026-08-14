@@ -701,7 +701,10 @@ hero / Built / Why / Trust / CTA 五個共用區塊直接**切片**取得，所�
   用 button 而非 span，是為了保留 keyboard focusable 讓 `:focus-within` 生效、不需要 JS。
 - **第二層**＝分類頁；**第三層**＝產品。
 - 頂層列：`● VOLCATECH` | `Home` | `Google Cloud ▾` | `CyberSecurity ▾` | `Services ▾` |
-  `About` | `[Contact us]`。
+  `About` | `[Contact us]`。⚠ 0814 稍晚起 `Contact us` 是 `mailto:salesgroup@volcatech.com`,
+  不再是 `index.html#contact` —— 在首頁上那原本是連到它自己所在的區塊,點了畫面不動。
+  header 這顆的主旨是泛用的 `Website enquiry`(軸 1 要求 40 檔 header 逐字節相同,
+  逐頁主旨會讓 check_nav 紅);`<main>` 內的 CTA 主旨帶該頁 h1。
   ⚠ **0814 起沒有語言切換**：原本尾端的 `EN 繁中` 已整組移除（繁中是 `href="#"` 死連結，
   且 title 自曝這不是正式站）。雙語留給正式 Astro 版。副作用是全站 `href="#"` 歸零。
 

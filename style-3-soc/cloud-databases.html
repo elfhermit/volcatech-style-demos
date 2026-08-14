@@ -133,7 +133,7 @@ footer{border-top:1px solid var(--line)}
 .legal .row{display:flex;gap:6px 20px;flex-wrap:wrap;margin-top:6px}
 .legal .notice{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px}
 .legal a:hover{color:var(--ink)}
-/* ===== Block components (0806 content rework) — shared by all 20 pages =====
+/* ===== Block components (0806 content rework) — shared by all 40 pages =====
    The 0805 review said a content page reads as one undifferentiated column of text:
    the same .loglist three or four times over. Each section now gets its own treatment,
    so the shape of a section tells you what kind of thing is in it before you read it.
@@ -184,6 +184,18 @@ footer{border-top:1px solid var(--line)}
 .steps>li{flex:1 1 200px;background:#111A26;border:1px solid var(--muted);border-radius:8px;padding:20px 18px}
 .steps>li.ar{flex:0 0 auto;border:0;background:none;padding:0;display:flex;align-items:center;
   color:var(--muted);font-family:var(--mono);font-size:18px}
+/* 0814. A six-stage .steps never fitted on one row: at flex-basis 200px the sixth
+   card wrapped alone and the arrow ahead of it pointed into empty space, so the
+   sequence the component exists to express was the one thing you could not read.
+   Six wants two rows of three. The basis forces exactly three per row, and the
+   arrow that would land at the wrap (li 6 of 11 — steps are odd children, arrows
+   even) is dropped so neither row starts with a dangling arrow. Below 901px the
+   whole component is already a vertical column, where that arrow is needed again,
+   so this is scoped above that breakpoint. */
+@media (min-width:901px){
+  .steps.six>li{flex:1 1 calc(33.333% - 46px)}
+  .steps.six>li.ar:nth-child(6){display:none}
+}
 .steps .n{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted)}
 .steps h3{font-size:16px;margin-top:10px}
 .steps>li>h3:first-child{margin-top:0}
@@ -286,6 +298,18 @@ a.node:hover{border-color:var(--accent);background:#182433}
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
   .probs>div:hover,.uses>div:hover,.trio>div:hover,.quad>div:hover,.duo>div:hover{transform:none}
 }
+/* 0814. `.lead` is used on 24 pages but only two of them ever defined it, so on the
+   other 22 the intro paragraph inherited body width and ran to 152-166 characters a
+   line — roughly twice the 75-85 that stays readable. Same declaration those two
+   pages already carry, so they render identically; the rest finally get a measure. */
+.lead{margin-top:16px;color:var(--muted);font-size:17px;max-width:58ch}
+/* 0814. The footer email and phone became mailto:/tel: links (wire_contact_20260814.py).
+   `.fcols a{color:var(--muted)}` would render them dimmer than the address sitting
+   right below them, which reads as disabled rather than clickable. The underline is
+   the only affordance here, so it uses --muted (7.63:1 on --bg) and not --line
+   (1.47:1, short of the 3:1 that SC 1.4.11 asks of a non-text indicator). */
+.fbrand dd a{color:var(--ink);border-bottom:1px solid var(--muted)}
+.fbrand dd a:hover{border-color:var(--accent)}
 /* ===== end block components ===== */
 @keyframes statusPulse {
   0% { box-shadow: 0 0 0 0 rgba(62, 207, 142, 0.7); }
@@ -427,7 +451,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
         </ul>
       </li>
       <li><a href="index.html#why">About</a></li>
-      <li><a class="btn" style="padding:9px 18px" href="index.html#contact">Contact us</a></li>
+      <li><a class="btn" style="padding:9px 18px" href="mailto:salesgroup@volcatech.com?subject=Website%20enquiry">Contact us</a></li>
     </ul>
   </div>
 </header>
@@ -441,8 +465,8 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <p class="vendor">Vendor: Google Cloud · Relational and NoSQL managed databases</p>
       <p class="tag">Managed relational and NoSQL databases — migrated from your existing estate, then patched, backed up and monitored for you.</p>
       <div class="cta">
-        <a class="btn" href="index.html#contact">Contact us</a>
-        <a class="btn btn-ghost" href="index.html#contact">Talk to our team</a>
+        <a class="btn" href="mailto:salesgroup@volcatech.com?subject=Enquiry%3A%20Databases%20on%20Google%20Cloud">Contact us</a>
+        <a class="btn btn-ghost" href="mailto:salesgroup@volcatech.com?subject=Enquiry%3A%20Databases%20on%20Google%20Cloud">Talk to our team</a>
       </div>
     </div>
   </div>
@@ -522,7 +546,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
   <div class="band">
     <div class="wrap">
       <h2>Plan your database migration with a tested rollback.</h2>
-      <div><a class="btn" href="index.html#contact">Contact us</a></div>
+      <div><a class="btn" href="mailto:salesgroup@volcatech.com?subject=Enquiry%3A%20Databases%20on%20Google%20Cloud">Contact us</a></div>
     </div>
   </div>
 </main>
@@ -533,8 +557,8 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <a class="logo" href="index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
       <p>Cloud, security and managed operations for European organisations.</p>
       <dl>
-        <dt>Email</dt><dd>salesgroup@volcatech.com</dd>
-        <dt>Phone</dt><dd>+886 2 2327 9668</dd>
+        <dt>Email</dt><dd><a href="mailto:salesgroup@volcatech.com">salesgroup@volcatech.com</a></dd>
+        <dt>Phone</dt><dd><a href="tel:+886223279668">+886 2 2327 9668</a></dd>
         <dt>Registered office</dt><dd>9F.-2, No. 54, Songjiang Rd., Zhongshan Dist., Taipei City 104090, Taiwan (R.O.C.)</dd>
       </dl>
     </div>
