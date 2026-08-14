@@ -82,11 +82,6 @@ header{position:sticky;top:0;background:rgba(14,20,31,.95);border-bottom:1px sol
 .dd .head{padding:6px 18px 8px;margin-bottom:4px;border-bottom:1px solid var(--line);
   font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
 .dd .head .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--status);margin-right:8px;vertical-align:1px}
-/* Language switcher — real links, not decorative text */
-.lang{display:flex;align-items:center;font-family:var(--mono);font-size:12px}
-.lang a{padding:4px 10px;color:var(--muted)}
-.lang a+a{border-left:1px solid var(--line)}
-.lang a[aria-current="true"]{color:var(--ink);font-weight:600}
 .navbtn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;
   padding:8px 14px;font-size:14px;cursor:pointer;color:var(--ink)}
 /* Hero */
@@ -148,7 +143,6 @@ footer{border-top:1px solid var(--line)}
 .legal .row{display:flex;gap:6px 20px;flex-wrap:wrap;margin-top:6px}
 .legal .notice{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px}
 .legal a:hover{color:var(--ink)}
-.backlink{padding:0 24px 22px;font-family:var(--mono);font-size:11.5px}
 /* ===== Block components (0806 content rework) — shared by all 20 pages =====
    The 0805 review said a content page reads as one undifferentiated column of text:
    the same .loglist three or four times over. Each section now gets its own treatment,
@@ -349,9 +343,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
      fully expanded three-level list is exactly where the labels help most. */
   .menu .sub .why{display:block}
   .dd ul li:not(.sub)+.sub{margin-top:5px}
-  .lang{margin-top:10px}
-  .lang a{padding-left:0}
-  .lang a+a{padding-left:10px}
 }
 @media (max-width:560px){
   .fcols{grid-template-columns:1fr}
@@ -475,7 +466,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
             <ul>
               <li><a href="sentinelone.html">SentinelOne</a></li>
               <li><a href="threatsonar.html">ThreatSonar</a></li>
-              <li><span class="off">FortiEDR<span class="soon">Coming soon</span></span></li>
             </ul>
           </li>
           <li class="sub"><a href="cybersecurity.html#detection" aria-haspopup="true"><span class="lbl">Detection — SIEM &amp; WDR</span><span class="why">Spot threats across cloud and logs</span></a>
@@ -500,13 +490,8 @@ a.node:hover{border-color:var(--accent);background:#182433}
           <li><a href="managed-gcp.html">GCP Migration &amp; Managed Services</a></li>
         </ul>
       </li>
-      <li><a href="#why" title="Demo: opens the matching section on this page">About</a></li>
+      <li><a href="#why" title="Opens the matching section on this page">About</a></li>
       <li><a class="btn" style="padding:9px 18px" href="#contact">Contact us</a></li>
-      <li>
-        <nav class="lang" aria-label="Language">
-          <a href="index-v1-proof.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
-        </nav>
-      </li>
     </ul>
   </div>
 </header>
@@ -617,7 +602,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
           </div>
         </div>
       </div>
-      <p class="legalrow">Company and legal disclosures → <a href="#legal">Imprint</a> · <a href="#legal">Privacy Policy</a></p>
+      <p class="legalrow">Company and legal disclosures → <a href="imprint.html">Imprint</a> · <a href="privacy.html">Privacy Policy</a></p>
       <p style="margin-top:18px;font-family:var(--mono);font-size:13px;color:var(--muted)">This demo loads no third-party resources and sets no cookies.</p>
     </div>
   </section>
@@ -626,7 +611,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Technology partners</p>
       <h2 class="sec">We operate what we sell, and we build what we cannot buy.</h2>
-      <p class="lead">Six vendors we selected and now run for our customers — chosen against the estate in front of us, deployed into your own tenancy, then tuned and monitored by the same team.</p>
+      <p class="lead">Five vendors we selected and now run for our customers — chosen against the estate in front of us, deployed into your own tenancy, then tuned and monitored by the same team.</p>
       <div class="pcards">
         <div>
           <p class="wm">Google Cloud</p>
@@ -653,15 +638,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
             <dt>What we do with it</dt><dd>Start with a compromise assessment, then leave it resident with managed detection behind it.</dd>
           </dl>
           <a class="go" href="threatsonar.html">ThreatSonar →</a>
-          <span class="todo tier">[TODO: partner tier]</span>
-        </div>
-        <div>
-          <p class="wm">Fortinet</p>
-          <dl>
-            <dt>What it is</dt><dd>FortiEDR — endpoint detection and response</dd>
-            <dt>What we do with it</dt><dd><span class="todo">[TODO: what we do with it]</span></dd>
-          </dl>
-          <a class="go" href="cybersecurity.html#fortiedr">FortiEDR →</a>
           <span class="todo tier">[TODO: partner tier]</span>
         </div>
         <div>
@@ -705,11 +681,10 @@ a.node:hover{border-color:var(--accent);background:#182433}
           <a class="go" href="cloud.html">All Google Cloud services →</a>
         </div>
         <div>
-          <h3>Cybersecurity<span class="n">6 products</span></h3>
+          <h3>Cybersecurity<span class="n">5 products</span></h3>
           <ul>
             <li><a href="sentinelone.html">SentinelOne</a></li>
             <li><a href="threatsonar.html">ThreatSonar</a></li>
-            <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
             <li><a href="cybereyes.html">CyberEyes</a></li>
             <li><a href="google-secops.html">Google SecOps</a></li>
             <li><a href="argushack.html">ArgusHack</a></li>
@@ -742,7 +717,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
           <p>A breach and attack simulation platform that replays attacker techniques against your live environment, so the controls you already own are measured on what they stop rather than on what they were bought to stop.</p>
           <a class="go" href="argushack.html">Product page →</a></div>
       </div>
-      <p class="note">Reference deployments and delivery model: <span class="todo">[TODO: anonymised customer references, delivery model and response times]</span></p>
+      <p class="note">Reference deployments and delivery model: available on request.</p>
     </div>
   </section>
 
@@ -753,7 +728,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <h2 class="sec">One partner accountable for the whole stack.</h2>
       <div class="trio">
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5L6.5 17M12 11.5L17.5 17"/></svg><h3>One partner for the whole stack</h3><p>Cloud, security products and 24/7 operations under one contract — fewer suppliers, and fewer gaps between them.</p></div>
-        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h9.5a4.5 4.5 0 0 0 .3-9A6 6 0 0 0 5.6 10.4 4 4 0 0 0 7 18z"/></svg><h3>Google Cloud engineering</h3><p>Architecture, migration, cost governance and training, delivered by the same team that operates the platform afterwards. <span class="todo">[TODO: partner tier and certifications]</span></p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h9.5a4.5 4.5 0 0 0 .3-9A6 6 0 0 0 5.6 10.4 4 4 0 0 0 7 18z"/></svg><h3>Google Cloud engineering</h3><p>Architecture, migration, cost governance and training, delivered by the same team that operates the platform afterwards.</p></div>
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.6-3.2 8.4-8 9.6C7.2 20.4 4 16.6 4 12V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><h3>Security we operate, not just resell</h3><p>Our SOC watches the tools we deploy, and we run breach and attack simulation against them to check that they hold.</p></div>
       </div>
     </div>
@@ -774,9 +749,9 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <a class="logo" href="index-v1-proof.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
       <p>Cloud, security and managed operations for European organisations.</p>
       <dl>
-        <dt>Email</dt><dd>[TODO: contact email]</dd>
-        <dt>Phone</dt><dd>+886 [TODO]</dd>
-        <dt>Registered office</dt><dd>[TODO: registered address]</dd>
+        <dt>Email</dt><dd>salesgroup@volcatech.com</dd>
+        <dt>Phone</dt><dd>+886 2 2327 9668</dd>
+        <dt>Registered office</dt><dd>9F.-2, No. 54, Songjiang Rd., Zhongshan Dist., Taipei City 104090, Taiwan (R.O.C.)</dd>
       </dl>
     </div>
     <div id="cloud-list">
@@ -798,7 +773,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <ul>
         <li><a href="sentinelone.html">SentinelOne</a></li>
         <li><a href="threatsonar.html">ThreatSonar</a></li>
-        <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
       </ul>
       <p class="sub">Detection — SIEM & WDR</p>
       <ul>
@@ -827,21 +801,11 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <ul>
         <li><a href="#why">About</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
-        <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
+        <li><a href="privacy.html">Privacy notice</a></li>
+        <li><a href="imprint.html">Imprint</a></li>
       </ul>
     </div>
   </div>
-  <div class="wrap legal" id="legal">
-    <p>Volcatech Co., Ltd. <span lang="zh-Hant-TW">(沃凱科技股份有限公司)</span></p>
-    <p>Registered office: [TODO: registered address]</p>
-    <div class="row"><span>Company registration no.: [TODO]</span><span>VAT / tax ID: [TODO]</span></div>
-    <div class="row"><span>Email: [TODO: contact email]</span><span>Phone: +886 [TODO]</span></div>
-    <div class="row"><a href="#legal">Privacy Policy</a><a href="#legal">Imprint</a></div>
-    <p>© 2026 Volcatech Co., Ltd.</p>
-    <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
-  </div>
-  <div class="wrap backlink"><a href="../index.html">← Demo hub</a> · Layout: <a href="index.html">Current</a> · <a href="index-v1-proof.html">V1</a></div>
 </footer>
 </body>
 </html>

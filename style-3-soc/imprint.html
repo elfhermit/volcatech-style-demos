@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-<title>Firestore — NoSQL document database with live sync | Volcatech</title>
-<meta name="description" content="Firestore is a serverless document database that pushes changes to connected clients, keeps working offline and commits transactions across regions. Designed, deployed and operated by Volcatech.">
+<title>Imprint — Volcatech</title>
+<meta name="description" content="Legal disclosure for the operator of this website: registered name, office, company registration number and contact details of Volcatech Corporate Ltd.">
 <style>
 :root{
   --bg:#0E141F; --surface:#16202E; --ink:#E9EEF5; --muted:#9AA8BA;
@@ -104,11 +104,6 @@ h2.sec{font-weight:600;font-size:clamp(24px,3.2vw,34px);line-height:1.15;margin-
 .loglist p{font-size:15px}
 .loglist small{display:block;color:var(--muted);margin-top:2px;font-size:14px}
 .todo{font-family:var(--mono);color:var(--muted);font-size:12px;border:1px dashed var(--line);padding:2px 8px;border-radius:4px}
-.vsrc{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--muted);margin-left:10px;vertical-align:1px}
-.cards2 .go{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:12.5px;
-  color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:2px}
-.cards2 .go:hover{border-color:var(--accent)}
 .ext{border-top:1px solid var(--line)}
 .ext .wrap{padding:26px 24px;font-family:var(--mono);font-size:13px;color:var(--muted)}
 .ext a{color:var(--accent);font-weight:600}
@@ -346,7 +341,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
     <button class="navbtn" aria-expanded="false" aria-controls="menu" onclick="const m=document.getElementById('menu');m.classList.toggle('open');this.setAttribute('aria-expanded',m.classList.contains('open'));document.body.style.overflow = m.classList.contains('open') ? 'hidden' : ''">Menu</button>
     <ul class="menu" id="menu">
       <li><a href="index.html">Home</a></li>
-      <li class="dd"><button type="button" class="on" aria-haspopup="true">Google Cloud</button>
+      <li class="dd"><button type="button" aria-haspopup="true">Google Cloud</button>
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
           <li><a href="cloud.html">Overview — all Google Cloud services</a></li>
@@ -383,7 +378,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
               <li><a href="gcp-alloydb.html">AlloyDB for PostgreSQL</a></li>
               <li><a href="gcp-cloud-sql.html">Cloud SQL</a></li>
               <li><a href="gcp-datastore.html">Datastore</a></li>
-              <li><a href="gcp-firestore.html" aria-current="page">Firestore</a></li>
+              <li><a href="gcp-firestore.html">Firestore</a></li>
             </ul>
           </li>
           <li class="sub"><a href="cloud-ai.html" aria-haspopup="true"><span class="lbl">AI</span><span class="why">Model building, tuning and serving</span></a>
@@ -435,162 +430,70 @@ a.node:hover{border-color:var(--accent);background:#182433}
 <main>
   <div class="phero">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>CI-05 / Databases — Google Cloud service</p>
-      <p class="code" style="margin-top:26px">CI-05 · DATABASES · FIRESTORE</p>
-      <h1>Firestore</h1>
-      <p class="vendor">Google Cloud · Document database</p>
-      <p class="tag">A document database that talks to the client directly. Changes are pushed to connected devices as they happen, and the local cache keeps the application usable while the connection is gone.</p>
-      <p class="fact"><span class="n" aria-hidden="true">03</span><span class="node self">Multi-region transactions</span> <span class="fx">Transactions commit or roll back across replicas in more than one region, without a queue to reconcile afterwards.</span></p>
-      <div class="cta">
-        <a class="btn" href="index.html#contact">Contact us</a>
-        <a class="btn btn-ghost" href="cloud-databases.html">All databases services</a>
-      </div>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Legal — imprint</p>
+      <h1>Imprint</h1>
+      <p class="tag">Company information and legal disclosure for the operator of this website.</p>
     </div>
   </div>
 
-  <section id="pain">
+  <section id="operator">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>The problem</p>
-      <h2 class="sec">What teams run into without it.</h2>
-      <div class="probs">
-        <div><h3>Hand-built sync layers</h3><p>Keeping mobile, web and backend state consistent means writing and operating polling, push and conflict-resolution code — a synchronisation layer the product team then maintains for the life of the app.</p></div>
-        <div><h3>Offline as an afterthought</h3><p>Field and consumer apps stop working the moment connectivity drops, unless local caching and re-sync are engineered in — work that rarely survives the first release plan.</p></div>
-        <div><h3>Capacity planning at launch</h3><p>Provisioning a database before real traffic exists forces a guess. Under-size it and launch suffers; over-size it and the organisation pays for idle capacity from day one.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="value">
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Why teams choose it</p>
-      <h2 class="sec">What Firestore is good at.</h2>
-      <div class="trio">
-        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2.5"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 16.2a6 6 0 0 0 0-8.4M4.9 4.9a10 10 0 0 0 0 14.2M19.1 19.1a10 10 0 0 0 0-14.2"/></svg><h3>Changes pushed to clients</h3><p>The database sends updates to subscribed devices instead of waiting to be polled. Screens showing the same record stay in step without a message layer in between.</p></div>
-        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/></svg><h3>Works while offline</h3><p>Reads and writes go to a local cache when the network drops, and reconcile when it returns. The application does not need a separate offline path.</p></div>
-        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16M20 4v16"/><path d="M8 12h8"/><path d="M13 9l3 3-3 3"/></svg><h3>Rules enforced at the database</h3><p>Access is expressed as rules on documents and fields, evaluated by the service. A client can talk to the database directly without that becoming an open door.</p></div>
-      </div>
-      <figure style="max-width:460px;margin:26px auto 0">
-        <svg viewBox="0 0 380 396" role="img" style="width:100%;height:auto;display:block">
-          <title>How a change reaches other devices: a write is applied to the local cache on the writing device, sent to Firestore when the device has a connection, and delivered from there to every listener attached to that document.</title>
-          <rect x="20" y="14" width="340" height="92" rx="8" fill="var(--surface)" stroke="var(--muted)"/>
-          <text x="34" y="40" font-family="var(--sans)" font-size="15" fill="currentColor">Device A — writing</text>
-          <rect x="34" y="52" width="150" height="30" rx="5" fill="#111A26" stroke="#FFB224"/>
-          <text x="46" y="72" font-family="var(--sans)" font-size="14" fill="currentColor">Local cache</text>
-          <text x="196" y="66" font-family="var(--sans)" font-size="14" fill="var(--muted)">applied here first,</text>
-          <text x="196" y="86" font-family="var(--sans)" font-size="14" fill="var(--muted)">even when offline</text>
-          <line x1="190" y1="106" x2="190" y2="140" stroke="var(--muted)" stroke-width="2"/>
-          <polygon points="184,140 196,140 190,150" fill="#FFB224"/>
-          <text x="204" y="130" font-family="var(--sans)" font-size="14" fill="var(--muted)">sent on when online</text>
-          <rect x="20" y="158" width="340" height="86" rx="8" fill="var(--surface)" stroke="var(--muted)"/>
-          <text x="34" y="186" font-family="var(--sans)" font-size="15" fill="currentColor">Firestore</text>
-          <text x="34" y="212" font-family="var(--sans)" font-size="14" fill="var(--muted)">stores the document, then tells</text>
-          <text x="34" y="232" font-family="var(--sans)" font-size="14" fill="var(--muted)">every listener on it</text>
-          <line x1="190" y1="244" x2="190" y2="276" stroke="var(--muted)" stroke-width="2"/>
-          <polygon points="184,276 196,276 190,286" fill="#FFB224"/>
-          <text x="204" y="266" font-family="var(--sans)" font-size="14" fill="var(--muted)">pushes the change</text>
-          <rect x="20" y="294" width="340" height="92" rx="8" fill="var(--surface)" stroke="var(--muted)"/>
-          <text x="34" y="320" font-family="var(--sans)" font-size="15" fill="currentColor">Device B — listening</text>
-          <rect x="34" y="332" width="150" height="30" rx="5" fill="#111A26" stroke="var(--muted)"/>
-          <text x="46" y="352" font-family="var(--sans)" font-size="14" fill="currentColor">Listener</text>
-          <text x="196" y="352" font-family="var(--sans)" font-size="14" fill="var(--muted)">screen follows</text>
-        </svg>
-        <figcaption style="margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--muted)">A write reaches the local cache first and the service afterwards; from there the change is delivered to every listener attached to that document.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section id="features">
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Key features</p>
-      <h2 class="sec">What you get, specifically.</h2>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Site operator</p>
+      <h2 class="sec">Who publishes and operates this website.</h2>
       <div class="spec">
-        <div><span class="n" aria-hidden="true">01</span><div><h3>Client SDKs</h3><p>Native libraries for iOS, Android and the web connect to the database without a back-end service in between.</p></div></div>
-        <div><span class="n" aria-hidden="true">02</span><div><h3>Security rules</h3><p>Read and write permissions are declared per collection, document and field, and evaluated on every request.</p></div></div>
-        <div><span class="n" aria-hidden="true">04</span><div><h3>Availability commitment</h3><p>Multi-region Firestore carries a 99.999% monthly uptime SLA; regional deployments carry 99.99% in most Google Cloud regions.</p></div></div>
-        <div><span class="n" aria-hidden="true">05</span><div><h3>Indexing default</h3><p>Queries are indexed by default, and performance tracks the size of the result set rather than the dataset.</p></div></div>
-        <div><span class="n" aria-hidden="true">06</span><div><h3>Document size ceiling</h3><p>A document holds up to 1 MiB (1,048,576 bytes) and collections nest up to a hundred levels deep — both are modelling limits rather than quotas to be raised.</p></div></div>
-        <div><span class="n" aria-hidden="true">07</span><div><h3>Recovery window</h3><p>With point-in-time recovery enabled, one version of each document is kept per minute for seven days, and the last hour can be read at finer granularity.</p></div></div>
+        <div><span class="n" aria-hidden="true">01</span><div><h3>Legal name</h3><p>Volcatech Corporate Ltd.
+          <span lang="zh-Hant-TW">(沃凱科技股份有限公司)</span></p></div></div>
+        <div><span class="n" aria-hidden="true">02</span><div><h3>Registered office</h3><p>9F.-2, No. 54, Songjiang Rd., Zhongshan Dist., Taipei City 104090, Taiwan (R.O.C.)</p></div></div>
+        <div><span class="n" aria-hidden="true">03</span><div><h3>Company registration no.</h3><p>94269177,
+          issued in Taiwan (R.O.C.). This is the unified business number; it is not an EU VAT
+          identification number.</p></div></div>
+        <div><span class="n" aria-hidden="true">04</span><div><h3>Email</h3><p>salesgroup@volcatech.com</p></div></div>
+        <div><span class="n" aria-hidden="true">05</span><div><h3>Telephone</h3><p>+886 2 2327 9668</p></div></div>
+        <div><span class="n" aria-hidden="true">06</span><div><h3>Responsible for content</h3><p>Volcatech Corporate Ltd.,
+          at the registered office above.</p></div></div>
       </div>
     </div>
   </section>
 
-  <section id="usecases">
+  <section id="liability">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Where it fits</p>
-      <h2 class="sec">Three situations it is built for.</h2>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Liability</p>
+      <h2 class="sec">What we stand behind, and what we cannot.</h2>
       <div class="uses">
-        <div><h3>Mobile applications</h3><p>Client applications that read and write directly, with the network treated as intermittent by default.</p></div>
-        <div><h3>Collaboration tools</h3><p>Chat and shared editing, where two people looking at the same document should see the same thing.</p></div>
-        <div><h3>Game state</h3><p>Session and player state shared between devices in a match, updated as the state changes. Session records that should not outlive the match can carry an expiry field, and the service removes them without a clean-up job to run.</p></div>
+        <div><h3>Our own content</h3><p>We prepare these pages with care, but service descriptions
+          are summaries rather than contractual specifications. What we owe you is defined by the
+          agreement we sign, not by this website.</p></div>
+        <div><h3>Third-party products</h3><p>Product descriptions are our own summaries of vendor
+          capabilities, rewritten rather than copied. Vendors change their products; where accuracy
+          matters, check the vendor's own documentation.</p></div>
+        <div><h3>External links</h3><p>Links to vendor websites open in a new window. We have no
+          control over their content and adopt none of it as our own. If a link leads somewhere it
+          should not, tell us and we will remove it.</p></div>
       </div>
     </div>
   </section>
 
-  <section id="pick">
+  <section id="copyright">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Choosing well</p>
-      <h2 class="sec">When Firestore is the right call — and when it is not.</h2>
-      <ul class="pick">
-        <li><p class="when">New document-database builds, especially with mobile or web clients</p><span class="ar" aria-hidden="true">→</span><span class="node self">Firestore</span></li>
-        <li><p class="when">Server-side systems already on the Datastore API</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-datastore.html">Datastore</a></li>
-        <li><p class="when">Relational transactions and SQL reporting</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-cloud-sql.html">Cloud SQL</a></li>
-        <li><p class="when">Event analytics at warehouse scale</p><span class="ar" aria-hidden="true">→</span><a class="node" href="gcp-bigquery.html">BigQuery</a></li>
-      </ul>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Copyright</p>
+      <h2 class="sec">Rights in this site and in the names on it.</h2>
+      <p class="lead" style="margin-top:26px">Text, layout, diagrams and markup on this site are
+        &copy; 2026 Volcatech Corporate Ltd.. Reproduction beyond what copyright law permits needs our written
+        agreement. Product names, logos and trade marks referenced on these pages belong to their
+        respective owners and are used to identify those products, not to imply endorsement.</p>
     </div>
   </section>
 
-  <section id="stack">
+  <section id="privacy-link">
     <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Works with</p>
-      <h2 class="sec">Where Firestore sits.</h2>
-      <div class="stack">
-        <div class="layer"><h3>Back end</h3>
-          <ul class="nodes">
-            <li><a class="node" href="gcp-cloud-run.html">Cloud Run</a></li>
-            <li><a class="node" href="gcp-app-engine.html">App Engine</a></li>
-          </ul>
-        </div>
-        <p class="flowmark"><span aria-hidden="true">↓</span> reads and writes</p>
-        <div class="layer"><h3>Database</h3>
-          <ul class="nodes">
-            <li><span class="node self">Firestore</span></li>
-          </ul>
-        </div>
-        <p class="flowmark"><span aria-hidden="true">↓</span> exported into</p>
-        <div class="layer"><h3>Analytics</h3>
-          <ul class="nodes">
-            <li><a class="node" href="gcp-bigquery.html">BigQuery</a></li>
-          </ul>
-        </div>
-      </div>
-      <p class="lead" style="margin-top:26px">Volcatech designs the layout, deploys it and keeps it under monitoring. Delivery scope and response times are agreed per engagement, before any of it is built.</p>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Data protection</p>
+      <h2 class="sec">How this site handles personal data.</h2>
+      <p class="lead" style="margin-top:26px">In short: it does not. No cookies, no third-party
+        resources, no analytics and no forms. The privacy notice sets out the detail, including what
+        happens if you write to us.</p>
+      <p style="margin-top:24px"><a class="btn btn-ghost" href="privacy.html">Privacy notice</a></p>
     </div>
   </section>
-
-  <section id="faq">
-    <div class="wrap">
-      <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
-      <h2 class="sec">What evaluators ask.</h2>
-      <div class="faq">
-        <div><h3><span class="n" aria-hidden="true">01</span><span>How does Firestore relate to Datastore?</span></h3><p>Firestore is the successor — the current generation of Google's document database. A separate Datastore mode preserves the older API for existing systems, while Native mode, the recommended choice for new builds, adds real-time sync and offline support.</p></div>
-        <div><h3><span class="n" aria-hidden="true">02</span><span>Does Firestore work offline?</span></h3><p>Yes. Client SDKs keep a local copy of active data, so apps read, write and query while disconnected and reconcile changes automatically once the device is back online.</p></div>
-        <div><h3><span class="n" aria-hidden="true">03</span><span>Can we meet EU data residency requirements?</span></h3><p>Firestore databases are created in a specific location, which can be an EU region; document data is stored there. Multi-region configurations replicate within the selected geography, not across it.</p></div>
-        <div><h3><span class="n" aria-hidden="true">04</span><span>How reliable is Firestore in production?</span></h3><p>Google commits to 99.999% monthly uptime for multi-region deployments and 99.99% for regional ones in most regions. Replication and scaling are handled by the service rather than by your team.</p></div>
-        <div><h3><span class="n" aria-hidden="true">05</span><span>What drives Firestore costs?</span></h3><p>Charges follow document reads, writes, deletes, storage and network egress, so cost tracks how the application actually behaves. Model your access patterns first — contact us and we will analyse them with you.</p></div>
-        <div><h3><span class="n" aria-hidden="true">06</span><span>Do we need our own push or websocket layer?</span></h3><p>No. A listener receives a snapshot of the data when it attaches and then only the changes that follow. Local writes fire the same callbacks straight away, before the server has confirmed them, and each document carries a flag showing whether it still has writes pending — which is what lets an interface feel immediate without pretending the change is durable yet.</p></div>
-        <div><h3><span class="n" aria-hidden="true">07</span><span>Can we recover from a bad write or a mistaken deletion?</span></h3><p>With point-in-time recovery switched on, the database keeps one version of each document per minute for seven days. A targeted fix reads the affected documents as they stood at a chosen minute and writes them back; a wider one clones the database, or exports and imports it, at a past timestamp. Within the last hour, states can be read at finer granularity — read only, not exported.</p></div>
-        <div><h3><span class="n" aria-hidden="true">08</span><span>How do we stop expired records accumulating?</span></h3><p>A time-to-live policy points at a single timestamp field within a collection group, and documents go once that time has passed — typically within a day of it rather than at the instant it is reached. Two behaviours belong in the design: expired documents still appear in queries until the deletion actually runs, and subcollections beneath a deleted document are not removed with it.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="ext"><div class="wrap">Vendor resources → <a href="https://cloud.google.com/firestore" target="_blank" rel="noopener">cloud.google.com/firestore ↗</a></div></div>
-  <div class="band">
-    <div class="wrap">
-      <h2>Size your workloads for Google Cloud — book a scoping session.</h2>
-      <div><a class="btn" href="index.html#contact">Contact us</a></div>
-    </div>
-  </div>
 </main>
 
 <footer>

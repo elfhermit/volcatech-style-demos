@@ -80,11 +80,6 @@ header{position:sticky;top:0;background:rgba(14,20,31,.95);border-bottom:1px sol
 .dd .head{padding:6px 18px 8px;margin-bottom:4px;border-bottom:1px solid var(--line);
   font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
 .dd .head .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--status);margin-right:8px;vertical-align:1px}
-/* Language switcher — real links, not decorative text */
-.lang{display:flex;align-items:center;font-family:var(--mono);font-size:12px}
-.lang a{padding:4px 10px;color:var(--muted)}
-.lang a+a{border-left:1px solid var(--line)}
-.lang a[aria-current="true"]{color:var(--ink);font-weight:600}
 .navbtn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;
   padding:8px 14px;font-size:14px;cursor:pointer;color:var(--ink)}
 /* Product hero */
@@ -133,7 +128,6 @@ footer{border-top:1px solid var(--line)}
 .legal .row{display:flex;gap:6px 20px;flex-wrap:wrap;margin-top:6px}
 .legal .notice{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px}
 .legal a:hover{color:var(--ink)}
-.backlink{padding:0 24px 22px;font-family:var(--mono);font-size:11.5px}
 /* ===== Block components (0806 content rework) — shared by all 20 pages =====
    The 0805 review said a content page reads as one undifferentiated column of text:
    the same .loglist three or four times over. Each section now gets its own treatment,
@@ -334,9 +328,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
      fully expanded three-level list is exactly where the labels help most. */
   .menu .sub .why{display:block}
   .dd ul li:not(.sub)+.sub{margin-top:5px}
-  .lang{margin-top:10px}
-  .lang a{padding-left:0}
-  .lang a+a{padding-left:10px}
 }
 @media (max-width:560px){
   .fcols{grid-template-columns:1fr}
@@ -406,7 +397,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
             <ul>
               <li><a href="sentinelone.html">SentinelOne</a></li>
               <li><a href="threatsonar.html">ThreatSonar</a></li>
-              <li><span class="off">FortiEDR<span class="soon">Coming soon</span></span></li>
             </ul>
           </li>
           <li class="sub"><a href="cybersecurity.html#detection" aria-haspopup="true"><span class="lbl">Detection — SIEM &amp; WDR</span><span class="why">Spot threats across cloud and logs</span></a>
@@ -433,11 +423,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
       </li>
       <li><a href="index.html#why">About</a></li>
       <li><a class="btn" style="padding:9px 18px" href="index.html#contact">Contact us</a></li>
-      <li>
-        <nav class="lang" aria-label="Language">
-          <a href="google-secops.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
-        </nav>
-      </li>
     </ul>
   </div>
 </header>
@@ -534,7 +519,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <p style="margin-top:24px;color:var(--muted);max-width:66ch">We plan the rollout, connect your log sources and tune the parsers,
         build the detection rules and playbooks your operation actually needs, and keep the console under 24/7 SOC coverage (X-01).
         If Volcatech already runs your Google Cloud environment, the same team carries both.
-        <span class="todo">[TODO: local references &amp; delivery details]</span></p>
+        The division of work between your analysts and ours, and the response window at each severity, is set out in the engagement.</p>
     </div>
   </section>
 
@@ -544,7 +529,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <h2 class="sec">What evaluators ask.</h2>
       <div class="faq">
         <div><h3><span class="n" aria-hidden="true">01</span><span>If we run this, do we still need web-layer detection (WDR) and EDR products?</span></h3><p>Yes. The platform correlates, investigates and automates on the telemetry it receives; something still has to produce that telemetry at the endpoint and at the web layer. CyberEyes and an EDR agent are those sources, and Google Security Operations is where their findings meet the rest of your logs.</p></div>
-        <div><h3><span class="n" aria-hidden="true">02</span><span>How much of the onboarding is parser work?</span></h3><p>Less than with an on-premises SIEM. Parsing for common sources — on-premises systems, the major public clouds, endpoint agents and Google Cloud's own protections — comes with the platform, so most sources are a mapping and validation exercise rather than a development one. In-house applications with unusual log formats still take work. [TODO: confirm onboarding effort for your sources]</p></div>
+        <div><h3><span class="n" aria-hidden="true">02</span><span>How much of the onboarding is parser work?</span></h3><p>Less than with an on-premises SIEM. Parsing for common sources — on-premises systems, the major public clouds, endpoint agents and Google Cloud's own protections — comes with the platform, so most sources are a mapping and validation exercise rather than a development one. In-house applications with unusual log formats still take work. We scope that against your actual source list before committing to a timeline.</p></div>
         <div><h3><span class="n" aria-hidden="true">03</span><span>Can we keep logs beyond the platform's default retention?</span></h3><p>Yes. Logs can be exported to cloud storage and held for as long as your own policy requires, which is the usual route for obligations that outlast the default window in the platform.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>Does the platform remove the need for analysts?</span></h3><p>No. Playbooks collect evidence and carry out routine steps, and Gemini shortens the search work, but decisions about containment and communication stay with people. Where there is nobody to staff the console, our SOC can operate it for you.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>How is Google Security Operations charged?</span></h3><p>Charges follow the volume of data you ingest rather than the number of users or nodes, so how you design log collection matters more than headcount does. Contact us and we will model it against the sources you actually need.</p></div>
@@ -573,9 +558,9 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <a class="logo" href="index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
       <p>Cloud, security and managed operations for European organisations.</p>
       <dl>
-        <dt>Email</dt><dd>[TODO: contact email]</dd>
-        <dt>Phone</dt><dd>+886 [TODO]</dd>
-        <dt>Registered office</dt><dd>[TODO: registered address]</dd>
+        <dt>Email</dt><dd>salesgroup@volcatech.com</dd>
+        <dt>Phone</dt><dd>+886 2 2327 9668</dd>
+        <dt>Registered office</dt><dd>9F.-2, No. 54, Songjiang Rd., Zhongshan Dist., Taipei City 104090, Taiwan (R.O.C.)</dd>
       </dl>
     </div>
     <div id="cloud-list">
@@ -597,7 +582,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <ul>
         <li><a href="sentinelone.html">SentinelOne</a></li>
         <li><a href="threatsonar.html">ThreatSonar</a></li>
-        <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
       </ul>
       <p class="sub">Detection — SIEM & WDR</p>
       <ul>
@@ -626,21 +610,11 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <ul>
         <li><a href="index.html#why">About</a></li>
         <li><a href="index.html#contact">Contact</a></li>
-        <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
-        <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
+        <li><a href="privacy.html">Privacy notice</a></li>
+        <li><a href="imprint.html">Imprint</a></li>
       </ul>
     </div>
   </div>
-  <div class="wrap legal" id="legal">
-    <p>Volcatech Co., Ltd. <span lang="zh-Hant-TW">(沃凱科技股份有限公司)</span></p>
-    <p>Registered office: [TODO: registered address]</p>
-    <div class="row"><span>Company registration no.: [TODO]</span><span>VAT / tax ID: [TODO]</span></div>
-    <div class="row"><span>Email: [TODO: contact email]</span><span>Phone: +886 [TODO]</span></div>
-    <div class="row"><a href="#legal">Privacy Policy</a><a href="#legal">Imprint</a></div>
-    <p>© 2026 Volcatech Co., Ltd.</p>
-    <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
-  </div>
-  <div class="wrap backlink"><a href="index.html">← Style home</a> · <a href="../index.html">Demo hub</a></div>
 </footer>
 </body>
 </html>

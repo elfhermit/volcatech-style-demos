@@ -80,11 +80,6 @@ header{position:sticky;top:0;background:rgba(14,20,31,.95);border-bottom:1px sol
 .dd .head{padding:6px 18px 8px;margin-bottom:4px;border-bottom:1px solid var(--line);
   font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
 .dd .head .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--status);margin-right:8px;vertical-align:1px}
-/* Language switcher — real links, not decorative text */
-.lang{display:flex;align-items:center;font-family:var(--mono);font-size:12px}
-.lang a{padding:4px 10px;color:var(--muted)}
-.lang a+a{border-left:1px solid var(--line)}
-.lang a[aria-current="true"]{color:var(--ink);font-weight:600}
 .navbtn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;
   padding:8px 14px;font-size:14px;cursor:pointer;color:var(--ink)}
 /* Product hero */
@@ -133,7 +128,6 @@ footer{border-top:1px solid var(--line)}
 .legal .row{display:flex;gap:6px 20px;flex-wrap:wrap;margin-top:6px}
 .legal .notice{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px}
 .legal a:hover{color:var(--ink)}
-.backlink{padding:0 24px 22px;font-family:var(--mono);font-size:11.5px}
 /* ===== Block components (0806 content rework) — shared by all 20 pages =====
    The 0805 review said a content page reads as one undifferentiated column of text:
    the same .loglist three or four times over. Each section now gets its own treatment,
@@ -334,9 +328,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
      fully expanded three-level list is exactly where the labels help most. */
   .menu .sub .why{display:block}
   .dd ul li:not(.sub)+.sub{margin-top:5px}
-  .lang{margin-top:10px}
-  .lang a{padding-left:0}
-  .lang a+a{padding-left:10px}
 }
 @media (max-width:560px){
   .fcols{grid-template-columns:1fr}
@@ -406,7 +397,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
             <ul>
               <li><a href="sentinelone.html">SentinelOne</a></li>
               <li><a href="threatsonar.html">ThreatSonar</a></li>
-              <li><span class="off">FortiEDR<span class="soon">Coming soon</span></span></li>
             </ul>
           </li>
           <li class="sub"><a href="cybersecurity.html#detection" aria-haspopup="true"><span class="lbl">Detection — SIEM &amp; WDR</span><span class="why">Spot threats across cloud and logs</span></a>
@@ -433,11 +423,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
       </li>
       <li><a href="index.html#why">About</a></li>
       <li><a class="btn" style="padding:9px 18px" href="index.html#contact">Contact us</a></li>
-      <li>
-        <nav class="lang" aria-label="Language">
-          <a href="cybereyes.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
-        </nav>
-      </li>
     </ul>
   </div>
 </header>
@@ -533,7 +518,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <p style="margin-top:24px;color:var(--muted);max-width:66ch">We deploy and tune the sensors, wire CyberEyes findings
         into your SIEM and our 24/7 SOC (X-01), and run the web-layer investigation
         when an alert turns out to be real.
-        <span class="todo">[TODO: local references &amp; delivery details]</span></p>
+        Coverage hours and the response window on a confirmed finding are agreed when the service starts.</p>
     </div>
   </section>
 
@@ -550,8 +535,8 @@ a.node:hover{border-color:var(--accent);background:#182433}
         <div><h3><span class="n" aria-hidden="true">06</span><span>Our EDR already covers the web servers — what does this add?</span></h3><p>An EDR watches what runs on the host: processes, files and memory. Much web abuse never gets that far — a sign-in with stolen credentials, a download through an authorised path or a probe of your upload forms looks like ordinary application use and leaves an endpoint agent little to flag. CyberEyes reads that traffic before anything lands on the machine, so the two tools see different halves of the same attack.</p></div>
         <div><h3><span class="n" aria-hidden="true">07</span><span>Why not just tighten the rules on the WAF we already have?</span></h3><p>Because a blocking control has to stay conservative to be safe. Every rule made stricter also stops some share of genuine requests, and a false block is visible to customers straight away, so tuning settles at a threshold the business can live with. The traffic that gets through is not a configuration failure — it is the price of keeping the site available. CyberEyes works on that remainder: it does not decide what to stop; it records what was let through and judges it against how the site is normally used.</p></div>
         <div><h3><span class="n" aria-hidden="true">08</span><span>How does traffic actually reach the sensor?</span></h3><p>Two ways, and the network team usually decides which. A mirrored feed — switch port mirroring, a vTAP or a packet broker — copies traffic to the sensor without touching the path a request takes; it needs a point in the network that can see the web tier behind the WAF or reverse proxy. Where no such point exists, which is common in cloud-hosted estates, an agent on the web host supplies the copy instead, at the cost of running something on servers you already manage. Either way the sensor stays outside the request path.</p></div>
-        <div><h3><span class="n" aria-hidden="true">09</span><span>Request records contain personal data — where do they live and who can read them?</span></h3><p>They live wherever you choose to run the platform, which makes the deployment model a data residency decision as much as a technical one. On-premises, the records stay inside your own infrastructure and go nowhere else; on the hosted service they sit in a shared, multi-tenant environment run by the vendor, where they are held for a defined retention window rather than kept indefinitely. Worth settling with whoever owns data protection before the project starts, not after. [TODO: retention window options, the storage location of the hosted service, what happens to records once the window closes, and how read access to recorded requests is controlled]</p></div>
-        <div><h3><span class="n" aria-hidden="true">10</span><span>Whose product is CyberEyes, and what is Volcatech's role?</span></h3><p>CyberEyes is developed by an independent software vendor. The platform, its detection models and its roadmap belong to them. Volcatech supplies it as a partner, so the product you buy is theirs and the commercial relationship is with us. [TODO: vendor legal entity name in English, country of registration, and the scope of the partnership — supply only, or supply plus delivery]</p></div>
+        <div><h3><span class="n" aria-hidden="true">09</span><span>Request records contain personal data — where do they live and who can read them?</span></h3><p>They live wherever you choose to run the platform, which makes the deployment model a data residency decision as much as a technical one. On-premises, the records stay inside your own infrastructure and go nowhere else; on the hosted service they sit in a shared, multi-tenant environment run by the vendor, where they are held for a defined retention window rather than kept indefinitely. Worth settling with whoever owns data protection before the project starts, not after. The retention window, the storage location of the hosted service and who may read recorded requests are confirmed during onboarding and written into the contract.</p></div>
+        <div><h3><span class="n" aria-hidden="true">10</span><span>Whose product is CyberEyes, and what is Volcatech's role?</span></h3><p>CyberEyes is developed by an independent software vendor. The platform, its detection models and its roadmap belong to them. Volcatech supplies it as a partner, so the product you buy is theirs and the commercial relationship is with us.</p></div>
       </div>
     </div>
   </section>
@@ -572,9 +557,9 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <a class="logo" href="index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
       <p>Cloud, security and managed operations for European organisations.</p>
       <dl>
-        <dt>Email</dt><dd>[TODO: contact email]</dd>
-        <dt>Phone</dt><dd>+886 [TODO]</dd>
-        <dt>Registered office</dt><dd>[TODO: registered address]</dd>
+        <dt>Email</dt><dd>salesgroup@volcatech.com</dd>
+        <dt>Phone</dt><dd>+886 2 2327 9668</dd>
+        <dt>Registered office</dt><dd>9F.-2, No. 54, Songjiang Rd., Zhongshan Dist., Taipei City 104090, Taiwan (R.O.C.)</dd>
       </dl>
     </div>
     <div id="cloud-list">
@@ -596,7 +581,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <ul>
         <li><a href="sentinelone.html">SentinelOne</a></li>
         <li><a href="threatsonar.html">ThreatSonar</a></li>
-        <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
       </ul>
       <p class="sub">Detection — SIEM & WDR</p>
       <ul>
@@ -625,21 +609,11 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <ul>
         <li><a href="index.html#why">About</a></li>
         <li><a href="index.html#contact">Contact</a></li>
-        <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
-        <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
+        <li><a href="privacy.html">Privacy notice</a></li>
+        <li><a href="imprint.html">Imprint</a></li>
       </ul>
     </div>
   </div>
-  <div class="wrap legal" id="legal">
-    <p>Volcatech Co., Ltd. <span lang="zh-Hant-TW">(沃凱科技股份有限公司)</span></p>
-    <p>Registered office: [TODO: registered address]</p>
-    <div class="row"><span>Company registration no.: [TODO]</span><span>VAT / tax ID: [TODO]</span></div>
-    <div class="row"><span>Email: [TODO: contact email]</span><span>Phone: +886 [TODO]</span></div>
-    <div class="row"><a href="#legal">Privacy Policy</a><a href="#legal">Imprint</a></div>
-    <p>© 2026 Volcatech Co., Ltd.</p>
-    <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
-  </div>
-  <div class="wrap backlink"><a href="index.html">← Style home</a> · <a href="../index.html">Demo hub</a></div>
 </footer>
 </body>
 </html>

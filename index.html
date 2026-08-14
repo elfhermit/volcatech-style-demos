@@ -56,20 +56,29 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
 <div class="wrap">
   <div class="head">
     <p class="kicker">Volcatech — Website Demo Hub</p>
-    <h1>進度儀表板:首頁兩案待定稿,產品內容充實中</h1>
+    <h1>進度儀表板:0814 已完成客戶 demo 前整備</h1>
     <p>色系與版型已於 0731 凍結(<b>Style 3 SOC Console × 原版直落</b>);
       三層選單與內容頁區塊化已於 0805–0806 全站落地(沿革見專案 docs/ 與 git log)。
-      目前專注的點:</p>
+      目前的狀態:</p>
     <div class="note">
       <ul>
-        <li><b>首頁兩案二選一</b>——現行版與 V1(信任前置)並存待會議裁決;36 個內容頁兩案共用。</li>
+        <li><b>0814 demo 前整備已完成</b>——站上 <code>[TODO]</code> 由 384 處降到 0
+          (僅 <code>index-v1-proof.html</code> 刻意保留 10 處)。頁尾法定資訊補實
+          (稍後依指示把最底那條灰字帶整塊移除,法定身分集中到 <code>imprint.html</code>,
+          頁尾仍留聯絡資訊與兩條法務頁連結)、
+          新增 <code>privacy.html</code> 與 <code>imprint.html</code>、
+          移除「Demo notice」自白與 backlink 導覽列、拿掉點不動的語言切換、
+          FortiEDR 因零素材下架。<b>待補清單見 <code>docs/待補素材清單_20260814.md</code></b>。</li>
+        <li><b>首頁兩案二選一</b>——現行版與 V1(信任前置)並存待裁決;38 個內容頁兩案共用。
+          0814 起 V1 沒有任何入口連結(檔案保留),客戶動線只會走現行版。</li>
         <li><b>產品內容充實已完成</b>——19 個 GCP 產品頁與 5 個資安產品頁全數充實(0810–0811);
           ArgusHack 重定位為代理產品並升格獨立頁。</li>
         <li><b>版型改版已全站落地(0811)</b>——量化體檢指出 FAQ 佔全頁 36–44% 是最大文字牆:
           FAQ 改雙欄卡片、規格面板緊湊化、24 個產品頁 hero 加「代表事實列」讓每頁第一眼不同、
-          4 個無機制可畫的頁補抽象視覺喘息。全程未改動任何文案。</li>
-        <li><b>下一步卡在素材</b>——全站 372 處 <code>[TODO]</code> 幾乎全部回溯到
-          0807 素材需求單的 14 題(法定資訊 5 題就解掉 296 處)。</li>
+          4 個無機制可畫的頁補抽象視覺喘息。</li>
+        <li><b>下一步仍是素材</b>——但性質變了:站上不再有佔位符,
+          改成「按案議定」的寫法;要把它們換成具體的 SLA、認證與案例,
+          需要的東西逐項列在待補清單裡。</li>
       </ul>
     </div>
   </div>
@@ -94,16 +103,18 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
     <b>待做事項：</b>
     <ul>
       <li>首頁兩案二選一（待會議裁決；定案後首頁收斂為 1 檔、軸 2 退場）</li>
-      <li>cloud-services.html 沃凱服務 3 段內文待素材</li>
-      <li>各 gcp 頁 [TODO: delivery model and response times] 待素材</li>
-      <li>argushack.html 的沃凱交付素材（交付主體、導入時程、回應承諾）</li>
-      <li>Services 線其餘服務頁待素材</li>
-      <li>managed-gcp.html 的維運回應時間目標與 SLA 待素材（24/7 監控告警已可寫，「多久回應」零素材）</li>
+      <li>ISO 27001 認證狀態、範圍與證書號（首頁 Trust 區現寫「可應要求提供」）</li>
+      <li>Google Cloud 夥伴身分與等級（0814 把 4 頁的等級句尾刪掉；V1 仍有 5 個等級晶片）</li>
+      <li>可具名或匿名的客戶案例授權（首頁 Reference deployments 現寫「可應要求提供」）</li>
+      <li>各服務／產品的實際回應時間與 SLA（0814 全部改寫成「按案議定」，站上已無佔位符）</li>
+      <li>Services 線其餘服務頁待素材（SOC 獨立頁、0805 移出選單的四項）</li>
+      <li>FortiEDR 產品素材（0814 因零素材從選單與頁面下架，素材到位可加回）</li>
       <li>0810 因素材不足全站移除的兩項自研測試服務素材（非否定自研；到位後加回）</li>
-      <li>頁面標 [TODO] 的公司素材：合作夥伴等級、ISO 27001、EU region 位置、交付模式與 SLA、FortiEDR 產品描述</li>
-      <li>全站頁尾法定資訊（統編／VAT／地址／Email／電話）待公司提供</li>
-      <li>素材需求單 14 題（docs/素材需求單）自 0807 發出未回；全站 372 處 [TODO] 幾乎全部卡在這裡</li>
+      <li>CyberEyes 原廠的法人英文名／註冊國／合作範圍；ArgusHack 的合作範圍（供貨 or 供貨＋交付）</li>
+      <li>index-v1-proof.html 仍有 10 處佔位符（0814 刻意不清；首頁若選 V1 才需處理）</li>
+      <li>privacy.html 的託管段落綁定目前的 GitHub Pages（換託管時須重新查證存取紀錄由誰持有）</li>
       <li>ThreatSonar FAQ 02「常駐模式僅支援 Windows」與原廠 deck p64 對照表不符（該表列 Windows 與 Linux），待查證後修正</li>
+      <li>雙語（繁中）——0814 移除了點不動的語言切換，雙語留給正式 Astro 版</li>
       <li>正式 Astro 版（雙語 i18n、GDPR 隱私頁、sitemap/hreflang）——不改造本 demo，另開資料夾</li>
       <li>字體改版留在 Astro 正式版處理（0810 使用者原話「符合歐洲人士閱讀」；demo 階段禁外部字體 CDN）</li>
     </ul>
@@ -112,34 +123,33 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
     <table>
       <thead><tr><th>更新日期</th><th>產品類別</th><th>產品名稱</th><th>網址</th><th>備注</th></tr></thead>
       <tbody>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>Compute Engine</td><td><a href="style-3-soc/gcp-compute-engine.html">style-3-soc/gcp-compute-engine.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0810 試點充實（FAQ×3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>Kubernetes Engine</td><td><a href="style-3-soc/gcp-kubernetes-engine.html">style-3-soc/gcp-kubernetes-engine.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>VMware Engine</td><td><a href="style-3-soc/gcp-vmware-engine.html">style-3-soc/gcp-vmware-engine.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>Cloud Storage</td><td><a href="style-3-soc/gcp-cloud-storage.html">style-3-soc/gcp-cloud-storage.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>Filestore</td><td><a href="style-3-soc/gcp-filestore.html">style-3-soc/gcp-filestore.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2；無真實機制可畫，改補抽象節奏元素）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>Backup and DR</td><td><a href="style-3-soc/gcp-backup-dr.html">style-3-soc/gcp-backup-dr.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>BigQuery</td><td><a href="style-3-soc/gcp-bigquery.html">style-3-soc/gcp-bigquery.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0810 試點充實（FAQ×3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>Pub/Sub</td><td><a href="style-3-soc/gcp-pubsub.html">style-3-soc/gcp-pubsub.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>Dataflow</td><td><a href="style-3-soc/gcp-dataflow.html">style-3-soc/gcp-dataflow.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>Cloud Run</td><td><a href="style-3-soc/gcp-cloud-run.html">style-3-soc/gcp-cloud-run.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0810 試點充實（FAQ×3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>App Engine</td><td><a href="style-3-soc/gcp-app-engine.html">style-3-soc/gcp-app-engine.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>API Gateway</td><td><a href="style-3-soc/gcp-api-gateway.html">style-3-soc/gcp-api-gateway.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2；無真實機制可畫，改補抽象節奏元素）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>AlloyDB for PostgreSQL</td><td><a href="style-3-soc/gcp-alloydb.html">style-3-soc/gcp-alloydb.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>Cloud SQL</td><td><a href="style-3-soc/gcp-cloud-sql.html">style-3-soc/gcp-cloud-sql.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>Datastore</td><td><a href="style-3-soc/gcp-datastore.html">style-3-soc/gcp-datastore.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2；無真實機制可畫，改補抽象節奏元素）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>Firestore</td><td><a href="style-3-soc/gcp-firestore.html">style-3-soc/gcp-firestore.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>Vertex AI</td><td><a href="style-3-soc/gcp-vertex-ai.html">style-3-soc/gcp-vertex-ai.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>Model Garden</td><td><a href="style-3-soc/gcp-model-garden.html">style-3-soc/gcp-model-garden.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2；無真實機制可畫，改補抽象節奏元素）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Google Cloud</td><td>Cloud Armor</td><td><a href="style-3-soc/gcp-cloud-armor.html">style-3-soc/gcp-cloud-armor.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）；選單未列（孤兒頁）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>CyberSecurity</td><td>SentinelOne</td><td><a href="style-3-soc/sentinelone.html">style-3-soc/sentinelone.html</a></td><td>0730 評選期建頁；0806 區塊化；0807 補選型/FAQ；0810 補資料主權 FAQ 與 telemetry 保留句；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>CyberSecurity</td><td>ThreatSonar</td><td><a href="style-3-soc/threatsonar.html">style-3-soc/threatsonar.html</a></td><td>0803 建頁；0806 區塊化；0807 補選型/FAQ；0811 版型改版（FAQ 雙欄、hero 代表事實列）；0810 補情資匯入 FAQ 與應變／常駐句</td></tr>
-        <tr><td class="dt">—</td><td>CyberSecurity</td><td>FortiEDR</td><td>—</td><td>待產品資料</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>CyberSecurity</td><td>CyberEyes</td><td><a href="style-3-soc/cybereyes.html">style-3-soc/cybereyes.html</a></td><td>0803 建頁；0806 區塊化；0807 補選型/FAQ；0811 版型改版（FAQ 雙欄、hero 代表事實列）；0810 補 vs NDR/EDR FAQ、攻擊鏈成效列</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>CyberSecurity</td><td>Google SecOps</td><td><a href="style-3-soc/google-secops.html">style-3-soc/google-secops.html</a></td><td>0803 建頁；0806 區塊化；0807 補選型/FAQ；0811 版型改版（FAQ 雙欄、hero 代表事實列）；0810 補整合成效列、UEBA/Gemini FAQ</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>CyberSecurity</td><td>ArgusHack</td><td><a href="style-3-soc/argushack.html">style-3-soc/argushack.html</a></td><td>0810 新建產品頁；由舊代號更名而來，確認為代理 Leukocyte-Lab 產品；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Services</td><td>Enterprise Security Service (ESS)</td><td><a href="style-3-soc/ess.html">style-3-soc/ess.html</a></td><td>0803 建頁；0807 補選型/FAQ；0810 移除時間軸/場景；0811 版型改版（FAQ 雙欄；方案頁故無事實列）</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Services</td><td>24/7 SOC &amp; Incident Response</td><td><a href="style-3-soc/services.html#soc">style-3-soc/services.html#soc</a></td><td>0804 建總覽頁；連至總覽錨點；服務內文待素材</td></tr>
-        <tr><td class="dt">2026-08-13</td><td>Services</td><td>GCP Migration &amp; Managed Services</td><td><a href="style-3-soc/managed-gcp.html">style-3-soc/managed-gcp.html</a></td><td>0813 新建服務頁（managed-gcp.html）；素材出自地轉雲企劃書；24/7 監控告警，回應時間目標待素材</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>Compute Engine</td><td><a href="style-3-soc/gcp-compute-engine.html">style-3-soc/gcp-compute-engine.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0810 試點充實（FAQ×3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>Kubernetes Engine</td><td><a href="style-3-soc/gcp-kubernetes-engine.html">style-3-soc/gcp-kubernetes-engine.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>VMware Engine</td><td><a href="style-3-soc/gcp-vmware-engine.html">style-3-soc/gcp-vmware-engine.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>Cloud Storage</td><td><a href="style-3-soc/gcp-cloud-storage.html">style-3-soc/gcp-cloud-storage.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>Filestore</td><td><a href="style-3-soc/gcp-filestore.html">style-3-soc/gcp-filestore.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2；無真實機制可畫，改補抽象節奏元素）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>Backup and DR</td><td><a href="style-3-soc/gcp-backup-dr.html">style-3-soc/gcp-backup-dr.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>BigQuery</td><td><a href="style-3-soc/gcp-bigquery.html">style-3-soc/gcp-bigquery.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0810 試點充實（FAQ×3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>Pub/Sub</td><td><a href="style-3-soc/gcp-pubsub.html">style-3-soc/gcp-pubsub.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>Dataflow</td><td><a href="style-3-soc/gcp-dataflow.html">style-3-soc/gcp-dataflow.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>Cloud Run</td><td><a href="style-3-soc/gcp-cloud-run.html">style-3-soc/gcp-cloud-run.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0810 試點充實（FAQ×3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>App Engine</td><td><a href="style-3-soc/gcp-app-engine.html">style-3-soc/gcp-app-engine.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>API Gateway</td><td><a href="style-3-soc/gcp-api-gateway.html">style-3-soc/gcp-api-gateway.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2；無真實機制可畫，改補抽象節奏元素）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>AlloyDB for PostgreSQL</td><td><a href="style-3-soc/gcp-alloydb.html">style-3-soc/gcp-alloydb.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>Cloud SQL</td><td><a href="style-3-soc/gcp-cloud-sql.html">style-3-soc/gcp-cloud-sql.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>Datastore</td><td><a href="style-3-soc/gcp-datastore.html">style-3-soc/gcp-datastore.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2；無真實機制可畫，改補抽象節奏元素）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>Firestore</td><td><a href="style-3-soc/gcp-firestore.html">style-3-soc/gcp-firestore.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>Vertex AI</td><td><a href="style-3-soc/gcp-vertex-ai.html">style-3-soc/gcp-vertex-ai.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>Model Garden</td><td><a href="style-3-soc/gcp-model-garden.html">style-3-soc/gcp-model-garden.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2；無真實機制可畫，改補抽象節奏元素）；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Google Cloud</td><td>Cloud Armor</td><td><a href="style-3-soc/gcp-cloud-armor.html">style-3-soc/gcp-cloud-armor.html</a></td><td>0806 建頁；0807 三輪補痛點/選型/FAQ；0811 充實（FAQ×2–3、規格×2、示意圖）；0811 版型改版（FAQ 雙欄、hero 代表事實列）；選單未列（孤兒頁）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>CyberSecurity</td><td>SentinelOne</td><td><a href="style-3-soc/sentinelone.html">style-3-soc/sentinelone.html</a></td><td>0730 評選期建頁；0806 區塊化；0807 補選型/FAQ；0810 補資料主權 FAQ 與 telemetry 保留句；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>CyberSecurity</td><td>ThreatSonar</td><td><a href="style-3-soc/threatsonar.html">style-3-soc/threatsonar.html</a></td><td>0803 建頁；0806 區塊化；0807 補選型/FAQ；0811 版型改版（FAQ 雙欄、hero 代表事實列）；0810 補情資匯入 FAQ 與應變／常駐句</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>CyberSecurity</td><td>CyberEyes</td><td><a href="style-3-soc/cybereyes.html">style-3-soc/cybereyes.html</a></td><td>0803 建頁；0806 區塊化；0807 補選型/FAQ；0811 版型改版（FAQ 雙欄、hero 代表事實列）；0810 補 vs NDR/EDR FAQ、攻擊鏈成效列</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>CyberSecurity</td><td>Google SecOps</td><td><a href="style-3-soc/google-secops.html">style-3-soc/google-secops.html</a></td><td>0803 建頁；0806 區塊化；0807 補選型/FAQ；0811 版型改版（FAQ 雙欄、hero 代表事實列）；0810 補整合成效列、UEBA/Gemini FAQ</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>CyberSecurity</td><td>ArgusHack</td><td><a href="style-3-soc/argushack.html">style-3-soc/argushack.html</a></td><td>0810 新建產品頁；由舊代號更名而來，確認為代理 Leukocyte-Lab 產品；0811 版型改版（FAQ 雙欄、hero 代表事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Services</td><td>Enterprise Security Service (ESS)</td><td><a href="style-3-soc/ess.html">style-3-soc/ess.html</a></td><td>0803 建頁；0807 補選型/FAQ；0810 移除時間軸/場景；0811 版型改版（FAQ 雙欄；方案頁故無事實列）</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Services</td><td>24/7 SOC &amp; Incident Response</td><td><a href="style-3-soc/services.html#soc">style-3-soc/services.html#soc</a></td><td>0804 建總覽頁；連至總覽錨點；服務內文待素材</td></tr>
+        <tr><td class="dt">2026-08-14</td><td>Services</td><td>GCP Migration &amp; Managed Services</td><td><a href="style-3-soc/managed-gcp.html">style-3-soc/managed-gcp.html</a></td><td>0813 新建服務頁（managed-gcp.html）；素材出自地轉雲企劃書；24/7 監控告警，回應時間目標待素材</td></tr>
       </tbody>
     </table>
   </div>
@@ -212,8 +222,8 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
       <div class="body">
         <p class="no">CS · CYBERSECURITY · OVERVIEW</p>
         <h2>cybersecurity.html</h2>
-        <p class="grow">八項資安產品分三群(EDR / SIEM &amp; WDR / 自研),每項一個錨點供選單深連結。
-          自研三品沿用首頁 Built 區的既有描述;FortiEDR 待素材。</p>
+        <p class="grow">五項資安產品分三群(EDR / SIEM &amp; WDR / Validation),每項一個錨點供選單深連結。
+          0810 撤下自研宣稱、ArgusHack 改列代理;0814 FortiEDR 因零素材下架。</p>
         <div class="links"><a class="primary" href="style-3-soc/cybersecurity.html">開啟</a></div>
       </div>
     </div>
@@ -221,15 +231,16 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
       <div class="body">
         <p class="no">MS · MANAGED SERVICES · OVERVIEW</p>
         <h2>services.html</h2>
-        <p class="grow">六項服務,ESS 連到既有方案頁。<b>其餘五項沒有素材</b>,內文一律 [TODO] 佔位——
-          這頁是「架構就位、內容待填」,不是品質問題。</p>
+        <p class="grow">七項服務,ESS 與 GCP Migration &amp; Managed Services 各連到自己的頁面。
+          <b>其餘五項 0814 已依 <code>docs/公司_104.md</code> 補上內文</b>,不再有佔位符;
+          具體的 SLA 與回應時間仍是「按案議定」。</p>
         <div class="links"><a class="primary" href="style-3-soc/services.html">開啟</a></div>
       </div>
     </div>
   </div>
 
   <h2 class="sect">現行開發｜style-3-soc 全部頁面
-    <small>0731 勝出組合;色系凍結。以下 36 個內容頁由兩個首頁方案共用,選單皆為三層 Nav B。</small></h2>
+    <small>0731 勝出組合;色系凍結。以下 38 個內容頁由兩個首頁方案共用(含 0814 新增的 privacy / imprint 兩個法務頁),選單皆為三層 Nav B。</small></h2>
 
   <div class="grid">
     <div class="card">
@@ -317,7 +328,7 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
   </div>
 
   <h2 class="sect">lab/ 內容頁改版比對<span class="tag">已定案·留檔</span>
-    <small>當初的兩案對照,保留供回看。<b>已選守規則版</b>,其做法已落地到 style-3-soc 全部 38 頁;
+    <small>當初的兩案對照,保留供回看。<b>已選守規則版</b>,其做法已落地到 style-3-soc 全部 40 頁;
       <b>lab/ 不是正式頁面</b>——Tailwind 版會對外部 CDN 發請求,違反「禁外部 CDN(GDPR)」的硬性規則,
       不會併進 style-3-soc,整個資料夾隨時可刪。</small></h2>
 

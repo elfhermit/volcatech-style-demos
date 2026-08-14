@@ -19,9 +19,10 @@
    inline CSS 版**(`lab/` 的 Tailwind 版落選),16 個內容頁與首頁已全數改用區塊元件,
    詳見下方〈內容頁區塊元件〉與〈軸 3〉。
 
-現行 `style-3-soc/` 共 **38 頁**:2 首頁 ＋ 3 總覽 ＋ 7 Cloud 分類 ＋ **5 資安產品**(0810 新增
+現行 `style-3-soc/` 共 **40 頁**:2 首頁 ＋ 3 總覽 ＋ 7 Cloud 分類 ＋ **5 資安產品**(0810 新增
 `argushack.html`)＋ 1 方案(ESS)＋ **19 GCP 產品頁**(0806 補齊,選單第三層)
-＋ **1 服務頁**(0813 新增 `managed-gcp.html`,見下方 0813 決議)。
+＋ **1 服務頁**(0813 新增 `managed-gcp.html`,見下方 0813 決議)
+＋ **2 法務頁**(0814 新增 `privacy.html` / `imprint.html`,見下方 0814 決議)。
 
 **2026-08-13(地轉雲線建頁)**——選單 Services 底下原本的灰字 `GCP Managed Services` 已建頁,
 並更名為 **`GCP Migration & Managed Services`**(`managed-gcp.html`)。素材出自使用者提供的
@@ -46,6 +47,39 @@
    前半由使用者裁決解禁(站上 `services.html` 早有 24/7 SOC 宣稱),後半維持。
 6. **這頁是手維護頁**(比照 6 個資安產品頁),沒有產生器;header 與四段 CSS 仍由
    `rebuild_nav` / `restyle_content` 統一,不得手改。
+
+**2026-08-14(客戶 demo 前整備)**——起點是使用者一句話:「這週末要 demo 給客戶,
+先把不確定的資訊(例如 TODO)移除,移到待處理清單讓我後續補齊,先讓網站看起來像個成品。」
+四輪 grilling 定案。**待補清單正本= `docs/待補素材清單_20260814.md`**(由
+`build_todo_backlog_20260814.py` 產生,不要手改)。決議摘要:
+
+1. **384 處 `[TODO]` 裡 79% 是頁尾法定欄位**,使用者當場提供後一次解掉約 304 處。
+   剩餘 80 處的內容型佔位符分三種處置:**能寫實話的寫實話**(11 張服務卡)、
+   **要看合約才知道的改成「按案議定」**(約 30 處,不含數字與 SLA 故不構成承諾)、
+   **事實不能編的刪句或改 `available on request`**(認證、夥伴等級、客戶案例、原廠法人名)。
+2. **站上 `[TODO]` 歸零**,唯一例外是 `index-v1-proof.html` 的 10 處
+   ——使用者裁決 V1 先不動,而它 0814 起已無任何入口連結,客戶動線走不到。
+   ⚠ 首頁若定案選 V1,這 10 處要先清掉。
+3. **新增兩個法務頁** `privacy.html` / `imprint.html`(`build_legal_pages_20260814.py`,
+   **不得手改**)。理由:歐洲企業買家會主動去頁尾找隱私政策與 Impressum,找不到本身就是異常訊號;
+   而這個站的隱私政策是最容易寫實話的一種(零 cookie、零第三方請求、零分析、零表單)。
+   **不新增任何 CSS**——版面只用既有元件,加一條新規則就會讓軸 1 紅。
+4. **清掉三處「這是 demo」的自白**:①38 頁頁尾的 `Demo notice: this page is published for
+   internal design review only… The company details above are placeholders`
+   (改寫成只保留「零 cookie、零第三方資源」那句真話);②38 頁底部的 backlink 導覽列;
+   ③點不動的語言切換。
+5. **FortiEDR 下架**(選單、`cybersecurity.html` 的卡片、全站頁尾那列、V1 的夥伴卡與服務索引)。
+   理由:同組另兩個 EDR 都點得進去,只有它點不動——那讀起來是「還沒談成」而不是「即將推出」。
+   EDR 組因此由 `.trio` 改 `.duo`(比照 detection 組的 2 卡慣例)。
+6. **`lab/` 與 `archive/` 維持線上**(使用者裁決)。移除 backlink 列之後,
+   客戶只有手動改網址才到得了根 hub 與這兩區。
+7. **頁尾 `.legal` 灰字帶整塊移除**(當日稍晚追加,使用者指示「先移除」)——法人名／登記地址／
+   統編／法務頁連結／©／「零 cookie」那句。頁尾仍保留聯絡 `<dl>`(Email／電話／登記地址)
+   與 Company 欄的 `Privacy notice` / `Imprint` 兩條連結,法務頁入口沒有斷;
+   法定身分資料集中在 `imprint.html`。做法與復原開關見
+   `fix_footer_20260814.py` 的 ⑥ 與 `RESTORE_LEGAL`。
+   ⚠ 連帶影響:V1 的 `.legalrow` 原本指 `#legal` 錨點,已改指兩個實頁
+   (`build_v1_20260806.py`,是 check_links 逼出來的必要改動)。
 
 **2026-08-06 第二輪**又定案四件事(來源:對 `docs/meeting_0805_end.md` 的逐條盤點,
 決策記錄在 `docs/adr/`,術語正本在 `docs/CONTEXT.md`):
@@ -176,7 +210,8 @@ V1 專屬區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(
 - Google Cloud:Overview → `cloud.html`,六組 18 項,**18 項全部連各自的 `gcp-*.html` 產品頁**
   (0806 補齊,不再有「分類頁#錨點」的過渡狀態)。
   產品資料正本 `docs/GCP_Introduce.md`(2026-08-04 補第 7 節 Cloud Armor)。
-- CyberSecurity:Overview ＋ Endpoint—EDR(SentinelOne / ThreatSonar / **FortiEDR 灰字**)、
+- CyberSecurity:Overview ＋ Endpoint—EDR(SentinelOne / ThreatSonar;
+  ⚠ **0814 起只有這兩項**——FortiEDR 因零素材下架)、
   Detection—SIEM & WDR(CyberEyes / Google SecOps)、
   **Validation—breach & attack simulation(ArgusHack → `argushack.html`)**。
   WDR 併記是因 CyberEyes 實為 WDR;第三組原為「Built in-house—Volcatech AI Security(CE-BAS)」,
@@ -185,9 +220,14 @@ V1 專屬區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(
 - Services(扁平,無第二層):Overview ＋ ESS ＋ 24/7 SOC & IR ＋
   **GCP Migration & Managed Services**(0813 建頁前是灰字,現為真連結 `managed-gcp.html`)。
 - **灰字項**(`<span class="off">`,附 mono 的 Coming soon)= 尚無內頁的項目,刻意不可 focus。
-  ⚠ 0813 起**全站只剩 FortiEDR 一項灰字**(`check_nav` 的 `class="off"` 期望值同步 2→1)。
-  用 `--muted` 上色(對 `--surface` 6.79:1,過 AA)。**絕不可寫成 `<a href="#">`**——
-  會踩到「每檔只能有 1 個 `href="#"`」的檢查。
+  ⚠ **0814 起全站沒有任何灰字項**(FortiEDR 下架;`check_nav` 的 `class="off"` 期望值
+  0805 是 2、0813 是 1、**現在是 0**)。要加回灰字項時用 `--muted` 上色
+  (對 `--surface` 6.79:1,過 AA),**絕不可寫成 `<a href="#">`**——全站 `href="#"`
+  0814 起應為 0,一寫這條檢查就紅。
+- **語言切換(EN / 繁中)已於 0814 整組移除**。繁中原本是 `href="#"` 死連結,
+  且 title 寫著「正式站上線時會發佈中文版」——一個點不動的語言選項比沒有更像半成品,
+  那句提示更等於對訪客宣告眼前這個不是正式站。雙語留給正式 Astro 版;
+  `.lang` 的 CSS 規則也一併從 `CSS_DESK` / `CSS_MOB` 刪除。
 - 每個下拉第一行保留 mono 白話對照(`li.head`)。
 - ⚠️ **`.dd ul` 絕不可加 overflow** —— 會變成 clip container 裁掉二層 flyout。
   Nav B 的第一層面板最多 8 列,不需要捲動(Nav A 時代的 `max-height`/`overflow-y` 已隨 Nav A 一起退場)。
@@ -211,20 +251,42 @@ Services 的 `ISMS / PIMS`、`Penetration Testing`、`Cloud FinOps`、`Digital T
 已全部**凍結封存於 `archive/`**(封存總覽= `archive/index.html`),一律不再修改;
 根 `index.html` 是 Demo hub:首屏講本輪落地了什麼,下方依序為兩個首頁方案、兩個總覽頁、
 style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
-兩個首頁檔底部有 backlink 切換列(`Layout: Current · V1`),比較時不必回 hub。
+⚠ **0814 起全站沒有 backlink 列**:原本每一頁底部都有 `← Style home · Demo hub`
+(兩個首頁那列還多了 `Layout: Current · V1`),它把客戶直接送進這個中文進度儀表板。
+副作用是 **V1 現在沒有任何入口連結**——檔案保留,等首頁定案。
 
 - 目標受眾:歐洲企業的 IT / 資安決策者;語言英文為主(正式版另有繁中 /zh-tw/,架構須可擴充更多語系)
 - 新官網將**改版取代**現有 volcatech.com
-- 公司事實唯一可信來源:`docs/公司_104.md`(僅可用於服務範圍與願景,**不可**用來填統編/VAT/地址)。
-  ⚠️ 2026-08-04 使用者指示**本次先不參考它**,0806 再次確認維持——沃凱自有服務描述一律 `[TODO]`,
-  待新素材;各頁交付卡是不含獨有宣稱的通用交付項,取得素材後須校正。
-  ⚠️ **0813 局部解禁**:`docs/地轉雲_GCP_網頁製作企劃書_V1.md` 是使用者提供的新素材,
-  **只解禁 `managed-gcp.html` 一頁**的沃凱服務描述;其餘頁面(含 `cloud-services.html` 那三張卡)
-  的 `[TODO]` 一律不動。`公司_104.md` 仍然不參考。
-- 下一步:①**兩個首頁二選一**(現行版 vs V1);②`cloud-services.html` 的沃凱服務 3 段內文待素材;
-  ③每個 `gcp-*.html` 的 `[TODO: delivery model and response times]` 同樣待素材;
+- 法定資訊(0814 使用者提供):法人名 `Volcatech Corporate Ltd.`
+  (沃凱科技股份有限公司)、統編 `94269177`、
+  英文地址 `9F.-2, No. 54, Songjiang Rd., Zhongshan Dist., Taipei City 104090, Taiwan (R.O.C.)`、
+  電話 `+886 2 2327 9668`、Email `salesgroup@volcatech.com`。
+  ⚠ **`VAT / tax ID` 那一列刻意整列刪除**:台灣公司沒有 EU VAT 號,統編就是稅籍編號;
+  填進 `VAT / tax ID` 會讓歐洲買家拿去 VIES 查而查不到,那是實質誤導。
+  現在寫成 `Company registration no. (Taiwan): 94269177`,把管轄標在欄位名裡。
+  ⚠ **0814 稍晚:頁尾最底那條 `.legal` 灰字帶(法人名／登記地址／統編／©／零 cookie 那句)
+  已整塊移除**(使用者指示「先移除」),做法在 `fix_footer_20260814.py` 的 ⑥。
+  現況是:**Email／電話／登記地址**仍在 40 檔頁尾的聯絡 `<dl>` 裡;
+  **法人名與統編只剩 `imprint.html` 一處**(那正是 Impressum 頁的用途),
+  入口是頁尾 Company 欄的 `Privacy notice` / `Imprint` 兩條連結,沒有斷。
+  要復原把該腳本的 `RESTORE_LEGAL` 改 `True` 跑一次即可
+  (`.legal` 的 6 行 CSS 刻意留在各頁 `<head>`,就是為了讓復原不必再碰 CSS)。
+- 公司事實可信來源:`docs/公司_104.md`(僅可用於服務範圍與願景,**永遠不可**用來填統編/VAT/地址
+  ——它是公司自述,不是法定登記資料)。
+  ⚠️ 2026-08-04 使用者指示先不參考它,0806 再次確認維持。
+  ⚠️ **0813 局部解禁**:`docs/地轉雲_GCP_網頁製作企劃書_V1.md` 只解禁 `managed-gcp.html` 一頁。
+  ⚠️ **0814 局部解禁**:`公司_104.md` 解禁,**僅限服務範圍描述**,用來補寫 11 張只有佔位符的
+  服務卡(`services.html` 5 張、`cloud.html` 與 `cloud-services.html` 各 3 張)。
+  這條**取代**了 0813「`cloud-services.html` 那三張卡的 `[TODO]` 一律不動」的限制。
+  法定資訊仍然一律不得取自該檔。
+- 下一步:①**兩個首頁二選一**(現行版 vs V1;0814 起 V1 已無入口連結,客戶動線只走現行版);
+  ②**取得認證與夥伴身分的證明**——ISO 27001 認證狀態/範圍/證書號、Google Cloud 夥伴身分與等級、
+  可對外引用的客戶案例。站上這些位置 0814 起寫 `available on request` 或整句不寫,
+  **未經確認絕不可填**;
+  ③**把「按案議定」換成具體 SLA**——約 30 處交付分工與回應時間 0814 已從佔位符改成
+  不含承諾的敘述,素材到位可換成實數;
   ④補齊 Services 線其餘服務頁(0813 已補 `managed-gcp.html`,尚缺 SOC 獨立頁與 0805 移出選單的四項);
-  ⑤全站頁尾的法定資訊(統編/VAT/地址/Email/電話)待公司提供;
+  ⑤**FortiEDR 素材**(0814 因零素材下架,加回流程見待補清單);
   ⑥**視覺方向 A/B 裁決**(0812 新增,`lab/restyle-0812/`——採 A、採 B、A＋B 挑幾條、或都不採;
   比對頁附六項判準表。B 的「表面加深」需先依 ADR 0005 解凍,字級收斂不需要);
   ⑦再依 `docs/Volcatech_多風格_Build_Prompts.md` 的「共用基底 + 勝出風格模組」
@@ -263,8 +325,14 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
      故本條由使用者裁決改寫;AI-PTaaS / SecPurple 因素材不足一併移除(非否定其自研)。
      **這一區從此不得再宣稱「self-developed / built in-house / not resold」**,
      除非拿到經查證的自研產品素材。
-4. **不虛構公司事實**:統編、地址、認證(ISO 等)、客戶案例、合作等級一律 `[TODO: 說明]` 佔位,待確認才填。
-   **全案只用 `[TODO: 說明]` 一種佔位語法**(不得用 `{{TODO}}`);建置參數用 `[VAR: 名稱]`。
+4. **不虛構公司事實**:統編、地址、認證(ISO 等)、客戶案例、合作等級**未經確認一律不寫**。
+   ⚠ **0814 起做法改了**:`[TODO: 說明]` 佔位符**不再出現在上站頁面**——客戶會看到它。
+   改成三選一:**(a) 能寫實話就寫實話**;**(b) 要看合約才知道的,寫成不含數字與 SLA 的
+   「按案議定」敘述**(例:`Delivery scope and response times are agreed per engagement.`);
+   **(c) 事實不能編的,刪句或寫 `available on request`**。三者都不構成虛構宣稱。
+   缺什麼一律登記進 `docs/待補素材清單_20260814.md`,**不要留在頁面上**。
+   施工中的暫時佔位仍用 `[TODO: 說明]` 一種語法(不得用 `{{TODO}}`),但**不得 commit 上站**;
+   建置參數用 `[VAR: 名稱]`。
 5. **現行頁面只有 `style-3-soc/`**(design tokens 在各頁 `:root`);`archive/` 內所有頁面
    一律凍結不動——發現其中的問題只回報,不動手(理由見下方 archive 專節)。
 6. **無障礙與品質**:WCAG 2.2 AA 對比、`:focus-visible`、`prefers-reduced-motion`、
@@ -289,7 +357,7 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 (mono 微標籤如 `li.head`/`.off .soon`/status 行不在此限)。
 歷史四風格的 tokens 對照見 `archive/index.html` 或 `docs/Volcatech_多風格_Build_Prompts.md` §B。
 
-### 內容頁區塊元件(2026-08-06,全站 38 頁共用)
+### 內容頁區塊元件(2026-08-06,全站 40 頁共用)
 
 0805 的意見是「每頁都是同一個 `loglist` 重複三四次,讀起來是一整欄沒分別的文字」。
 現在每一段各有自己的處理,眼睛在讀字之前就分得出它是哪一類:
@@ -308,7 +376,7 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 | `.fact` | **hero 代表事實列**(0811;產品頁 24 頁,`ess.html` 豁免) | mono 編號 ＋ 琥珀 `.node.self` 晶片(列標題)＋ 事實內文。內容是從該頁 `.spec` **搬上來**的既有一列(面板該列不再渲染、編號留空缺),不是新寫的句子 |
 
 **唯一正本是 `docs/reports/restyle_content_20260806.py` 的 `BLOCK_CSS`**(含 35 個自繪 icon 的
-`ICONS` 常數)。改元件樣式 = 改那個常數後重跑腳本,38 檔一次同步;**手改單頁的 CSS 會讓軸 1 立刻紅**。
+`ICONS` 常數)。改元件樣式 = 改那個常數後重跑腳本,40 檔一次同步;**手改單頁的 CSS 會讓軸 1 立刻紅**。
 
 **0811 版型改版**(決議 25–34,`docs/meeting_0810.md` 附錄三;施工正本
 `docs/reports/版型改版規劃_20260811.md`、數據 `docs/reports/內容頁密度體檢_20260811.md`):
@@ -340,22 +408,25 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 全站統一 Nav B 之後,A/B 對照物理上不存在了。它曾是全站**唯一**能自動抓到「手改漏一檔」的檢查,
 所以必須有東西接手,新軸 1 就是那個接手的東西。
 
-### 軸 1|全站 header 同源:正規化後 38 檔逐字節相同
+### 軸 1|全站 header 同源:正規化後 40 檔逐字節相同
 
 `python3 docs/reports/check_nav_20260806.py` → 必須 PASS。
 
 它把每檔的 `<header>` 與**四段 CSS**(三段 nav ＋ 0806 的區塊元件)取出,
 正規化掉 5 個本來就該逐檔不同的參數
 (EN 自指 href、logo/Home 目標、About/Contact 的錨點前綴、`aria-current` 落點、`class="on"` 落點)
-之後,要求 **38 檔逐字節相同**;另外檢查結構數量(`li.sub`=9、`li.head`=3、button=3、
-`.off`=1、`li.grp`=0)、`aria-current` 落點、Esc handler、以及 `.dd ul` 沒有 overflow。
+之後,要求 **40 檔逐字節相同**;另外檢查結構數量(`li.sub`=9、`li.head`=3、button=3、
+`.off`=**0**(0814 FortiEDR 下架後全站無灰字)、`li.grp`=0)、`aria-current` 落點、Esc handler、以及 `.dd ul` 沒有 overflow。
 
 - **`aria-current="page"` 掛「選單裡 href 等於本檔名的那個 `<a>`」**,通常在第二層。
   第一層是 button,`.menu a[...]` 選不到它——所以視覺上的「你在這個區塊」改用
   `class="on"`(非 ARIA)掛在 button 上。這兩個角色不可混用。
 - **孤兒頁登記**:選單裡沒有任何連結指向它的頁面,header 內就沒有 `aria-current`。
-  目前有兩個:`cloud-services.html`(0805 兩組移出選單所致)與 `gcp-cloud-armor.html`
-  (0806 補齊產品頁時一併產出,但它所屬的 Edge security 那組已被移出選單)。
+  目前有四個:`cloud-services.html`(0805 兩組移出選單所致)、`gcp-cloud-armor.html`
+  (0806 補齊產品頁時一併產出,但它所屬的 Edge security 那組已被移出選單),
+  以及 0814 新建的 `privacy.html` 與 `imprint.html`(入口在頁尾,慣例上不進選單)。
+  ⚠ 兩個法務頁還要登記在 `check_nav` 的 **`NOSECTION`**:它們不隸屬任何板塊,
+  第一層 button 不該有 `class="on"`,硬塞一個板塊會說謊。
   **孤兒必須明文登記在 `check_nav_20260806.py` 的 `ORPHANS`**,不能默默出現——腳本會擋。
   孤兒頁的第一層 `.on` 仍要亮,所以也要在 `rebuild_nav_20260806.py` 的 `SECTION` 補一筆
   (`SECTION` 的其餘部分由 `MENU` 自動推導,不手維護)。
@@ -411,8 +482,8 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
   改 hero 一律改 `index.html` 再重跑 `build_v1_20260806.py`,不要手改 V1。
 - 改任何共用內容(hero、Built、Why、Trust、footer)→ 改 `index.html` 後
   **重跑 `docs/reports/build_v1_20260806.py`**,V1 會自動跟上。
-- 動到 nav 項目 → 改 `rebuild_nav_20260806.py` 的 `MENU` 後重跑,**全站 38 檔一次同步**;
-  動到 footer 清單 → 38 檔都要改(footer 目前沒有產生器,靠逐字節比對把關)。
+- 動到 nav 項目 → 改 `rebuild_nav_20260806.py` 的 `MENU` 後重跑,**全站 40 檔一次同步**;
+  動到 footer 清單 → 40 檔都要改(footer 目前沒有產生器,靠逐字節比對把關)。
   ⚠ 兩者都要**順手重跑 `build_lab_20260806.py`**——`lab/inline-cloud-compute.html` 的
   header/footer 是從 `cloud-compute.html` 取的,它在 `check_links` 掃描範圍內。
   該腳本**刻意把底檔的區塊元件 CSS 整段剝掉**(0810 加的,`lab/` 那一頁自帶一份提案版),
@@ -470,7 +541,7 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 
 ### `lab/` 第一層 — 內容頁改版比對(2026-08-06,已定案)
 
-2026-08-06 新增,同日定案。**結果:選 inline CSS 版**,元件已搬進 `style-3-soc/` 全部 38 頁
+2026-08-06 新增,同日定案。**結果:選 inline CSS 版**,元件已搬進 `style-3-soc/` 全部 40 頁
 (正本 `docs/reports/restyle_content_20260806.py`)。這四個檔自此只剩紀錄價值——
 它保存了「當初為什麼沒選 Tailwind」的實際對照,**隨時可整個刪掉**,刪除時機由專案負責人決定
 (刪的是這四個檔,不是整個 `lab/`——`restyle-0812/` 還在用)。
@@ -541,14 +612,15 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
   `#catalogue` 加一張卡並帶 `id`(驗證指令的錨點清單要同步);③全站 footer 加一列
   (**footer 沒有產生器**,用「只在 `<footer>` 區域內取代」的腳本改,寬鬆子字串會誤中 header 的選單項);
   ④`check_nav_20260806.py` 的 `EXPECT_FILES` 與 `restyle_content_20260806.py` 的 `EXPECT_FILES`
-  兩處都要 +1(兩支腳本各自寫死頁數);⑤重跑 `build_lab` 與 `build_restyle_samples`(它們的
+  兩處都要 +1(兩支腳本各自寫死頁數),`build_updates_20260810.py` 的產品數守衛也要跟著調;
+  ⑤重跑 `build_lab` 與 `build_restyle_samples`(它們的
   header/footer 取自底檔);⑥`build_updates_20260810.py` 的 `NOTES` 加一筆(key 必須與選單同名)。
 - **補 Cloud 分類頁**:內容正本是 `docs/Cloud線_內容規劃_20260804.md`(§4 骨架、§5 逐項英文文案、
   §6 逐頁大綱);產品事實一律出自 `docs/GCP_Introduce.md`。
   每個產品在名冊 `loglist` 佔一列且**必須帶 `id`**(nav 深連結的落點),
   新頁必含 `main [id]{scroll-margin-top:80px}`,否則 66px sticky header 會蓋住落點。
 - **改內容頁的版型**:元件樣式改 `restyle_content_20260806.py` 的 `BLOCK_CSS` 後重跑
-  (38 檔一次同步);某一頁的 markup 則直接改該檔的 `<main>`。改完必跑
+  (40 檔一次同步);某一頁的 markup 則直接改該檔的 `<main>`。改完必跑
   `check_copy_20260806.py` 確認沒有把文案一起改掉。
   ⚠️ `.steps` 只能用在真的有先後順序的內容;判不出順序就用 `.quad`,不要為了版型假造推進關係。
 - **版面定稿後**:勝出方案的內容搬進 `index.html`(現行版位置),另一個移入 `archive/`;
@@ -557,20 +629,49 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
   `docs/Volcatech_多風格_Build_Prompts.md`(基底 + style-3 模組,選單以 0805 決議覆蓋)執行,
   完成後跑該檔【品質底線(驗收)】清單(**不是** v3 的 §9,那份已失效)。
 
+### ⚠ 腳本的執行順序不是隨意的(0814 踩到)
+
+`build_gcp_pages` / `build_legal_pages` / `build_v1` 都是**從底檔複製 header 再換 `<main>`**,
+所以它們產出的頁面帶著**底檔的** `aria-current` 與 `class="on"` —— 對新頁而言那是錯的。
+**這三支跑完必須接 `rebuild_nav_20260806.py`**,否則 `check_nav` 會紅(0814 一次錯 21 檔)。
+
+安全的完整順序(要重跑就照這個跑,可重複執行):
+
+```bash
+python3 docs/reports/build_gcp_pages_20260806.py
+python3 docs/reports/build_legal_pages_20260814.py
+python3 docs/reports/build_v1_20260806.py
+python3 docs/reports/link_products_20260806.py
+python3 docs/reports/fix_content_todos_20260814.py
+python3 docs/reports/fix_footer_20260814.py
+python3 docs/reports/restyle_content_20260806.py
+python3 docs/reports/rebuild_nav_20260806.py    # ← 一定要最後跑
+python3 docs/reports/build_lab_20260806.py      # 取自底檔,故排在 nav/footer 之後
+python3 docs/reports/build_restyle_samples_20260812.py
+python3 docs/reports/build_updates_20260810.py
+```
+
+⚠ **驗「冪等」不要派給唯讀 agent 去跑這些腳本**——它們會寫檔,而且有先後相依。
+正確做法是主對話自己 `cp -r style-3-soc <scratchpad>/snap` → 依上表跑完 → `diff -rq` 比對。
+
 ### `docs/reports/` 腳本現況(2026-08-06)
 
 | 腳本 | 做什麼 |
 |---|---|
 | `rebuild_nav_20260806.py` | **選單唯一正本**。整段抽換 header ＋ 三段 nav CSS,可重複執行 |
-| `restyle_content_20260806.py` | **區塊元件 CSS ＋ 35 個 icon 的唯一正本**。注入 38 檔,可重複執行 |
-| `check_nav_20260806.py` | 軸 1 檢查:38 檔 header ＋ 四段 CSS 逐字節相同 ＋ 結構數量 ＋ 孤兒登記 |
+| `restyle_content_20260806.py` | **區塊元件 CSS ＋ 35 個 icon 的唯一正本**。注入 40 檔,可重複執行 |
+| `check_nav_20260806.py` | 軸 1 檢查:40 檔 header ＋ 四段 CSS 逐字節相同 ＋ 結構數量 ＋ 孤兒登記 |
 | `check_copy_20260806.py` | 軸 3 檢查:對 git 基準逐句比對 `<main>`,文案零漂移 |
 | `check_links_20260806.py` | 標籤配對、唯一 h1、id 不重複、相對連結與錨點有效。0812 起 `lab/` 改用 **`rglob`** 遞迴掃子資料夾（原本的 `glob` 只掃第一層，子資料夾會靜默逃過檢查） |
 | `build_restyle_samples_20260812.py` | 產生 `lab/restyle-0812/` 的 4 個視覺方向範例頁（第二版：配色＋字體＋版型全換）。基底 CSS 不動、override 疊在 `<style>` 尾端；**markup 只動一處**——B 套把 FAQ 每一項轉成 `<details>`（`to_accordion()`）。A/B 兩套 CSS 的**唯一正本**。⚠ header/footer 取自底檔 —— **改完選單或頁尾要重跑** |
 | `build_v1_20260806.py` | 從 `index.html` 產生 `index-v1-proof.html`(0804 那支改造而來) |
 | `build_gcp_pages_20260806.py` | 產生 19 個 GCP 產品頁(以 `cloud-compute.html` 為底檔)。**產品文案的唯一正本**;0811 起含 `hero_fact` 欄位與 `fig_motif()` |
 | `link_products_20260806.py` | 分類頁 19 張產品卡的雙出口連結 ＋ `cloud.html#products` 索引。可重複執行 |
-| `build_updates_20260810.py` | 產生根 hub「待做事項與產品清單」區(日期取 git log;備注 dict 手維護,更新前須經 Shiro 確認)。可重複執行 |
+| `build_updates_20260810.py` | 產生根 hub「待做事項與產品清單」區(日期取 git log;備注 dict 手維護,更新前須經 Shiro 確認)。可重複執行。⚠ 0814 修掉一個自 0813 起讓它 `IndexError` 跑不動的欄位位移(`MENU` 的 `sub` 子項從 `row[3]` 移到 `row[4]`) |
+| `build_legal_pages_20260814.py` | 產生 `privacy.html` ＋ `imprint.html`(以 `sentinelone.html` 為底檔)。**法務頁唯一正本**,不得手改頁面。⚠ 刻意零新增 CSS |
+| `fix_footer_20260814.py` | 頁尾法定資訊補實 ＋ 移除 Demo notice/backlink 列/FortiEDR 那列。**只在 `<footer>` 之後動手**。可重複執行 |
+| `fix_content_todos_20260814.py` | `<main>` 內容型佔位符的處置對照表(按案議定/刪句/available on request/11 張服務卡補寫)。**待補清單的資料來源** |
+| `build_todo_backlog_20260814.py` | 由上一支的對照表產生 `docs/待補素材清單_20260814.md`。改了對照表就重跑它 |
 | `rename_argushack_footer_20260810.py` | 0810 全站 footer 更名(CE-BAS→ArgusHack、移除兩品那兩列)。可重複執行,只動 footer |
 | `build_lab_20260806.py` | 產生 `lab/inline-cloud-compute.html`(**已完成階段任務**,`lab/` 刪掉後可一併移除)。⚠ 它從 `cloud-compute.html` 取 header/footer/CSS,所以**改完選單或頁尾要重跑它**——`lab/` 在 `check_links` 掃描範圍內,漏跑就會出現死錨點(0810 實際踩到) |
 | `archive_homepage_variants_20260806.py` | 封存 6 檔後的相對路徑修正 |
@@ -586,7 +687,7 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 | 規劃書、需求、prompt 集、會議記錄 | `docs/` |
 | **詞彙表**(同一個詞被用來指不同東西時的正本) | `docs/CONTEXT.md`(不放專案根——根目錄有白名單) |
 | **決策記錄(ADR)**:難逆、意外、有真取捨的決定 | `docs/adr/NNNN-slug.md`,編號遞增 |
-| **視覺設計文件**(現況基線、風格提案規格、可貼 AI 的 prompt、落地路線圖) | `docs/design/`(2026-08-12 建立);索引在其內 `README.md`。⚠ 它是**提案區不是正本**——tokens 正本仍是 CLAUDE.md 速查表 ＋ Build_Prompts §B ＋ 38 檔 `:root` |
+| **視覺設計文件**(現況基線、風格提案規格、可貼 AI 的 prompt、落地路線圖) | `docs/design/`(2026-08-12 建立);索引在其內 `README.md`。⚠ 它是**提案區不是正本**——tokens 正本仍是 CLAUDE.md 速查表 ＋ Build_Prompts §B ＋ 40 檔 `:root` |
 | 一次性腳本、比對報告、體檢輸出 | 臨時 → scratchpad;要保留 → `docs/reports/`(檔名帶日期) |
 | 現行風格的頁面與資產 | 只在 `style-3-soc/` 內 |
 | **改版提案 / 技術實驗**(未定案、不上正式版) | `lab/`,見下方專節 |
@@ -616,7 +717,7 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 ### 三支腳本先跑,都必須 PASS
 
 ```bash
-python3 docs/reports/check_nav_20260806.py     # 軸 1:38 檔 header ＋ 四段 CSS 同源、結構數量、孤兒登記
+python3 docs/reports/check_nav_20260806.py     # 軸 1:40 檔 header ＋ 四段 CSS 同源、結構數量、孤兒登記
 python3 docs/reports/check_copy_20260806.py    # 軸 3:改版型沒把文案一起改掉(基準預設 HEAD)
 python3 docs/reports/check_links_20260806.py   # 標籤配對、唯一 h1、id 不重複、相對連結與錨點
 ```
@@ -641,10 +742,35 @@ grep -nE '<img |<script|@import|<link ' *.html
 grep -n 'https\?://' *.html | grep -v 'rel="noopener"'
 # CTA 一律 Contact us(sentence case);禁 Contact Us、禁 Request a proposal
 grep -oh 'Contact us\|Contact Us\|Request a proposal' *.html | sort | uniq -c
-# 死連結:每檔應只剩語言切換的 1 個。灰字項絕不可寫成 <a href="#">,一寫這條就紅
+# 死連結:0814 語言切換移除後,每檔應為 0。灰字項絕不可寫成 <a href="#">,一寫這條就紅
 grep -c 'href="#"' *.html
-# 「繁中」每筆同行都要有 lang 屬性 → 應輸出 0
-grep -h '繁中' *.html | grep -vc 'lang="zh-Hant-TW"'
+# 0814:站上不得殘留佔位符 → 第一行應只列出 index-v1-proof.html(刻意保留),第二行應為 10
+grep -l '\[TODO' *.html
+grep -oh '\[TODO' index-v1-proof.html | wc -l
+# 0814:`.todo` 外殼裡不得沒有佔位符 → 應為空
+# ⚠ 這條抓的是「`grep [TODO` 為 0 卻仍渲染出空虛線框」的殘骸:替換佔位符時若把
+#   帶 <span class="todo"> 外殼的當成純文字處理,新句子會被留在虛線框裡,
+#   頁面上看起來仍是佔位符,而數 [TODO 的檢查完全看不出來(0814 verifier 抓到)。
+python3 -c "import pathlib,re;print([(p.name,m[:60]) for p in pathlib.Path('.').glob('*.html') for m in re.findall(r'<span class=\"todo[^\"]*\">((?:(?!\[TODO)[^<])*?)</span>', p.read_text())])"
+# 0814:不得殘留「這是 demo」的自白與內部導覽 → 三行皆應為空
+grep -n 'Demo notice\|internal design review\|are placeholders' *.html
+grep -n 'class="wrap backlink"' *.html
+grep -n 'Demo: ' *.html
+# 0814:頁尾聯絡資訊已補實 → 前兩行各應輸出 40(Email 與登記地址在每頁的聯絡 dl 裡)
+grep -l 'salesgroup@volcatech.com' *.html | wc -l
+grep -l 'Songjiang Rd.' *.html | wc -l
+# 0814 稍晚:`.legal` 灰字帶整塊移除 → 法人名 2 檔(privacy/imprint)、統編 1 檔(imprint)
+# ⚠ 這三行的期望值 0814 早上是 40/40/40。改的是頁尾不是資料——法定資訊仍在 imprint.html,
+#   入口是頁尾 Company 欄那兩條連結。要復原見 fix_footer_20260814.py 的 RESTORE_LEGAL
+grep -l 'wrap legal' *.html | wc -l                                    # 應為 0
+grep -l 'Volcatech Corporate Ltd.' *.html | wc -l                      # 應為 2
+grep -l '94269177' *.html | wc -l                                      # 應為 1(imprint.html)
+# ⚠ 這裡**不可以**用 `Company registration no. (Taiwan): 94269177` 當比對字串:那是
+#   頁尾灰字帶的寫法,已隨灰字帶移除。imprint.html 把它拆成 <h3>欄位名</h3><p>值</p>
+#   兩個節點(imprint.html:447),完整字串在站上已不存在——照舊寫法跑會得到 0 而誤判成資料掉了
+grep -n 'VAT / tax ID' *.html                                          # 應為空(VAT 列已刪)
+# 0814:FortiEDR 已下架 → 應為空(大小寫敏感,理由同 CE-BAS 那條)
+grep -l 'FortiEDR\|fortiedr' *.html
 # 舊選單術語不得殘留在「選單」→ 應輸出 0
 # ⚠ 只能掃 header 區。Platform 在正文是合法英文字——gcp-vmware-engine / gcp-vertex-ai /
 #   gcp-model-garden 的架構圖層名就叫 <h3>Platform</h3>,掃全檔會誤報這三頁(0806 實測)
@@ -696,8 +822,8 @@ grep -c '#security-list\|#managed-list' *.html
 # title 與 meta description 全站唯一 → 兩行皆應無輸出(註解宣稱兩項,指令就有兩條)
 grep -h '<title>' *.html | sort | uniq -d
 grep -h 'name="description"' *.html | sort | uniq -d
-# aria-current 每檔=3(1 個 markup + 2 個 CSS 選擇器);cloud-services.html 與 gcp-cloud-armor.html
-# =2(兩個登記在案的孤兒頁,選單沒有連結指向它們,故無 markup 那 1 個)
+# aria-current 每檔=3(1 個 markup + 2 個 CSS 選擇器);四個登記在案的孤兒頁 =2
+# (cloud-services / gcp-cloud-armor / privacy / imprint —— 選單沒有連結指向它們,故無 markup 那 1 個)
 grep -c 'aria-current="page"' *.html
 # ess.html 與 services.html 零外部連結 → 皆應輸出 0
 grep -c 'https\?://' ess.html services.html
@@ -710,10 +836,10 @@ grep -ohE 'id="(compute-engine|kubernetes-engine|vmware-engine|cloud-storage|fil
   cloud*.html | sort -u | wc -l   # 應為 22
 # 兩個總覽頁的落點:cybersecurity 6 產品 + 3 區塊、services 6 服務
 # ⚠ 0810 起產品少了 ce-bas/ai-ptaas/secpurple、多了 argushack;第三個區塊 id 由 in-house 改為 validation
-grep -ohE 'id="(sentinelone|threatsonar|fortiedr|cybereyes|google-secops|argushack)"' cybersecurity.html | sort -u | wc -l  # 應為 6
+grep -ohE 'id="(sentinelone|threatsonar|cybereyes|google-secops|argushack)"' cybersecurity.html | sort -u | wc -l  # 應為 5(0814 FortiEDR 下架前是 6)
 grep -ohE 'id="(edr|detection|validation)"' cybersecurity.html | sort -u | wc -l   # 應為 3
 grep -ohE 'id="(ess|soc|isms|pentest|finops|dx|managed-gcp)"' services.html | sort -u | wc -l # 應為 7
-# 35 個內容頁 footer 與 sentinelone 逐字節相同 → 應輸出 35 行 OK(排除 2 個 index*.html 與 sentinelone 自己)
+# 37 個內容頁 footer 與 sentinelone 逐字節相同 → 應輸出 37 行 OK(排除 2 個 index*.html 與 sentinelone 自己)
 for f in $(ls *.html | grep -vE '^(sentinelone|index.*)\.html$'); do
   diff <(awk '/<footer/,/<\/footer>/' sentinelone.html) \
        <(awk '/<footer/,/<\/footer>/' $f) >/dev/null && echo "$f OK" || echo "$f DIFF"; done
@@ -735,8 +861,8 @@ python3 -m http.server 8000   # 開 http://localhost:8000 逐頁檢查
 
 ## 已知缺口(明文登記,不含糊帶過)
 
-demo 不宣稱「完全符合 WCAG 2.2 AA」。以下八項是知道且刻意留著的
-(前五項無障礙、第 6–7 項一致性、第 8 項是 0812 新查出的排版缺口):
+demo 不宣稱「完全符合 WCAG 2.2 AA」。以下十項是知道且刻意留著的
+(前五項無障礙、第 6–7 項一致性、第 8 項是 0812 查出的排版缺口、第 9–10 項是 0814 的內容缺口):
 
 1. **SC 1.4.11 非文字對比**:下拉面板邊框用 `--line #27344A`,對 `--bg` 只有 **1.47:1**
    (面板底色對背景更只有 1.12:1),不到 3:1。2026-08-05 使用者裁決**這輪不修**,Astro 正式版處理。
@@ -762,6 +888,19 @@ demo 不宣稱「完全符合 WCAG 2.2 AA」。以下八項是知道且刻意留
    **開發者看到的畫面與外部訪客很可能不同。**demo 階段刻意不修(自架字體檔會讓所有視覺
    對照多一個變因),正式 Astro 版用 `@fontsource` 自架解決;細節見
    `docs/design/00_現況基線_20260812.md` §8。
+
+9. **ISO 27001 那一格寫「可應要求提供」,歐洲買家很可能讀成「他們沒有」**(2026-08-14)。
+   首頁 Trust 區三格裡的第三格,內文是
+   `Certification status, scope and certificate number are available on request.`。
+   0814 grilling 時已把這個代價明白告訴使用者,使用者選擇**保留版面結構、只清掉佔位符**
+   (選項 Q24a)。拿到實際認證狀態就能五分鐘換掉;在那之前**不得改寫成任何暗示已取得的說法**。
+   同理 `#why` 區的 Google Cloud 夥伴等級句尾是整句刪除,站上因此**沒有任何一處說明
+   沃凱與 Google 的關係**——這是已知的、待素材的空缺。
+
+10. **`privacy.html` 有一句與託管環境綁定**(2026-08-14)。「Hosting」段寫著
+   Volcatech 不會收到、不儲存、也不會併用託管商的存取紀錄——在 GitHub Pages 上這是真的
+   (repo 擁有者拿不到 access log)。**換託管環境時這一句必須重新查證**,
+   已登記在 `docs/待補素材清單_20260814.md` §5。
 
 SC 1.4.13 Dismissible 原本也在這份清單上,已於 2026-08-06 修掉:`<header>` 帶一個行內
 `onkeydown`,按 Esc 把焦點交給 logo(不是 `blur()`——blur 會把焦點丟回 body,

@@ -80,11 +80,6 @@ header{position:sticky;top:0;background:rgba(14,20,31,.95);border-bottom:1px sol
 .dd .head{padding:6px 18px 8px;margin-bottom:4px;border-bottom:1px solid var(--line);
   font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
 .dd .head .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--status);margin-right:8px;vertical-align:1px}
-/* Language switcher — real links, not decorative text */
-.lang{display:flex;align-items:center;font-family:var(--mono);font-size:12px}
-.lang a{padding:4px 10px;color:var(--muted)}
-.lang a+a{border-left:1px solid var(--line)}
-.lang a[aria-current="true"]{color:var(--ink);font-weight:600}
 .navbtn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;
   padding:8px 14px;font-size:14px;cursor:pointer;color:var(--ink)}
 /* Product hero */
@@ -133,7 +128,6 @@ footer{border-top:1px solid var(--line)}
 .legal .row{display:flex;gap:6px 20px;flex-wrap:wrap;margin-top:6px}
 .legal .notice{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px}
 .legal a:hover{color:var(--ink)}
-.backlink{padding:0 24px 22px;font-family:var(--mono);font-size:11.5px}
 /* ===== Block components (0806 content rework) — shared by all 20 pages =====
    The 0805 review said a content page reads as one undifferentiated column of text:
    the same .loglist three or four times over. Each section now gets its own treatment,
@@ -334,9 +328,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
      fully expanded three-level list is exactly where the labels help most. */
   .menu .sub .why{display:block}
   .dd ul li:not(.sub)+.sub{margin-top:5px}
-  .lang{margin-top:10px}
-  .lang a{padding-left:0}
-  .lang a+a{padding-left:10px}
 }
 @media (max-width:560px){
   .fcols{grid-template-columns:1fr}
@@ -406,7 +397,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
             <ul>
               <li><a href="sentinelone.html">SentinelOne</a></li>
               <li><a href="threatsonar.html">ThreatSonar</a></li>
-              <li><span class="off">FortiEDR<span class="soon">Coming soon</span></span></li>
             </ul>
           </li>
           <li class="sub"><a href="cybersecurity.html#detection" aria-haspopup="true"><span class="lbl">Detection — SIEM &amp; WDR</span><span class="why">Spot threats across cloud and logs</span></a>
@@ -433,11 +423,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
       </li>
       <li><a href="index.html#why">About</a></li>
       <li><a class="btn" style="padding:9px 18px" href="index.html#contact">Contact us</a></li>
-      <li>
-        <nav class="lang" aria-label="Language">
-          <a href="ess.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
-        </nav>
-      </li>
     </ul>
   </div>
 </header>
@@ -526,7 +511,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
         standard assets get a cost-effective one, and mixed deployments are managed as one through our SOC.
         The question is never which product ranks highest in the abstract — it is what your team can operate and sustain.
         We design the mix, deploy it and run it, so the answer stays true long after day one.
-        <span class="todo">[TODO: service scope &amp; SLA details]</span></p>
+        Scope and service levels are written into the ESS contract, not left to custom.</p>
     </div>
   </section>
 
@@ -537,7 +522,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <div class="faq">
         <div><h3><span class="n" aria-hidden="true">01</span><span>How is this different from buying the same products separately?</span></h3><p>The tooling is only part of it. The programme adds the operating layer: one team tunes the detections, watches them at night and at weekends, and acts on what they find under a single agreement. Bought separately, correlation, out-of-hours cover and vendor escalation all stay on your side.</p></div>
         <div><h3><span class="n" aria-hidden="true">02</span><span>Can it work with the SIEM we already run?</span></h3><p>Yes. The detection layer produces alerts that can be forwarded to your own platform, so the programme adds monitoring without taking the platform decision away from you. If you are still choosing one, Google Security Operations is a platform we deploy and can run alongside the programme.</p></div>
-        <div><h3><span class="n" aria-hidden="true">03</span><span>What has to be in place before it starts?</span></h3><p>Reachable telemetry, essentially: the web-facing systems the sensors observe, the endpoints that take an agent, and the access needed to deploy both. [TODO: confirm onboarding sequence and step timeline]</p></div>
+        <div><h3><span class="n" aria-hidden="true">03</span><span>What has to be in place before it starts?</span></h3><p>Reachable telemetry, essentially: the web-facing systems the sensors observe, the endpoints that take an agent, and the access needed to deploy both. The order the steps run in, and how long each takes, is agreed during onboarding.</p></div>
         <div><h3><span class="n" aria-hidden="true">04</span><span>How is the programme priced?</span></h3><p>It is one contract covering detection, endpoints and monitoring, scoped on the number of endpoints, the size of the web estate under watch and the cover you need. There is no standard package that fits every environment — contact us and we will scope it with you.</p></div>
       </div>
     </div>
@@ -557,9 +542,9 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <a class="logo" href="index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
       <p>Cloud, security and managed operations for European organisations.</p>
       <dl>
-        <dt>Email</dt><dd>[TODO: contact email]</dd>
-        <dt>Phone</dt><dd>+886 [TODO]</dd>
-        <dt>Registered office</dt><dd>[TODO: registered address]</dd>
+        <dt>Email</dt><dd>salesgroup@volcatech.com</dd>
+        <dt>Phone</dt><dd>+886 2 2327 9668</dd>
+        <dt>Registered office</dt><dd>9F.-2, No. 54, Songjiang Rd., Zhongshan Dist., Taipei City 104090, Taiwan (R.O.C.)</dd>
       </dl>
     </div>
     <div id="cloud-list">
@@ -581,7 +566,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <ul>
         <li><a href="sentinelone.html">SentinelOne</a></li>
         <li><a href="threatsonar.html">ThreatSonar</a></li>
-        <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
       </ul>
       <p class="sub">Detection — SIEM & WDR</p>
       <ul>
@@ -610,21 +594,11 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <ul>
         <li><a href="index.html#why">About</a></li>
         <li><a href="index.html#contact">Contact</a></li>
-        <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
-        <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
+        <li><a href="privacy.html">Privacy notice</a></li>
+        <li><a href="imprint.html">Imprint</a></li>
       </ul>
     </div>
   </div>
-  <div class="wrap legal" id="legal">
-    <p>Volcatech Co., Ltd. <span lang="zh-Hant-TW">(沃凱科技股份有限公司)</span></p>
-    <p>Registered office: [TODO: registered address]</p>
-    <div class="row"><span>Company registration no.: [TODO]</span><span>VAT / tax ID: [TODO]</span></div>
-    <div class="row"><span>Email: [TODO: contact email]</span><span>Phone: +886 [TODO]</span></div>
-    <div class="row"><a href="#legal">Privacy Policy</a><a href="#legal">Imprint</a></div>
-    <p>© 2026 Volcatech Co., Ltd.</p>
-    <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
-  </div>
-  <div class="wrap backlink"><a href="index.html">← Style home</a> · <a href="../index.html">Demo hub</a></div>
 </footer>
 </body>
 </html>

@@ -80,11 +80,6 @@ header{position:sticky;top:0;background:rgba(14,20,31,.95);border-bottom:1px sol
 .dd .head{padding:6px 18px 8px;margin-bottom:4px;border-bottom:1px solid var(--line);
   font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
 .dd .head .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--status);margin-right:8px;vertical-align:1px}
-/* Language switcher — real links, not decorative text */
-.lang{display:flex;align-items:center;font-family:var(--mono);font-size:12px}
-.lang a{padding:4px 10px;color:var(--muted)}
-.lang a+a{border-left:1px solid var(--line)}
-.lang a[aria-current="true"]{color:var(--ink);font-weight:600}
 .navbtn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;
   padding:8px 14px;font-size:14px;cursor:pointer;color:var(--ink)}
 /* Product hero */
@@ -138,7 +133,6 @@ footer{border-top:1px solid var(--line)}
 .legal .row{display:flex;gap:6px 20px;flex-wrap:wrap;margin-top:6px}
 .legal .notice{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px}
 .legal a:hover{color:var(--ink)}
-.backlink{padding:0 24px 22px;font-family:var(--mono);font-size:11.5px}
 /* ===== Block components (0806 content rework) — shared by all 20 pages =====
    The 0805 review said a content page reads as one undifferentiated column of text:
    the same .loglist three or four times over. Each section now gets its own treatment,
@@ -339,9 +333,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
      fully expanded three-level list is exactly where the labels help most. */
   .menu .sub .why{display:block}
   .dd ul li:not(.sub)+.sub{margin-top:5px}
-  .lang{margin-top:10px}
-  .lang a{padding-left:0}
-  .lang a+a{padding-left:10px}
 }
 @media (max-width:560px){
   .fcols{grid-template-columns:1fr}
@@ -411,7 +402,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
             <ul>
               <li><a href="sentinelone.html">SentinelOne</a></li>
               <li><a href="threatsonar.html">ThreatSonar</a></li>
-              <li><span class="off">FortiEDR<span class="soon">Coming soon</span></span></li>
             </ul>
           </li>
           <li class="sub"><a href="cybersecurity.html#detection" aria-haspopup="true"><span class="lbl">Detection — SIEM &amp; WDR</span><span class="why">Spot threats across cloud and logs</span></a>
@@ -438,11 +428,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
       </li>
       <li><a href="index.html#why">About</a></li>
       <li><a class="btn" style="padding:9px 18px" href="index.html#contact">Contact us</a></li>
-      <li>
-        <nav class="lang" aria-label="Language">
-          <a href="services.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
-        </nav>
-      </li>
     </ul>
   </div>
 </header>
@@ -483,15 +468,15 @@ a.node:hover{border-color:var(--accent);background:#182433}
           <p>Web detection, endpoint protection and around-the-clock response bundled into a single contract — the packaged form of the three services below.</p>
           <a class="go" href="ess.html">Service page →</a></div>
         <div id="soc"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><h3>24/7 SOC &amp; Incident Response <span class="vsrc">Volcatech</span></h3>
-          <p><span class="todo">[TODO: service description]</span></p></div>
+          <p>Our security team watches the consoles we deploy and triages what they raise, so an alert reaches a person rather than a mailbox. When something turns out to be real, the same team contains it and writes up what happened. Severities and escalation paths are agreed before the service starts.</p></div>
         <div id="isms"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 10h6M9 14h6"/></svg><h3>ISMS / PIMS Consulting <span class="vsrc">Volcatech</span></h3>
-          <p><span class="todo">[TODO: service description]</span></p></div>
+          <p>Information security and privacy management systems, taken from gap assessment through policy, controls and internal audit to the point where an external auditor can be invited in. Network architecture review and system security diagnostics run alongside it, so the paperwork and the estate end up describing the same thing.</p></div>
         <div id="pentest"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="8" height="10" rx="4"/><path d="M8 11H4M20 11h-4M8 15H4.5M19.5 15H16M9 6l1.5 2M15 6l-1.5 2"/></svg><h3>Penetration Testing (human-led) <span class="vsrc">Volcatech</span></h3>
-          <p><span class="todo">[TODO: service description]</span></p></div>
+          <p>Testing done by people rather than a scanner: business logic, chained weaknesses and the paths automated tools do not follow. You get findings ranked by exploitability and a walk-through with the engineers who found them. Scope, method and whether a retest is included are set per engagement.</p></div>
         <div id="finops"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5a3 3 0 0 0-3-1.5c-1.7 0-3 .9-3 2s1.3 2 3 2 3 .9 3 2-1.3 2-3 2a3 3 0 0 1-3-1.5"/><path d="M12 6v12"/></svg><h3>Cloud FinOps &amp; Enablement <span class="vsrc">Volcatech</span></h3>
-          <p><span class="todo">[TODO: service description]</span></p></div>
+          <p>Cloud spend you can actually read: consolidated accounting with technical support, attribution down to project and team, and a regular look at what is running against what is needed. Training for your own engineers is part of it, so the discipline holds after we step back.</p></div>
         <div id="dx"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h11"/><path d="M11 5l3 3-3 3"/><path d="M21 16H10"/><path d="M13 13l-3 3 3 3"/></svg><h3>Digital Transformation <span class="vsrc">Volcatech</span></h3>
-          <p><span class="todo">[TODO: service description]</span></p></div>
+          <p>Custom work for organisations still running on paper, spreadsheets and systems that no longer talk to each other. We map what the business actually does, decide what is worth automating, and build it — including generative AI where it earns its place rather than because it is available.</p></div>
         <div id="managed-gcp"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h9.5a4.5 4.5 0 0 0 .3-9A6 6 0 0 0 5.6 10.4 4 4 0 0 0 7 18z"/></svg><h3>GCP Migration &amp; Managed Services <span class="vsrc">Volcatech</span></h3>
           <p>Assessment of your on-premises estate, the Google Cloud landing zone, migration of workloads in tested waves, and monitoring, backup and cost review once it is running.</p>
           <a class="go" href="managed-gcp.html">Service page →</a></div>
@@ -506,9 +491,9 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <ol class="steps">
         <li><span class="n">01</span><h3>Onboarding and runbooks</h3><p>Before anything goes live we agree what is in scope, who gets called and what happens at each severity.</p></li>
         <li class="ar" aria-hidden="true">→</li>
-        <li><span class="n">02</span><h3>Monitoring and escalation</h3><p>One escalation path, agreed in advance, so nobody has to decide who to phone during an incident. <span class="todo">[TODO: response-time commitment]</span></p></li>
+        <li><span class="n">02</span><h3>Monitoring and escalation</h3><p>One escalation path, agreed in advance, so nobody has to decide who to phone during an incident. Response times are set per service tier and written into the contract.</p></li>
         <li class="ar" aria-hidden="true">→</li>
-        <li><span class="n">03</span><h3>Reporting you can forward</h3><p>A fixed reporting cycle covering what was seen, what was done and what is still open. <span class="todo">[TODO: reporting format and frequency]</span></p></li>
+        <li><span class="n">03</span><h3>Reporting you can forward</h3><p>A fixed reporting cycle covering what was seen, what was done and what is still open. You choose the format and the cycle before the first report is due.</p></li>
         <li class="ar" aria-hidden="true">→</li>
         <li><span class="n">04</span><h3>Reviews and improvement</h3><p>Scope, thresholds and runbooks are revisited on a schedule rather than after an incident.</p></li>
       </ol>
@@ -522,7 +507,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <div class="spec">
         <div><span class="n" aria-hidden="true">01</span><div><h3>Cover without headcount</h3><p>Out-of-hours cover becomes a line in a contract rather than a hiring plan.</p></div></div>
         <div><span class="n" aria-hidden="true">02</span><div><h3>One escalation path</h3><p>The same team answers whether the cause turns out to be the platform or the security tooling.</p></div></div>
-        <div><span class="n" aria-hidden="true">03</span><div><h3>Audit evidence as a by-product</h3><p>Reporting is produced continuously, not reconstructed the month before the audit. <span class="todo">[TODO: reporting format and frequency]</span></p></div></div>
+        <div><span class="n" aria-hidden="true">03</span><div><h3>Audit evidence as a by-product</h3><p>Reporting is produced continuously, not reconstructed the month before the audit. Cadence and format follow whatever your auditors already accept.</p></div></div>
       </div>
     </div>
   </section>
@@ -531,8 +516,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why operate with Volcatech</p>
       <h2 class="sec">We operate what we sell, and we build what we cannot buy.</h2>
-      <p style="margin-top:24px;color:var(--muted);max-width:66ch">The team that designs your Google Cloud environment and deploys your security tooling is the team that then runs both. There is no handover to a second supplier, and no argument about whose ticket it is.
-        <span class="todo">[TODO: partner tier and certifications]</span></p>
+      <p style="margin-top:24px;color:var(--muted);max-width:66ch">The team that designs your Google Cloud environment and deploys your security tooling is the team that then runs both. There is no handover to a second supplier, and no argument about whose ticket it is.</p>
     </div>
   </section>
 
@@ -550,9 +534,9 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <a class="logo" href="index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
       <p>Cloud, security and managed operations for European organisations.</p>
       <dl>
-        <dt>Email</dt><dd>[TODO: contact email]</dd>
-        <dt>Phone</dt><dd>+886 [TODO]</dd>
-        <dt>Registered office</dt><dd>[TODO: registered address]</dd>
+        <dt>Email</dt><dd>salesgroup@volcatech.com</dd>
+        <dt>Phone</dt><dd>+886 2 2327 9668</dd>
+        <dt>Registered office</dt><dd>9F.-2, No. 54, Songjiang Rd., Zhongshan Dist., Taipei City 104090, Taiwan (R.O.C.)</dd>
       </dl>
     </div>
     <div id="cloud-list">
@@ -574,7 +558,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <ul>
         <li><a href="sentinelone.html">SentinelOne</a></li>
         <li><a href="threatsonar.html">ThreatSonar</a></li>
-        <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
       </ul>
       <p class="sub">Detection — SIEM & WDR</p>
       <ul>
@@ -603,21 +586,11 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <ul>
         <li><a href="index.html#why">About</a></li>
         <li><a href="index.html#contact">Contact</a></li>
-        <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
-        <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
+        <li><a href="privacy.html">Privacy notice</a></li>
+        <li><a href="imprint.html">Imprint</a></li>
       </ul>
     </div>
   </div>
-  <div class="wrap legal" id="legal">
-    <p>Volcatech Co., Ltd. <span lang="zh-Hant-TW">(沃凱科技股份有限公司)</span></p>
-    <p>Registered office: [TODO: registered address]</p>
-    <div class="row"><span>Company registration no.: [TODO]</span><span>VAT / tax ID: [TODO]</span></div>
-    <div class="row"><span>Email: [TODO: contact email]</span><span>Phone: +886 [TODO]</span></div>
-    <div class="row"><a href="#legal">Privacy Policy</a><a href="#legal">Imprint</a></div>
-    <p>© 2026 Volcatech Co., Ltd.</p>
-    <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
-  </div>
-  <div class="wrap backlink"><a href="index.html">← Style home</a> · <a href="../index.html">Demo hub</a></div>
 </footer>
 </body>
 </html>

@@ -80,11 +80,6 @@ header{position:sticky;top:0;background:rgba(14,20,31,.95);border-bottom:1px sol
 .dd .head{padding:6px 18px 8px;margin-bottom:4px;border-bottom:1px solid var(--line);
   font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
 .dd .head .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--status);margin-right:8px;vertical-align:1px}
-/* Language switcher — real links, not decorative text */
-.lang{display:flex;align-items:center;font-family:var(--mono);font-size:12px}
-.lang a{padding:4px 10px;color:var(--muted)}
-.lang a+a{border-left:1px solid var(--line)}
-.lang a[aria-current="true"]{color:var(--ink);font-weight:600}
 .navbtn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;
   padding:8px 14px;font-size:14px;cursor:pointer;color:var(--ink)}
 /* Product hero */
@@ -133,7 +128,6 @@ footer{border-top:1px solid var(--line)}
 .legal .row{display:flex;gap:6px 20px;flex-wrap:wrap;margin-top:6px}
 .legal .notice{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px}
 .legal a:hover{color:var(--ink)}
-.backlink{padding:0 24px 22px;font-family:var(--mono);font-size:11.5px}
 /* ===== Block components (0806 content rework) — shared by all 20 pages =====
    The 0805 review said a content page reads as one undifferentiated column of text:
    the same .loglist three or four times over. Each section now gets its own treatment,
@@ -334,9 +328,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
      fully expanded three-level list is exactly where the labels help most. */
   .menu .sub .why{display:block}
   .dd ul li:not(.sub)+.sub{margin-top:5px}
-  .lang{margin-top:10px}
-  .lang a{padding-left:0}
-  .lang a+a{padding-left:10px}
 }
 @media (max-width:560px){
   .fcols{grid-template-columns:1fr}
@@ -406,7 +397,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
             <ul>
               <li><a href="sentinelone.html">SentinelOne</a></li>
               <li><a href="threatsonar.html" aria-current="page">ThreatSonar</a></li>
-              <li><span class="off">FortiEDR<span class="soon">Coming soon</span></span></li>
             </ul>
           </li>
           <li class="sub"><a href="cybersecurity.html#detection" aria-haspopup="true"><span class="lbl">Detection — SIEM &amp; WDR</span><span class="why">Spot threats across cloud and logs</span></a>
@@ -433,11 +423,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
       </li>
       <li><a href="index.html#why">About</a></li>
       <li><a class="btn" style="padding:9px 18px" href="index.html#contact">Contact us</a></li>
-      <li>
-        <nav class="lang" aria-label="Language">
-          <a href="threatsonar.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
-        </nav>
-      </li>
     </ul>
   </div>
 </header>
@@ -533,7 +518,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <p style="margin-top:24px;color:var(--muted);max-width:66ch">We run the initial compromise assessment, plan the rollout
         — on-premises or cloud, pushed through your AD — act as your first line for monitoring and notification,
         and escalate to TeamT5's threat experts when an investigation needs to go deeper.
-        <span class="todo">[TODO: local references &amp; delivery details]</span></p>
+        Rollout waves and the cadence of the assessment are agreed before the service starts.</p>
     </div>
   </section>
 
@@ -548,7 +533,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
         <div><h3><span class="n" aria-hidden="true">04</span><span>How is ThreatSonar licensed?</span></h3><p>Licensing follows the endpoints you place under protection, and a one-off compromise assessment is scoped separately from ongoing resident coverage. Those are two different commitments, so we scope them with you — contact us.</p></div>
         <div><h3><span class="n" aria-hidden="true">05</span><span>Can we feed our own threat intelligence into it?</span></h3><p>Yes. Hashes, IP addresses, domains and YARA rules from your existing intelligence sources can be imported directly, and analysts can write their own hunting rules alongside the built-in set. Automated threat tracking then applies those indicators across every enrolled endpoint, so a lead found on one machine becomes a sweep of the entire estate.</p></div>
         <div><h3><span class="n" aria-hidden="true">06</span><span>What leaves our network, and where is the data held?</span></h3><p>The platform is deployed on your own infrastructure or taken as an in-country cloud service, so the choice of jurisdiction is yours rather than the vendor's. Endpoints talk to the ThreatSonar server over HTTPS — where that server sits is the deployment decision above — and rollout can be pushed through Active Directory or your asset management system instead of machine by machine. Sending samples back to TeamT5 for analysis is opt-in: it happens only if you enable it.</p></div>
-        <div><h3><span class="n" aria-hidden="true">07</span><span>What happens when a detection needs more expertise than we have in house?</span></h3><p>TeamT5 operates a service tier above the licence, in which its own analysts take detections forward: threat notifications, periodic briefings with the indicators behind them, containment recommendations and written investigation reports. It sits above whoever handles day-to-day monitoring — your team, or ours under ESS — so a case does not stop at the point where in-house expertise runs out. <span class="todo">[TODO: Volcatech first-line coverage hours and escalation path to TeamT5]</span></p></div>
+        <div><h3><span class="n" aria-hidden="true">07</span><span>What happens when a detection needs more expertise than we have in house?</span></h3><p>TeamT5 operates a service tier above the licence, in which its own analysts take detections forward: threat notifications, periodic briefings with the indicators behind them, containment recommendations and written investigation reports. It sits above whoever handles day-to-day monitoring — your team, or ours under ESS — so a case does not stop at the point where in-house expertise runs out. Where Volcatech holds the first line, the coverage hours and the point at which a case is handed to TeamT5 are set out in the engagement.</p></div>
         <div><h3><span class="n" aria-hidden="true">08</span><span>Can an attacker with local privileges simply switch the agent off?</span></h3><p>Resident mode includes self-protection, which is there to stop the agent being halted, uninstalled or cut off from its schedule — it raises the effort needed to remove cover rather than making it impossible. Endpoint and file isolation, restore protection and Protect Plus — real-time blocking of ransomware, web shell, command-line and registry activity — belong to the same mode. The health check is deliberately different: it installs nothing and runs once, which is why it suits a first sweep rather than standing cover, and offline scans run without a live connection to the server.</p></div>
       </div>
     </div>
@@ -570,9 +555,9 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <a class="logo" href="index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
       <p>Cloud, security and managed operations for European organisations.</p>
       <dl>
-        <dt>Email</dt><dd>[TODO: contact email]</dd>
-        <dt>Phone</dt><dd>+886 [TODO]</dd>
-        <dt>Registered office</dt><dd>[TODO: registered address]</dd>
+        <dt>Email</dt><dd>salesgroup@volcatech.com</dd>
+        <dt>Phone</dt><dd>+886 2 2327 9668</dd>
+        <dt>Registered office</dt><dd>9F.-2, No. 54, Songjiang Rd., Zhongshan Dist., Taipei City 104090, Taiwan (R.O.C.)</dd>
       </dl>
     </div>
     <div id="cloud-list">
@@ -594,7 +579,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <ul>
         <li><a href="sentinelone.html">SentinelOne</a></li>
         <li><a href="threatsonar.html">ThreatSonar</a></li>
-        <li><a href="cybersecurity.html#fortiedr">FortiEDR</a></li>
       </ul>
       <p class="sub">Detection — SIEM & WDR</p>
       <ul>
@@ -623,21 +607,11 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <ul>
         <li><a href="index.html#why">About</a></li>
         <li><a href="index.html#contact">Contact</a></li>
-        <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
-        <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
+        <li><a href="privacy.html">Privacy notice</a></li>
+        <li><a href="imprint.html">Imprint</a></li>
       </ul>
     </div>
   </div>
-  <div class="wrap legal" id="legal">
-    <p>Volcatech Co., Ltd. <span lang="zh-Hant-TW">(沃凱科技股份有限公司)</span></p>
-    <p>Registered office: [TODO: registered address]</p>
-    <div class="row"><span>Company registration no.: [TODO]</span><span>VAT / tax ID: [TODO]</span></div>
-    <div class="row"><span>Email: [TODO: contact email]</span><span>Phone: +886 [TODO]</span></div>
-    <div class="row"><a href="#legal">Privacy Policy</a><a href="#legal">Imprint</a></div>
-    <p>© 2026 Volcatech Co., Ltd.</p>
-    <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
-  </div>
-  <div class="wrap backlink"><a href="index.html">← Style home</a> · <a href="../index.html">Demo hub</a></div>
 </footer>
 </body>
 </html>

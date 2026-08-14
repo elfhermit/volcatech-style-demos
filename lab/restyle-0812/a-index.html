@@ -82,11 +82,6 @@ header{position:sticky;top:0;background:rgba(14,20,31,.95);border-bottom:1px sol
 .dd .head{padding:6px 18px 8px;margin-bottom:4px;border-bottom:1px solid var(--line);
   font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
 .dd .head .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--status);margin-right:8px;vertical-align:1px}
-/* Language switcher — real links, not decorative text */
-.lang{display:flex;align-items:center;font-family:var(--mono);font-size:12px}
-.lang a{padding:4px 10px;color:var(--muted)}
-.lang a+a{border-left:1px solid var(--line)}
-.lang a[aria-current="true"]{color:var(--ink);font-weight:600}
 .navbtn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;
   padding:8px 14px;font-size:14px;cursor:pointer;color:var(--ink)}
 /* Hero */
@@ -148,7 +143,6 @@ footer{border-top:1px solid var(--line)}
 .legal .row{display:flex;gap:6px 20px;flex-wrap:wrap;margin-top:6px}
 .legal .notice{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px}
 .legal a:hover{color:var(--ink)}
-.backlink{padding:0 24px 22px;font-family:var(--mono);font-size:11.5px}
 /* ===== Block components (0806 content rework) — shared by all 20 pages =====
    The 0805 review said a content page reads as one undifferentiated column of text:
    the same .loglist three or four times over. Each section now gets its own treatment,
@@ -349,9 +343,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
      fully expanded three-level list is exactly where the labels help most. */
   .menu .sub .why{display:block}
   .dd ul li:not(.sub)+.sub{margin-top:5px}
-  .lang{margin-top:10px}
-  .lang a{padding-left:0}
-  .lang a+a{padding-left:10px}
 }
 @media (max-width:560px){
   .fcols{grid-template-columns:1fr}
@@ -618,7 +609,6 @@ body::after{content:"Proposal A · Supabase-leaning · not the live page";
             <ul>
               <li><a href="../../style-3-soc/sentinelone.html">SentinelOne</a></li>
               <li><a href="../../style-3-soc/threatsonar.html">ThreatSonar</a></li>
-              <li><span class="off">FortiEDR<span class="soon">Coming soon</span></span></li>
             </ul>
           </li>
           <li class="sub"><a href="../../style-3-soc/cybersecurity.html#detection" aria-haspopup="true"><span class="lbl">Detection — SIEM &amp; WDR</span><span class="why">Spot threats across cloud and logs</span></a>
@@ -643,13 +633,8 @@ body::after{content:"Proposal A · Supabase-leaning · not the live page";
           <li><a href="../../style-3-soc/managed-gcp.html">GCP Migration &amp; Managed Services</a></li>
         </ul>
       </li>
-      <li><a href="#why" title="Demo: opens the matching section on this page">About</a></li>
+      <li><a href="#why" title="Opens the matching section on this page">About</a></li>
       <li><a class="btn" style="padding:9px 18px" href="#contact">Contact us</a></li>
-      <li>
-        <nav class="lang" aria-label="Language">
-          <a href="a-index.html" hreflang="en" aria-current="true">EN</a><a href="#" hreflang="zh-Hant-TW" lang="zh-Hant-TW" title="Traditional Chinese version will be published with the production site">繁中</a>
-        </nav>
-      </li>
     </ul>
   </div>
 </header>
@@ -699,7 +684,7 @@ body::after{content:"Proposal A · Supabase-leaning · not the live page";
           <p>A breach and attack simulation platform that replays attacker techniques against your live environment, so the controls you already own are measured on what they stop rather than on what they were bought to stop.</p>
           <a class="go" href="../../style-3-soc/argushack.html">Product page →</a></div>
       </div>
-      <p class="note">Reference deployments and delivery model: <span class="todo">[TODO: anonymised customer references, delivery model and response times]</span></p>
+      <p class="note">Reference deployments and delivery model: available on request.</p>
     </div>
   </section>
 
@@ -709,7 +694,7 @@ body::after{content:"Proposal A · Supabase-leaning · not the live page";
       <h2 class="sec">One partner accountable for the whole stack.</h2>
       <div class="trio">
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5L6.5 17M12 11.5L17.5 17"/></svg><h3>One partner for the whole stack</h3><p>Cloud, security products and 24/7 operations under one contract — fewer suppliers, and fewer gaps between them.</p></div>
-        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h9.5a4.5 4.5 0 0 0 .3-9A6 6 0 0 0 5.6 10.4 4 4 0 0 0 7 18z"/></svg><h3>Google Cloud engineering</h3><p>Architecture, migration, cost governance and training, delivered by the same team that operates the platform afterwards. <span class="todo">[TODO: partner tier and certifications]</span></p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h9.5a4.5 4.5 0 0 0 .3-9A6 6 0 0 0 5.6 10.4 4 4 0 0 0 7 18z"/></svg><h3>Google Cloud engineering</h3><p>Architecture, migration, cost governance and training, delivered by the same team that operates the platform afterwards.</p></div>
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.6-3.2 8.4-8 9.6C7.2 20.4 4 16.6 4 12V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><h3>Security we operate, not just resell</h3><p>Our SOC watches the tools we deploy, and we run breach and attack simulation against them to check that they hold.</p></div>
       </div>
     </div>
@@ -721,7 +706,7 @@ body::after{content:"Proposal A · Supabase-leaning · not the live page";
       <div class="trio" style="margin-top:24px">
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg><h3>GDPR-ready</h3><p>By design</p></div>
         <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg><h3>EU data residency</h3><p>Google Cloud (europe-west)</p></div>
-        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg><h3>ISO 27001</h3><p><span class="todo">[TODO: certification status, scope and certificate number]</span></p></div>
+        <div><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg><h3>ISO 27001</h3><p>Certification status, scope and certificate number are available on request.</p></div>
       </div>
       <p style="margin-top:24px;font-family:var(--mono);font-size:13px;color:var(--muted)">This demo loads no third-party resources and sets no cookies.</p>
 
@@ -751,9 +736,9 @@ body::after{content:"Proposal A · Supabase-leaning · not the live page";
       <a class="logo" href="../../style-3-soc/index.html"><span class="dot" aria-hidden="true"></span>VOLCATECH</a>
       <p>Cloud, security and managed operations for European organisations.</p>
       <dl>
-        <dt>Email</dt><dd>[TODO: contact email]</dd>
-        <dt>Phone</dt><dd>+886 [TODO]</dd>
-        <dt>Registered office</dt><dd>[TODO: registered address]</dd>
+        <dt>Email</dt><dd>salesgroup@volcatech.com</dd>
+        <dt>Phone</dt><dd>+886 2 2327 9668</dd>
+        <dt>Registered office</dt><dd>9F.-2, No. 54, Songjiang Rd., Zhongshan Dist., Taipei City 104090, Taiwan (R.O.C.)</dd>
       </dl>
     </div>
     <div id="cloud-list">
@@ -775,7 +760,6 @@ body::after{content:"Proposal A · Supabase-leaning · not the live page";
       <ul>
         <li><a href="../../style-3-soc/sentinelone.html">SentinelOne</a></li>
         <li><a href="../../style-3-soc/threatsonar.html">ThreatSonar</a></li>
-        <li><a href="../../style-3-soc/cybersecurity.html#fortiedr">FortiEDR</a></li>
       </ul>
       <p class="sub">Detection — SIEM & WDR</p>
       <ul>
@@ -804,21 +788,11 @@ body::after{content:"Proposal A · Supabase-leaning · not the live page";
       <ul>
         <li><a href="#why">About</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="#legal" title="Demo: the full policy page will be published with the production site">Privacy Policy</a></li>
-        <li><a href="#legal" title="Demo: the full imprint page will be published with the production site">Imprint</a></li>
+        <li><a href="../../style-3-soc/privacy.html">Privacy notice</a></li>
+        <li><a href="../../style-3-soc/imprint.html">Imprint</a></li>
       </ul>
     </div>
   </div>
-  <div class="wrap legal" id="legal">
-    <p>Volcatech Co., Ltd. <span lang="zh-Hant-TW">(沃凱科技股份有限公司)</span></p>
-    <p>Registered office: [TODO: registered address]</p>
-    <div class="row"><span>Company registration no.: [TODO]</span><span>VAT / tax ID: [TODO]</span></div>
-    <div class="row"><span>Email: [TODO: contact email]</span><span>Phone: +886 [TODO]</span></div>
-    <div class="row"><a href="#legal">Privacy Policy</a><a href="#legal">Imprint</a></div>
-    <p>© 2026 Volcatech Co., Ltd.</p>
-    <p class="notice">Demo notice: this page is published for internal design review only. It sets no cookies and loads no third-party resources. The company details above are placeholders and do not constitute a legal disclosure. Last updated 30 Jul 2026.</p>
-  </div>
-  <div class="wrap backlink"><a href="index.html">← Restyle index</a> · <a href="../../style-3-soc/index.html">Current</a> · <a href="b-index.html">Proposal B</a> · <a href="../../index.html">Demo hub</a></div>
 </footer>
 </body>
 </html>

@@ -5,25 +5,27 @@
 - 本專案為靜態官網 demo。**2026-07-31 內部評選已結束**:勝出組合 = Style 3(SOC Console
   深色色系)× 原版直落版型,色系凍結。**2026-08-05 會議又定案三件事**:①首頁收斂為兩案;
   ②選單改三層、第一層不可點、全站統一 Nav B;③內容頁改版(0806 定案走守規則的 inline CSS 版,已落地)。
-- 現行維護對象是 `style-3-soc/` **二十頁**:
+- 現行維護對象是 `style-3-soc/` **40 頁**:
   **2 個首頁**(`index` 現行版對照組 / `index-v1-proof` V1 信任前置)、
   3 個總覽頁(`cloud`＝CI、`cybersecurity`＝CS、`services`＝MS)、
   7 個 Cloud 分類頁(`cloud-compute` / `cloud-storage` / `cloud-analytics` /
   `cloud-serverless` / `cloud-databases` / `cloud-ai` / `cloud-services`＝CI-01〜CI-07)、
   **19 個 GCP 產品頁**(`gcp-*.html`,選單第三層;`gcp-cloud-armor.html` 是孤兒頁)、
-  4 個資安產品頁(`sentinelone` / `threatsonar` / `cybereyes` / `google-secops`)
-  與 1 個方案頁(`ess.html`)。根 `index.html` 是 Demo hub。
+  **5 個資安產品頁**(`sentinelone` / `threatsonar` / `cybereyes` / `google-secops` /
+  `argushack`)、1 個方案頁(`ess.html`)、1 個服務頁(`managed-gcp.html`)、
+  **2 個法務頁**(`privacy.html` / `imprint.html`,0814 新建)。根 `index.html` 是 Demo hub。
 - **不要手改的檔案**:`index-v1-proof.html` 由 `docs/reports/build_v1_20260806.py` 產生;
   19 個 `gcp-*.html` 由 `build_gcp_pages_20260806.py` 產生;
   分類頁的雙出口連結與 `cloud.html#products` 索引由 `link_products_20260806.py` 產生;
-  `lab/inline-cloud-compute.html` 由 `build_lab_20260806.py` 產生。要改就改腳本後重跑。
+  `lab/inline-cloud-compute.html` 由 `build_lab_20260806.py` 產生;
+  `privacy.html` / `imprint.html` 由 `build_legal_pages_20260814.py` 產生。要改就改腳本後重跑。
   **全站 header 由 `rebuild_nav_20260806.py` 產生,任何頁面的 `<header>` 都不要手寫。**
 - **內容頁區塊元件(0806)**:`.probs`/`.uses`(琥珀左邊界)、`.trio`/`.quad`/`.duo`(icon 卡)、
   `.steps`(**只用於真的有先後順序**的流程,帶真箭頭)、`.spec`(深色編號面板)、`.stack`(分層圖)、
   `.pick`(選型指引)、`.faq`(**0811 起雙欄卡片**,640px 退單欄;仍全展開、不用 disclosure widget)、
   `.fact`(**0811 新增,hero 代表事實列**)。
   **CSS 與 35 個 icon 的唯一正本是 `docs/reports/restyle_content_20260806.py`**——改元件樣式
-  = 改 `BLOCK_CSS` 後重跑,38 檔一次同步;手改單頁 CSS 會讓 `check_nav` 立刻紅。
+  = 改 `BLOCK_CSS` 後重跑,40 檔一次同步;手改單頁 CSS 會讓 `check_nav` 立刻紅。
   **不得新增色票**(色系 0731 凍結),不得自繪新 icon 或引外部 icon 套件。
 - **`.fact` 的三條規則(0811)**:①內容是從該頁 `.spec` **搬**上來的既有一列(面板該列不再渲染、
   編號留空缺),**不是新寫的句子**——複製會讓 `check_copy` 判 FAIL;②晶片放**列標題**,
@@ -46,7 +48,7 @@
   它自帶的 `CLAUDE.md` / `README.md` / `HANDOVER.md` 只描述它自己,**不適用本專案**,
   規則衝突時一律以根目錄 `CLAUDE.md` 為準。
 - **一致性鐵則是雙軸**(軸 1 已於 2026-08-06 換人):
-  **軸 1** = 全站 38 檔的 `<header>` 與三段 nav CSS,正規化掉 5 個逐檔參數後**逐字節相同**
+  **軸 1** = 全站 40 檔的 `<header>` 與三段 nav CSS,正規化掉 5 個逐檔參數後**逐字節相同**
   (`python3 docs/reports/check_nav_20260806.py` 必須 PASS)。
   舊的「Nav A ↔ Nav B 自 `<main>` 起逐字節相同」隨 Nav A 退場而失效。
   **軸 2** = 兩個首頁凍結共用文案——H1、副標、Why H2、CTA 橫幅 H2、footer 品牌句這五句
@@ -69,9 +71,11 @@
     查證確認該產品的原廠是盧氪賽忒(Leukocyte-Lab)、沃凱是代理商,自研宣稱不成立。
   - `Services`(扁平)= Overview ＋ ESS ＋ 24/7 SOC & IR ＋
     **GCP Migration & Managed Services**(0813 建頁 → `managed-gcp.html`,已是真連結)。
-  - **FortiEDR 是唯一的不可點灰字**(`<span class="off">`＋mono 的
-    Coming soon,用 `--muted` 上色)。**絕不可寫成 `<a href="#">`**——會踩到
-    「每檔只能有 1 個 `href="#"`」的檢查。
+  - ⚠ **0814 起全站沒有灰字項**(FortiEDR 因零素材下架:選單、`cybersecurity.html`
+    的卡片、頁尾那列全部移除;EDR 組由 `.trio` 改 `.duo`)。要加回灰字項時用
+    `<span class="off">`＋mono 的 Coming soon、`--muted` 上色,
+    **絕不可寫成 `<a href="#">`**——全站 `href="#"` 現為 0,一寫檢查就紅。
+  - ⚠ **語言切換(EN / 繁中)已於 0814 整組移除**,雙語留給正式 Astro 版。
   - `CyberSecurity` 駝峰是 0731 會議指定的**刻意寫法**,不要「修正」成 Cybersecurity
     (僅限選單分類名;H1 等內文仍為定稿原文)。
 - **`aria-current` 與 `class="on"` 是兩個角色,不可混用**:`aria-current="page"` 掛
@@ -102,23 +106,25 @@
   `#pick` 選型指引 →`stack` 分層圖 →`#faq` 平鋪問答 → CTA。**不做頁籤**——全部平鋪成 section,
   可深連結、Ctrl+F 找得到。痛點/選型/FAQ 的素材取自 Google docs overview 頁改寫。
   `cards2` 必須偶數張(產品數為奇數時把清單改走 `loglist`)。
-- **動 nav = 改 MENU 後重跑腳本**(38 檔一次同步);**動 footer = 38 檔都要改**
+- **動 nav = 改 MENU 後重跑腳本**(40 檔一次同步);**動 footer = 40 檔都要改**
   (footer 沒有產生器,靠「35 個內容頁與 `sentinelone.html` 逐字節相同」把關;
   改 footer 的腳本必須**只在 `<footer>` 區域內取代**——寬鬆子字串會誤中 header 的選單項)。
   ⚠ 兩者都要順手重跑 `build_lab_20260806.py`——`lab/inline-cloud-compute.html` 的
   header/footer 取自 `cloud-compute.html`,而 `lab/` 在 `check_links` 掃描範圍內。
   頁尾三個欄標題都是連到對應總覽頁的連結。改完跑
   `check_nav_20260806.py`、`check_copy_20260806.py` 與 `check_links_20260806.py`,三支都要 PASS。
-- 全 38 檔的 `main [id]` 都有 `scroll-margin-top:80px`,新增頁面要一併帶上;
+- 全 40 檔的 `main [id]` 都有 `scroll-margin-top:80px`,新增頁面要一併帶上;
   19 個 GCP 產品頁另需 `.stack a{scroll-margin-top:80px}`。
 - `ess.html` 是方案頁:ESS(Enterprise Security Service)為沃凱打包方案
   (CyberEyes WDR + 多品牌 EDR + 自有 7x24 SOC),**方案層、非 19 項 SKU**;
   **全頁禁任何外部連結**。此規則只適用 `ess.html` 與 `services.html`——
   `cloud-services.html` 有 1 條指向 Cloud Armor 官方頁的外部連結(合法)。
-- **已知待補項,不要自行編內容補上**:`cloud-services.html` 的沃凱自有服務 3 項
-  (Cloud Migration & Kubernetes / Hybrid Cloud & Backup / Data & AI Engineering);
-  `services.html` 的 5 項服務;`cybersecurity.html` 的 FortiEDR 描述;
-  以及全站的合作夥伴等級、ISO 27001、EU region、交付模式、SLA 回應時間。
+- **已知待補項,不要自行編內容補上**:合作夥伴等級、ISO 27001 認證狀態、
+  可對外引用的客戶案例、各服務的具體 SLA 與回應時間、原廠法人資訊。
+  ⚠ 0814 起這些位置**不再是 `[TODO]` 佔位**——改成 `available on request`、
+  「按案議定」的敘述、或整句刪除。逐項清單在 `docs/待補素材清單_20260814.md`。
+  (`cloud-services.html` / `cloud.html` / `services.html` 的 11 張服務卡已於 0814
+  依 `docs/公司_104.md` 補寫,該檔當日局部解禁、**僅限服務範圍描述**。)
   ⚠ **紅線**:「Google SecOps 認證經銷商 / Cloud Security MSSP / Premier Partner」
   是**蓋亞(另一家公司)的資格**,寫成沃凱的等於不實陳述(見 `docs/product/google-secops.md`)。
 - **SKU 代碼體系**:唯一事實來源 §A 的 `C-01`〜`C-06` 等是 **pre-0731 歷史體系**,
@@ -145,14 +151,23 @@
   ⚠ **2026-08-10 變更**:本條原本要求列「自研 CE-BAS / AI-PTaaS / SecPurple」,
   查證確認 CE-BAS 非自研(沃凱是代理商)後由使用者裁決改寫。
   **這一區不得再宣稱 self-developed / built in-house / not resold**,除非取得經查證的自研素材。
-- 公司事實(統編、地址、認證、案例)一律 `[TODO: 說明]` 佔位,不得虛構;
-  **全案只用這一種佔位語法**(不得用 `{{TODO}}`)。公司事實來源為 `docs/公司_104.md`,
-  但該檔只可用於服務範圍與願景,不可用來填統編/VAT/地址。
+- 公司法定資訊**已於 0814 取得**:`Volcatech Corporate Ltd.`、統編 `94269177`、
+  `9F.-2, No. 54, Songjiang Rd., Zhongshan Dist., Taipei City 104090, Taiwan (R.O.C.)`、
+  `+886 2 2327 9668`、`salesgroup@volcatech.com`。⚠ `VAT / tax ID` 那一列**刻意整列刪除**
+  (台灣公司沒有 EU VAT 號,填統編會誤導歐洲買家)。
+  ⚠ 0814 稍晚**頁尾最底那條 `.legal` 灰字帶整塊移除**:頁尾仍有聯絡 `<dl>`
+  (Email／電話／登記地址)與 Company 欄的 `Privacy notice` / `Imprint` 兩條連結,
+  但法人名與統編只剩 `imprint.html` 一處。復原開關在
+  `docs/reports/fix_footer_20260814.py` 的 `RESTORE_LEGAL`。
+- 認證與合作等級**未經確認一律不寫**,不得虛構。⚠ **上站頁面不得出現 `[TODO` 佔位符**
+  (客戶會看到);施工中的暫時佔位用 `[TODO: 說明]` 一種語法但不得 commit 上站,
+  缺什麼登記進 `docs/待補素材清單_20260814.md`。
+  公司事實來源 `docs/公司_104.md` 只可用於服務範圍與願景,**永遠不可**用來填統編/VAT/地址。
 - `style-3-soc/` 的 design tokens(`:root` CSS variables)獨立,不可從 `archive/` 舊風格
-  混入;二十頁的 tokens 與共用區塊需同步修改。
+  混入;40 頁的 tokens 與共用區塊需同步修改。
 - WCAG 2.2 AA、`:focus-visible`、`prefers-reduced-motion`、RWD(390/768/1024/1440)、每頁唯一 h1;
   非英文片段(如「繁中」、中文公司名)必須帶 `lang` 屬性。
-  **本 demo 不宣稱完全符合 AA**——五項已知缺口明文登記在 `CLAUDE.md` §已知缺口
+  **本 demo 不宣稱完全符合 AA**——十項已知缺口明文登記在 `CLAUDE.md` §已知缺口
   (下拉面板邊框對比 1.47:1、`aria-expanded` 刻意不寫、螢幕閱讀器瀏覽模式讀不到下拉、
   `aria-haspopup` 是半真話、`lab/` 用外部 CDN)。不要把它們當成待修 bug 順手改掉。
 - 文案為歐洲 B2B 直述語氣,禁 hype 形容詞(leading / best-in-class / cutting-edge)與
