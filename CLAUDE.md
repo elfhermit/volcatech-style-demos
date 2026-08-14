@@ -135,12 +135,16 @@
      無 href 且是別的產品(`.node` 普通)。省事把 href 設 None 會讓 Pub/Sub 在 BigQuery 的圖上
      變成琥珀的「你在這裡」,是這個元件語言裡最明確的謊。
      兩頁檔案與內容完整保留、登記為孤兒頁;`build_updates` 的產品數守衛 28→26。
-   ④**根 hub 不改**——夥伴拿到的網址直接指向 `style-3-soc/index.html`。
+   ④**根 hub 不另行改寫**——夥伴拿到的網址直接指向 `style-3-soc/index.html`。
+     ⚠ 但它**不是零 diff**:那張產品表由 `build_updates` 從 `MENU` 推導,選單一動它就跟著少兩列。
+     「不改」指的是首屏文案、待辦區與版面不動,不是這個檔沒有變更。
      ⚠ 根目錄那個中文進度儀表板因此仍在線上(H1 寫著「0814 已完成客戶 demo 前整備」、
      底下 20 條中文待辦、兩個首頁方案並列、歷史存檔與 lab 入口),只是不在動線上。
      它的產品表備注欄還留著唯一一處 `Leukocyte-Lab`(內部備注,不在夥伴動線上)。
-   ⑤**`cybereyes.html` 完全不碰**——使用者手改中(vendor 改為 `ZUIN Technology`、
-     四段文案重寫)。⚠ 待確認:那段文案的來源(疑似原廠供稿,若逐字取自原廠官網
+   ⑤**`cybereyes.html` 的 `<main>` 完全不碰**——使用者手改中(vendor 改為 `ZUIN Technology`、
+     四段文案重寫)。⚠ 該檔仍有約 43 行 diff:頁尾電話列、選單那兩項、一段 CSS 註解,
+     全部來自全站共用區塊的同步。**「不碰」的範圍是 `<main>`,不是整個檔案**——
+     這兩件事在這個專案裡本來就分屬不同機制(手維護 vs 產生器),敘述時要分開講。⚠ 待確認:那段文案的來源(疑似原廠供稿,若逐字取自原廠官網
      撞硬性規則 8)、`ZUIN Technology` 這個新公司事實的 `# src:` 註記,
      以及首頁 vendors 列該不該把 `CyberEyes`(產品名)換成 `ZUIN Technology`(公司名)。
    ⑥**`lab/preview-restyle/` 與 `lab/prototype-advanced/` 不進版控**——兩個本機視覺實驗,
