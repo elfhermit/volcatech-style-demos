@@ -50,17 +50,28 @@ header{position:sticky;top:0;background:rgba(14,20,31,.95);border-bottom:1px sol
    container and hides the .sub flyouts outside its edge. Nav B panels are short
    (8 rows at most) so they do not need to scroll. */
 .dd ul{display:none;position:absolute;top:100%;left:-12px;background:var(--surface);border:1px solid var(--line);
-  border-radius:6px;min-width:290px;padding:10px 0;list-style:none}
+  border-radius:6px;min-width:330px;padding:10px 0;list-style:none}
 .dd:hover>ul,.dd:focus-within>ul{display:block}
 /* Second-level flyout. Child combinators only — descendant selectors would open every
    nested level the moment the top item is hovered. Scoped to .menu because the footer
    uses its own .sub class for column sub-headings. */
 .menu .sub{position:relative}
-.menu .sub>a::after{content:" ▸";font-size:10px}
+.menu .sub>a>.lbl::after{content:" ▸";font-size:10px}
 .menu .sub>ul{top:-11px;left:100%;min-width:240px}
 .menu .sub:hover>ul,.menu .sub:focus-within>ul{display:block}
 .dd ul a{display:block;padding:9px 18px;font-size:14px}
 .dd ul a:hover{background:#1B2736;color:var(--ink)}
+/* 0813 — second-level rows read as group heads, not leaves. Before this, a group and a
+   plain link shared one rule (.dd ul a): same padding, same 14px, same --muted, and the
+   only difference was a 10px marker. Brighter ink, 600 weight and a spine separate the
+   two roles; the line underneath says what the group is for, so nobody has to hover a
+   second time to find out. Amber stays out of it — barred from links and small text.
+   The spine uses --muted, not --line: --line is 1.31:1 on --surface, short of the 3:1
+   that SC 1.4.11 asks of a meaning-bearing line. --muted is 6.78:1. */
+.menu .sub>a{color:var(--ink);font-weight:600;border-left:2px solid var(--muted);padding-left:16px}
+.menu .sub .why{display:block;margin-top:3px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.04em;font-weight:400;color:var(--muted);text-transform:none}
+.dd ul li:not(.sub)+.sub{margin-top:5px}
 /* Entries with no page yet. Plain text, deliberately not focusable — there is nowhere
    to go. .dd ul a does not select a span, so the padding has to be repeated. */
 .dd ul .off{display:block;padding:9px 18px;font-size:14px;color:var(--muted);cursor:default}
@@ -296,10 +307,17 @@ a.node:hover{border-color:var(--accent);background:#182433}
 /* 901-1100px: not enough room beside the panel for a side flyout — at the narrow end
    of this band it would run past the left viewport edge. Open the second level inline
    inside the panel instead, so horizontal overflow is structurally impossible. It still
-   only expands on hover/focus, so the panel never grows past ~12 rows. */
+   only expands on hover/focus, so the panel never grows past ~12 rows.
+   0813: the plain-language line under each group head is dropped here too. Inline
+   expansion already makes the panel much taller in this band, and the extra line would
+   push it past a short viewport — and .dd ul must never get overflow, so there would be
+   no way to scroll it back. The line returns below 900px, where .menu itself scrolls.
+   Note this block is also in force under 900px; the mobile slice re-enables it there. */
 @media (max-width:1100px){
   .menu .sub>ul{position:static;top:auto;left:auto;right:auto;min-width:0;
     border:none;border-radius:0;padding:4px 0 4px 14px}
+  .menu .sub .why{display:none}
+  .dd ul li:not(.sub)+.sub{margin-top:0}
 }
 @media (max-width:1024px){
   .fcols{grid-template-columns:1fr 1fr}
@@ -316,6 +334,11 @@ a.node:hover{border-color:var(--accent);background:#182433}
   .menu>li>button{padding:8px 0}
   .dd ul{display:block;position:static;border:none;padding-left:14px;min-width:0;max-height:none;overflow-y:visible}
   .menu .sub>ul{position:static;left:auto;right:auto;min-width:0}
+  /* Put the plain-language line back — the 1100px block above switched it off for the
+     narrow-desktop band, but .menu scrolls here, so height is not a constraint, and a
+     fully expanded three-level list is exactly where the labels help most. */
+  .menu .sub .why{display:block}
+  .dd ul li:not(.sub)+.sub{margin-top:5px}
   .lang{margin-top:10px}
   .lang a{padding-left:0}
   .lang a+a{padding-left:10px}
@@ -336,35 +359,35 @@ a.node:hover{border-color:var(--accent);background:#182433}
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>Google Cloud — Cloud Infrastructure</li>
           <li><a href="cloud.html">Overview — all Google Cloud services</a></li>
-          <li class="sub"><a href="cloud-compute.html" aria-haspopup="true">Compute</a>
+          <li class="sub"><a href="cloud-compute.html" aria-haspopup="true"><span class="lbl">Compute</span><span class="why">Move workloads off ageing hardware</span></a>
             <ul>
               <li><a href="gcp-compute-engine.html">Compute Engine</a></li>
               <li><a href="gcp-kubernetes-engine.html">Kubernetes Engine</a></li>
               <li><a href="gcp-vmware-engine.html">VMware Engine</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cloud-storage.html" aria-haspopup="true">Storage</a>
+          <li class="sub"><a href="cloud-storage.html" aria-haspopup="true"><span class="lbl">Storage</span><span class="why">Backups that restore, data in Europe</span></a>
             <ul>
               <li><a href="gcp-cloud-storage.html">Cloud Storage</a></li>
               <li><a href="gcp-filestore.html">Filestore</a></li>
               <li><a href="gcp-backup-dr.html">Backup and DR</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cloud-analytics.html" aria-haspopup="true">Analytics</a>
+          <li class="sub"><a href="cloud-analytics.html" aria-haspopup="true"><span class="lbl">Analytics</span><span class="why">Turn scattered data into reports</span></a>
             <ul>
               <li><a href="gcp-bigquery.html">BigQuery</a></li>
               <li><a href="gcp-pubsub.html">Pub/Sub</a></li>
               <li><a href="gcp-dataflow.html">Dataflow</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cloud-serverless.html" aria-current="page" aria-haspopup="true">Serverless</a>
+          <li class="sub"><a href="cloud-serverless.html" aria-current="page" aria-haspopup="true"><span class="lbl">Serverless</span><span class="why">Ship faster, with APIs under control</span></a>
             <ul>
               <li><a href="gcp-cloud-run.html">Cloud Run</a></li>
               <li><a href="gcp-app-engine.html">App Engine</a></li>
               <li><a href="gcp-api-gateway.html">API Gateway</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cloud-databases.html" aria-haspopup="true">Databases</a>
+          <li class="sub"><a href="cloud-databases.html" aria-haspopup="true"><span class="lbl">Databases</span><span class="why">The right engine, patched for you</span></a>
             <ul>
               <li><a href="gcp-alloydb.html">AlloyDB for PostgreSQL</a></li>
               <li><a href="gcp-cloud-sql.html">Cloud SQL</a></li>
@@ -372,7 +395,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
               <li><a href="gcp-firestore.html">Firestore</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cloud-ai.html" aria-haspopup="true">AI</a>
+          <li class="sub"><a href="cloud-ai.html" aria-haspopup="true"><span class="lbl">AI</span><span class="why">Model building, tuning and serving</span></a>
             <ul>
               <li><a href="gcp-vertex-ai.html">Vertex AI</a></li>
               <li><a href="gcp-model-garden.html">Model Garden</a></li>
@@ -384,20 +407,20 @@ a.node:hover{border-color:var(--accent);background:#182433}
         <ul>
           <li class="head"><span class="dot" aria-hidden="true"></span>CyberSecurity — EDR · SIEM &amp; WDR · BAS</li>
           <li><a href="cybersecurity.html">Overview — all security products</a></li>
-          <li class="sub"><a href="cybersecurity.html#edr" aria-haspopup="true">Endpoint — EDR</a>
+          <li class="sub"><a href="cybersecurity.html#edr" aria-haspopup="true"><span class="lbl">Endpoint — EDR</span><span class="why">Detect and stop attacks on devices</span></a>
             <ul>
               <li><a href="sentinelone.html">SentinelOne</a></li>
               <li><a href="threatsonar.html">ThreatSonar</a></li>
               <li><span class="off">FortiEDR<span class="soon">Coming soon</span></span></li>
             </ul>
           </li>
-          <li class="sub"><a href="cybersecurity.html#detection" aria-haspopup="true">Detection — SIEM &amp; WDR</a>
+          <li class="sub"><a href="cybersecurity.html#detection" aria-haspopup="true"><span class="lbl">Detection — SIEM &amp; WDR</span><span class="why">Spot threats across cloud and logs</span></a>
             <ul>
               <li><a href="cybereyes.html">CyberEyes</a></li>
               <li><a href="google-secops.html">Google SecOps</a></li>
             </ul>
           </li>
-          <li class="sub"><a href="cybersecurity.html#validation" aria-haspopup="true">Validation — breach &amp; attack simulation</a>
+          <li class="sub"><a href="cybersecurity.html#validation" aria-haspopup="true"><span class="lbl">Validation — breach &amp; attack simulation</span><span class="why">Test whether your defences hold</span></a>
             <ul>
               <li><a href="argushack.html">ArgusHack</a></li>
             </ul>
