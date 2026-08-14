@@ -274,6 +274,11 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 副作用是 **V1 現在沒有任何入口連結**——檔案保留,等首頁定案。
 
 - 目標受眾:歐洲企業的 IT / 資安決策者;語言英文為主(正式版另有繁中 /zh-tw/,架構須可擴充更多語系)
+  ⚠ **0814 使用者補充:這個站的第一線讀者是「歐洲的合作夥伴」**——他們要拿這個網站
+  在當地銷售沃凱的服務。所以站上缺的不只是給終端買家的信任元素,還有給夥伴的東西:
+  交付分工(誰做哪一段)、誰簽約誰開發票、以及夥伴一定會被客戶問到的
+  「你們的 24/7 SOC 在哪裡、誰輪班、歐洲時區誰接」。目前全站文案是「我們賣給你」的口吻,
+  **一處都沒有回答上述問題**。已列進根 hub 待做事項,尚未動工。
 - 新官網將**改版取代**現有 volcatech.com
 - 法定資訊(0814 使用者提供):法人名 `Volcatech Corporate Ltd.`
   (沃凱科技股份有限公司)、統編 `94269177`、
@@ -322,6 +327,9 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 
 1. **純靜態、單檔自足**:demo 頁為 HTML + inline CSS(+極少量原生 JS,僅限手機選單/下拉);
    禁止外部 CDN(含 Google Fonts,GDPR)、禁止前端框架、禁止建置步驟。
+   ⚠ **0814 唯一例外:`<link rel="icon" href="favicon.png">`**(同源相對路徑、零第三方請求)。
+   GitHub Pages 是子路徑部署,瀏覽器預設要的 `/favicon.ico` 在網域根目錄不歸我們管,
+   沒有這一行就沒有分頁圖示,沒有繞過的辦法。正本 `build_favicon_20260814.py`。
    2026-08-10 破例:專案根 Demo hub(根 index.html)的「待做事項與產品清單」區允許
    約 15–20 行行內原生 JS 做表格排序;破例僅限 hub 一頁,style-3-soc/ 各頁仍禁止新增 script。
 2. **相對路徑**:所有連結與資源用相對路徑(需相容 GitHub Pages 子路徑 `/repo名稱/`)。
@@ -665,6 +673,8 @@ python3 docs/reports/fix_footer_20260814.py
 python3 docs/reports/wire_contact_20260814.py   # ← 必須排在會重寫 <main> 的三支之後
 python3 docs/reports/restyle_content_20260806.py
 python3 docs/reports/rebuild_nav_20260806.py    # ← 一定要最後跑
+python3 docs/reports/build_favicon_20260814.py  # ← 必須排在 lab 兩支之前:它只注入
+                                                #   style-3-soc/ 與根 hub,lab 是從底檔複製的
 python3 docs/reports/build_lab_20260806.py      # 取自底檔,故排在 nav/footer 之後
 python3 docs/reports/build_restyle_samples_20260812.py
 python3 docs/reports/build_updates_20260810.py
@@ -691,6 +701,7 @@ python3 docs/reports/build_updates_20260810.py
 | `fix_footer_20260814.py` | 頁尾法定資訊補實 ＋ 移除 Demo notice/backlink 列/FortiEDR 那列。**只在 `<footer>` 之後動手**。可重複執行 |
 | `fix_content_todos_20260814.py` | `<main>` 內容型佔位符的處置對照表(按案議定/刪句/available on request/11 張服務卡補寫)。**待補清單的資料來源** |
 | `wire_contact_20260814.py` | **Contact 動線正本**(0814 稍晚):132 顆 CTA 按鈕由 `#contact` 改 `mailto:`(主旨帶該頁 h1)＋頁尾 Email/Phone 包成 `mailto:`/`tel:`。⚠ 必須排在 `build_gcp_pages`／`build_v1`／`build_legal_pages` 之後——那三支會整段重寫 `<main>`,把按鈕還原 |
+| `build_favicon_20260814.py` | **favicon 正本**(0814):從 `docs/assets/volcatech-logo-final.png` 裁出「A」火山字符 → 256×256 透明 PNG,並在 41 檔注入 `<link rel="icon">`。不依賴 Pillow(PNG 解/編碼都在檔內)。⚠ 母檔在 `docs/` 底下,不進版控;產出的 `favicon.png` 有進版控,所以站不會壞,但要重產得先把母檔放回去 |
 | `build_todo_backlog_20260814.py` | 由上一支的對照表產生 `docs/待補素材清單_20260814.md`。改了對照表就重跑它 |
 | `rename_argushack_footer_20260810.py` | 0810 全站 footer 更名(CE-BAS→ArgusHack、移除兩品那兩列)。可重複執行,只動 footer |
 | `build_lab_20260806.py` | 產生 `lab/inline-cloud-compute.html`(**已完成階段任務**,`lab/` 刪掉後可一併移除)。⚠ 它從 `cloud-compute.html` 取 header/footer/CSS,所以**改完選單或頁尾要重跑它**——`lab/` 在 `check_links` 掃描範圍內,漏跑就會出現死錨點(0810 實際踩到) |
@@ -757,7 +768,11 @@ EOF
 # 核心句只在 V1 → 應輸出 1(index.html 刻意不含,理由見〈軸 2〉)
 grep -Fl 'We operate what we sell, and we build what we cannot buy.' index*.html | wc -l
 # 無外部資源請求 → 應為空(全站唯一 JS 是各頁 navbtn 的行內 onclick;不得新增 <script> 標籤)
-grep -nE '<img |<script|@import|<link ' *.html
+# ⚠ 0814 起 `<link rel="icon" href="favicon.png">` 是**唯一合法的 `<link>`**:同源相對路徑、
+#   零第三方請求,不違反 GDPR 前提。GitHub Pages 是子路徑部署,瀏覽器預設要的
+#   `/favicon.ico` 落在網域根目錄(不歸我們管),所以沒有這一行就沒有分頁圖示。
+#   其餘任何 `<link>`、`<img>`、`<script>`、`@import` 一律仍然禁止
+grep -nE '<img |<script|@import|<link ' *.html | grep -v '<link rel="icon" href="favicon.png">'
 # 外連只該是原廠 anchor,且同行有 rel="noopener" → 應為空
 grep -n 'https\?://' *.html | grep -v 'rel="noopener"'
 # CTA 一律 Contact us(sentence case);禁 Contact Us、禁 Request a proposal

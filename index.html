@@ -6,6 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Volcatech 官網 Demo — 進度儀表板與頁面索引</title>
 <meta name="description" content="Volcatech 新官網 demo 入口:待做事項與產品清單、首頁兩案(現行版/V1)、style-3-soc 全部頁面與歷史存檔索引。">
+<link rel="icon" href="style-3-soc/favicon.png">
 <style>
 :root{--bg:#111418;--surface:#1B2026;--ink:#F2F4F6;--muted:#9AA4AE;--line:#2A313A;--max:1100px}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -118,6 +119,11 @@ a:focus-visible{outline:2px solid #7FB0FF;outline-offset:3px}
       <li>index-v1-proof.html 仍有 10 處佔位符（0814 刻意不清；首頁若選 V1 才需處理）</li>
       <li>privacy.html 的託管段落綁定目前的 GitHub Pages（換託管時須重新查證存取紀錄由誰持有）</li>
       <li>ThreatSonar FAQ 02「常駐模式僅支援 Windows」與原廠 deck p64 對照表不符（該表列 Windows 與 Linux），待查證後修正</li>
+      <li>404 頁——現在打錯網址會看到 GitHub 的白底預設頁（寫著 The site configured at this address 與 GitHub 標誌）</li>
+      <li>社群預覽（Open Graph／Twitter card）——連結貼進 Teams 或 LinkedIn 只有一條裸網址，沒有標題、說明或預覽圖</li>
+      <li>&lt;code&gt;color-scheme: dark&lt;/code&gt; 宣告——一行 CSS；沒有它，Windows Chrome 的捲軸會是淺灰色貼在深色版面旁</li>
+      <li>無障礙四條——skip link（現在每頁要 Tab 過 45 個焦點才進得了內文）、&lt;code&gt;&amp;lt;nav&amp;gt;&lt;/code&gt; landmark（全站零個）、頁尾標題 h4→h2（40 檔都有 h2→h4 跳級）、&lt;code&gt;.btn-ghost&lt;/code&gt; 與手機 Menu 鈕的邊框對比（實算 1.47:1，未達 3:1）</li>
+      <li>夥伴視角的內容——0814 確認這個站的讀者是&lt;b&gt;歐洲合作夥伴&lt;/b&gt;（要拿它在當地銷售），但全站文案是「我們賣給你」的口吻：沒有交付分工、沒有誰簽約誰開發票、沒有 SOC 在哪裡由誰輪班</li>
       <li>雙語（繁中）——0814 移除了點不動的語言切換，雙語留給正式 Astro 版</li>
       <li>正式 Astro 版（雙語 i18n、GDPR 隱私頁、sitemap/hreflang）——不改造本 demo，另開資料夾</li>
       <li>字體改版留在 Astro 正式版處理（0810 使用者原話「符合歐洲人士閱讀」；demo 階段禁外部字體 CDN）</li>
