@@ -239,20 +239,48 @@ a.node:hover{border-color:var(--accent);background:#182433}
 .pick .when{font-size:14.5px;line-height:1.6}
 .pick .ar{color:var(--accent);font-family:var(--mono);font-size:16px;text-align:center}
 .pick .node{min-width:0;font-size:14.5px}
-/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
-   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
-   .spec so numbering reads as one system; questions carry the ink, answers the muted.
-   0811: the density audit measured #faq at 36-44% of page text — the tallest wall on every
-   product page — so the flat list packs into two newspaper columns of cards. Still fully
-   expanded, still Ctrl+F-findable, about half the height. Single column at 640px and down
-   (640 keeps clear of the 1100/1024 queries the nav checker slices on). */
-.faq{margin-top:36px;columns:2;column-gap:18px}
-.faq>div{break-inside:avoid;background:var(--surface);border:1px solid var(--line);border-radius:8px;
-  padding:20px 22px;margin-bottom:18px;transition:border-color .18s ease}
-.faq>div:hover{border-color:var(--muted)}
+/* FAQ — click-to-expand disclosure rows (0815). The two-column cards 0811 introduced
+   fixed the height (the density audit put #faq at 36-44% of page text, the tallest wall
+   on every product page) but not the reading: eight answers still arrived in the eye at
+   once. A row now collapses to its question, and the answer comes on demand.
+   A native disclosure is the only zero-JS route — the project bans new script tags, and
+   CSS cannot drive one on its own (lesson logged 2026-07-30). The element names are kept
+   out of this comment on purpose: a naive scan for the tag would match the comment before
+   it reached any real markup (lesson logged 2026-08-04, and an auditor hit it here).
+   Single column on purpose: CSS multi-column is a continuous flow, so opening one row
+   would reflow — and sometimes re-balance across columns — everything after it.
+   Amber marks the open row. A border is neither a link nor small text, so this stays
+   inside the amber rules; .probs and .uses already carry an amber edge.
+   :focus-visible is declared here because the global rule covers a and button only,
+   and <summary> is neither.
+   No find-in-page cost, checked 2026-08-15: all three engines now open a closed row when
+   the search lands inside it — Chrome since 2023, Firefox 139, Safari 26.2. The page reads
+   clean and the answers stay searchable, so nothing suppresses that here. Suppressing it
+   is possible in CSS and deliberately not done: the readers who lose most are the ones who
+   rely on in-page search. If that ever changes it is a new decision and belongs in an ADR,
+   not in a stylesheet. Full reasoning in docs/adr/0006. */
+.faq{margin-top:36px;display:grid;gap:12px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  transition:border-color .18s ease}
+.faq details:hover{border-color:var(--muted)}
+.faq details[open]{border-color:var(--accent)}
+.faq summary{display:block;list-style:none;cursor:pointer;padding:20px 64px 20px 22px;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* Chevron drawn from two pseudo-elements — no glyph, no SVG. The site ships no font
+   files, so a character-based caret would render differently machine to machine.
+   ::before is the disc and ::after the stroke, in that order: the later one paints on top. */
+.faq summary::before{content:"";position:absolute;right:20px;top:calc(50% - 14px);
+  width:28px;height:28px;background:#1B2736;border:1px solid var(--line);border-radius:50%;
+  transition:border-color .18s ease}
+.faq summary::after{content:"";position:absolute;right:29.5px;top:calc(50% - 6px);
+  width:9px;height:9px;border-right:1.6px solid var(--ink);border-bottom:1.6px solid var(--ink);
+  transform:rotate(45deg);transition:transform .2s ease}
+.faq details[open] summary::before{border-color:var(--accent)}
+.faq details[open] summary::after{transform:rotate(225deg)}
 .faq h3{display:grid;grid-template-columns:36px 1fr;gap:14px;font-size:16px;line-height:1.45;color:var(--ink)}
 .faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
-.faq p{margin:10px 0 0 50px;font-size:14.5px;line-height:1.7;color:var(--muted)}
+.faq details>p{margin:0 22px 20px 72px;font-size:14.5px;line-height:1.7;color:var(--muted)}
 /* 0811 layout pass (docs/reports/版型改版規劃_20260811.md). No new colour token.
    Hero fact row: one spec line per product promoted into the hero — moved, not copied,
    so the copy checker's multiset is unchanged; the chip reuses the .node.self language
@@ -275,9 +303,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
   .spec>div:nth-child(2){border-top:1px solid var(--line)}
   .spec>div:nth-child(even){border-left:none}
 }
-@media (max-width:640px){
-  .faq{columns:1}
-}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
@@ -294,11 +319,13 @@ a.node:hover{border-color:var(--accent);background:#182433}
   .layer{grid-template-columns:1fr;gap:10px}
   .pick>li{grid-template-columns:1fr}
   .pick .ar{transform:rotate(90deg);justify-self:center}
-  .faq p{margin-left:0}
+  .faq details>p{margin-left:22px}
 }
 @media (prefers-reduced-motion: reduce){
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
   .probs>div:hover,.uses>div:hover,.trio>div:hover,.quad>div:hover,.duo>div:hover{transform:none}
+  /* The chevron still turns — that is state, not decoration. What goes is the tween. */
+  .faq details,.faq summary::before,.faq summary::after{transition:none}
 }
 /* 0814. `.lead` is used on 24 pages but only two of them ever defined it, so on the
    other 22 the intro paragraph inherited body width and ran to 152-166 characters a
@@ -560,16 +587,16 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
       <h2 class="sec">What evaluators ask.</h2>
       <div class="faq">
-        <div><h3><span class="n" aria-hidden="true">01</span><span>If we run this, do we still need web-layer detection (WDR) and EDR products?</span></h3><p>Yes. The platform correlates, investigates and automates on the telemetry it receives; something still has to produce that telemetry at the endpoint and at the web layer. CyberEyes and an EDR agent are those sources, and Google Security Operations is where their findings meet the rest of your logs.</p></div>
-        <div><h3><span class="n" aria-hidden="true">02</span><span>How much of the onboarding is parser work?</span></h3><p>Less than with an on-premises SIEM. Parsing for common sources — on-premises systems, the major public clouds, endpoint agents and Google Cloud's own protections — comes with the platform, so most sources are a mapping and validation exercise rather than a development one. In-house applications with unusual log formats still take work. We scope that against your actual source list before committing to a timeline.</p></div>
-        <div><h3><span class="n" aria-hidden="true">03</span><span>Can we keep logs beyond the platform's default retention?</span></h3><p>Yes. Logs can be exported to cloud storage and held for as long as your own policy requires, which is the usual route for obligations that outlast the default window in the platform.</p></div>
-        <div><h3><span class="n" aria-hidden="true">04</span><span>Does the platform remove the need for analysts?</span></h3><p>No. Playbooks collect evidence and carry out routine steps, and Gemini shortens the search work, but decisions about containment and communication stay with people. Where there is nobody to staff the console, our SOC can operate it for you.</p></div>
-        <div><h3><span class="n" aria-hidden="true">05</span><span>How is Google Security Operations charged?</span></h3><p>Charges follow the volume of data you ingest rather than the number of users or nodes, so how you design log collection matters more than headcount does. Contact us and we will model it against the sources you actually need.</p></div>
-        <div><h3><span class="n" aria-hidden="true">06</span><span>What does UEBA actually catch?</span></h3><p>Patterns that are hard to write as fixed rules: a sign-in from an unfamiliar location, device or hour; repeated failures that add up to a brute-force attempt; a single account suddenly raising alerts across many systems; traffic well out of line with an entity's history. Each surfaces as a case alongside every other detection, for an analyst to confirm rather than to dig for.</p></div>
-        <div><h3><span class="n" aria-hidden="true">07</span><span>How far does Gemini go in an investigation?</span></h3><p>It shortens the reading and the writing: it summarises a case, turns a plain-language question into a search, drafts detection rules and playbooks, and assembles what is known about a threat. It does not decide. Containment, escalation and communication stay with your analysts, and a drafted rule or playbook only takes effect once someone puts it into service.</p></div>
-        <div><h3><span class="n" aria-hidden="true">08</span><span>Does this only make sense if we are already on Google Cloud?</span></h3><p>No. The platform sits above the systems it watches rather than inside them, so logs from an estate that runs on-premises, in another provider's cloud, or across both are collected the same way. Adopting it does not require moving a workload anywhere. What running Google Cloud adds is that its own security logs arrive natively.</p></div>
-        <div><h3><span class="n" aria-hidden="true">09</span><span>Can we feed our own threat intelligence into it?</span></h3><p>Yes. Alongside the sources that come with the platform — VirusTotal, Google Cloud Threat Intelligence and Mandiant — feeds you subscribe to or produce yourself can be imported through the API and used to enrich detections and cases in the same way. Intelligence your team already curates keeps its value instead of being set aside when the platform changes.</p></div>
-        <div><h3><span class="n" aria-hidden="true">10</span><span>Will a playbook act on a production system by itself?</span></h3><p>Only where the playbook has been built to. The work that runs unattended is the collection: pulling together the account and the device behind an alert, checking the indicators against the intelligence sources, and assembling the result into a case that can be read rather than reconstructed. Whether a step that changes the state of a system runs on its own or waits at a decision point is set when the playbook is written, so the boundary is yours to draw and to revisit.</p></div>
+        <details><summary><h3><span class="n" aria-hidden="true">01</span><span>If we run this, do we still need web-layer detection (WDR) and EDR products?</span></h3></summary><p>Yes. The platform correlates, investigates and automates on the telemetry it receives; something still has to produce that telemetry at the endpoint and at the web layer. CyberEyes and an EDR agent are those sources, and Google Security Operations is where their findings meet the rest of your logs.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">02</span><span>How much of the onboarding is parser work?</span></h3></summary><p>Less than with an on-premises SIEM. Parsing for common sources — on-premises systems, the major public clouds, endpoint agents and Google Cloud's own protections — comes with the platform, so most sources are a mapping and validation exercise rather than a development one. In-house applications with unusual log formats still take work. We scope that against your actual source list before committing to a timeline.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">03</span><span>Can we keep logs beyond the platform's default retention?</span></h3></summary><p>Yes. Logs can be exported to cloud storage and held for as long as your own policy requires, which is the usual route for obligations that outlast the default window in the platform.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">04</span><span>Does the platform remove the need for analysts?</span></h3></summary><p>No. Playbooks collect evidence and carry out routine steps, and Gemini shortens the search work, but decisions about containment and communication stay with people. Where there is nobody to staff the console, our SOC can operate it for you.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">05</span><span>How is Google Security Operations charged?</span></h3></summary><p>Charges follow the volume of data you ingest rather than the number of users or nodes, so how you design log collection matters more than headcount does. Contact us and we will model it against the sources you actually need.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">06</span><span>What does UEBA actually catch?</span></h3></summary><p>Patterns that are hard to write as fixed rules: a sign-in from an unfamiliar location, device or hour; repeated failures that add up to a brute-force attempt; a single account suddenly raising alerts across many systems; traffic well out of line with an entity's history. Each surfaces as a case alongside every other detection, for an analyst to confirm rather than to dig for.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">07</span><span>How far does Gemini go in an investigation?</span></h3></summary><p>It shortens the reading and the writing: it summarises a case, turns a plain-language question into a search, drafts detection rules and playbooks, and assembles what is known about a threat. It does not decide. Containment, escalation and communication stay with your analysts, and a drafted rule or playbook only takes effect once someone puts it into service.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">08</span><span>Does this only make sense if we are already on Google Cloud?</span></h3></summary><p>No. The platform sits above the systems it watches rather than inside them, so logs from an estate that runs on-premises, in another provider's cloud, or across both are collected the same way. Adopting it does not require moving a workload anywhere. What running Google Cloud adds is that its own security logs arrive natively.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">09</span><span>Can we feed our own threat intelligence into it?</span></h3></summary><p>Yes. Alongside the sources that come with the platform — VirusTotal, Google Cloud Threat Intelligence and Mandiant — feeds you subscribe to or produce yourself can be imported through the API and used to enrich detections and cases in the same way. Intelligence your team already curates keeps its value instead of being set aside when the platform changes.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">10</span><span>Will a playbook act on a production system by itself?</span></h3></summary><p>Only where the playbook has been built to. The work that runs unattended is the collection: pulling together the account and the device behind an alert, checking the indicators against the intelligence sources, and assembling the result into a case that can be read rather than reconstructed. Whether a step that changes the state of a system runs on its own or waits at a decision point is set when the playbook is written, so the boundary is yours to draw and to revisit.</p></details>
       </div>
     </div>
   </section>

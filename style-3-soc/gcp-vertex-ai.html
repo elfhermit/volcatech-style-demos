@@ -244,20 +244,48 @@ a.node:hover{border-color:var(--accent);background:#182433}
 .pick .when{font-size:14.5px;line-height:1.6}
 .pick .ar{color:var(--accent);font-family:var(--mono);font-size:16px;text-align:center}
 .pick .node{min-width:0;font-size:14.5px}
-/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
-   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
-   .spec so numbering reads as one system; questions carry the ink, answers the muted.
-   0811: the density audit measured #faq at 36-44% of page text — the tallest wall on every
-   product page — so the flat list packs into two newspaper columns of cards. Still fully
-   expanded, still Ctrl+F-findable, about half the height. Single column at 640px and down
-   (640 keeps clear of the 1100/1024 queries the nav checker slices on). */
-.faq{margin-top:36px;columns:2;column-gap:18px}
-.faq>div{break-inside:avoid;background:var(--surface);border:1px solid var(--line);border-radius:8px;
-  padding:20px 22px;margin-bottom:18px;transition:border-color .18s ease}
-.faq>div:hover{border-color:var(--muted)}
+/* FAQ — click-to-expand disclosure rows (0815). The two-column cards 0811 introduced
+   fixed the height (the density audit put #faq at 36-44% of page text, the tallest wall
+   on every product page) but not the reading: eight answers still arrived in the eye at
+   once. A row now collapses to its question, and the answer comes on demand.
+   A native disclosure is the only zero-JS route — the project bans new script tags, and
+   CSS cannot drive one on its own (lesson logged 2026-07-30). The element names are kept
+   out of this comment on purpose: a naive scan for the tag would match the comment before
+   it reached any real markup (lesson logged 2026-08-04, and an auditor hit it here).
+   Single column on purpose: CSS multi-column is a continuous flow, so opening one row
+   would reflow — and sometimes re-balance across columns — everything after it.
+   Amber marks the open row. A border is neither a link nor small text, so this stays
+   inside the amber rules; .probs and .uses already carry an amber edge.
+   :focus-visible is declared here because the global rule covers a and button only,
+   and <summary> is neither.
+   No find-in-page cost, checked 2026-08-15: all three engines now open a closed row when
+   the search lands inside it — Chrome since 2023, Firefox 139, Safari 26.2. The page reads
+   clean and the answers stay searchable, so nothing suppresses that here. Suppressing it
+   is possible in CSS and deliberately not done: the readers who lose most are the ones who
+   rely on in-page search. If that ever changes it is a new decision and belongs in an ADR,
+   not in a stylesheet. Full reasoning in docs/adr/0006. */
+.faq{margin-top:36px;display:grid;gap:12px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  transition:border-color .18s ease}
+.faq details:hover{border-color:var(--muted)}
+.faq details[open]{border-color:var(--accent)}
+.faq summary{display:block;list-style:none;cursor:pointer;padding:20px 64px 20px 22px;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* Chevron drawn from two pseudo-elements — no glyph, no SVG. The site ships no font
+   files, so a character-based caret would render differently machine to machine.
+   ::before is the disc and ::after the stroke, in that order: the later one paints on top. */
+.faq summary::before{content:"";position:absolute;right:20px;top:calc(50% - 14px);
+  width:28px;height:28px;background:#1B2736;border:1px solid var(--line);border-radius:50%;
+  transition:border-color .18s ease}
+.faq summary::after{content:"";position:absolute;right:29.5px;top:calc(50% - 6px);
+  width:9px;height:9px;border-right:1.6px solid var(--ink);border-bottom:1.6px solid var(--ink);
+  transform:rotate(45deg);transition:transform .2s ease}
+.faq details[open] summary::before{border-color:var(--accent)}
+.faq details[open] summary::after{transform:rotate(225deg)}
 .faq h3{display:grid;grid-template-columns:36px 1fr;gap:14px;font-size:16px;line-height:1.45;color:var(--ink)}
 .faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
-.faq p{margin:10px 0 0 50px;font-size:14.5px;line-height:1.7;color:var(--muted)}
+.faq details>p{margin:0 22px 20px 72px;font-size:14.5px;line-height:1.7;color:var(--muted)}
 /* 0811 layout pass (docs/reports/版型改版規劃_20260811.md). No new colour token.
    Hero fact row: one spec line per product promoted into the hero — moved, not copied,
    so the copy checker's multiset is unchanged; the chip reuses the .node.self language
@@ -280,9 +308,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
   .spec>div:nth-child(2){border-top:1px solid var(--line)}
   .spec>div:nth-child(even){border-left:none}
 }
-@media (max-width:640px){
-  .faq{columns:1}
-}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
@@ -299,11 +324,13 @@ a.node:hover{border-color:var(--accent);background:#182433}
   .layer{grid-template-columns:1fr;gap:10px}
   .pick>li{grid-template-columns:1fr}
   .pick .ar{transform:rotate(90deg);justify-self:center}
-  .faq p{margin-left:0}
+  .faq details>p{margin-left:22px}
 }
 @media (prefers-reduced-motion: reduce){
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
   .probs>div:hover,.uses>div:hover,.trio>div:hover,.quad>div:hover,.duo>div:hover{transform:none}
+  /* The chevron still turns — that is state, not decoration. What goes is the tween. */
+  .faq details,.faq summary::before,.faq summary::after{transition:none}
 }
 /* 0814. `.lead` is used on 24 pages but only two of them ever defined it, so on the
    other 22 the intro paragraph inherited body width and ran to 152-166 characters a
@@ -616,14 +643,14 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
       <h2 class="sec">What evaluators ask.</h2>
       <div class="faq">
-        <div><h3><span class="n" aria-hidden="true">01</span><span>How does Vertex AI relate to Model Garden?</span></h3><p>Model Garden is the model catalogue inside Vertex AI. You deploy existing models from the catalogue; the wider platform covers training, tuning, serving and monitoring — including models you build yourself.</p></div>
-        <div><h3><span class="n" aria-hidden="true">02</span><span>Can we keep workloads in European regions?</span></h3><p>Yes — the Vertex AI locations list includes eleven European regions, and resources are created in the region you choose. Residency scope still varies by feature and model, so we confirm it per workload during design.</p></div>
-        <div><h3><span class="n" aria-hidden="true">03</span><span>Will our prompts or tuning data train Google's models?</span></h3><p>No. Google's Vertex AI data-governance documentation commits that customer data — prompts, outputs and tuning datasets — is not used for training or fine-tuning of its models unless you give prior permission or instruction. Controls and auditability follow your existing Google Cloud project settings.</p></div>
-        <div><h3><span class="n" aria-hidden="true">04</span><span>How is Vertex AI charged?</span></h3><p>Consumption-based: training compute, serving nodes and managed features are metered separately, so the total depends on architecture and usage patterns. Contact us for an estimate built on your actual workloads.</p></div>
-        <div><h3><span class="n" aria-hidden="true">05</span><span>Who runs the platform day to day?</span></h3><p>Vertex AI removes most infrastructure work, but models still need an owner for evaluation, retraining and monitoring. That role can sit in-house or with a managed partner. Where Volcatech takes it on, the scope and the response times come with the engagement.</p></div>
-        <div><h3><span class="n" aria-hidden="true">06</span><span>How do we know a model still behaves the way it did when it was approved?</span></h3><p>Monitoring watches the feature values reaching a deployed tabular model and separates two different failures. Skew is judged against the distribution those features had in the training data, and catches production input that never looked like what the model learned from. Drift is judged against the distribution the same features showed in production earlier, and catches input that has shifted since. Comparisons run on a schedule you set, against thresholds you set per feature, so a degraded model surfaces as an alert rather than as a business result months later.</p></div>
-        <div><h3><span class="n" aria-hidden="true">07</span><span>Can training be repeatable rather than a notebook someone remembers to run?</span></h3><p>Yes. A pipeline describes the steps as code and runs them as a managed workflow, so preparation, training, evaluation and registration happen in the same order every time, with no infrastructure to stand up for a run. Steps whose inputs have not changed can reuse the previous result instead of recomputing it, and each run records the artefacts it produced, so months later it is still possible to say which data and which code produced a given model version.</p></div>
-        <div><h3><span class="n" aria-hidden="true">08</span><span>Can prediction endpoints be kept off the public internet?</span></h3><p>Yes, and it is a design decision rather than a later hardening step. Endpoints can be published privately through Private Service Connect so that calls reach them across your own network instead of a public address, and the service can be placed inside a VPC Service Controls perimeter that limits which projects and networks may reach it at all. Coverage differs by model type — tuned Gemini models, for one, are served from shared public endpoints — so the network design is confirmed per workload. It is best settled before applications are written, because moving an endpoint afterwards means changing every caller.</p></div>
+        <details><summary><h3><span class="n" aria-hidden="true">01</span><span>How does Vertex AI relate to Model Garden?</span></h3></summary><p>Model Garden is the model catalogue inside Vertex AI. You deploy existing models from the catalogue; the wider platform covers training, tuning, serving and monitoring — including models you build yourself.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">02</span><span>Can we keep workloads in European regions?</span></h3></summary><p>Yes — the Vertex AI locations list includes eleven European regions, and resources are created in the region you choose. Residency scope still varies by feature and model, so we confirm it per workload during design.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">03</span><span>Will our prompts or tuning data train Google's models?</span></h3></summary><p>No. Google's Vertex AI data-governance documentation commits that customer data — prompts, outputs and tuning datasets — is not used for training or fine-tuning of its models unless you give prior permission or instruction. Controls and auditability follow your existing Google Cloud project settings.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">04</span><span>How is Vertex AI charged?</span></h3></summary><p>Consumption-based: training compute, serving nodes and managed features are metered separately, so the total depends on architecture and usage patterns. Contact us for an estimate built on your actual workloads.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">05</span><span>Who runs the platform day to day?</span></h3></summary><p>Vertex AI removes most infrastructure work, but models still need an owner for evaluation, retraining and monitoring. That role can sit in-house or with a managed partner. Where Volcatech takes it on, the scope and the response times come with the engagement.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">06</span><span>How do we know a model still behaves the way it did when it was approved?</span></h3></summary><p>Monitoring watches the feature values reaching a deployed tabular model and separates two different failures. Skew is judged against the distribution those features had in the training data, and catches production input that never looked like what the model learned from. Drift is judged against the distribution the same features showed in production earlier, and catches input that has shifted since. Comparisons run on a schedule you set, against thresholds you set per feature, so a degraded model surfaces as an alert rather than as a business result months later.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">07</span><span>Can training be repeatable rather than a notebook someone remembers to run?</span></h3></summary><p>Yes. A pipeline describes the steps as code and runs them as a managed workflow, so preparation, training, evaluation and registration happen in the same order every time, with no infrastructure to stand up for a run. Steps whose inputs have not changed can reuse the previous result instead of recomputing it, and each run records the artefacts it produced, so months later it is still possible to say which data and which code produced a given model version.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">08</span><span>Can prediction endpoints be kept off the public internet?</span></h3></summary><p>Yes, and it is a design decision rather than a later hardening step. Endpoints can be published privately through Private Service Connect so that calls reach them across your own network instead of a public address, and the service can be placed inside a VPC Service Controls perimeter that limits which projects and networks may reach it at all. Coverage differs by model type — tuned Gemini models, for one, are served from shared public endpoints — so the network design is confirmed per workload. It is best settled before applications are written, because moving an endpoint afterwards means changing every caller.</p></details>
       </div>
     </div>
   </section>

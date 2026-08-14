@@ -239,20 +239,48 @@ a.node:hover{border-color:var(--accent);background:#182433}
 .pick .when{font-size:14.5px;line-height:1.6}
 .pick .ar{color:var(--accent);font-family:var(--mono);font-size:16px;text-align:center}
 .pick .node{min-width:0;font-size:14.5px}
-/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
-   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
-   .spec so numbering reads as one system; questions carry the ink, answers the muted.
-   0811: the density audit measured #faq at 36-44% of page text — the tallest wall on every
-   product page — so the flat list packs into two newspaper columns of cards. Still fully
-   expanded, still Ctrl+F-findable, about half the height. Single column at 640px and down
-   (640 keeps clear of the 1100/1024 queries the nav checker slices on). */
-.faq{margin-top:36px;columns:2;column-gap:18px}
-.faq>div{break-inside:avoid;background:var(--surface);border:1px solid var(--line);border-radius:8px;
-  padding:20px 22px;margin-bottom:18px;transition:border-color .18s ease}
-.faq>div:hover{border-color:var(--muted)}
+/* FAQ — click-to-expand disclosure rows (0815). The two-column cards 0811 introduced
+   fixed the height (the density audit put #faq at 36-44% of page text, the tallest wall
+   on every product page) but not the reading: eight answers still arrived in the eye at
+   once. A row now collapses to its question, and the answer comes on demand.
+   A native disclosure is the only zero-JS route — the project bans new script tags, and
+   CSS cannot drive one on its own (lesson logged 2026-07-30). The element names are kept
+   out of this comment on purpose: a naive scan for the tag would match the comment before
+   it reached any real markup (lesson logged 2026-08-04, and an auditor hit it here).
+   Single column on purpose: CSS multi-column is a continuous flow, so opening one row
+   would reflow — and sometimes re-balance across columns — everything after it.
+   Amber marks the open row. A border is neither a link nor small text, so this stays
+   inside the amber rules; .probs and .uses already carry an amber edge.
+   :focus-visible is declared here because the global rule covers a and button only,
+   and <summary> is neither.
+   No find-in-page cost, checked 2026-08-15: all three engines now open a closed row when
+   the search lands inside it — Chrome since 2023, Firefox 139, Safari 26.2. The page reads
+   clean and the answers stay searchable, so nothing suppresses that here. Suppressing it
+   is possible in CSS and deliberately not done: the readers who lose most are the ones who
+   rely on in-page search. If that ever changes it is a new decision and belongs in an ADR,
+   not in a stylesheet. Full reasoning in docs/adr/0006. */
+.faq{margin-top:36px;display:grid;gap:12px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  transition:border-color .18s ease}
+.faq details:hover{border-color:var(--muted)}
+.faq details[open]{border-color:var(--accent)}
+.faq summary{display:block;list-style:none;cursor:pointer;padding:20px 64px 20px 22px;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* Chevron drawn from two pseudo-elements — no glyph, no SVG. The site ships no font
+   files, so a character-based caret would render differently machine to machine.
+   ::before is the disc and ::after the stroke, in that order: the later one paints on top. */
+.faq summary::before{content:"";position:absolute;right:20px;top:calc(50% - 14px);
+  width:28px;height:28px;background:#1B2736;border:1px solid var(--line);border-radius:50%;
+  transition:border-color .18s ease}
+.faq summary::after{content:"";position:absolute;right:29.5px;top:calc(50% - 6px);
+  width:9px;height:9px;border-right:1.6px solid var(--ink);border-bottom:1.6px solid var(--ink);
+  transform:rotate(45deg);transition:transform .2s ease}
+.faq details[open] summary::before{border-color:var(--accent)}
+.faq details[open] summary::after{transform:rotate(225deg)}
 .faq h3{display:grid;grid-template-columns:36px 1fr;gap:14px;font-size:16px;line-height:1.45;color:var(--ink)}
 .faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
-.faq p{margin:10px 0 0 50px;font-size:14.5px;line-height:1.7;color:var(--muted)}
+.faq details>p{margin:0 22px 20px 72px;font-size:14.5px;line-height:1.7;color:var(--muted)}
 /* 0811 layout pass (docs/reports/版型改版規劃_20260811.md). No new colour token.
    Hero fact row: one spec line per product promoted into the hero — moved, not copied,
    so the copy checker's multiset is unchanged; the chip reuses the .node.self language
@@ -275,9 +303,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
   .spec>div:nth-child(2){border-top:1px solid var(--line)}
   .spec>div:nth-child(even){border-left:none}
 }
-@media (max-width:640px){
-  .faq{columns:1}
-}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
@@ -294,11 +319,13 @@ a.node:hover{border-color:var(--accent);background:#182433}
   .layer{grid-template-columns:1fr;gap:10px}
   .pick>li{grid-template-columns:1fr}
   .pick .ar{transform:rotate(90deg);justify-self:center}
-  .faq p{margin-left:0}
+  .faq details>p{margin-left:22px}
 }
 @media (prefers-reduced-motion: reduce){
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
   .probs>div:hover,.uses>div:hover,.trio>div:hover,.quad>div:hover,.duo>div:hover{transform:none}
+  /* The chevron still turns — that is state, not decoration. What goes is the tween. */
+  .faq details,.faq summary::before,.faq summary::after{transition:none}
 }
 /* 0814. `.lead` is used on 24 pages but only two of them ever defined it, so on the
    other 22 the intro paragraph inherited body width and ran to 152-166 characters a
@@ -558,16 +585,16 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
       <h2 class="sec">What evaluators ask.</h2>
       <div class="faq">
-        <div><h3><span class="n" aria-hidden="true">01</span><span>Does CyberEyes replace our WAF?</span></h3><p>No. It observes traffic downstream of the WAF, load balancer or reverse proxy and does not block by default, so the WAF stays as your enforcement point. CyberEyes covers what happens once a request has been let through — the part no rule set was watching.</p></div>
-        <div><h3><span class="n" aria-hidden="true">02</span><span>Is it a SIEM?</span></h3><p>No, and it is not meant to be. It is a detection and response layer for the web tier, and its alerts are built to be forwarded onward: Google Security Operations, for instance, brings them together with endpoint, network and cloud logs. Where a SIEM is already in place, CyberEyes becomes another source for it.</p></div>
-        <div><h3><span class="n" aria-hidden="true">03</span><span>Can it run on our own infrastructure?</span></h3><p>Yes. It is delivered as a software subscription and runs either on-premises or as a hosted service; the hosted option is multi-tenant and holds a rolling retention window that can be extended. Which model fits usually comes down to where the traffic records are allowed to live.</p></div>
-        <div><h3><span class="n" aria-hidden="true">04</span><span>How is CyberEyes licensed?</span></h3><p>It is a subscription, scoped by the web estate you place under monitoring and by whether it runs on-premises or hosted. Contact us with the sites you want covered and we will scope it.</p></div>
-        <div><h3><span class="n" aria-hidden="true">05</span><span>We already run an NDR — is this the same thing?</span></h3><p>No. An NDR reads flows across the whole network; CyberEyes reads the HTTP conversation itself — parameters, sessions and the sequence of requests against each website. Deployed behind the WAF or reverse proxy, it works at the application layer on north-south web traffic, adding a level of judgement about how your sites are being used that flow analysis does not attempt. The two overlap far less than the category names suggest.</p></div>
-        <div><h3><span class="n" aria-hidden="true">06</span><span>Our EDR already covers the web servers — what does this add?</span></h3><p>An EDR watches what runs on the host: processes, files and memory. Much web abuse never gets that far — a sign-in with stolen credentials, a download through an authorised path or a probe of your upload forms looks like ordinary application use and leaves an endpoint agent little to flag. CyberEyes reads that traffic before anything lands on the machine, so the two tools see different halves of the same attack.</p></div>
-        <div><h3><span class="n" aria-hidden="true">07</span><span>Why not just tighten the rules on the WAF we already have?</span></h3><p>Because a blocking control has to stay conservative to be safe. Every rule made stricter also stops some share of genuine requests, and a false block is visible to customers straight away, so tuning settles at a threshold the business can live with. The traffic that gets through is not a configuration failure — it is the price of keeping the site available. CyberEyes works on that remainder: it does not decide what to stop; it records what was let through and judges it against how the site is normally used.</p></div>
-        <div><h3><span class="n" aria-hidden="true">08</span><span>How does traffic actually reach the sensor?</span></h3><p>Two ways, and the network team usually decides which. A mirrored feed — switch port mirroring, a vTAP or a packet broker — copies traffic to the sensor without touching the path a request takes; it needs a point in the network that can see the web tier behind the WAF or reverse proxy. Where no such point exists, which is common in cloud-hosted estates, an agent on the web host supplies the copy instead, at the cost of running something on servers you already manage. Either way the sensor stays outside the request path.</p></div>
-        <div><h3><span class="n" aria-hidden="true">09</span><span>Request records contain personal data — where do they live and who can read them?</span></h3><p>They live wherever you choose to run the platform, which makes the deployment model a data residency decision as much as a technical one. On-premises, the records stay inside your own infrastructure and go nowhere else; on the hosted service they sit in a shared, multi-tenant environment run by the vendor, where they are held for a defined retention window rather than kept indefinitely. Worth settling with whoever owns data protection before the project starts, not after. The retention window, the storage location of the hosted service and who may read recorded requests are confirmed during onboarding and written into the contract.</p></div>
-        <div><h3><span class="n" aria-hidden="true">10</span><span>Whose product is CyberEyes, and what is Volcatech's role?</span></h3><p>CyberEyes is developed by an independent software vendor. The platform, its detection models and its roadmap belong to them. Volcatech supplies it as a partner, so the product you buy is theirs and the commercial relationship is with us.</p></div>
+        <details><summary><h3><span class="n" aria-hidden="true">01</span><span>Does CyberEyes replace our WAF?</span></h3></summary><p>No. It observes traffic downstream of the WAF, load balancer or reverse proxy and does not block by default, so the WAF stays as your enforcement point. CyberEyes covers what happens once a request has been let through — the part no rule set was watching.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">02</span><span>Is it a SIEM?</span></h3></summary><p>No, and it is not meant to be. It is a detection and response layer for the web tier, and its alerts are built to be forwarded onward: Google Security Operations, for instance, brings them together with endpoint, network and cloud logs. Where a SIEM is already in place, CyberEyes becomes another source for it.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">03</span><span>Can it run on our own infrastructure?</span></h3></summary><p>Yes. It is delivered as a software subscription and runs either on-premises or as a hosted service; the hosted option is multi-tenant and holds a rolling retention window that can be extended. Which model fits usually comes down to where the traffic records are allowed to live.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">04</span><span>How is CyberEyes licensed?</span></h3></summary><p>It is a subscription, scoped by the web estate you place under monitoring and by whether it runs on-premises or hosted. Contact us with the sites you want covered and we will scope it.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">05</span><span>We already run an NDR — is this the same thing?</span></h3></summary><p>No. An NDR reads flows across the whole network; CyberEyes reads the HTTP conversation itself — parameters, sessions and the sequence of requests against each website. Deployed behind the WAF or reverse proxy, it works at the application layer on north-south web traffic, adding a level of judgement about how your sites are being used that flow analysis does not attempt. The two overlap far less than the category names suggest.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">06</span><span>Our EDR already covers the web servers — what does this add?</span></h3></summary><p>An EDR watches what runs on the host: processes, files and memory. Much web abuse never gets that far — a sign-in with stolen credentials, a download through an authorised path or a probe of your upload forms looks like ordinary application use and leaves an endpoint agent little to flag. CyberEyes reads that traffic before anything lands on the machine, so the two tools see different halves of the same attack.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">07</span><span>Why not just tighten the rules on the WAF we already have?</span></h3></summary><p>Because a blocking control has to stay conservative to be safe. Every rule made stricter also stops some share of genuine requests, and a false block is visible to customers straight away, so tuning settles at a threshold the business can live with. The traffic that gets through is not a configuration failure — it is the price of keeping the site available. CyberEyes works on that remainder: it does not decide what to stop; it records what was let through and judges it against how the site is normally used.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">08</span><span>How does traffic actually reach the sensor?</span></h3></summary><p>Two ways, and the network team usually decides which. A mirrored feed — switch port mirroring, a vTAP or a packet broker — copies traffic to the sensor without touching the path a request takes; it needs a point in the network that can see the web tier behind the WAF or reverse proxy. Where no such point exists, which is common in cloud-hosted estates, an agent on the web host supplies the copy instead, at the cost of running something on servers you already manage. Either way the sensor stays outside the request path.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">09</span><span>Request records contain personal data — where do they live and who can read them?</span></h3></summary><p>They live wherever you choose to run the platform, which makes the deployment model a data residency decision as much as a technical one. On-premises, the records stay inside your own infrastructure and go nowhere else; on the hosted service they sit in a shared, multi-tenant environment run by the vendor, where they are held for a defined retention window rather than kept indefinitely. Worth settling with whoever owns data protection before the project starts, not after. The retention window, the storage location of the hosted service and who may read recorded requests are confirmed during onboarding and written into the contract.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">10</span><span>Whose product is CyberEyes, and what is Volcatech's role?</span></h3></summary><p>CyberEyes is developed by an independent software vendor. The platform, its detection models and its roadmap belong to them. Volcatech supplies it as a partner, so the product you buy is theirs and the commercial relationship is with us.</p></details>
       </div>
     </div>
   </section>

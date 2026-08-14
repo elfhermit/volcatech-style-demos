@@ -244,20 +244,48 @@ a.node:hover{border-color:var(--accent);background:#182433}
 .pick .when{font-size:14.5px;line-height:1.6}
 .pick .ar{color:var(--accent);font-family:var(--mono);font-size:16px;text-align:center}
 .pick .node{min-width:0;font-size:14.5px}
-/* FAQ — flat question/answer pairs; native disclosure widgets are unreliable without JS
-   (lesson logged 2026-07-30), and flat text stays Ctrl+F-findable. Mono index matches
-   .spec so numbering reads as one system; questions carry the ink, answers the muted.
-   0811: the density audit measured #faq at 36-44% of page text — the tallest wall on every
-   product page — so the flat list packs into two newspaper columns of cards. Still fully
-   expanded, still Ctrl+F-findable, about half the height. Single column at 640px and down
-   (640 keeps clear of the 1100/1024 queries the nav checker slices on). */
-.faq{margin-top:36px;columns:2;column-gap:18px}
-.faq>div{break-inside:avoid;background:var(--surface);border:1px solid var(--line);border-radius:8px;
-  padding:20px 22px;margin-bottom:18px;transition:border-color .18s ease}
-.faq>div:hover{border-color:var(--muted)}
+/* FAQ — click-to-expand disclosure rows (0815). The two-column cards 0811 introduced
+   fixed the height (the density audit put #faq at 36-44% of page text, the tallest wall
+   on every product page) but not the reading: eight answers still arrived in the eye at
+   once. A row now collapses to its question, and the answer comes on demand.
+   A native disclosure is the only zero-JS route — the project bans new script tags, and
+   CSS cannot drive one on its own (lesson logged 2026-07-30). The element names are kept
+   out of this comment on purpose: a naive scan for the tag would match the comment before
+   it reached any real markup (lesson logged 2026-08-04, and an auditor hit it here).
+   Single column on purpose: CSS multi-column is a continuous flow, so opening one row
+   would reflow — and sometimes re-balance across columns — everything after it.
+   Amber marks the open row. A border is neither a link nor small text, so this stays
+   inside the amber rules; .probs and .uses already carry an amber edge.
+   :focus-visible is declared here because the global rule covers a and button only,
+   and <summary> is neither.
+   No find-in-page cost, checked 2026-08-15: all three engines now open a closed row when
+   the search lands inside it — Chrome since 2023, Firefox 139, Safari 26.2. The page reads
+   clean and the answers stay searchable, so nothing suppresses that here. Suppressing it
+   is possible in CSS and deliberately not done: the readers who lose most are the ones who
+   rely on in-page search. If that ever changes it is a new decision and belongs in an ADR,
+   not in a stylesheet. Full reasoning in docs/adr/0006. */
+.faq{margin-top:36px;display:grid;gap:12px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  transition:border-color .18s ease}
+.faq details:hover{border-color:var(--muted)}
+.faq details[open]{border-color:var(--accent)}
+.faq summary{display:block;list-style:none;cursor:pointer;padding:20px 64px 20px 22px;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* Chevron drawn from two pseudo-elements — no glyph, no SVG. The site ships no font
+   files, so a character-based caret would render differently machine to machine.
+   ::before is the disc and ::after the stroke, in that order: the later one paints on top. */
+.faq summary::before{content:"";position:absolute;right:20px;top:calc(50% - 14px);
+  width:28px;height:28px;background:#1B2736;border:1px solid var(--line);border-radius:50%;
+  transition:border-color .18s ease}
+.faq summary::after{content:"";position:absolute;right:29.5px;top:calc(50% - 6px);
+  width:9px;height:9px;border-right:1.6px solid var(--ink);border-bottom:1.6px solid var(--ink);
+  transform:rotate(45deg);transition:transform .2s ease}
+.faq details[open] summary::before{border-color:var(--accent)}
+.faq details[open] summary::after{transform:rotate(225deg)}
 .faq h3{display:grid;grid-template-columns:36px 1fr;gap:14px;font-size:16px;line-height:1.45;color:var(--ink)}
 .faq .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.1em;margin-top:3px;font-weight:400}
-.faq p{margin:10px 0 0 50px;font-size:14.5px;line-height:1.7;color:var(--muted)}
+.faq details>p{margin:0 22px 20px 72px;font-size:14.5px;line-height:1.7;color:var(--muted)}
 /* 0811 layout pass (docs/reports/版型改版規劃_20260811.md). No new colour token.
    Hero fact row: one spec line per product promoted into the hero — moved, not copied,
    so the copy checker's multiset is unchanged; the chip reuses the .node.self language
@@ -280,9 +308,6 @@ a.node:hover{border-color:var(--accent);background:#182433}
   .spec>div:nth-child(2){border-top:1px solid var(--line)}
   .spec>div:nth-child(even){border-left:none}
 }
-@media (max-width:640px){
-  .faq{columns:1}
-}
 /* Hover lift. 2px and a border change, nothing else — the project bans glow, and a
    shadow on a dark surface reads as one. Removed under prefers-reduced-motion below. */
 .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:transform .18s ease,border-color .18s ease}
@@ -299,11 +324,13 @@ a.node:hover{border-color:var(--accent);background:#182433}
   .layer{grid-template-columns:1fr;gap:10px}
   .pick>li{grid-template-columns:1fr}
   .pick .ar{transform:rotate(90deg);justify-self:center}
-  .faq p{margin-left:0}
+  .faq details>p{margin-left:22px}
 }
 @media (prefers-reduced-motion: reduce){
   .probs>div,.uses>div,.trio>div,.quad>div,.duo>div{transition:none}
   .probs>div:hover,.uses>div:hover,.trio>div:hover,.quad>div:hover,.duo>div:hover{transform:none}
+  /* The chevron still turns — that is state, not decoration. What goes is the tween. */
+  .faq details,.faq summary::before,.faq summary::after{transition:none}
 }
 /* 0814. `.lead` is used on 24 pages but only two of them ever defined it, so on the
    other 22 the intro paragraph inherited body width and ran to 152-166 characters a
@@ -615,14 +642,14 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <p class="status"><span class="dot" aria-hidden="true"></span>Common questions</p>
       <h2 class="sec">What evaluators ask.</h2>
       <div class="faq">
-        <div><h3><span class="n" aria-hidden="true">01</span><span>Can pipelines run entirely within the EU?</span></h3><p>Yes. You pick the region for each job; workers and job metadata stay in that region, so choosing a European region keeps processing there. Sources and sinks have their own location settings to align.</p></div>
-        <div><h3><span class="n" aria-hidden="true">02</span><span>Do our engineers need to learn a proprietary framework?</span></h3><p>Pipelines are written with Apache Beam, an open-source SDK for Java, Python and Go. The same code can run on other Beam runners, which limits lock-in to the managed service itself.</p></div>
-        <div><h3><span class="n" aria-hidden="true">03</span><span>How does Dataflow relate to BigQuery and Pub/Sub?</span></h3><p>They are complementary: Pub/Sub carries events, Dataflow transforms and enriches them, and BigQuery stores the results for analysis. Dataflow is the processing stage, not a queue and not a warehouse.</p></div>
-        <div><h3><span class="n" aria-hidden="true">04</span><span>Is streaming data processed reliably?</span></h3><p>Dataflow applies exactly-once processing by default, so records are neither lost nor double-counted inside the pipeline even when workers fail or scale. End-to-end behaviour also depends on how sources and sinks are configured.</p></div>
-        <div><h3><span class="n" aria-hidden="true">05</span><span>What determines the cost of a pipeline?</span></h3><p>The compute, memory and storage a job consumes while it runs, which in turn depend on data volume and pipeline design. Contact us and we will size it against your workloads.</p></div>
-        <div><h3><span class="n" aria-hidden="true">06</span><span>Can we change a running streaming pipeline without losing data?</span></h3><p>Usually yes. A replacement job takes over from the running one and carries across its intermediate state and the records still in flight, after a compatibility check between the two versions; if transform names changed, a mapping tells the service which step replaces which. When Streaming Engine is in use, the scaling limits of a job can be adjusted without replacing it at all. To stop rather than change, draining stops new input and lets the pipeline finish what it has already read, whereas cancelling stops at once and can discard work in progress.</p></div>
-        <div><h3><span class="n" aria-hidden="true">07</span><span>What happens to data that arrives late or out of order?</span></h3><p>Streams are grouped by the time an event happened rather than the time the pipeline got to it, so a delayed record still counts towards the period it belongs to. Aggregations run over windows — fixed intervals, overlapping intervals, or bursts of activity separated by a gap — and a watermark marks the point at which the service considers a window complete. Records arriving after that are treated as late, and the pipeline decides through its triggers whether to emit a corrected result.</p></div>
-        <div><h3><span class="n" aria-hidden="true">08</span><span>How do we tell whether a pipeline is keeping up?</span></h3><p>The job appears as a graph of stages with throughput at each one, and two figures answer the question directly: data freshness — the gap between an event timestamp and the moment the pipeline finished with it — and system latency, the longest an item has been in processing or waiting to be processed. A backlog estimate shows how long the unprocessed input would take to clear, which is what tells you a streaming job is falling behind rather than merely busy.</p></div>
+        <details><summary><h3><span class="n" aria-hidden="true">01</span><span>Can pipelines run entirely within the EU?</span></h3></summary><p>Yes. You pick the region for each job; workers and job metadata stay in that region, so choosing a European region keeps processing there. Sources and sinks have their own location settings to align.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">02</span><span>Do our engineers need to learn a proprietary framework?</span></h3></summary><p>Pipelines are written with Apache Beam, an open-source SDK for Java, Python and Go. The same code can run on other Beam runners, which limits lock-in to the managed service itself.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">03</span><span>How does Dataflow relate to BigQuery and Pub/Sub?</span></h3></summary><p>They are complementary: Pub/Sub carries events, Dataflow transforms and enriches them, and BigQuery stores the results for analysis. Dataflow is the processing stage, not a queue and not a warehouse.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">04</span><span>Is streaming data processed reliably?</span></h3></summary><p>Dataflow applies exactly-once processing by default, so records are neither lost nor double-counted inside the pipeline even when workers fail or scale. End-to-end behaviour also depends on how sources and sinks are configured.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">05</span><span>What determines the cost of a pipeline?</span></h3></summary><p>The compute, memory and storage a job consumes while it runs, which in turn depend on data volume and pipeline design. Contact us and we will size it against your workloads.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">06</span><span>Can we change a running streaming pipeline without losing data?</span></h3></summary><p>Usually yes. A replacement job takes over from the running one and carries across its intermediate state and the records still in flight, after a compatibility check between the two versions; if transform names changed, a mapping tells the service which step replaces which. When Streaming Engine is in use, the scaling limits of a job can be adjusted without replacing it at all. To stop rather than change, draining stops new input and lets the pipeline finish what it has already read, whereas cancelling stops at once and can discard work in progress.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">07</span><span>What happens to data that arrives late or out of order?</span></h3></summary><p>Streams are grouped by the time an event happened rather than the time the pipeline got to it, so a delayed record still counts towards the period it belongs to. Aggregations run over windows — fixed intervals, overlapping intervals, or bursts of activity separated by a gap — and a watermark marks the point at which the service considers a window complete. Records arriving after that are treated as late, and the pipeline decides through its triggers whether to emit a corrected result.</p></details>
+        <details><summary><h3><span class="n" aria-hidden="true">08</span><span>How do we tell whether a pipeline is keeping up?</span></h3></summary><p>The job appears as a graph of stages with throughput at each one, and two figures answer the question directly: data freshness — the gap between an event timestamp and the moment the pipeline finished with it — and system latency, the longest an item has been in processing or waiting to be processed. A backlog estimate shows how long the unprocessed input would take to clear, which is what tells you a streaming job is falling behind rather than merely busy.</p></details>
       </div>
     </div>
   </section>

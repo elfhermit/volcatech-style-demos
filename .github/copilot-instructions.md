@@ -22,7 +22,8 @@
   **全站 header 由 `rebuild_nav_20260806.py` 產生,任何頁面的 `<header>` 都不要手寫。**
 - **內容頁區塊元件(0806)**:`.probs`/`.uses`(琥珀左邊界)、`.trio`/`.quad`/`.duo`(icon 卡)、
   `.steps`(**只用於真的有先後順序**的流程,帶真箭頭)、`.spec`(深色編號面板)、`.stack`(分層圖)、
-  `.pick`(選型指引)、`.faq`(**0811 起雙欄卡片**,640px 退單欄;仍全展開、不用 disclosure widget)、
+  `.pick`(選型指引)、`.faq`(**0815 起點擊展開的手風琴**:`<details>`／`<summary>` 零 JS、
+  單欄整寬、右側圓底 chevron、`[open]` 邊框轉琥珀;26 頁共 196 項。詳見 ADR 0006)、
   `.fact`(**0811 新增,hero 代表事實列**)。
   **CSS 與 35 個 icon 的唯一正本是 `docs/reports/restyle_content_20260806.py`**——改元件樣式
   = 改 `BLOCK_CSS` 後重跑,40 檔一次同步;手改單頁 CSS 會讓 `check_nav` 立刻紅。
@@ -103,8 +104,10 @@
   而 GCP 產品的沃凱觀點目前無素材。(0807 起資安 4 產品頁與 `ess.html` 也各有
   `#pick` 選型指引與 `#faq`——手維護,非產生器產出;FAQ 內 `[TODO]` 用純文字並指名缺什麼。)骨架(0806 三輪後)是 Hero →`#pain` 痛點(`probs`)→
   `trio` 3 卡 →`spec` 深色面板(尾列為帶來源註記的規格事實)→`uses` 琥珀左邊界 →
-  `#pick` 選型指引 →`stack` 分層圖 →`#faq` 平鋪問答 → CTA。**不做頁籤**——全部平鋪成 section,
-  可深連結、Ctrl+F 找得到。痛點/選型/FAQ 的素材取自 Google docs overview 頁改寫。
+  `#pick` 選型指引 →`stack` 分層圖 →`#faq` 問答(**0815 起是收合手風琴**) → CTA。
+  **不做頁籤**——Key features 與 Use cases 平鋪成兩個 section,可深連結、Ctrl+F 找得到。
+  ⚠ 0805 這條**只剩那兩個 section 適用**:`#faq` 已於 0815 改成 `<details>` 收合列表(ADR 0006)。
+  痛點/選型/FAQ 的素材取自 Google docs overview 頁改寫。
   `cards2` 必須偶數張(產品數為奇數時把清單改走 `loglist`)。
 - **動 nav = 改 MENU 後重跑腳本**(40 檔一次同步);**動 footer = 40 檔都要改**
   (footer 沒有產生器,靠「35 個內容頁與 `sentinelone.html` 逐字節相同」把關;

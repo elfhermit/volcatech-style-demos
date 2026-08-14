@@ -178,6 +178,38 @@
 ⚠ 受影響的驗證期望值:`Product page →` 由 17 變 **16**(cloud-*.html 與 cloud.html 皆是)、
    頁尾的 4 項應為 0、`services.html` 的四個區塊 id 仍應為 4。
 
+**2026-08-15 第二輪(FAQ 改成點擊展開的手風琴)**——需求原話:「相關產品 QA 部分區塊格式
+不好閱讀,列表方式、點擊後開啟展開內容,避免一次看到過多資訊」。決策記錄
+**`docs/adr/0006-faq-becomes-a-disclosure-list.md`**;轉換正本 `docs/reports/accordion_faq_20260815.py`,
+CSS 正本仍是 `restyle_content_20260806.py` 的 `BLOCK_CSS`。經 grilling 兩輪定案:
+
+1. **範圍 26 頁 196 項,文案一字不動**。只換容器標籤(`<div>` → `<details>`＋`<summary>`),
+   h3 留在 summary 內(規格允許,標題階層沒掉)。軸 3 比對的是文字節點多重集合,故 PASS。
+2. **零 JS**——`<details>` 是唯一不撞硬性規則 1 的做法。
+   ⚠ 產生器裡原本寫著「不用 disclosure widget——0730 教訓」,那條教訓講的是
+   **純 CSS 做不到「桌機常開／手機收合」的斷點式切換**,不是「不能用 details」;
+   這裡永遠收合、不隨斷點變,不受它拘束。
+3. **單欄整寬**(`columns:2` 退場)。CSS 多欄是連續流,展開一列會把後面的項目往下推、
+   甚至跨欄重新平衡。0811 改雙欄的理由(砍文字牆高度)在收合之後本來就消失了。
+4. **右側圓底 chevron**,`[open]` 轉 180°、邊框轉琥珀。**兩個 pseudo-element 畫的,
+   不用字元也不用 SVG**——本站沒有任何字體檔(已知缺口 8),字元 caret 會逐機器不同。
+   ⚠ `::before` 是圓盤、`::after` 是筆畫,順序不能反(後者疊在上面)。
+5. **`:focus-visible` 在 `BLOCK_CSS` 內另外宣告**——各頁基底那條全域規則只涵蓋
+   `a` 與 `button`,而 `<summary>` 兩者都不是。少了它鍵盤使用者看不到焦點框(硬性規則 6)。
+6. **不加每題的 id**(使用者裁決)。現在 196 項都沒有 id,不加不算退步。
+7. **`lab/` 完全不動**(使用者裁決)——見〈`lab/restyle-0812/`〉專節的兩條 ⚠,
+   以及〈腳本執行順序〉裡被註解掉的那兩行。
+
+⚠ 轉換腳本的關鍵前提:**先切出 `.faq` 容器再取代**。全站有 **353 個 `<div><h3>`
+落在 `.faq` 之外**(`.spec` 的規格列、`.trio`／`.quad` 的卡片都是同一個形狀),
+拿 regex 掃全檔會把架構圖與規格面板一起改成 disclosure。
+⚠ **這一輪沒有新增已知缺口**。施工前預設「收合的答案 Safari／Firefox 搜不到」是要吃下的代價,
+查證後推翻:**三家引擎現在都會在 find-in-page 命中收合內容時自動展開**
+(Chrome 2023 起、Firefox 139 於 2025-05-27、Safari 26.2),來源與裁決過程記在 ADR 0006。
+使用者因此裁決**不加**抑制規則——頁面清爽與內容可搜兩件事同時成立,沒有取捨。
+⚠ 受影響的驗證期望值:新增一條「26 頁 196 項,平鋪殘留 0」的檢查(見〈內容檢查〉),
+`.faq` 元件表那一列已改寫。
+
 **2026-08-06 第二輪**又定案四件事(來源:對 `docs/meeting_0805_end.md` 的逐條盤點,
 決策記錄在 `docs/adr/`,術語正本在 `docs/CONTEXT.md`):
 
@@ -257,6 +289,8 @@ V1 專屬區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(
   刻意**不含**「成效／沃凱交付 4 卡」——那兩區需要沃凱觀點素材,目前沒有;
   痛點段的素材是 Google docs overview 的工程觀點(0806 三輪),不是沃凱觀點,素材到位後可再校。
   **不做頁籤**(0805 決策):Key features 與 Use cases 平鋪成兩個 section,可深連結、Ctrl+F 找得到。
+  ⚠ 這條**只剩這兩個 section 適用**——0815 使用者裁決 `#faq` 改成點擊展開的手風琴,
+  等於在 FAQ 這一段重開了它(ADR 0006)。Key features 與 Use cases 沒有跟進,仍然平鋪。
   檔名用 `gcp-` 前綴,避免與分類頁的 `cloud-*` 撞前綴、也避開錨點檢查的 `cloud*.html` glob。
   文案正本 `docs/GCP_Introduce_v2.md`(**19 個產品全部有素材**,每產品 7 欄位;
   舊版 CLAUDE.md 說「約 5 個產品素材太薄」已於 0806 實測推翻,唯一破格的是 Model Garden——
@@ -488,7 +522,7 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 | `.loglist` | 緊湊索引(目前只在 `cloud.html#products`) | 帶邊框的單欄列表 ＋ 狀態圓點 |
 | `.goes` | 一張卡有兩個出口時的連結列 | 把兩個 `.go` 併成一列,不讓它們各佔一行 |
 | `.pick` | 選型指引:「情境 → 建議產品」(0806 三輪;`gcp-*.html` ＋ 0807 起資安線 5 頁) | `--surface` 列 ＋ 真箭頭 ＋ `.node` 晶片(建議是本頁自己時用 `.node.self`) |
-| `.faq` | 平鋪問答(0806 三輪;`gcp-*.html` ＋ 0807 起資安線 5 頁) | **0811 起雙欄卡片**(CSS `columns:2`＋`--surface` 卡):FAQ 曾佔全頁 36–44% 是最大文字牆,雙欄後牆高砍半;640px 退單欄。仍全展開、Ctrl+F 找得到,刻意不用 disclosure widget |
+| `.faq` | 問答(0806 三輪;26 頁 = 19 `gcp-*` ＋ 資安線 6 ＋ `managed-gcp`) | **0815 起點擊展開的手風琴**(`<details>`／`<summary>`,零 JS):單欄整寬列,收合時只見編號＋問題,右側圓底 chevron `[open]` 轉 180°、邊框轉琥珀。**0811–0815 是雙欄平鋪卡片**(`columns:2`),那一版解掉了高度(FAQ 曾佔全頁 36–44%,最大一道文字牆)卻沒解掉閱讀——八個答案仍一次全進眼睛。⚠ **沒有 Ctrl+F 代價**(0815 查證):三家瀏覽器都會在搜尋命中收合內容時自動展開,詳見 ADR 0006 |
 | `.soon` | **尚無內頁的產品卡狀態標記**(0814 晚間;目前只有 `cybersecurity.html` 的 FortiEDR) | 卡片底部的 mono 灰字 `Coming soon`。刻意佔 `.go` 的位置(同 margin-top、同 align-self、同字級),同列卡片的底線因此對齊——一眼看出是「還沒開」而非「漏了連結」。不是連結、不加底線 |
 | `.fact` | **hero 代表事實列**(0811;產品頁 24 頁,`ess.html` 豁免) | mono 編號 ＋ 琥珀 `.node.self` 晶片(列標題)＋ 事實內文。內容是從該頁 `.spec` **搬上來**的既有一列(面板該列不再渲染、編號留空缺),不是新寫的句子 |
 
@@ -498,7 +532,8 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 **0811 版型改版**(決議 25–34,`docs/meeting_0810.md` 附錄三;施工正本
 `docs/reports/版型改版規劃_20260811.md`、數據 `docs/reports/內容頁密度體檢_20260811.md`):
 0810 決議 11 的「不做全站系統性重排」已由使用者正式重開(**字體仍留 Astro 正式版**)。
-本輪動了四件事——`.faq` 雙欄、`.spec` 緊湊化、`.fact` 新元件、節奏收斂
+本輪動了四件事——`.faq` 雙欄(⚠ **已於 0815 被手風琴取代**,見元件表與 ADR 0006)、
+`.spec` 緊湊化、`.fact` 新元件、節奏收斂
 (`.phero~section .wrap` 直向 padding 80→64px)。⚠ **節奏規則靠 `.phero~section` 把兩個首頁
 排除在外**——首頁沒有 `.phero` 所以天然免疫;哪天首頁用上 `.phero`/`.faq`/`.spec`,這個免疫就失效。
 
@@ -651,8 +686,16 @@ hover 有 2px 浮起 ＋ 邊框變色(**不加陰影**,專案禁 glow),`prefers-
 - **字體自架在 `lab/restyle-0812/fonts/`**(4 個 woff2、211KB、皆 SIL OFL 1.1,
   授權見該資料夾 `LICENSES.md`)。這是本 repo 第一次放二進位資產;
   提案不採用的話連同整個資料夾刪掉即可。**仍然零外部請求、零 `<script>`**。
-- ⚠ B 套的 FAQ 手風琴**重開了 0805「不做頁籤」的決議**,但只重開 FAQ 這一段。
-  代價明文登記:收合的答案在部分瀏覽器 Ctrl+F 找不到——那正是與 A 套的核心對照點。
+- ⚠ B 套的 FAQ 手風琴曾是**與 A 套的核心對照點**(它重開了 0805「不做頁籤」,只重開 FAQ 這一段)。
+  **0815 起這個對照點消失了**:使用者用真實需求把「FAQ 該不該手風琴」直接裁掉,
+  正式站 26 頁全部改成 `<details>`(ADR 0006)。B 套剩下四個招牌(不對稱 55/30、每段一個世界、
+  架構圖橫向可捲、圓角柔化)與整組配色字體,A/B 裁決本身**沒有**因此被預先決定。
+- ⚠ **0815 起 `lab/restyle-0812/` 與正式站的 FAQ 不再一致**(使用者裁決「lab 都先不動」)。
+  那五個檔案是 `build_restyle_samples_20260812.py` 產生的,本輪**刻意沒有重跑它**,
+  磁碟上一個位元組都沒變。三支檢查腳本不受影響(`check_nav`／`check_copy` 只掃 `style-3-soc/`;
+  `check_links` 不驗與底檔同步)。⚠ **但下一個 session 若照〈腳本執行順序〉跑完整條 chain,
+  A 套範例頁就會自動變成手風琴** —— A 套的 markup 直接取自底檔、只疊 CSS。
+  要維持現狀就繼續不跑那兩支;要讓它跟上就是一個**新的裁決**,不是順手重跑。
 - 設計文件在 **`docs/design/`**(不進版控):基線／A 規格／B 規格／落地路線圖。
   「色系凍結」的範圍定義在 **`docs/adr/0005-colour-freeze-scope.md`**。
 - 選定後**不是把範例頁搬過去**,而是照 `docs/design/90_落地路線圖_20260812.md` 把每條改動
@@ -764,13 +807,19 @@ python3 docs/reports/link_products_20260806.py
 python3 docs/reports/fix_content_todos_20260814.py
 python3 docs/reports/fix_footer_20260814.py
 python3 docs/reports/wire_contact_20260814.py   # ← 必須排在會重寫 <main> 的三支之後
+python3 docs/reports/slim_footer_20260815.py    # ← 頁尾瘦身,冪等(0815 補進本表)
+python3 docs/reports/accordion_faq_20260815.py  # ← FAQ 轉 details。必須排在所有會重寫
+                                                #   <main> 的腳本之後,否則轉完又被還原
 python3 docs/reports/restyle_content_20260806.py
 python3 docs/reports/rebuild_nav_20260806.py    # ← 一定要最後跑
 python3 docs/reports/build_favicon_20260814.py  # ← 必須排在 lab 兩支之前:它只注入
                                                 #   style-3-soc/ 與根 hub,lab 是從底檔複製的
-python3 docs/reports/build_lab_20260806.py      # 取自底檔,故排在 nav/footer 之後
-python3 docs/reports/build_restyle_samples_20260812.py
 python3 docs/reports/build_updates_20260810.py
+# ⚠ 下面這兩支 0815 起**預設不跑**——使用者裁決「lab 都先不動」。
+#   它們從底檔複製 header/footer/CSS,底檔的 FAQ 現在是手風琴,一跑 A 套範例頁就跟著變,
+#   而「A 套維持平鋪」正是 A/B 提案的核心對照點之一。要跑是新的裁決,不是順手同步。
+# python3 docs/reports/build_lab_20260806.py
+# python3 docs/reports/build_restyle_samples_20260812.py
 ```
 
 ⚠ **驗「冪等」不要派給唯讀 agent 去跑這些腳本**——它們會寫檔,而且有先後相依。
@@ -797,6 +846,7 @@ python3 docs/reports/build_updates_20260810.py
 | `build_favicon_20260814.py` | **favicon 正本**(0814):從 `docs/assets/volcatech-logo-final.png` 裁出「A」火山字符 → 256×256 透明 PNG,並在 41 檔注入 `<link rel="icon">`。不依賴 Pillow(PNG 解/編碼都在檔內)。⚠ 母檔在 `docs/` 底下,不進版控;產出的 `favicon.png` 有進版控,所以站不會壞,但要重產得先把母檔放回去 |
 | `build_todo_backlog_20260814.py` | 由上一支的對照表產生 `docs/待補素材清單_20260814.md`。改了對照表就重跑它 |
 | `slim_footer_20260815.py` | **頁尾瘦身正本**(0815):40 檔頁尾各移除 5 列(0805 移出選單但頁尾保留的那批)。只在 `<footer>` 之後動手、每列各自冪等、整列比對。可重複執行 |
+| `accordion_faq_20260815.py` | **FAQ 手風琴轉換器**(0815):把 `.faq` 內的每一項由 `<div>` 換成 `<details>`＋`<summary>`,26 頁共 196 項。⚠ **必須先用深度計數切出 `.faq` 容器再取代**——全站有 **353 個 `<div><h3>` 落在 `.faq` 之外**(`.spec`／`.trio`／`.quad` 同形狀),掃全檔會把架構圖與規格面板一起改掉。19 個 `gcp-*` 由 `build_gcp_pages` 直接產出 details,本支對它們是 0 轉換;掃 40 檔是為了當安全網。冪等。CSS 正本不在這裡,在 `restyle_content` 的 `BLOCK_CSS` |
 | `rename_argushack_footer_20260810.py` | 0810 全站 footer 更名(CE-BAS→ArgusHack、移除兩品那兩列)。可重複執行,只動 footer |
 | `build_lab_20260806.py` | 產生 `lab/inline-cloud-compute.html`(**已完成階段任務**,`lab/` 刪掉後可一併移除)。⚠ 它從 `cloud-compute.html` 取 header/footer/CSS,所以**改完選單或頁尾要重跑它**——`lab/` 在 `check_links` 掃描範圍內,漏跑就會出現死錨點(0810 實際踩到) |
 | `archive_homepage_variants_20260806.py` | 封存 6 檔後的相對路徑修正 |
@@ -931,6 +981,20 @@ for f in gcp-*.html; do awk '/<section id="stack">/,/<\/section>/' $f | grep -c 
 for s in pain pick faq; do grep -c "section id=\"$s\"" gcp-*.html | grep -vc ':1$'; done   # 三行各應輸出 0
 # 資安線 6 頁各有 痛點/選型/FAQ 三段(0807 跟進 5 頁;argushack.html 0810 建頁時就帶三段)
 for s in pain pick faq; do grep -c "section id=\"$s\"" sentinelone.html threatsonar.html cybereyes.html google-secops.html ess.html argushack.html | grep -vc ':1$'; done   # 三行各應輸出 0
+# 0815:FAQ 全站必須是 <details> 手風琴 → 應輸出「26 頁 196 項,平鋪殘留 0」
+# ⚠ 一定要先切出 .faq 容器再數:全站有 353 個 <div><h3> 落在 .faq 之外(.spec/.trio/.quad
+#   是同一個形狀),掃全檔會把它們算成平鋪殘留而永遠報錯。
+# ⚠ 頁數與項數要一起印:只印「殘留 0」的話,範圍抓錯導致一頁都沒掃到時也會印 0(假陽性)
+python3 -c "
+import re,pathlib
+pages=items=flat=0
+for p in sorted(pathlib.Path('.').glob('*.html')):
+    m=re.search(r'<div class=\"faq\">.*?\n      </div>',p.read_text(),re.S)
+    if not m: continue
+    b=m.group(0); pages+=1; items+=b.count('<details>'); flat+=len(re.findall(r'<div><h3>',b))
+    assert b.count('<details>')==b.count('<summary>'), p.name
+print(f'{pages} 頁 {items} 項,平鋪殘留 {flat}')
+"
 # 0811:hero 代表事實列。24 頁各恰一列(19 GCP ＋ 5 資安;`ess.html` 與 `managed-gcp.html`
 #      兩個服務／方案頁已裁決豁免,不要幫它們補)
 grep -l 'class="fact"' *.html | wc -l          # 應為 24
@@ -1009,11 +1073,17 @@ python3 -m http.server 8000   # 開 http://localhost:8000 逐頁檢查
 3. **約 1000px 寬**:二層改成面板內就地展開,不會跑出畫面(這個區間 19 個原 Nav A 檔從沒測過)。
 4. **390 / 768 / 1024 / 1440px** 無水平捲軸;390px 選單三層全部攤開成縮排清單。
 5. 深色長文可讀性;對比用 DevTools 的 contrast checker。
+6. **FAQ 手風琴**(0815 新增,腳本抓不到的四件事):①開任一產品頁的 `#faq`,確認預設全收合、
+   點一列會展開、chevron 轉 180°、邊框轉琥珀;②**純鍵盤**:Tab 停得到每一列、
+   看得見焦點框(全域 `:focus-visible` 只涵蓋 `a` 與 `button`,`<summary>` 兩者都不是,
+   焦點樣式是在 `BLOCK_CSS` 裡另外宣告的)、Enter／Space 可開合;
+   ③系統開啟「減少動態效果」後 chevron 直接切換不轉動;④390px 下右側 chevron 不壓到問題文字。
 
 ## 已知缺口(明文登記,不含糊帶過)
 
-demo 不宣稱「完全符合 WCAG 2.2 AA」。以下十項是知道且刻意留著的
-(前五項無障礙、第 6–7 項一致性、第 8 項是 0812 查出的排版缺口、第 9–10 項是 0814 的內容缺口):
+demo 不宣稱「完全符合 WCAG 2.2 AA」。以下十一項是知道且刻意留著的
+(前五項無障礙、第 6–7 項一致性、第 8 項是 0812 查出的排版缺口、第 9–10 項是 0814 的內容缺口、
+第 11 項是 0815 FAQ 手風琴帶進來的無障礙缺口):
 
 1. **SC 1.4.11 非文字對比**:下拉面板邊框用 `--line #27344A`,對 `--bg` 只有 **1.47:1**
    (面板底色對背景更只有 1.12:1),不到 3:1。2026-08-05 使用者裁決**這輪不修**,Astro 正式版處理。
@@ -1052,6 +1122,19 @@ demo 不宣稱「完全符合 WCAG 2.2 AA」。以下十項是知道且刻意留
    Volcatech 不會收到、不儲存、也不會併用託管商的存取紀錄——在 GitHub Pages 上這是真的
    (repo 擁有者拿不到 access log)。**換託管環境時這一句必須重新查證**,
    已登記在 `docs/待補素材清單_20260814.md` §5。
+
+11. **FAQ 問句的標題導覽在部分螢幕閱讀器可能消失**(2026-08-15,獨立稽核查出)。
+   0815 把 196 條 FAQ 改成 `<details>` 之後,問句的 `<h3>` 包在 `<summary>` 裡面。
+   規格允許這樣寫、標題階層在 markup 上沒掉,**但 `<summary>` 映射的是 button 類角色,
+   其子元素在部分螢幕閱讀器／瀏覽器組合會被視為 presentational**,
+   heading 節點因此不保證被暴露——用 H 鍵在標題間跳的使用者可能跳不到那 196 個問句。
+   稽核在 Chrome 151 實測**有**暴露 heading 節點,跨 SR 則不保證
+   (來源:[Scott O'Hara, 2022](https://www.scottohara.me/blog/2022/09/12/details-summary.html))。
+   ⚠ **這是手風琴改版本身的代價,不是任何一條 CSS 造成的**;要消掉它就得放棄收合。
+   同一份稽核另外實測確認:收合內容**本來就不在無障礙樹裡**(Chrome 151,
+   CDP `Accessibility.getFullAXTree`),`role=DisclosureTriangle`、`focusable=true`、
+   `expanded` 隨開合正確切換,鍵盤動線與 disclosure 語意都完好——
+   所以缺口只有標題導覽這一項,不是整段無障礙退步。
 
 SC 1.4.13 Dismissible 原本也在這份清單上,已於 2026-08-06 修掉:`<header>` 帶一個行內
 `onkeydown`,按 Esc 把焦點交給 logo(不是 `blur()`——blur 會把焦點丟回 body,
