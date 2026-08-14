@@ -152,6 +152,32 @@
      `check_links_20260806.py` 加 `UNTRACKED_LAB` 排除(⚠ `.gitignore` 只管版控,
      檢查腳本掃的是磁碟,兩邊都要設)。掃描檔數因此由 57 降為 50。
 
+**2026-08-15(頁尾比照選單瘦身)**——0814 需求裡的「上方 menu 和 footer 同步資訊」
+當天被解讀成「這次砍的兩邊都砍」,使用者事後澄清要的是另一種:**頁尾只留選單也有的項目**,
+且是**單向**的(不補選單有而頁尾沒有的兩個 Overview——頁尾的欄名本身就是總覽頁的連結)。
+正本 `docs/reports/slim_footer_20260815.py`。落地六項:
+
+1. **40 檔頁尾各砍 5 列**:`Cloud services & Cloud Armor`、`ISMS / PIMS`、
+   `Penetration Testing`、`Cloud FinOps`、`Digital Transformation`——全部是 0805
+   「只動選單、頁面區塊保留」那次裁決的產物。後四項只失去頁尾直達,區塊仍在 `services.html`。
+2. **`cloud.html` 的四張沃凱雲端服務卡拿掉 `Service details →`**(它們全指向 `cloud-services.html`
+   的錨點)。卡片標題與描述保留——比照 0814 對 Pub/Sub 的既定做法:文字留、連結拿掉。
+3. **`cloud.html` 索引的 Cloud Armor 那列拿掉 `Product page →`**(`link_products` 的
+   `DELISTED` 加 `cloud-armor`)。
+4. **`gcp-cloud-armor.html` 回分類頁的第二顆 CTA 整顆移除**——`build_gcp_pages` 新增
+   `DELISTED_PAGES`,`catfile` 指向已下架頁面時不渲染那顆按鈕。
+   ⚠ 留著它會連向一個同樣沒有入口的頁面,那不是「入口關掉」而是「入口藏起來」。
+5. **三個頁面的 Cloud Armor 節點改成不可點晶片**(`gcp-api-gateway` 的 `.pick`、
+   `gcp-kubernetes-engine` 與 `managed-gcp` 的 `.stack`)。前兩者走 `_chip()`,
+   `managed-gcp.html` 是手維護頁故直接改。
+6. **結果:`cloud-services.html` 與 `gcp-cloud-armor.html` 成為零入口頁**——檔案與內容
+   完整保留,只能手打網址。⚠ 站上唯一還指向它們的是 `index-v1-proof.html` 的服務索引,
+   而 V1 自己也沒有入口,故客戶動線確實到不了。孤兒登記的描述已同步(`check_nav` 的 `ORPHANS`)。
+
+⚠ 這一輪**沒有動 V1 的 `<main>`**(服務索引仍列出那些項目)——V1 等首頁定案,沿用 0814 的處理原則。
+⚠ 受影響的驗證期望值:`Product page →` 由 17 變 **16**(cloud-*.html 與 cloud.html 皆是)、
+   頁尾的 4 項應為 0、`services.html` 的四個區塊 id 仍應為 4。
+
 **2026-08-06 第二輪**又定案四件事(來源:對 `docs/meeting_0805_end.md` 的逐條盤點,
 決策記錄在 `docs/adr/`,術語正本在 `docs/CONTEXT.md`):
 
@@ -259,7 +285,8 @@ V1 專屬區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(
   ⚠ 舊版本檔說產品走「名冊 `loglist`」——**那是 0806 改版前的狀態**,`loglist` 現在只用在
   `cloud.html` 的產品索引,分類頁的產品一律是卡片。`cards2` 同樣已退場。
   每張產品卡有**兩個出口**(`.goes` 併成一列;⚠ 0814 晚間下架的 Pub/Sub 與 Model Garden
-  只剩離站那一個,故 `Product page →` 全站是 **17** 不是 19):站內 `Product page →` 在前、
+  只剩離站那一個,故 `Product page →` 全站是 **16** 不是 19——0814 下架 Pub/Sub 與
+  Model Garden、0815 再下架 Cloud Armor):站內 `Product page →` 在前、
   離站 `Vendor page ↗`(帶 `target="_blank" rel="noopener"`)在後。這兩條由
   `link_products_20260806.py` 產生,不要手改。
   **代碼分層**:`CI-*` 是頁面層(現行);`C-*`/`E-*`/`S-*`/`X-*` 是 SSOT §A 的 SKU 層,
@@ -309,12 +336,17 @@ V1 專屬區塊代號:`#how`(交付三步)、`#partners`(夥伴)、`#catalogue`(
 - ⚠️ 901–1100px 這一段,二層改成**在面板內就地展開**(`position:static`),不是側開 flyout:
   該區間視窗放不下側開的 flyout,窄端會跑出左緣。
 
-**0805 從選單移除的 4 項(只動選單,頁面區塊全部保留)**
+**0805 從選單移除的 4 項(0815 起頁尾也沒有了,只剩頁面區塊)**
 
 Services 的 `ISMS / PIMS`、`Penetration Testing`、`Cloud FinOps`、`Digital Transformation`。
-這四項在 `services.html` 的區塊與頁尾清單一律照舊,只是不出現在下拉裡。
+⚠ **0815 更新**:使用者裁決「頁尾比照選單瘦身」,這四列已從 40 檔頁尾移除
+(`slim_footer_20260815.py`)。它們在 `services.html` 的**區塊仍在**,從 Services 總覽頁
+滾動看得到,只是失去頁尾的直達連結。
 同理 0805 移除的 `Edge security`(Cloud Armor)與 `Volcatech cloud services` 兩組——
-`cloud-services.html` 頁面與頁尾那列都還在。
+⚠ **0815 起 `cloud-services.html` 與 `gcp-cloud-armor.html` 是零入口頁**:頁尾那列、
+`cloud.html` 的四個 `Service details →`、索引那列的 `Product page →`、以及
+`gcp-cloud-armor.html` 回分類頁的 CTA 全部移除。兩頁的**檔案與內容完整保留**,
+只能手打網址;站上唯一還指向它們的是 V1 的服務索引,而 V1 自己也沒有入口。
 
 ⚠ 0805 一併移出選單的 CyberSecurity 兩項 `AI-PTaaS`、`SecPurple` **已於 0810 全站移除**
 (頁面區塊、頁尾清單、首頁 Built 區都不再有),不再屬於「只動選單」那一類——
@@ -764,6 +796,7 @@ python3 docs/reports/build_updates_20260810.py
 | `wire_contact_20260814.py` | **Contact 動線正本**(0814 稍晚):132 顆 CTA 按鈕由 `#contact` 改 `mailto:`(主旨帶該頁 h1)＋頁尾 Email/Phone 包成 `mailto:`/`tel:`。⚠ 必須排在 `build_gcp_pages`／`build_v1`／`build_legal_pages` 之後——那三支會整段重寫 `<main>`,把按鈕還原 |
 | `build_favicon_20260814.py` | **favicon 正本**(0814):從 `docs/assets/volcatech-logo-final.png` 裁出「A」火山字符 → 256×256 透明 PNG,並在 41 檔注入 `<link rel="icon">`。不依賴 Pillow(PNG 解/編碼都在檔內)。⚠ 母檔在 `docs/` 底下,不進版控;產出的 `favicon.png` 有進版控,所以站不會壞,但要重產得先把母檔放回去 |
 | `build_todo_backlog_20260814.py` | 由上一支的對照表產生 `docs/待補素材清單_20260814.md`。改了對照表就重跑它 |
+| `slim_footer_20260815.py` | **頁尾瘦身正本**(0815):40 檔頁尾各移除 5 列(0805 移出選單但頁尾保留的那批)。只在 `<footer>` 之後動手、每列各自冪等、整列比對。可重複執行 |
 | `rename_argushack_footer_20260810.py` | 0810 全站 footer 更名(CE-BAS→ArgusHack、移除兩品那兩列)。可重複執行,只動 footer |
 | `build_lab_20260806.py` | 產生 `lab/inline-cloud-compute.html`(**已完成階段任務**,`lab/` 刪掉後可一併移除)。⚠ 它從 `cloud-compute.html` 取 header/footer/CSS,所以**改完選單或頁尾要重跑它**——`lab/` 在 `check_links` 掃描範圍內,漏跑就會出現死錨點(0810 實際踩到) |
 | `archive_homepage_variants_20260806.py` | 封存 6 檔後的相對路徑修正 |
@@ -889,7 +922,7 @@ for f in *.html; do awk '/<header/,/<\/header>/' $f; done \
   | grep -c 'Arsenal\|>Platform<\|>Operations<\|<li class="grp">'
 # 產品卡的出口。⚠ 0814 晚間 Pub/Sub 與 Model Garden 下架後兩行不再相等:
 # 站內出口 17(那兩張卡只剩離站的),離站出口仍是 19(卡片與文字都保留,拿掉的只有站內連結)
-grep -oh 'Product page →' cloud-*.html | wc -l   # 應為 17
+grep -oh 'Product page →' cloud-*.html | wc -l   # 應為 16(0814 下架 2 個、0815 再 1 個)
 grep -oh 'Vendor page ↗' cloud-*.html | wc -l    # 應為 19
 # 每個產品頁的架構圖都要標出主角 → 應輸出 0
 # ⚠ 0806 三輪後不能再對全檔數 'node self'——.pick 的自指列也用 .node.self,會多算
@@ -910,11 +943,15 @@ for f in gcp-*.html sentinelone.html threatsonar.html cybereyes.html google-seco
 # 金額禁令(ADR 0004):單價/免費額度/促銷不上站 → 應為空
 grep -nE '[$€£]|per month|free tier|free of charge' *.html
 # cloud.html 的產品索引仍是 19 列,但其中兩列(Pub/Sub、Model Garden)0814 晚間拿掉了站內出口
-grep -c 'Product page →' cloud.html          # 應為 17
+grep -c 'Product page →' cloud.html          # 應為 16
 grep -c '<h3>Pub/Sub</h3>\|<h3>Model Garden</h3>' cloud.html   # 應為 2(文字保留在索引裡)
-# 0805 移除的 4 項:選單裡應為 0,但 services.html 的頁面區塊必須還在(所以只能掃 header 區)
+# 0805 移除的 4 項:0815 起選單與**頁尾**都應為 0,但 services.html 的頁面區塊必須還在。
+# ⚠ 第二條不能掃全檔——那四個字串在 services.html 的區塊裡本來就有(那正是要保留的東西)
 for f in *.html; do awk '/<header/,/<\/header>/' $f; done \
-  | grep -c 'ISMS\|Penetration Testing\|Cloud FinOps\|Digital Transformation'
+  | grep -c 'ISMS\|Penetration Testing\|Cloud FinOps\|Digital Transformation'   # 應為 0
+for f in *.html; do awk '/<footer/,/<\/footer>/' $f; done \
+  | grep -c 'ISMS\|Penetration Testing\|Cloud FinOps\|Digital Transformation'   # 應為 0
+grep -c 'id="isms"\|id="pentest"\|id="finops"\|id="dx"' services.html            # 應為 4(區塊還在)
 # 0810 全站移除的 2 項(素材不足,非否定自研):選單與頁面都不該有 → 應為空
 grep -l 'AI-PTaaS\|SecPurple' *.html
 # 0810 更名:CE-BAS 不得殘留在任何頁面(產品一律叫 ArgusHack)→ 應為空
