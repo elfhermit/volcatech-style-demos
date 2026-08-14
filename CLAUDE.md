@@ -171,8 +171,8 @@
    `gcp-kubernetes-engine` 與 `managed-gcp` 的 `.stack`)。前兩者走 `_chip()`,
    `managed-gcp.html` 是手維護頁故直接改。
 6. **結果:`cloud-services.html` 與 `gcp-cloud-armor.html` 成為零入口頁**——檔案與內容
-   完整保留,只能手打網址。⚠ 站上唯一還指向它們的是 `index-v1-proof.html` 的服務索引,
-   而 V1 自己也沒有入口,故客戶動線確實到不了。孤兒登記的描述已同步(`check_nav` 的 `ORPHANS`)。
+   完整保留,只能手打網址。⚠ 站上還指向它們的只有 `index-v1-proof.html` 的服務索引(V1 自己也沒有入口)
+   與根 hub 的頁面索引——兩者都不在客戶動線上,故客戶確實到不了。孤兒登記的描述已同步(`check_nav` 的 `ORPHANS`)。
 
 ⚠ 這一輪**沒有動 V1 的 `<main>`**(服務索引仍列出那些項目)——V1 等首頁定案,沿用 0814 的處理原則。
 ⚠ 受影響的驗證期望值:`Product page →` 由 17 變 **16**(cloud-*.html 與 cloud.html 皆是)、
