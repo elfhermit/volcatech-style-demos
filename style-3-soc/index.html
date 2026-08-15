@@ -206,7 +206,12 @@ footer{border-top:1px solid var(--line)}
    and skips the glyph. Node borders carry meaning, so they use --muted: --line against
    the page background is 1.47:1, under the 3:1 that WCAG 1.4.11 asks for. */
 .steps{list-style:none;margin-top:44px;display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
-.steps>li{flex:1 1 200px;background:#111A26;border:1px solid var(--muted);border-radius:8px;padding:20px 18px}
+/* The basis is a wrap threshold, not a width. Every card also grows, so once a row fits
+   each card settles at (row width - arrows - gaps) / cards no matter what the basis says
+   — lowering it changes when the row breaks, never how it looks once it holds. At 200px
+   a four-stage row came apart between 901 and 940px and left an arrow pointing at
+   nothing; 170px is the largest basis at which four still hold one row at 901px. */
+.steps>li{flex:1 1 170px;background:#111A26;border:1px solid var(--muted);border-radius:8px;padding:20px 18px}
 .steps>li.ar{flex:0 0 auto;border:0;background:none;padding:0;display:flex;align-items:center;
   color:var(--muted);font-family:var(--mono);font-size:18px}
 /* 0814. A six-stage .steps never fitted on one row: at flex-basis 200px the sixth
@@ -216,10 +221,23 @@ footer{border-top:1px solid var(--line)}
    arrow that would land at the wrap (li 6 of 11 — steps are odd children, arrows
    even) is dropped so neither row starts with a dangling arrow. Below 901px the
    whole component is already a vertical column, where that arrow is needed again,
-   so this is scoped above that breakpoint. */
+   so this is scoped above that breakpoint.
+   0815 — the modifier has to exclude the arrows. `.steps>li.ar` and `.steps.six>li`
+   carry the same specificity, so the later of the two won and every arrow was laid out
+   as a full card: three equal columns of alternating card, arrow, card, with the last
+   arrow of each row pointing into the margin. Selecting on :not(.ar) keeps the modifier
+   off the arrows outright instead of leaving it to source order. */
 @media (min-width:901px){
-  .steps.six>li{flex:1 1 calc(33.333% - 46px)}
+  .steps.six>li:not(.ar){flex:1 1 calc(33.333% - 46px)}
   .steps.six>li.ar:nth-child(6){display:none}
+}
+/* Five is the same story one card shorter. It holds a single row while the cards stay
+   near 200px, but below that it was breaking into four-plus-one with the arrow left
+   hanging at the wrap — the defect six was given its own rule to avoid. Under 1200px it
+   takes six's shape instead: three, then two, and no arrow at the start of a row. */
+@media (min-width:901px) and (max-width:1199px){
+  .steps.five>li:not(.ar){flex:1 1 calc(33.333% - 46px)}
+  .steps.five>li.ar:nth-child(6){display:none}
 }
 .steps .n{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted)}
 .steps h3{font-size:16px;margin-top:10px}

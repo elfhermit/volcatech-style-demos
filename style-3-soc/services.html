@@ -196,7 +196,12 @@ footer{border-top:1px solid var(--line)}
    and skips the glyph. Node borders carry meaning, so they use --muted: --line against
    the page background is 1.47:1, under the 3:1 that WCAG 1.4.11 asks for. */
 .steps{list-style:none;margin-top:44px;display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
-.steps>li{flex:1 1 200px;background:#111A26;border:1px solid var(--muted);border-radius:8px;padding:20px 18px}
+/* The basis is a wrap threshold, not a width. Every card also grows, so once a row fits
+   each card settles at (row width - arrows - gaps) / cards no matter what the basis says
+   — lowering it changes when the row breaks, never how it looks once it holds. At 200px
+   a four-stage row came apart between 901 and 940px and left an arrow pointing at
+   nothing; 170px is the largest basis at which four still hold one row at 901px. */
+.steps>li{flex:1 1 170px;background:#111A26;border:1px solid var(--muted);border-radius:8px;padding:20px 18px}
 .steps>li.ar{flex:0 0 auto;border:0;background:none;padding:0;display:flex;align-items:center;
   color:var(--muted);font-family:var(--mono);font-size:18px}
 /* 0814. A six-stage .steps never fitted on one row: at flex-basis 200px the sixth
@@ -206,10 +211,23 @@ footer{border-top:1px solid var(--line)}
    arrow that would land at the wrap (li 6 of 11 — steps are odd children, arrows
    even) is dropped so neither row starts with a dangling arrow. Below 901px the
    whole component is already a vertical column, where that arrow is needed again,
-   so this is scoped above that breakpoint. */
+   so this is scoped above that breakpoint.
+   0815 — the modifier has to exclude the arrows. `.steps>li.ar` and `.steps.six>li`
+   carry the same specificity, so the later of the two won and every arrow was laid out
+   as a full card: three equal columns of alternating card, arrow, card, with the last
+   arrow of each row pointing into the margin. Selecting on :not(.ar) keeps the modifier
+   off the arrows outright instead of leaving it to source order. */
 @media (min-width:901px){
-  .steps.six>li{flex:1 1 calc(33.333% - 46px)}
+  .steps.six>li:not(.ar){flex:1 1 calc(33.333% - 46px)}
   .steps.six>li.ar:nth-child(6){display:none}
+}
+/* Five is the same story one card shorter. It holds a single row while the cards stay
+   near 200px, but below that it was breaking into four-plus-one with the arrow left
+   hanging at the wrap — the defect six was given its own rule to avoid. Under 1200px it
+   takes six's shape instead: three, then two, and no arrow at the start of a row. */
+@media (min-width:901px) and (max-width:1199px){
+  .steps.five>li:not(.ar){flex:1 1 calc(33.333% - 46px)}
+  .steps.five>li.ar:nth-child(6){display:none}
 }
 .steps .n{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted)}
 .steps h3{font-size:16px;margin-top:10px}
@@ -532,20 +550,20 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <h2 class="sec">Seven ways to hand work over.</h2>
       <div class="quad">
         <div id="ess"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.6-3.2 8.4-8 9.6C7.2 20.4 4 16.6 4 12V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><h3>Enterprise Security Service (ESS) <span class="vsrc">Programme</span></h3>
-          <p>Web detection, endpoint protection and around-the-clock response bundled into a single contract — the packaged form of the three services below.</p>
+          <p>Web detection, endpoint protection and around-the-clock security monitoring combined into a single managed security programme.</p>
           <a class="go" href="ess.html">Service page →</a></div>
         <div id="soc"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><h3>24/7 SOC &amp; Incident Response <span class="vsrc">Volcatech</span></h3>
-          <p>Our security team watches the consoles we deploy and triages what they raise, so an alert reaches a person rather than a mailbox. When something turns out to be real, the same team contains it and writes up what happened. Severities and escalation paths are agreed before the service starts.</p></div>
+          <p>Support for information security and privacy management frameworks, including risk assessment, documentation and audit preparation.</p></div>
         <div id="isms"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 10h6M9 14h6"/></svg><h3>ISMS / PIMS Consulting <span class="vsrc">Volcatech</span></h3>
-          <p>Information security and privacy management systems, taken from gap assessment through policy, controls and internal audit to the point where an external auditor can be invited in. Network architecture review and system security diagnostics run alongside it, so the paperwork and the estate end up describing the same thing.</p></div>
+          <p>Support for information security and privacy management frameworks, including risk assessment, documentation and audit preparation.</p></div>
         <div id="pentest"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="8" height="10" rx="4"/><path d="M8 11H4M20 11h-4M8 15H4.5M19.5 15H16M9 6l1.5 2M15 6l-1.5 2"/></svg><h3>Penetration Testing (human-led) <span class="vsrc">Volcatech</span></h3>
-          <p>Testing done by people rather than a scanner: business logic, chained weaknesses and the paths automated tools do not follow. You get findings ranked by exploitability and a walk-through with the engineers who found them. Scope, method and whether a retest is included are set per engagement.</p></div>
+          <p>Human-led security testing that identifies exploitable weaknesses and provides prioritised remediation recommendations. </p></div>
         <div id="finops"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15 9.5a3 3 0 0 0-3-1.5c-1.7 0-3 .9-3 2s1.3 2 3 2 3 .9 3 2-1.3 2-3 2a3 3 0 0 1-3-1.5"/><path d="M12 6v12"/></svg><h3>Cloud FinOps &amp; Enablement <span class="vsrc">Volcatech</span></h3>
-          <p>Cloud spend you can actually read: consolidated accounting with technical support, attribution down to project and team, and a regular look at what is running against what is needed. Training for your own engineers is part of it, so the discipline holds after we step back.</p></div>
+          <p>Cloud cost visibility, resource optimisation and governance practices that help teams manage Google Cloud usage effectively.</p></div>
         <div id="dx"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h11"/><path d="M11 5l3 3-3 3"/><path d="M21 16H10"/><path d="M13 13l-3 3 3 3"/></svg><h3>Digital Transformation <span class="vsrc">Volcatech</span></h3>
-          <p>Custom work for organisations still running on paper, spreadsheets and systems that no longer talk to each other. We map what the business actually does, decide what is worth automating, and build it — including generative AI where it earns its place rather than because it is available.</p></div>
+          <p>Planning and implementation support for cloud adoption, system modernisation and digital process improvement.</p></div>
         <div id="managed-gcp"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h9.5a4.5 4.5 0 0 0 .3-9A6 6 0 0 0 5.6 10.4 4 4 0 0 0 7 18z"/></svg><h3>GCP Migration &amp; Managed Services <span class="vsrc">Volcatech</span></h3>
-          <p>Assessment of your on-premises estate, the Google Cloud landing zone, migration of workloads in tested waves, and monitoring, backup and cost review once it is running.</p>
+          <p>Managed through Volcatech — one contract, one accountable service relationship, one escalation path.</p>
           <a class="go" href="managed-gcp.html">Service page →</a></div>
       </div>
     </div>

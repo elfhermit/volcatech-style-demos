@@ -196,7 +196,12 @@ footer{border-top:1px solid var(--line)}
    and skips the glyph. Node borders carry meaning, so they use --muted: --line against
    the page background is 1.47:1, under the 3:1 that WCAG 1.4.11 asks for. */
 .steps{list-style:none;margin-top:44px;display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
-.steps>li{flex:1 1 200px;background:#111A26;border:1px solid var(--muted);border-radius:8px;padding:20px 18px}
+/* The basis is a wrap threshold, not a width. Every card also grows, so once a row fits
+   each card settles at (row width - arrows - gaps) / cards no matter what the basis says
+   — lowering it changes when the row breaks, never how it looks once it holds. At 200px
+   a four-stage row came apart between 901 and 940px and left an arrow pointing at
+   nothing; 170px is the largest basis at which four still hold one row at 901px. */
+.steps>li{flex:1 1 170px;background:#111A26;border:1px solid var(--muted);border-radius:8px;padding:20px 18px}
 .steps>li.ar{flex:0 0 auto;border:0;background:none;padding:0;display:flex;align-items:center;
   color:var(--muted);font-family:var(--mono);font-size:18px}
 /* 0814. A six-stage .steps never fitted on one row: at flex-basis 200px the sixth
@@ -206,10 +211,23 @@ footer{border-top:1px solid var(--line)}
    arrow that would land at the wrap (li 6 of 11 — steps are odd children, arrows
    even) is dropped so neither row starts with a dangling arrow. Below 901px the
    whole component is already a vertical column, where that arrow is needed again,
-   so this is scoped above that breakpoint. */
+   so this is scoped above that breakpoint.
+   0815 — the modifier has to exclude the arrows. `.steps>li.ar` and `.steps.six>li`
+   carry the same specificity, so the later of the two won and every arrow was laid out
+   as a full card: three equal columns of alternating card, arrow, card, with the last
+   arrow of each row pointing into the margin. Selecting on :not(.ar) keeps the modifier
+   off the arrows outright instead of leaving it to source order. */
 @media (min-width:901px){
-  .steps.six>li{flex:1 1 calc(33.333% - 46px)}
+  .steps.six>li:not(.ar){flex:1 1 calc(33.333% - 46px)}
   .steps.six>li.ar:nth-child(6){display:none}
+}
+/* Five is the same story one card shorter. It holds a single row while the cards stay
+   near 200px, but below that it was breaking into four-plus-one with the arrow left
+   hanging at the wrap — the defect six was given its own rule to avoid. Under 1200px it
+   takes six's shape instead: three, then two, and no arrow at the start of a row. */
+@media (min-width:901px) and (max-width:1199px){
+  .steps.five>li:not(.ar){flex:1 1 calc(33.333% - 46px)}
+  .steps.five>li.ar:nth-child(6){display:none}
 }
 .steps .n{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted)}
 .steps h3{font-size:16px;margin-top:10px}
@@ -550,7 +568,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <h2 class="sec">Detection beyond the endpoint.</h2>
       <div class="duo">
         <div id="cybereyes"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.5"/></svg><h3>CyberEyes <span class="vsrc">CyberEyes</span></h3>
-          <p>Web detection and response: it watches what actually reaches your applications after the WAF, and hands confirmed findings to the SIEM instead of to a dashboard.</p>
+          <p>CyberEyes provides web detection and response by analysing telemetry from web servers, WAFs and other application infrastructure. Detections and prioritised alerts can be integrated with SIEM and SOC workflows.</p>
           <a class="go" href="cybereyes.html">Product page →</a></div>
         <div id="google-secops"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5L6.5 17M12 11.5L17.5 17"/></svg><h3>Google SecOps <span class="vsrc">Google Cloud</span></h3>
           <p>Cloud-native SIEM with built-in SOAR, threat intelligence and behavioural analytics — the place where endpoint, web and cloud telemetry meet.</p>
@@ -565,7 +583,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <h2 class="sec">The layer that tests the other layers.</h2>
       <div class="duo">
         <div id="argushack"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg><h3>ArgusHack</h3>
-          <p>A breach and attack simulation platform that replays attacker techniques against your live environment, so the controls you already own are measured on what they stop rather than on what they were bought to stop.</p>
+          <p>A breach and attack simulation platform that safely exercises attacker techniques within an authorised scope, helping assess how existing security controls prevent, detect and respond to simulated threats.</p>
           <a class="go" href="argushack.html">Product page →</a></div>
       </div>
     </div>
@@ -576,11 +594,11 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <p class="status"><span class="dot" aria-hidden="true"></span>What we deliver</p>
       <h2 class="sec">A licence is not a defence.</h2>
       <ol class="steps">
-        <li><span class="n">01</span><h3>Selection and proof of concept</h3><p>We shortlist against your estate and run the trial on your own machines, not on a demo tenant.</p></li>
+        <li><span class="n">01</span><h3>Selection and proof of concept</h3><p>We shortlist products against your environment and run the proof of concept in an agreed customer or test environment, depending on the product and risk requirements.</p></li>
         <li class="ar" aria-hidden="true">→</li>
         <li><span class="n">02</span><h3>Deployment and tuning</h3><p>Policies, exclusions and detection thresholds set for your environment, then reviewed after the first month.</p></li>
         <li class="ar" aria-hidden="true">→</li>
-        <li><span class="n">03</span><h3>24/7 monitoring</h3><p>Our SOC watches the consoles we deploy, so an alert reaches a person rather than a mailbox. Response times are agreed with you and written into the contract.</p></li>
+        <li><span class="n">03</span><h3>24/7 monitoring</h3><p>Monitoring and alerting systems run continuously, with analyst review and escalation coverage defined by the selected service plan.</p></li>
         <li class="ar" aria-hidden="true">→</li>
         <li><span class="n">04</span><h3>Incident response</h3><p>When something is confirmed, the same team contains it and writes the report you hand to your board.</p></li>
       </ol>
@@ -592,8 +610,8 @@ a.node:hover{border-color:var(--accent);background:#182433}
       <p class="status"><span class="dot" aria-hidden="true"></span>Business outcomes — after rollout</p>
       <h2 class="sec">What changes once it is running.</h2>
       <div class="spec">
-        <div><span class="n" aria-hidden="true">01</span><div><h3>Fewer consoles, fewer suppliers</h3><p>One team selects, deploys and operates every layer, so nothing falls between two contracts.</p></div></div>
-        <div><span class="n" aria-hidden="true">02</span><div><h3>Detections that mean something</h3><p>Tuning is part of the service, so alert volume goes down while the signal goes up.</p></div></div>
+        <div><span class="n" aria-hidden="true">01</span><div><h3>Fewer consoles, fewer suppliers</h3><p>One accountable service relationship coordinates product selection, deployment and operations across the security layers, reducing gaps between suppliers and contracts.</p></div></div>
+        <div><span class="n" aria-hidden="true">02</span><div><h3>Detections that mean something</h3><p>Continuous tuning is intended to reduce unnecessary alert noise and improve the relevance of detections over time.</p></div></div>
         <div><span class="n" aria-hidden="true">03</span><div><h3>Evidence for auditors</h3><p>Coverage, incidents and response times are reported on a fixed cycle. Format and frequency are agreed when the service starts.</p></div></div>
       </div>
     </div>
@@ -603,7 +621,7 @@ a.node:hover{border-color:var(--accent);background:#182433}
     <div class="wrap">
       <p class="status"><span class="dot" aria-hidden="true"></span>Why secure with Volcatech</p>
       <h2 class="sec">We operate what we sell, and we build what we cannot buy.</h2>
-      <p style="margin-top:24px;color:var(--muted);max-width:66ch">Our SOC watches the tools we deploy, and breach and attack simulation exercises test whether those tools actually catch what they should. Selection, deployment, monitoring and response sit with the same team and the same contract.</p>
+      <p style="margin-top:24px;color:var(--muted);max-width:66ch">Our SOC watches the tools we deploy, and breach and attack simulation exercises test whether those tools actually catch what they should. Selection, deployment, monitoring and response can be coordinated through one contract and one accountable service relationship.</p>
     </div>
   </section>
 
