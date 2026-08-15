@@ -451,9 +451,21 @@ style-3 全部內容頁、**lab/ 內容頁改版提案**、歷史存檔入口。
 
 1. **純靜態、單檔自足**:demo 頁為 HTML + inline CSS(+極少量原生 JS,僅限手機選單/下拉);
    禁止外部 CDN(含 Google Fonts,GDPR)、禁止前端框架、禁止建置步驟。
-   ⚠ **0814 唯一例外:`<link rel="icon" href="favicon.png">`**(同源相對路徑、零第三方請求)。
-   GitHub Pages 是子路徑部署,瀏覽器預設要的 `/favicon.ico` 在網域根目錄不歸我們管,
-   沒有這一行就沒有分頁圖示,沒有繞過的辦法。正本 `build_favicon_20260814.py`。
+   ⚠ **目前有兩個例外,都是同源相對路徑、零第三方請求,GDPR 前提不受影響**:
+   ① **0814 `<link rel="icon" href="favicon.png">`**——GitHub Pages 是子路徑部署,
+      瀏覽器預設要的 `/favicon.ico` 在網域根目錄不歸我們管,沒有這一行就沒有分頁圖示,
+      沒有繞過的辦法。正本 `build_favicon_20260814.py`。
+   ② **0815 `<img src="logo.png" alt="Volcatech" width="150" height="24">`**——header 的
+      品牌字標(使用者裁決,原圖原色、顯示高 24px、3x 供應 449×72)。這是全站**唯一**的 `<img>`,
+      只出現在 header,40 檔各一次。圖檔正本 `build_logo_20260815.py`、
+      markup 與 CSS 正本 `rebuild_nav_20260806.py`。
+      ⚠ **代價已實算並告知**:原圖 73% 的像素是 `#002050` 深藍,對 header 底 `#0E141F`
+      只有 **1.16:1**——不是對比偏低,是實質看不見,畫面上會只剩橘紅的 A。
+      使用者在知道這個數字後選擇用原圖。亮色版(字轉 `--ink` 15.82:1)已備好,
+      比對頁在 `lab/logo-0815/`,要換只需把 `build_logo_20260815.py` 的 `RECOLOUR` 填上再重跑。
+   ⚠ 除這兩者外,任何 `<link>`、`<img>`、`<script>`、`@import` 一律仍然禁止。
+   ⚠ **footer 的 `.logo` 仍是文字版**(`VOLCATECH`)——0815 只換了 header。
+      footer 沒有產生器,要一起換得動 40 個 footer,是另一件事。
    2026-08-10 破例:專案根 Demo hub(根 index.html)的「待做事項與產品清單」區允許
    約 15–20 行行內原生 JS 做表格排序;破例僅限 hub 一頁,style-3-soc/ 各頁仍禁止新增 script。
 2. **相對路徑**:所有連結與資源用相對路徑(需相容 GitHub Pages 子路徑 `/repo名稱/`)。
@@ -814,6 +826,8 @@ python3 docs/reports/restyle_content_20260806.py
 python3 docs/reports/rebuild_nav_20260806.py    # ← 一定要最後跑
 python3 docs/reports/build_favicon_20260814.py  # ← 必須排在 lab 兩支之前:它只注入
                                                 #   style-3-soc/ 與根 hub,lab 是從底檔複製的
+python3 docs/reports/build_logo_20260815.py     # ← 只產 style-3-soc/logo.png,不碰 HTML,
+                                                #   所以順序不敏感;markup 在 rebuild_nav
 python3 docs/reports/build_updates_20260810.py
 # ⚠ 下面這兩支 0815 起**預設不跑**——使用者裁決「lab 都先不動」。
 #   它們從底檔複製 header/footer/CSS,底檔的 FAQ 現在是手風琴,一跑 A 套範例頁就跟著變,
@@ -846,6 +860,8 @@ python3 docs/reports/build_updates_20260810.py
 | `build_favicon_20260814.py` | **favicon 正本**(0814):從 `docs/assets/volcatech-logo-final.png` 裁出「A」火山字符 → 256×256 透明 PNG,並在 41 檔注入 `<link rel="icon">`。不依賴 Pillow(PNG 解/編碼都在檔內)。⚠ 母檔在 `docs/` 底下,不進版控;產出的 `favicon.png` 有進版控,所以站不會壞,但要重產得先把母檔放回去 |
 | `build_todo_backlog_20260814.py` | 由上一支的對照表產生 `docs/待補素材清單_20260814.md`。改了對照表就重跑它 |
 | `slim_footer_20260815.py` | **頁尾瘦身正本**(0815):40 檔頁尾各移除 5 列(0805 移出選單但頁尾保留的那批)。只在 `<footer>` 之後動手、每列各自冪等、整列比對。可重複執行 |
+| `build_logo_20260815.py` | **header 品牌字標的圖檔正本**(0815):母檔裁掉透明留白 → 縮到 24px×3 → `style-3-soc/logo.png`(449×72,13KB)。⚠ 只產圖,markup 與 CSS 在 `rebuild_nav`;⚠ 母檔在 `docs/` 不進版控,產出的 png 進版控(同 favicon 的情況);要換亮色版把 `RECOLOUR` 填上重跑即可 |
+| `build_logo_lab_20260815.py` | 產生 `lab/logo-0815/` 的配色比對頁(原圖／字轉亮＋品牌橘紅／全轉站色系 × 三種尺寸,附實算對比)。**留檔備查**,正式站不依賴它 |
 | `accordion_faq_20260815.py` | **FAQ 手風琴轉換器**(0815):把 `.faq` 內的每一項由 `<div>` 換成 `<details>`＋`<summary>`,26 頁共 196 項。⚠ **必須先用深度計數切出 `.faq` 容器再取代**——全站有 **353 個 `<div><h3>` 落在 `.faq` 之外**(`.spec`／`.trio`／`.quad` 同形狀),掃全檔會把架構圖與規格面板一起改掉。19 個 `gcp-*` 由 `build_gcp_pages` 直接產出 details,本支對它們是 0 轉換;掃 40 檔是為了當安全網。冪等。CSS 正本不在這裡,在 `restyle_content` 的 `BLOCK_CSS` |
 | `rename_argushack_footer_20260810.py` | 0810 全站 footer 更名(CE-BAS→ArgusHack、移除兩品那兩列)。可重複執行,只動 footer |
 | `build_lab_20260806.py` | 產生 `lab/inline-cloud-compute.html`(**已完成階段任務**,`lab/` 刪掉後可一併移除)。⚠ 它從 `cloud-compute.html` 取 header/footer/CSS,所以**改完選單或頁尾要重跑它**——`lab/` 在 `check_links` 掃描範圍內,漏跑就會出現死錨點(0810 實際踩到) |
@@ -912,11 +928,18 @@ EOF
 # 核心句只在 V1 → 應輸出 1(index.html 刻意不含,理由見〈軸 2〉)
 grep -Fl 'We operate what we sell, and we build what we cannot buy.' index*.html | wc -l
 # 無外部資源請求 → 應為空(全站唯一 JS 是各頁 navbtn 的行內 onclick;不得新增 <script> 標籤)
-# ⚠ 0814 起 `<link rel="icon" href="favicon.png">` 是**唯一合法的 `<link>`**:同源相對路徑、
-#   零第三方請求,不違反 GDPR 前提。GitHub Pages 是子路徑部署,瀏覽器預設要的
-#   `/favicon.ico` 落在網域根目錄(不歸我們管),所以沒有這一行就沒有分頁圖示。
+# ⚠ 只有兩個合法例外,都是同源相對路徑、零第三方請求(理由見硬性規則 1):
+#   ① 0814 `<link rel="icon" href="favicon.png">`
+#   ② 0815 header 的品牌字標 `<img src="logo.png" ...>`(40 檔各 1 次)
 #   其餘任何 `<link>`、`<img>`、`<script>`、`@import` 一律仍然禁止
-grep -nE '<img |<script|@import|<link ' *.html | grep -v '<link rel="icon" href="favicon.png">'
+# ⚠ 排除字串要寫**完整的整個標籤**,不要只寫 `<img`:寫寬鬆了就等於把整條 img 禁令關掉,
+#   日後有人加第二張圖也不會被抓到(這條檢查的價值全在那個嚴格度上)
+grep -nE '<img |<script|@import|<link ' *.html \
+  | grep -v '<link rel="icon" href="favicon.png">' \
+  | grep -v '<img src="logo.png" alt="Volcatech" width="150" height="24">'
+# logo 只該出現在 header,且每檔恰一次 → 兩行皆應輸出 0
+grep -c 'src="logo.png"' *.html | grep -vc ':1$'
+for f in *.html; do awk '/<main/,/<\/main>/' $f | grep -c 'logo.png'; done | grep -vc '^0$'
 # 外連只該是原廠 anchor,且同行有 rel="noopener" → 應為空
 grep -n 'https\?://' *.html | grep -v 'rel="noopener"'
 # CTA 一律 Contact us(sentence case);禁 Contact Us、禁 Request a proposal

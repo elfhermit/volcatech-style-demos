@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Logo 上站比對 — lab 0815</title>
+<style>
+:root{--bg:#0E141F;--surface:#16202E;--ink:#E9EEF5;--muted:#9AA8BA;
+  --line:#27344A;--accent:#FFB224;
+  --sans:'IBM Plex Sans','Noto Sans TC',ui-sans-serif,system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6}
+.wrap{max-width:1000px;margin:0 auto;padding:48px 24px}
+h1{font-size:26px;margin:0 0 8px}
+h2{font-size:17px;margin:0 0 4px;font-weight:600}
+.lede{color:var(--muted);font-size:15px;margin:0 0 8px}
+.warn{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:0 8px 8px 0;padding:16px 20px;margin:24px 0;font-size:14.5px;color:var(--muted)}
+.warn strong{color:var(--ink)}
+section{margin:40px 0;padding-top:24px;border-top:1px solid var(--line)}
+.note{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin:0 0 18px;letter-spacing:.04em}
+.pick{font-family:var(--mono);font-size:11.5px;color:var(--bg);background:var(--accent);
+  padding:3px 8px;border-radius:4px;margin-left:10px;letter-spacing:.05em;vertical-align:middle}
+.shot{margin:0 0 16px}
+.cap{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin:0 0 6px}
+.bar{background:rgba(14,20,31,.95);border:1px solid var(--line);border-radius:6px;
+  height:66px;display:flex;align-items:center;gap:22px;padding:0 20px;overflow:hidden}
+.bar img{width:auto;display:block}
+.nav{font-size:14px;color:var(--muted);white-space:nowrap}
+.txt{font-weight:700;letter-spacing:.16em;font-size:15px}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#3ECF8E;margin-right:9px}
+a{color:var(--ink)}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>Logo 上站比對</h1>
+  <p class="lede">2026-08-15。三種配色處理 × 三種尺寸，都放在真實的 header 條件下
+    （66px 高、<code>rgba(14,20,31,.95)</code> 底、旁邊擺真的選單文字）。</p>
+
+  <div class="warn">
+    <strong>為什麼不能直接用原圖：</strong>實測原圖 <strong>73% 的像素是 #002050 深藍</strong>，
+    對站背景 <code>#0E141F</code> 只有 <strong>1.16:1</strong> —— 那不是「對比偏低」，是實質看不見。
+    下方第一組就是原圖，可以直接對照。<br><br>
+    <strong>要付的代價：</strong>這個站目前 <strong>零 <code>&lt;img&gt;</code></strong>，
+    驗證指令明文擋著（唯一例外是 0814 開給 favicon 的 <code>&lt;link&gt;</code>）。
+    logo 上站等於再破一次例 —— 同源相對路徑、零第三方請求，GDPR 前提不受影響，
+    但那條檢查要跟著改，圖檔也得放進 <code>style-3-soc/</code>。<br><br>
+    <strong>還有：</strong>header 由 <code>rebuild_nav_20260806.py</code> 統一產生、40 頁共用，
+    所以換 header 的 logo <strong>不是「只改首頁」</strong>。
+  </div>
+
+  <section>
+    <h2>現況：文字 logo（對照組）</h2>
+    <p class="note">沒有圖檔，零額外請求</p>
+    <div class="shot"><div class="bar"><span class="txt"><span class="dot"></span>VOLCATECH</span>
+      <span class="nav">Google Cloud ▾　CyberSecurity ▾　Services ▾</span></div></div>
+  </section>
+
+    <section>
+      <h2>原圖未處理</h2>
+      <p class="note">深藍 #002050 對背景 1.16:1</p>
+        <div class="shot"><p class="cap">header 實際尺寸 24px</p><div class="bar"><img src="logo-original.png" alt="Volcatech" style="height:24px"> <span class="nav">Google Cloud ▾　CyberSecurity ▾　Services ▾</span></div></div>
+        <div class="shot"><p class="cap">略大 32px</p><div class="bar"><img src="logo-original.png" alt="Volcatech" style="height:32px"> <span class="nav">Google Cloud ▾　CyberSecurity ▾　Services ▾</span></div></div>
+        <div class="shot"><p class="cap">再大 44px</p><div class="bar"><img src="logo-original.png" alt="Volcatech" style="height:44px"> <span class="nav">Google Cloud ▾　CyberSecurity ▾　Services ▾</span></div></div>
+    </section>
+    <section>
+      <h2>字轉亮＋保留品牌橘紅 <span class="pick">使用者 0815 選這個</span></h2>
+      <p class="note">字 15.82:1、火山 4.03:1</p>
+        <div class="shot"><p class="cap">header 實際尺寸 24px</p><div class="bar"><img src="logo-brand.png" alt="Volcatech" style="height:24px"> <span class="nav">Google Cloud ▾　CyberSecurity ▾　Services ▾</span></div></div>
+        <div class="shot"><p class="cap">略大 32px</p><div class="bar"><img src="logo-brand.png" alt="Volcatech" style="height:32px"> <span class="nav">Google Cloud ▾　CyberSecurity ▾　Services ▾</span></div></div>
+        <div class="shot"><p class="cap">再大 44px</p><div class="bar"><img src="logo-brand.png" alt="Volcatech" style="height:44px"> <span class="nav">Google Cloud ▾　CyberSecurity ▾　Services ▾</span></div></div>
+    </section>
+    <section>
+      <h2>全轉站色系</h2>
+      <p class="note">字 15.82:1、火山 10.23:1</p>
+        <div class="shot"><p class="cap">header 實際尺寸 24px</p><div class="bar"><img src="logo-site.png" alt="Volcatech" style="height:24px"> <span class="nav">Google Cloud ▾　CyberSecurity ▾　Services ▾</span></div></div>
+        <div class="shot"><p class="cap">略大 32px</p><div class="bar"><img src="logo-site.png" alt="Volcatech" style="height:32px"> <span class="nav">Google Cloud ▾　CyberSecurity ▾　Services ▾</span></div></div>
+        <div class="shot"><p class="cap">再大 44px</p><div class="bar"><img src="logo-site.png" alt="Volcatech" style="height:44px"> <span class="nav">Google Cloud ▾　CyberSecurity ▾　Services ▾</span></div></div>
+    </section>
+
+  <section>
+    <h2>大尺寸細看</h2>
+    <p class="note">確認去背邊緣與換色後的過渡</p>
+    <div class="shot"><p class="cap">brand（字轉亮＋品牌橘紅）</p>
+      <img src="logo-brand.png" alt="Volcatech" style="height:96px;width:auto;display:block"></div>
+    <div class="shot"><p class="cap">site（全轉站色系）</p>
+      <img src="logo-site.png" alt="Volcatech" style="height:96px;width:auto;display:block"></div>
+  </section>
+</main>
+</body>
+</html>
